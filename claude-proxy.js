@@ -40,12 +40,12 @@ const MAX_TOKENS        = 4096;
 
 // Allowed origins — add your custom domain here when live
 const ALLOWED_ORIGINS = [
-  'https://hes-consultancy-international.netlify.app',
+  'https://hci-platform.netlify.app',
   'https://hes-consultancy-international.com',
   'https://www.hes-consultancy-international.com',
-  'http://localhost:3000',   // Local dev
-  'http://127.0.0.1:5500',  // VS Code Live Server
-  'http://localhost:8888',   // Netlify Dev CLI
+  'http://localhost:3000',
+  'http://127.0.0.1:5500',
+  'http://localhost:8888',
 ];
 
 // Basic in-memory rate limiter (resets on cold start)
