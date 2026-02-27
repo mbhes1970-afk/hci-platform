@@ -27,6 +27,19 @@
   status = 200
 
 # ── SPA fallback ──────────────────────────────────────────
+# Explicit HTML files first — these must be served directly
+[[redirects]]
+  from   = "/hci-output-engine-v2.html"
+  to     = "/hci-output-engine-v2.html"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/hci-output-engine-v2.html*"
+  to     = "/hci-output-engine-v2.html"
+  status = 200
+  force  = true
+
 # All other routes → index.html (enables client-side routing)
 [[redirects]]
   from   = "/*"

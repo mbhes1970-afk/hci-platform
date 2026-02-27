@@ -1889,13 +1889,15 @@ function openOutputEngine() {
   var rol   = document.getElementById('pb-rol').value;
   var lang  = window.HCIi18n ? HCIi18n.getLang() : 'nl';
 
-  window.location.href = 'hci-output-engine.html'
+  var url = 'hci-output-engine-v2.html'
     + '?icp='  + encodeURIComponent(_pb_icp || '')
     + '&naam=' + encodeURIComponent(naam)
     + '&org='  + encodeURIComponent(org)
     + '&rol='  + encodeURIComponent(rol)
     + '&need=' + encodeURIComponent(_pb_need || '')
     + '&lang=' + lang;
+
+  window.open(url, '_blank');
 }
 
 // ============================================================
