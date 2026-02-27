@@ -877,12 +877,14 @@ nav.scrolled { background: rgba(5,8,11,0.92); backdrop-filter: blur(12px); borde
 
 <!-- NAVIGATION -->
 <nav id="main-nav">
-  <div class="nav-logo">HES <span>Consultancy</span> International</div>
+  <div class="nav-logo">
+    <img src="Color_logo_-_no_background.png" alt="HES Consultancy International" style="height:36px;width:auto;">
+  </div>
   <div class="nav-links">
     <a href="#s02" data-i18n="nav.approach">Aanpak</a>
     <a href="#s04" data-i18n="nav.method">Methodiek</a>
-    <a href="hci-cra-eu-entry.html" data-i18n="nav.cra">CRA Readiness</a>
-    <a href="cra-quickscan-hci.html" data-i18n="nav.quickscan">Quick Scan</a>
+    <a href="https://assessment.hes-consultancy-international.com" data-i18n="nav.cra">CRA Readiness</a>
+    <a href="https://cmofmo.hes-consultancy-international.com" data-i18n="nav.quickscan">CMO→FMO</a>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <div class="lang-switcher" id="lang-switcher"></div>
@@ -1591,7 +1593,7 @@ function renderLangSwitcher(activeLang) {
     btn.className = 'lang-btn' + (l.code === activeLang ? ' active' : '');
     btn.setAttribute('onclick', 'switchLang("' + l.code + '")');
     btn.setAttribute('title', l.label);
-    btn.innerHTML = '<span class="lang-flag">' + l.flag + '</span><span class="lang-code">' + l.code.toUpperCase() + '</span>';
+    btn.innerHTML = '<span class="lang-code">' + l.code.toUpperCase() + '</span>';
     container.appendChild(btn);
   });
 }

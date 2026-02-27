@@ -58,7 +58,7 @@
       approach: 'Aanpak',
       method: 'Methodiek',
       cra: 'CRA Readiness',
-      quickscan: 'Quick Scan',
+      quickscan: 'CMO→FMO',
       cta: 'Start analyse'
     },
     s01: {
@@ -228,7 +228,7 @@
       approach: 'Approach',
       method: 'Methodology',
       cra: 'CRA Readiness',
-      quickscan: 'Quick Scan',
+      quickscan: 'CMO→FMO',
       cta: 'Start analysis'
     },
     s01: {
@@ -399,7 +399,7 @@
       approach: 'Ansatz',          // TODO: review
       method: 'Methodik',          // TODO: review
       cra: 'CRA Readiness',
-      quickscan: 'Quick Scan',
+      quickscan: 'CMO→FMO',
       cta: 'Analyse starten'       // TODO: review
     },
     s01: {
@@ -537,7 +537,7 @@
       approach: 'Approche',
       method: 'Méthodologie',
       cra: 'CRA Readiness',
-      quickscan: 'Quick Scan',
+      quickscan: 'CMO→FMO',
       cta: 'Démarrer l\'analyse'
     },
     s01: {
