@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI CMO→FMO Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #05080b; --void-2: #0a0e14; --void-3: #0f1520;
+  --surface: #141c28; --surface-2: #1a2438;
+  --gold: #b8860b; --gold-l: #d4a017; --gold-ll: #e8c547;
+  --gold-dim: rgba(184,134,11,0.15); --gold-glow: rgba(184,134,11,0.06);
+  --off-white: #f5f2ec; --text: rgba(245,242,236,0.82);
+  --text-dim: rgba(245,242,236,0.45); --text-faint: rgba(245,242,236,0.2);
+  --border: rgba(245,242,236,0.08); --border-gold: rgba(184,134,11,0.3);
+  --green: #10b981; --red: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Outfit', sans-serif; background: var(--void); color: var(--text); min-height: 100vh; }
+
+/* NAV */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
+  background: rgba(5,8,11,0.95); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+}
+.nav-logo { font-family: 'EB Garamond', serif; font-size: 14px; color: var(--off-white); }
+.nav-logo span { color: var(--gold-l); }
+.nav-back { font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: .5px; transition: color .2s; }
+.nav-back:hover { color: var(--off-white); }
+
+/* LAYOUT */
+.page { max-width: 860px; margin: 0 auto; padding: 48px 40px 80px; }
+
+/* CONTEXT CARD */
+.context-card {
+  background: var(--surface);
+  border: 1px solid var(--border-gold);
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.context-icp-badge {
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
+}
+.context-details { flex: 1; }
+.context-org { font-size: 16px; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+.context-meta { font-size: 12px; color: var(--text-dim); }
+.context-need {
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--void-3); border: 1px solid var(--border);
+  border-radius: 4px; font-size: 12px; color: var(--text-dim); line-height: 1.5;
+}
+.context-need strong { color: var(--gold); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+/* GENERATE BUTTON */
+.generate-wrap { margin-bottom: 32px; }
+.btn-generate {
+  width: 100%; padding: 18px 32px;
+  background: var(--gold); color: var(--void);
+  border: none; border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; transition: background .2s, transform .15s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-generate:hover:not(:disabled) { background: var(--gold-l); transform: translateY(-1px); }
+.btn-generate:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.btn-generate.loading { background: var(--surface-2); color: var(--text-dim); }
+
+/* LOADING ANIMATION */
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.2);
+  border-top-color: var(--off-white);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* STATUS BAR */
+.status-bar {
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-bottom: 16px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+.status-bar.visible { display: flex; }
+.status-bar.info { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); }
+.status-bar.error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+.status-bar.success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+/* OUTPUT DOCUMENT */
+.output-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+}
+.output-wrap.visible { display: block; }
+.output-toolbar {
+  padding: 14px 20px;
+  background: var(--void-3);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.output-toolbar-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+}
+.toolbar-actions { display: flex; gap: 8px; }
+.btn-toolbar {
+  padding: 7px 14px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 3px; color: var(--text-dim);
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px; font-weight: 500; cursor: pointer;
+  transition: border-color .2s, color .2s;
+  white-space: nowrap;
+}
+.btn-toolbar:hover { border-color: var(--border-gold); color: var(--off-white); }
+.btn-toolbar.primary { border-color: var(--border-gold); color: var(--gold-l); }
+
+.output-content {
+  padding: 40px 48px;
+  font-family: 'EB Garamond', serif;
+  font-size: 17px; line-height: 1.75;
+  color: var(--off-white);
+}
+
+/* Markdown rendering inside output */
+.output-content h1 { font-size: 28px; font-weight: 400; color: var(--off-white); margin-bottom: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--border-gold); }
+.output-content h2 { font-size: 22px; font-weight: 500; color: var(--off-white); margin-top: 36px; margin-bottom: 12px; }
+.output-content h2::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--gold); vertical-align: middle; margin-right: 12px; }
+.output-content h3 { font-size: 16px; font-weight: 700; color: var(--gold-l); margin-top: 20px; margin-bottom: 8px; font-family: 'Outfit', sans-serif; letter-spacing: .3px; }
+.output-content p { margin-bottom: 14px; }
+.output-content ul, .output-content ol { padding-left: 20px; margin-bottom: 14px; }
+.output-content li { margin-bottom: 6px; }
+.output-content strong { color: var(--off-white); font-weight: 600; }
+.output-content em { font-style: italic; color: var(--gold-l); }
+.output-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.output-content blockquote {
+  border-left: 3px solid var(--gold);
+  padding: 12px 20px;
+  margin: 20px 0;
+  background: var(--gold-glow);
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* FOLLOW-UP ACTIONS */
+.followup-actions {
+  padding: 24px 28px;
+  background: var(--void-3);
+  border-top: 1px solid var(--border);
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+}
+.followup-label { font-size: 11px; color: var(--text-faint); letter-spacing: .5px; margin-right: 4px; }
+.btn-action {
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background .2s, color .2s;
+}
+.btn-action.gold { background: var(--gold); color: var(--void); border: none; }
+.btn-action.gold:hover { background: var(--gold-l); }
+.btn-action.ghost { background: none; border: 1px solid var(--border-gold); color: var(--gold-l); }
+.btn-action.ghost:hover { background: var(--gold-dim); }
+
+/* ICP BADGE COLORS */
+.badge-gemeente   { background: rgba(91,141,217,0.15); color: #5b8dd9; }
+.badge-ziekenhuis { background: rgba(13,148,136,0.15); color: #0d9488; }
+.badge-software   { background: rgba(108,92,231,0.15); color: #8b7cf8; }
+.badge-euentry    { background: var(--gold-dim); color: var(--gold-l); }
+
+@media (max-width: 640px) {
+  .page { padding: 24px 20px 60px; }
+  nav { padding: 0 20px; }
+  .context-card { flex-direction: column; gap: 12px; }
+  .output-content { padding: 24px 20px; }
+  .followup-actions { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">HES <span>Consultancy</span> International</div>
+  <a href="index.html" class="nav-back">← Terug naar overzicht</a>
+</nav>
+
+<div class="page">
+
+  <!-- Context card: shows who this is for -->
+  <div class="context-card" id="context-card">
+    <div class="context-icp-badge" id="icp-badge">—</div>
+    <div class="context-details">
+      <div class="context-org" id="context-org">Uw organisatie</div>
+      <div class="context-meta" id="context-meta"></div>
+      <div class="context-need">
+        <strong>Primaire uitdaging</strong>
+        <span id="context-need-text">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate button -->
+  <div class="generate-wrap">
+    <button class="btn-generate" id="generate-btn" onclick="generateDocument()">
+      <span id="btn-text">Genereer CMO→FMO Analyse</span>
+    </button>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar info" id="status-bar">
+    <span id="status-text">Gereed om te genereren.</span>
+  </div>
+
+  <!-- Output document -->
+  <div class="output-wrap" id="output-wrap">
+    <div class="output-toolbar">
+      <span class="output-toolbar-label">CMO→FMO Analyse — HCI</span>
+      <div class="toolbar-actions">
+        <button class="btn-toolbar" onclick="copyOutput()">Kopiëren</button>
+        <button class="btn-toolbar" onclick="printOutput()">Afdrukken</button>
+        <button class="btn-toolbar primary" onclick="regenerate()">Opnieuw genereren</button>
+      </div>
+    </div>
+    <div class="output-content" id="output-content"></div>
+    <div class="followup-actions">
+      <span class="followup-label">Volgende stap:</span>
+      <a href="mailto:mbhes@hes-consultancy-international.com" id="contact-btn" class="btn-action gold">
+        Plan gesprek →
+      </a>
+      <button class="btn-action ghost" onclick="copyOutput()">
+        Kopieer document
+      </button>
+      <a href="cra-quickscan-hci.html" class="btn-action ghost">
+        CRA Quick Scan
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- API Client -->
+<script src="hci-api-client.js"></script>
+
+<script>
+// ============================================================
+// URL PARAM PARSING
+// ============================================================
+var _params = {};
+new URLSearchParams(window.location.search).forEach(function(v, k) {
+  _params[k.toLowerCase()] = decodeURIComponent(v);
+});
+
+var _icp  = _params.icp  || 'gemeente';
+var _naam = _params.naam || '';
+var _org  = _params.org  || 'Uw organisatie';
+var _rol  = _params.rol  || '';
+var _need = _params.need || '';
+var _lang = _params.lang || 'nl';
+
+// ============================================================
+// ICP CONFIG
+// ============================================================
+var ICP_CONFIG = {
+  gemeente:   { label: 'Gemeente', badge: 'badge-gemeente', color: '#5b8dd9' },
+  ziekenhuis: { label: 'Ziekenhuis', badge: 'badge-ziekenhuis', color: '#0d9488' },
+  software:   { label: 'Software & Tech', badge: 'badge-software', color: '#8b7cf8' },
+  euentry:    { label: 'EU Entry', badge: 'badge-euentry', color: '#d4a017' }
+};
+
+var UI_STRINGS = {
+  nl: {
+    generating: 'Document wordt gegenereerd…',
+    thinking:   'HCI analyseert uw situatie…',
+    done:       'Analyse gereed.',
+    error:      'Er ging iets mis — probeer opnieuw.',
+    copy_ok:    '✓ Gekopieerd',
+    copy_btn:   'Kopiëren',
+    btn_label:  'Genereer CMO→FMO Analyse',
+    contact_subject: 'CMO→FMO Aanvraag',
+    contact_body:    'Ik heb de CMO→FMO analyse gegenereerd en wil dit bespreken.'
+  },
+  en: {
+    generating: 'Generating document…',
+    thinking:   'HCI is analysing your situation…',
+    done:       'Analysis ready.',
+    error:      'Something went wrong — please try again.',
+    copy_ok:    '✓ Copied',
+    copy_btn:   'Copy',
+    btn_label:  'Generate CMO→FMO Analysis',
+    contact_subject: 'CMO→FMO Request',
+    contact_body:    'I have generated the CMO→FMO analysis and would like to discuss it.'
+  }
+};
+
+var _ui = UI_STRINGS[_lang] || UI_STRINGS.nl;
+
+// ============================================================
+// INIT — populate context card
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  var cfg = ICP_CONFIG[_icp] || ICP_CONFIG.gemeente;
+
+  // Badge
+  var badge = document.getElementById('icp-badge');
+  badge.textContent = cfg.label;
+  badge.className = 'context-icp-badge ' + cfg.badge;
+
+  // Org + meta
+  document.getElementById('context-org').textContent = _org || (_lang === 'en' ? 'Your organisation' : 'Uw organisatie');
+  var meta = [];
+  if (_naam) meta.push(_naam);
+  if (_rol)  meta.push(_rol);
+  document.getElementById('context-meta').textContent = meta.join(' · ');
+
+  // Need
+  document.getElementById('context-need-text').textContent = _need || (_lang === 'en' ? 'General analysis' : 'Algemene analyse');
+
+  // Button label
+  document.getElementById('btn-text').textContent = _ui.btn_label;
+
+  // Contact button
+  var contactBtn = document.getElementById('contact-btn');
+  var subject = encodeURIComponent(_ui.contact_subject + (_org ? ' — ' + _org : ''));
+  contactBtn.href = 'mailto:mbhes@hes-consultancy-international.com?subject=' + subject;
+
+  // Language label
+  document.title = _lang === 'en' ? 'HCI CMO→FMO Generator' : 'HCI CMO→FMO Generator';
+
+  // Auto-generate if all params present
+  if (_icp && _need) {
+    setTimeout(generateDocument, 400);
+  }
+});
+
+// ============================================================
+// GENERATION
+// ============================================================
+var _isGenerating = false;
+var _lastOutput   = '';
+
+async function generateDocument() {
+  if (_isGenerating) return;
+  _isGenerating = true;
+
+  var btn  = document.getElementById('generate-btn');
+  var text = document.getElementById('btn-text');
+
+  // Update UI: loading state
+  btn.disabled = true;
+  btn.classList.add('loading');
+  text.innerHTML = '<div class="spinner"></div>' + _ui.generating;
+
+  showStatus('info', _ui.thinking);
+
+  try {
+    var result = await HCIAPI.generateCMOFMO({
+      icp:  _icp,
+      need: _need,
+      naam: _naam,
+      org:  _org,
+      rol:  _rol,
+      lang: _lang
+    });
+
+    if (!result.ok) {
+      showStatus('error', _ui.error + ' (' + (result.error || 'onbekend') + ')');
+      resetBtn();
+      return;
+    }
+
+    _lastOutput = result.text || '';
+    renderOutput(_lastOutput);
+    showStatus('success', _ui.done);
+
+  } catch (err) {
+    showStatus('error', _ui.error);
+    console.error('[Output Engine]', err);
+  }
+
+  resetBtn();
+}
+
+function resetBtn() {
+  _isGenerating = false;
+  var btn  = document.getElementById('generate-btn');
+  var text = document.getElementById('btn-text');
+  btn.disabled = false;
+  btn.classList.remove('loading');
+  text.textContent = _ui.btn_label;
+}
+
+function regenerate() {
+  document.getElementById('output-wrap').classList.remove('visible');
+  generateDocument();
+}
+
+// ============================================================
+// RENDER — simple markdown to HTML
+// ============================================================
+function renderOutput(markdown) {
+  var html = markdown
+    // Headers
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    // Bold + italic
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Horizontal rule
+    .replace(/^---$/gm, '<hr>')
+    // Blockquote
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    // Unordered list items
+    .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+    // Ordered list items
+    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    // Wrap consecutive <li> in <ul>
+    .replace(/(<li>.*<\/li>\n?)+/g, function(m) { return '<ul>' + m + '</ul>'; })
+    // Paragraphs (double newline)
+    .replace(/\n\n/g, '</p><p>')
+    // Single newlines in paragraphs
+    .replace(/\n/g, '<br>');
+
+  html = '<p>' + html + '</p>';
+
+  // Fix empty paragraphs
+  html = html.replace(/<p>\s*<\/p>/g, '');
+  html = html.replace(/<p>(<h[1-6]>)/g, '$1');
+  html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
+  html = html.replace(/<p>(<ul>)/g, '$1');
+  html = html.replace(/(<\/ul>)<\/p>/g, '$1');
+  html = html.replace(/<p>(<hr>)<\/p>/g, '$1');
+  html = html.replace(/<p>(<blockquote>)/g, '$1');
+  html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
+
+  document.getElementById('output-content').innerHTML = html;
+  document.getElementById('output-wrap').classList.add('visible');
+
+  // Smooth scroll to output
+  setTimeout(function() {
+    document.getElementById('output-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+// ============================================================
+// STATUS BAR
+// ============================================================
+function showStatus(type, message) {
+  var bar  = document.getElementById('status-bar');
+  var text = document.getElementById('status-text');
+  bar.className = 'status-bar visible ' + type;
+  text.textContent = message;
+}
+
+// ============================================================
+// TOOLBAR ACTIONS
+// ============================================================
+function copyOutput() {
+  if (!_lastOutput) return;
+  navigator.clipboard.writeText(_lastOutput).then(function() {
+    var btn = event.target;
+    var orig = btn.textContent;
+    btn.textContent = _ui.copy_ok;
+    setTimeout(function(){ btn.textContent = orig; }, 2000);
+  }).catch(function() {
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = _lastOutput;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+function printOutput() {
+  window.print();
+}
+</script>
+
+</body>
+</html>
