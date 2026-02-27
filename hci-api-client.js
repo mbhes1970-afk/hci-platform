@@ -37,7 +37,7 @@
   var SLACK_URL  = '/api/slack';
 
   // Default model — change here if upgrading
-  var DEFAULT_MODEL = 'claude-opus-4-6';
+  var DEFAULT_MODEL = 'claude-haiku-4-5-20251001';
 
   /**
    * Call Claude via the Netlify proxy.

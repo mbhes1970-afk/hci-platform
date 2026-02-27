@@ -13,6 +13,13 @@
 [build.environment]
   NODE_VERSION = "18"
 
+[functions]
+  node_bundler = "esbuild"
+
+[[functions]]
+  path = "/api/claude"
+  included_files = ["netlify/functions/claude-proxy.js"]
+
 # ── API proxy redirect ────────────────────────────────────
 # Browser calls /api/claude → Netlify Function (key stays hidden)
 # Browser calls /api/slack  → Same function, Slack alert
