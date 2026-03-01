@@ -124,9 +124,3 @@
   from = "/terms"
   to = "/terms.html"
   status = 200
-
-# Claude proxy function
-[[redirects]]
-  from = "/.netlify/functions/claude-proxy"
-  to = "/.netlify/functions/claude-proxy"
-  status = 200
