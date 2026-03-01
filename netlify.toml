@@ -124,3 +124,24 @@
   from = "/terms"
   to = "/terms.html"
   status = 200
+
+# Layer 2 Opportunity Analyses (clean URLs)
+[[redirects]]
+  from = "/analysis/cra"
+  to = "/layer2-cra.html"
+  status = 200
+
+[[redirects]]
+  from = "/analysis/nis2"
+  to = "/layer2-nis2.html"
+  status = 200
+
+[[redirects]]
+  from = "/analysis/dora"
+  to = "/layer2-dora.html"
+  status = 200
+
+[[redirects]]
+  from = "/analysis/aiact"
+  to = "/layer2-aiact.html"
+  status = 200

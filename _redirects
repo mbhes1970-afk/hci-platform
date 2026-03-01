@@ -22,3 +22,7 @@
 /templates/s05.html  /hci-output-s05.html    200
 /templates/s06.html  /hci-output-s06.html    200
 /insights         /insights.html             200
+/analysis/cra     /layer2-cra.html           200
+/analysis/nis2    /layer2-nis2.html          200
+/analysis/dora    /layer2-dora.html          200
+/analysis/aiact   /layer2-aiact.html         200
