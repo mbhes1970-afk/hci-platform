@@ -90,11 +90,6 @@
 
 # Layer 1 Insights briefs (clean URLs)
 [[redirects]]
-[[redirects]]
-  from = "/insights"
-  to = "/insights.html"
-  status = 200
-
   from = "/insights/cra"
   to = "/insights-cra.html"
   status = 200
