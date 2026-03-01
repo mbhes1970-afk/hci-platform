@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChunkWorks vs HCI Intelligence Platform — Vergelijking & Gespreksvoorbereiding</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c8a55a;--cw:#00B894;--hci:#6C5CE7;--bg:#fafaf8;--bg-card:#fff;--border:#e5e5e0;--ink:#0f1419;--text:#374151;--text-dim:#6b7280;--green:#16a34a;--amber:#d97706;--blue:#2563eb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;max-width:900px;margin:0 auto;padding:40px 32px}
+.header{border-bottom:3px solid var(--ink);padding-bottom:32px;margin-bottom:40px}
+.header .tag{display:inline-block;background:var(--gold);color:#fff;font-family:'Geist Mono',monospace;font-size:10px;padding:4px 12px;border-radius:4px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.header h1{font-family:'Instrument Serif',serif;font-size:30px;color:var(--ink);line-height:1.2;margin-bottom:8px}
+.header .sub{color:var(--text-dim);font-size:14px}
+h2{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);margin:44px 0 16px;padding-top:20px;border-top:1px solid var(--border)}
+h3{font-size:15px;font-weight:600;color:var(--ink);margin:24px 0 10px}
+p{margin-bottom:12px}strong{color:var(--ink)}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th{text-align:left;padding:10px 14px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.cw{color:var(--cw);font-weight:600}.hci{color:var(--hci);font-weight:600}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0}
+.card.cw-card{border-left:4px solid var(--cw)}.card.hci-card{border-left:4px solid var(--hci)}.card.gold{border-left:4px solid var(--gold)}
+.card h4{font-size:14px;font-weight:600;margin:0 0 8px;color:var(--ink)}.card p:last-child{margin-bottom:0}
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.vs-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.vs-box h4{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.vs-box ul{list-style:none;padding:0}.vs-box li{font-size:12px;padding:4px 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.talk-point{background:var(--bg-card);border:1px solid var(--gold);border-radius:10px;padding:16px;margin:8px 0;display:flex;gap:12px}
+.talk-num{font-family:'Geist Mono',monospace;font-size:12px;color:var(--gold);width:30px;flex-shrink:0}
+.talk-content h5{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.talk-content p{font-size:12px;margin:0;color:var(--text);line-height:1.5}
+.synergy{background:#ecfdf5;border:1px solid #86efac;border-radius:12px;padding:20px;margin:16px 0}
+.synergy h4{color:var(--green);margin:0 0 8px}
+.synergy p{font-size:13px;margin:0;color:#166534}
+.flow{display:flex;align-items:center;gap:8px;margin:12px 0;flex-wrap:wrap}
+.flow-step{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:600}
+.flow-step.cw-step{border-color:var(--cw);color:var(--cw)}.flow-step.hci-step{border-color:var(--hci);color:var(--hci)}.flow-step.shared{border-color:var(--gold);color:var(--gold)}
+.flow-arrow{color:var(--text-dim);font-size:14px}
+@media(max-width:700px){.vs-grid{grid-template-columns:1fr}.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Gespreksvoorbereiding Mike ↔ Dennis</div>
+  <h1>ChunkWorks Funnel vs HCI Intelligence Platform</h1>
+  <div class="sub">Wat doet ChunkWorks? Hoe verhoudt het zich tot HCI? Waar is synergie? Wat bespreek je met Dennis?</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>1. ChunkWorks — wie zijn ze, wat doen ze</h2>
+<!-- ============================================================ -->
+
+<div class="card cw-card">
+<h4>ChunkWorks in het kort</h4>
+<p><strong>Bedrijf:</strong> Data security firm, gevestigd in Haarlem/Rotterdam. Opgericht 2018. 2-10 medewerkers.</p>
+<p><strong>CEO:</strong> Dennis Schouten — visionary, commercieel, recent bij DNB geweest over quantum security.</p>
+<p><strong>Kernproduct:</strong> QuSec™ — quantum-resistant end-to-end encryptie software. Hybride cryptografie (klassiek + post-quantum). Crypto-agility.</p>
+<p><strong>Positionering:</strong> "Secure by Design" — deploy op elke cloud, geen downtime, geen migratiepijn. Gericht op vitale data, overheden, financiële sector.</p>
+<p><strong>Netwerk:</strong> PKI Consortium lid, Dutch Cloud Community, ROM InWest-backed, EU Blockchain Regulatory Sandbox deelnemer, CIF-NL grant ontvanger.</p>
+<p><strong>Campagne:</strong> "Test IT, See IT, Believe IT, Trust IT & Fixed IT" — CxO-gericht programma (gelanceerd Q4 2025) i.s.m. IT2grow en Protinus IT.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>2. ChunkWorks Funnel — hoe hun demo-site werkt</h2>
+<!-- ============================================================ -->
+
+<p>De ChunkWorks funnel-demo (chunkworks-funnel.vercel.app) is het referentiepunt uit je Intelligence Platform Strategie. Hier is hoe het werkt:</p>
+
+<div class="card cw-card">
+<h4>De ChunkWorks aanpak: handmatige sectorselectie</h4>
+<p><strong>Stap 1:</strong> Bezoeker landt op de pagina en ziet sectorkeuze: Government, Healthcare, Finance, etc.</p>
+<p><strong>Stap 2:</strong> Bezoeker klikt op zijn sector.</p>
+<p><strong>Stap 3:</strong> Pagina laadt een gepersonaliseerde playbook — specifieke uitdagingen, oplossingen, social proof voor die sector.</p>
+<p><strong>Stap 4:</strong> CTA: assessment booken of contact opnemen.</p>
+</div>
+
+<h3>Kenmerken van de ChunkWorks funnel</h3>
+<table>
+<tr><th>Aspect</th><th>ChunkWorks aanpak</th></tr>
+<tr><td>Herkenning bezoeker</td><td><strong>Handmatig</strong> — bezoeker kiest zelf zijn sector. Geen IP-lookup, geen automatische detectie.</td></tr>
+<tr><td>Personalisatie</td><td><strong>Sector-gebaseerd</strong> — playbook per sector (overheid, zorg, finance). Content is vooraf geschreven per variant.</td></tr>
+<tr><td>Tech stack</td><td><strong>Next.js + Vercel</strong> — server-side rendering, snelle load, edge functions mogelijk maar niet gebruikt voor personalisatie.</td></tr>
+<tr><td>Data terug naar CRM</td><td><strong>Beperkt</strong> — formulier-submits gaan naar CRM. Geen gedragsdata-terugkoppeling. Geen real-time enrichment.</td></tr>
+<tr><td>Intelligence</td><td><strong>Geen</strong> — geen IP-lookup, geen UTM-routing, geen intent scoring. Simpel en effectief, maar handmatig.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>3. HCI Intelligence Platform — hoe het moet werken</h2>
+<!-- ============================================================ -->
+
+<div class="card hci-card">
+<h4>De HCI aanpak: geautomatiseerde Intelligence Flywheel</h4>
+<p><strong>Stap 1:</strong> Bezoeker landt (via LinkedIn, Google, directe link, campagne). Platform detecteert automatisch: IP → bedrijf (Clearbit Reveal), UTM → campagne-context, referrer → bron.</p>
+<p><strong>Stap 2:</strong> Intelligence Layer matcht het profiel aan ICP-segment: ISV/Tech, Gemeente/Overheid, Scale-up, Enterprise, Onbekend.</p>
+<p><strong>Stap 3:</strong> Personalisatie Layer past de hele pagina aan: hero copy, social proof, CTA, playbook — alles specifiek voor dat segment. Zonder dat de bezoeker iets hoeft te kiezen.</p>
+<p><strong>Stap 4:</strong> Gedrag (scroll, klik, tijd, assessment-start) wordt als intent-signaal teruggeschreven naar DealFlow. MEDDIC-velden worden automatisch gevuld.</p>
+<p><strong>Stap 5:</strong> Als bezoeker zich identificeert (email, assessment, booking) → compleet profiel in DealFlow. Supply chain: elke interactie verrijkt het systeem.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>4. De vergelijking — naast elkaar</h2>
+<!-- ============================================================ -->
+
+<table>
+<tr><th style="width:25%">Dimensie</th><th style="width:37%"><span class="cw">ChunkWorks Funnel</span></th><th style="width:37%"><span class="hci">HCI Intelligence Platform</span></th></tr>
+<tr><td><strong>Bezoekersherkenning</strong></td><td>Handmatig (bezoeker kiest sector)</td><td>Automatisch (IP → bedrijf + UTM + referrer + gedrag)</td></tr>
+<tr><td><strong>ICP-matching</strong></td><td>Impliciet (sector = segment)</td><td>Expliciet (firmographic data → ICP-score → segment)</td></tr>
+<tr><td><strong>Personalisatie</strong></td><td>Per sector (3-5 varianten)</td><td>Per ICP-segment + campagne-context (onbeperkt varianten via Edge Functions)</td></tr>
+<tr><td><strong>Data terugkoppeling</strong></td><td>Alleen formulier-submit</td><td>Elke klik, scroll, pagina, assessment → DealFlow als MEDDIC-signaal</td></tr>
+<tr><td><strong>Intelligence</strong></td><td>Geen (statisch)</td><td>4-lagen model: Signal → Intelligence → Personalization → CRM Feedback</td></tr>
+<tr><td><strong>Flywheel effect</strong></td><td>Geen (elke bezoeker is nieuw)</td><td>Ja (elk bezoek verrijkt profiel, verbetert matching, optimaliseert content)</td></tr>
+<tr><td><strong>A/B testing</strong></td><td>Niet ingebouwd</td><td>PostHog Feature Flags + Experiments per segment</td></tr>
+<tr><td><strong>Tech stack</strong></td><td>Next.js + Vercel</td><td>Next.js + Vercel Edge Functions + Clearbit + PostHog + DealFlow API</td></tr>
+<tr><td><strong>Complexiteit</strong></td><td>Laag (snel live, weinig onderhoud)</td><td>Middel-Hoog (meer tooling, meer data, meer waarde)</td></tr>
+<tr><td><strong>Kosten</strong></td><td>~€0-40/mnd (Vercel)</td><td>~€200-500/mnd (Vercel + Clearbit + PostHog)</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>5. Het kernverschil in één zin</h2>
+<!-- ============================================================ -->
+
+<div class="card gold">
+<h4>ChunkWorks vraagt. HCI weet.</h4>
+<p>Bij ChunkWorks kiest de bezoeker zelf zijn sector. Bij HCI detecteert het platform dit automatisch via IP, UTM en gedrag — en vraagt alleen om bevestiging als het niet zeker is (fallback: ICP-quiz, 2 vragen).</p>
+<p>Beide benaderingen werken. ChunkWorks is sneller live en simpeler. HCI is slimmer en schaalbaarder. De vraag is: op welk punt in de groei switch je van handmatig naar geautomatiseerd?</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>6. Synergie — waar HCI en ChunkWorks elkaar versterken</h2>
+<!-- ============================================================ -->
+
+<div class="synergy">
+<h4>QuSec als onderdeel van HCI's regulatoire propositie</h4>
+<p>ChunkWorks' QuSec is een directe fit in HCI's compliance-trajecten. Post-quantum encryptie is relevant voor NIS2 (risicobeheer), DORA (resilience testing), en CRA (secure by design). HCI levert de compliance-strategie, ChunkWorks levert de technische oplossing. Samen = sterker dan apart.</p>
+</div>
+
+<div class="synergy">
+<h4>Gedeelde doelgroepen</h4>
+<p>ChunkWorks richt zich op overheden en financiële sector (DNB-relatie!). HCI richt zich op IT-partners die deze sectoren bedienen. Dat is geen overlap maar een waardeketen: HCI brengt de partner, ChunkWorks levert de technologie die de partner inzet bij de eindklant.</p>
+</div>
+
+<div class="synergy">
+<h4>Gedeelde Intelligence infrastructuur</h4>
+<p>Als beide sites dezelfde PostHog + analytics structuur gebruiken, kun je cross-site learnings delen: welke sectoren converteren het best, welke content werkt, welke campagnes leveren leads op. Twee sites, dubbele data, gedeelde inzichten.</p>
+</div>
+
+<h3>De gezamenlijke flow</h3>
+<div class="flow">
+<div class="flow-step hci-step">LinkedIn campagne (HCI)</div>
+<div class="flow-arrow">→</div>
+<div class="flow-step hci-step">HCI site (Intelligence Platform)</div>
+<div class="flow-arrow">→</div>
+<div class="flow-step shared">Assessment / Compliance gap</div>
+<div class="flow-arrow">→</div>
+<div class="flow-step hci-step">DealFlow (lead + MEDDIC)</div>
+<div class="flow-arrow">→</div>
+<div class="flow-step cw-step">QuSec als oplossing in traject</div>
+<div class="flow-arrow">→</div>
+<div class="flow-step cw-step">ChunkWorks site (product deep-dive)</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>7. Gespreksagenda met Dennis</h2>
+<!-- ============================================================ -->
+
+<p>Hier zijn de concrete punten om met Dennis te bespreken. Geordend van strategisch naar tactisch.</p>
+
+<div class="talk-point"><div class="talk-num">01</div><div class="talk-content"><h5>Gezamenlijke Intelligence-infrastructuur</h5><p>"Dennis, wij gebruiken allebei PostHog en GA4. Als we dezelfde event-structuur hanteren (pageview, assessment_started, cta_clicked etc.) kunnen we cross-site learnings delen. Wat als we één analytics-blueprint maken die we beide implementeren?"</p></div></div>
+
+<div class="talk-point"><div class="talk-num">02</div><div class="talk-content"><h5>ChunkWorks funnel upgraden naar Intelligence</h5><p>"Jouw funnel-demo op Vercel is simpel en effectief. Maar als we IP-lookup (Clearbit Reveal) toevoegen, hoeft een bezoeker niet meer zelf te kiezen — het platform detecteert automatisch of het een overheidsbezoeker, fintech of enterprise is. Eén Clearbit-account kan voor beide sites werken."</p></div></div>
+
+<div class="talk-point"><div class="talk-num">03</div><div class="talk-content"><h5>QuSec in HCI's regulatoire trajecten</h5><p>"In mijn NIS2 en DORA trajecten is post-quantum encryptie een concreet onderdeel van de roadmap (Fase 4: Sovereignty). QuSec past daar perfect. Wat als we een gezamenlijke propositie bouwen: HCI doet de compliance-strategie, ChunkWorks levert QuSec als technische implementatie?"</p></div></div>
+
+<div class="talk-point"><div class="talk-num">04</div><div class="talk-content"><h5>Gedeelde doelgroepen — geen overlap maar waardeketen</h5><p>"Jij zit bij DNB, ik bouw DORA-trajecten voor fintechs. Jij hebt relaties met CxO's in de financiële sector, ik heb een tool (DealFlow) om die relaties te managen en door de pipeline te bewegen. Hoe zien we de rolverdeling: jij brengt de technologie-relatie, ik breng de compliance-propositie?"</p></div></div>
+
+<div class="talk-point"><div class="talk-num">05</div><div class="talk-content"><h5>Go-live timing en A/B testing</h5><p>"Mijn HCI site en platform zijn klaar voor deployment. Jij bent ook bezig met je online aanwezigheid. Als we rond dezelfde tijd live gaan, kunnen we samen A/B testen: welke hero copy werkt beter? Welke CTA converteert? Twee sites, dubbele testcapaciteit, gedeelde learnings."</p></div></div>
+
+<div class="talk-point"><div class="talk-num">06</div><div class="talk-content"><h5>DealFlow als gedeeld CRM</h5><p>"DealFlow is multi-tenant — ik kan een ChunkWorks-tenant aanmaken zodat Dennis zijn eigen pipeline beheert, maar we gezamenlijke deals kunnen zien waar beide partijen betrokken zijn. Denk aan een DORA-deal waar HCI de compliance doet en ChunkWorks QuSec levert."</p></div></div>
+
+<div class="talk-point"><div class="talk-num">07</div><div class="talk-content"><h5>"Test IT, See IT, Believe IT" + HCI Assessment</h5><p>"Dennis' nieuwe programma is CxO-gericht en gaat over security validatie. Mijn Assessment Engine is compliance-gericht en gaat over NIS2/DORA/CRA readiness. Wat als een CxO eerst jouw 'Test IT' doorloopt (technisch) en dan mijn Assessment (compliance)? Of een gecombineerde versie?"</p></div></div>
+
+<!-- ============================================================ -->
+<h2>8. Risico's en aandachtspunten</h2>
+<!-- ============================================================ -->
+
+<table>
+<tr><th>Risico</th><th>Mitigatie</th></tr>
+<tr><td><strong>Onduidelijke rolverdeling</strong> — wie doet wat bij gezamenlijke deals?</td><td>Afspraken vastleggen: HCI = compliance-strategie + partner enablement. CW = technische security + product. Duidelijke revenue split per deal-type.</td></tr>
+<tr><td><strong>Tool-overlap</strong> — beide investeren in analytics/intelligence</td><td>Eén shared blueprint voor events. Eén Clearbit account (als kosten gedeeld). Aparte PostHog projecten maar dezelfde structuur.</td></tr>
+<tr><td><strong>Tempo-verschil</strong> — HCI is klaar voor deploy, CW misschien niet</td><td>HCI gaat live onafhankelijk van CW. Intelligence Flywheel werkt standalone. ChunkWorks-integratie is Fase 2/3.</td></tr>
+<tr><td><strong>IP-bescherming</strong> — hoeveel deel je met elkaar?</td><td>Analytics-structuur = gedeeld. Propositie-inhoud (Layer 3) = eigen IP. DealFlow = multi-tenant met isolatie.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>9. Aanbevolen fasering</h2>
+<!-- ============================================================ -->
+
+<table>
+<tr><th>Fase</th><th>Wat</th><th>Wie</th></tr>
+<tr><td><strong>Nu</strong></td><td>Gesprek Mike ↔ Dennis: alignment op Intelligence-aanpak, gedeelde analytics-structuur, go-live timing</td><td>Mike + Dennis</td></tr>
+<tr><td><strong>Week 1-2</strong></td><td>HCI go-live met Intelligence Platform Fase 1 (PostHog events, basis analytics, assessment funnel). ChunkWorks evalueert dezelfde structuur.</td><td>Mike (HCI) + Dennis (CW parallel)</td></tr>
+<tr><td><strong>Week 3-4</strong></td><td>Clearbit Reveal toevoegen (IP → bedrijf). Eén account, beide sites. A/B testing starten op hero copy.</td><td>Gedeeld</td></tr>
+<tr><td><strong>Maand 2-3</strong></td><td>DealFlow-integratie: assessment → automatisch lead. ChunkWorks-tenant in DealFlow. Gezamenlijke deals zichtbaar.</td><td>Mike (bouw) + Dennis (test)</td></tr>
+<tr><td><strong>Maand 3-6</strong></td><td>Intelligence Flywheel volledig: UTM-routing, persoonlijke tracking-links, A/B per segment, intent scoring, cross-site learnings dashboard.</td><td>Gedeeld</td></tr>
+</table>
+
+</body>
+</html>

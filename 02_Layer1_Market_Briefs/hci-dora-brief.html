@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DORA Market Opportunity — De financiële sector zoekt hulp. Nu. — HCI</title>
+<meta name="description" content="DORA is van kracht sinds 17 januari 2025. Banken, verzekeraars en fintechs zijn verplicht compliant te zijn. De meeste IT-partners bedienen deze markt nog niet. Dat is de kans.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#fb923c;--accent-light:#fdba74;--accent-dim:rgba(251,146,60,.12);--accent-border:rgba(251,146,60,.3);--gold:#c8a55a;--gold-light:#e0c882;--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;--border:rgba(255,255,255,.06);--text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;--red:#f87171;--green:#4ade80}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 600px at 30% 10%,rgba(251,146,60,.06) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 80% 90%,rgba(200,165,90,.03) 0%,transparent 70%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,9,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-tag{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--accent-dim);color:var(--accent);letter-spacing:1px;text-transform:uppercase}
+.container{max-width:800px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
+section{padding:100px 0}.section-border{border-top:1px solid var(--border)}
+.hero{padding:140px 0 80px}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);text-decoration:none;margin-bottom:32px;transition:color .2s}.hero-back:hover{color:var(--accent-light)}
+.hero-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.hero-cat{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.hero-date{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-dim)}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,52px);font-weight:400;color:var(--white);line-height:1.1;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent-light)}
+.hero-lead{font-size:18px;color:var(--text);line-height:1.7;max-width:640px;margin-bottom:32px}
+.hero-reading{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim)}
+article h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin:48px 0 16px;line-height:1.2}article h2 em{font-style:italic;color:var(--accent-light)}
+article p{font-size:15px;line-height:1.8;margin-bottom:16px}article strong{color:var(--text-bright)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;text-align:center}
+.stat-num{font-family:'Instrument Serif',serif;font-size:36px;color:var(--accent-light);line-height:1}
+.stat-label{font-size:12px;color:var(--text-dim);margin-top:4px}
+.deadline-bar{background:linear-gradient(90deg,var(--accent-dim),rgba(248,113,113,.1));border:1px solid rgba(251,146,60,.25);border-radius:12px;padding:24px 28px;margin:32px 0;display:flex;align-items:center;gap:20px}
+.deadline-icon{font-size:32px;flex-shrink:0}.deadline-text h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}.deadline-text p{font-size:13px;color:var(--text-dim);margin:0}
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:32px 0}
+.pillar{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:all .3s}.pillar:hover{border-color:var(--accent-border)}
+.pillar-num{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.pillar h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}.pillar p{font-size:12px;color:var(--text-dim);margin:0;line-height:1.6}
+.pillar .price{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);margin-top:8px}
+.revenue-box{background:var(--bg-card);border:1px solid var(--accent-border);border-radius:14px;padding:32px;margin:32px 0}
+.revenue-box h3{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:16px}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}.rev-item{text-align:center}
+.rev-num{font-family:'Instrument Serif',serif;font-size:28px;color:var(--accent-light)}.rev-label{font-size:11px;color:var(--text-dim)}
+.quote-block{border-left:3px solid var(--accent);padding:20px 24px;margin:32px 0;background:var(--bg-card);border-radius:0 12px 12px 0}
+.quote-block p{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;color:var(--text-bright);margin:0;line-height:1.5}
+.quote-block cite{display:block;font-family:'Outfit',sans-serif;font-size:12px;font-style:normal;color:var(--text-dim);margin-top:8px}
+.gate-section{background:linear-gradient(145deg,rgba(251,146,60,.08),rgba(200,165,90,.05));border:1px solid var(--accent-border);border-radius:20px;padding:48px 40px;text-align:center;margin:48px 0}
+.gate-section h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin:0 0 12px}.gate-section h2 em{font-style:italic;color:var(--accent-light)}
+.gate-section>p{font-size:15px;color:var(--text);max-width:520px;margin:0 auto 28px;line-height:1.7}
+.gate-teasers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;text-align:left}
+.gate-teaser{background:var(--bg-elevated);border-radius:10px;padding:16px;border:1px solid var(--border)}.gate-teaser h5{font-size:12px;font-weight:600;color:var(--text-bright);margin-bottom:4px}.gate-teaser p{font-size:11px;color:var(--text-dim);margin:0;line-height:1.5}
+.email-capture{display:flex;gap:8px;max-width:480px;margin:0 auto}
+.email-input{flex:1;padding:12px 16px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:14px;font-family:'Outfit',sans-serif;outline:none}.email-input:focus{border-color:var(--accent)}.email-input::placeholder{color:var(--text-dim)}
+.email-submit{padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:var(--bg-deep);border:none;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap}.email-submit:hover{background:var(--accent-light)}
+.gate-note{font-size:11px;color:var(--text-dim);margin-top:12px}
+.final-cta{text-align:center;padding:80px 0}.final-cta h2{font-family:'Instrument Serif',serif;font-size:32px;font-weight:400;color:var(--white);margin-bottom:12px}.final-cta h2 em{font-style:italic;color:var(--accent-light)}.final-cta p{font-size:15px;color:var(--text);margin-bottom:28px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--accent);color:var(--bg-deep);transition:all .3s}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(251,146,60,.3)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;color:var(--text);border:1px solid var(--border);margin-left:12px}.btn-ghost:hover{border-color:var(--accent-border);color:var(--accent-light)}
+footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.footer-text{font-size:11px;color:var(--text-dim)}.footer-text a{color:var(--gold);text-decoration:none}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:700px){nav{padding:12px 20px}.container{padding:0 20px}.hero{padding:100px 0 60px}.stat-row,.rev-grid{grid-template-columns:1fr}.pillar-grid,.gate-teasers{grid-template-columns:1fr}.email-capture{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="ambient"></div><div class="grain"></div>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">DORA · Market Brief</span></div></nav>
+
+<div class="container">
+<section class="hero">
+  <a href="/growth" class="hero-back">← Terug naar Growth Route</a>
+  <div class="hero-meta"><span class="hero-cat">DORA · Market Opportunity</span><span class="hero-date">Maart 2026</span></div>
+  <h1>DORA is van kracht.<br>De financiële sector <em>zoekt hulp.</em><br>Nu.</h1>
+  <p class="hero-lead">Sinds 17 januari 2025 geldt de Digital Operational Resilience Act voor elke financiële instelling in de EU. Banken, verzekeraars, fintechs — ze moeten compliant zijn. De meeste zijn het niet. Dat is de kans voor IT-partners met een gestructureerd aanbod.</p>
+  <span class="hero-reading">⏱ 6 minuten leestijd · Publieke brief (Layer 1)</span>
+</section>
+
+<article>
+  <h2>Wat is DORA? <em>En waarom is het anders?</em></h2>
+  <p>De Digital Operational Resilience Act (DORA) is een EU-verordening die de digitale weerbaarheid van de financiële sector uniformeert. Niet nóg een richtlijn — maar een <strong>directe verordening</strong>. Geen nationale omzettingstermijn, geen ruimte voor interpretatie. Sinds 17 januari 2025 is het van kracht. Punt.</p>
+  <p>DORA verplicht financiële instellingen tot streng ICT-risicobeheer, gestructureerde incident-rapportage, periodieke resilience testing, en volledige controle op hun ICT-leveranciersketen. Het gaat niet alleen over de bank zelf — het gaat over <strong>het hele ecosysteem</strong> van partijen waar de bank van afhankelijk is.</p>
+
+  <div class="deadline-bar fade-up">
+    <div class="deadline-icon">⚡</div>
+    <div class="deadline-text">
+      <h4>Van kracht: 17 januari 2025</h4>
+      <p>DORA is geen toekomstig probleem. Het is nu actief. DNB en AFM kunnen handhaven. Organisaties die niet compliant zijn, lopen nu risico.</p>
+    </div>
+  </div>
+
+  <h2>Wie wordt geraakt? <em>Meer dan je denkt.</em></h2>
+  <p>DORA geldt niet alleen voor de grote banken. De scope is breed:</p>
+
+  <div class="stat-row fade-up">
+    <div class="stat-card"><div class="stat-num">~100</div><div class="stat-label">Banken in NL</div></div>
+    <div class="stat-card"><div class="stat-num">80–120</div><div class="stat-label">Verzekeraars</div></div>
+    <div class="stat-card"><div class="stat-num">500+</div><div class="stat-label">ICT-dienstverleners in scope</div></div>
+  </div>
+
+  <p>Daarnaast vallen <strong>150-200 betaalinstellingen, pensioenfondsen, beleggingsondernemingen</strong> en andere financiële entiteiten onder de verordening. En — cruciaal — ook hun <strong>ICT-dienstverleners</strong> kunnen als Critical Third-Party Provider (CTPP) worden aangewezen door de Europese toezichthouders. Dat maakt de keten compleet.</p>
+
+  <h2>De sweet spot: <em>middelgrote fintechs</em></h2>
+  <p>De grote banken hebben interne teams en Big 4-contracten. De sweet spot voor gespecialiseerde IT-partners ligt bij <strong>middelgrote financiële instellingen</strong>: fintechs, betaaldienstverleners, niche-verzekeraars, en vermogensbeheerders.</p>
+  <p>Deze organisaties zijn <strong>te klein voor de Big 4</strong> (die pas vanaf €500K projecten serieus nemen), maar <strong>te complex voor generieke IT-bureaus</strong> die security "erbij doen." Precies de plek waar een gespecialiseerde propositie wint.</p>
+
+  <h2>De kans: <em>vier service pillars</em></h2>
+
+  <div class="pillar-grid fade-up">
+    <div class="pillar"><div class="pillar-num">PILLAR 01</div><h4>ICT Risk Management Baseline</h4><p>ICT-risico framework conform DORA Art. 5-16. Risk appetite, governance structuur, asset classificatie, business impact analyse.</p><div class="price">€10.000 – €20.000</div></div>
+    <div class="pillar"><div class="pillar-num">PILLAR 02</div><h4>Incident Management & Testing</h4><p>Incident classificatie en rapportage conform Art. 17-23. TLPT voor grotere instellingen. Meldingsprocedures richting DNB binnen 4 uur.</p><div class="price">€15.000 – €35.000 + €5.000/jr</div></div>
+    <div class="pillar"><div class="pillar-num">PILLAR 03</div><h4>Third-Party Risk Register</h4><p>Compleet ICT-leveranciersregister conform Art. 28. Contractanalyse, risicobeoordelingen, exit-strategieën. CTPP-classificatie.</p><div class="price">€12.000 – €25.000</div></div>
+    <div class="pillar"><div class="pillar-num">PILLAR 04</div><h4>Continuous Oversight & Retainer</h4><p>Doorlopend toezicht, periodieke reviews, updates bij nieuwe RTS/ITS. Jaarlijkse resilience testing. Rapportage aan toezichthouders.</p><div class="price">€3.500 – €6.000/maand</div></div>
+  </div>
+
+  <h2>Wat levert het op? <em>De business case.</em></h2>
+
+  <div class="revenue-box fade-up">
+    <h3>Revenue model per klant</h3>
+    <div class="rev-grid">
+      <div class="rev-item"><div class="rev-num">€58K</div><div class="rev-label">Jaar 1 projectwerk</div></div>
+      <div class="rev-item"><div class="rev-num">€4.5K</div><div class="rev-label">Recurring per maand</div></div>
+      <div class="rev-item"><div class="rev-num">€112K</div><div class="rev-label">Per klant per jaar (totaal)</div></div>
+    </div>
+  </div>
+
+  <p>Met <strong>€112.000 per klant in jaar 1</strong> en <strong>€54.000 recurring per jaar</strong> daarna is de business case helder. Twee klanten dekken een volledig FTE. Vijf klanten bouwen een practice.</p>
+
+  <div class="stat-row fade-up">
+    <div class="stat-card"><div class="stat-num">€112K</div><div class="stat-label">Jaar 1 per klant</div></div>
+    <div class="stat-card"><div class="stat-num">€54K</div><div class="stat-label">Recurring per jaar</div></div>
+    <div class="stat-card"><div class="stat-num">10%</div><div class="stat-label">Max boete (% jaaromzet)</div></div>
+  </div>
+
+  <h2>Waarom <em>nu</em> positioneren</h2>
+  <p>DORA is de enige grote EU-regulering die al volledig van kracht is. De urgentie bij klanten is <strong>nu</strong> op het hoogste niveau. Ze zoeken niet over zes maanden — ze zoeken vandaag.</p>
+  <p>De partij die nu positioneert als "de DORA-specialist" voor het middensegment, bouwt een moat die over twaalf maanden nauwelijks meer in te halen is.</p>
+
+  <div class="quote-block fade-up">
+    <p>"Bij compliance deals is Metrics de sterkste MEDDIC-dimensie. Reken de boete-exposure voor — 10% van de jaaromzet bij DORA — en zet dat naast de investering. De business case schrijft zichzelf."</p>
+    <cite>— Mike Hes, HES Consultancy International</cite>
+  </div>
+
+  <h2>Wie concurreert hier? <em>Vrijwel niemand.</em></h2>
+  <p>De Big 4 bedienen de top-20 financiële instellingen. Pure-play securitybedrijven richten zich op pentesting zonder regulatoire diepgang. Generieke IT-dienstverleners bieden DORA aan als checkbox.</p>
+  <p>Het gat: <strong>een gespecialiseerde DORA-practice</strong> die assessment + implementatie + retainer combineert, voor het middensegment. Te diep voor generalisten, te betaalbaar voor Big 4.</p>
+</article>
+
+<div class="gate-section fade-up">
+  <h2>Wilt u weten hoe DORA er<br><em>voor uw situatie uitziet?</em></h2>
+  <p>Download de DORA Opportunity Analysis: service pillars, revenue model, competitive positioning en een routekaart naar uw eerste DORA-klant.</p>
+  <div class="gate-teasers">
+    <div class="gate-teaser"><h5>Revenue model</h5><p>€112K per klant in jaar 1. Recurring €54K/jr. Break-even bij 2-3 klanten.</p></div>
+    <div class="gate-teaser"><h5>Sweet spot analyse</h5><p>Fintechs, betaaldienstverleners, niche-verzekeraars. Segmentatie + targeting.</p></div>
+    <div class="gate-teaser"><h5>10-weken launchplan</h5><p>Van propositie naar eerste pipeline. DNB-kennis, vendor partnerships.</p></div>
+  </div>
+  <div class="email-capture" id="emailCapture"><input type="email" class="email-input" id="gateEmail" placeholder="uw@bedrijf.nl"><button class="email-submit" onclick="submitGate()">Download Analysis →</button></div>
+  <p class="gate-note">Geen spam. Eén email met de analyse + een uitnodiging voor een gesprek.</p>
+  <p class="gate-note" id="gateSent" style="display:none;color:var(--green);">✓ De DORA Opportunity Analysis wordt naar uw inbox gestuurd.</p>
+</div>
+
+<div class="final-cta section-border">
+  <h2>Klaar om DORA als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
+  <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
+  <a href="/growth#assessment" class="btn-primary">Start Growth Assessment →</a>
+  <a href="/cdn-cgi/l/email-protection#5b3639333e281b333e2876383435282e372f3a3538227632352f3e29353a2f3234353a3775383436" class="btn-ghost">Spreek Mike direct</a>
+</div>
+</div>
+
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function submitGate(){const e=document.getElementById('gateEmail');if(!e.value||!e.value.includes('@')){e.style.borderColor='var(--red)';return}document.getElementById('emailCapture').style.display='none';document.getElementById('gateSent').style.display='block'}
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI UTM Link Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#6C5CE7;--gold:#c8a55a;--green:#16a34a;--bg:#0f1419;--card:#1a1f2e;--border:#2a2f3e;--white:#f0f0f0;--gray:#8892a4;--input-bg:#141820}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;padding:32px}
+.container{max-width:720px;margin:0 auto}
+.header{margin-bottom:32px}
+.header h1{font-size:24px;font-weight:700;margin-bottom:4px}
+.header p{font-size:13px;color:var(--gray)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+.section h3{font-size:13px;font-weight:700;color:var(--purple);letter-spacing:.5px;margin-bottom:16px}
+label{display:block;font-size:11px;font-weight:600;color:var(--gray);margin-bottom:6px;letter-spacing:.3px}
+select,input[type="text"]{width:100%;padding:10px 14px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:'Outfit',sans-serif;font-size:13px;margin-bottom:14px;transition:border .2s}
+select:focus,input:focus{outline:none;border-color:var(--purple)}
+select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238892a4'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.page-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.page-btn{padding:8px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;color:var(--gray);font-size:11px;font-weight:600;cursor:pointer;text-align:center;transition:all .2s}
+.page-btn:hover{border-color:var(--purple);color:var(--white)}
+.page-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.output-box{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:16px;position:relative;min-height:48px;word-break:break-all;font-family:'Geist Mono',monospace;font-size:12px;line-height:1.6;color:var(--gold)}
+.output-box.empty{color:var(--gray);font-family:'Outfit',sans-serif;font-style:italic}
+.copy-btn{position:absolute;top:10px;right:10px;padding:6px 14px;background:var(--purple);border:none;border-radius:6px;color:#fff;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s}
+.copy-btn:hover{background:#5a4bd6}
+.copy-btn.copied{background:var(--green)}
+.preview{margin-top:12px;padding:12px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px}
+.preview-row{display:flex;justify-content:space-between;padding:3px 0;font-size:11px}
+.preview-row .key{color:var(--gray)}.preview-row .val{color:var(--white);font-weight:500;font-family:'Geist Mono',monospace}
+.tip{display:flex;gap:8px;padding:12px;background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);border-radius:8px;margin-top:16px;font-size:11px;color:var(--gray);line-height:1.5}
+.tip .icon{font-size:14px;flex-shrink:0}
+.history{margin-top:8px}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;margin-top:6px;font-size:11px;cursor:pointer;transition:border .2s}
+.history-item:hover{border-color:var(--purple)}
+.history-item .url{color:var(--gold);font-family:'Geist Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;margin-right:10px}
+.history-item .meta{color:var(--gray);white-space:nowrap}
+.clear-btn{padding:4px 10px;background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--gray);font-size:10px;cursor:pointer;margin-top:8px}
+.clear-btn:hover{border-color:#e74c3c;color:#e74c3c}
+@media(max-width:600px){.row,.page-grid{grid-template-columns:1fr}body{padding:16px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>🔗 HCI UTM Link Builder</h1>
+  <p>Genereer getagde links voor LinkedIn, email en campagnes. Eén structuur voor HCI en ChunkWorks.</p>
+</div>
+
+<!-- BASE URL -->
+<div class="section">
+  <h3>1. Bestemmingspagina</h3>
+  <label>Site</label>
+  <select id="site">
+    <option value="https://hes-consultancy-international.com">HCI — hes-consultancy-international.com</option>
+    <option value="https://chunkworks.net">ChunkWorks — chunkworks.net</option>
+  </select>
+  <label>Pagina (klik of typ)</label>
+  <div class="page-grid">
+    <div class="page-btn" data-page="/">Homepage</div>
+    <div class="page-btn" data-page="/eu-entry">EU Entry</div>
+    <div class="page-btn" data-page="/growth">Growth</div>
+    <div class="page-btn" data-page="/validate">Validate</div>
+    <div class="page-btn" data-page="/assessment">Assessment</div>
+    <div class="page-btn" data-page="/insights/cra">Brief CRA</div>
+    <div class="page-btn" data-page="/insights/nis2">Brief NIS2</div>
+    <div class="page-btn" data-page="/insights/dora">Brief DORA</div>
+    <div class="page-btn" data-page="/insights/aiact">Brief AI Act</div>
+  </div>
+  <input type="text" id="customPage" placeholder="Of typ een custom pad: /mijn-pagina">
+</div>
+
+<!-- UTM PARAMETERS -->
+<div class="section">
+  <h3>2. UTM Parameters</h3>
+  <div class="row">
+    <div>
+      <label>utm_source *</label>
+      <select id="source">
+        <option value="">— Kies bron —</option>
+        <option value="linkedin">LinkedIn (post / artikel)</option>
+        <option value="linkedin_ads">LinkedIn Ads (betaald)</option>
+        <option value="linkedin_inmail">LinkedIn InMail</option>
+        <option value="email">Email</option>
+        <option value="email_sequence">Email Sequence</option>
+        <option value="website">Website (intern)</option>
+        <option value="vendor">Vendor intro</option>
+        <option value="webinar">Webinar</option>
+        <option value="event">Event / conferentie</option>
+        <option value="referral">Referral</option>
+      </select>
+    </div>
+    <div>
+      <label>utm_segment</label>
+      <select id="segment">
+        <option value="">— Kies segment —</option>
+        <option value="fintech">Fintech</option>
+        <option value="gemeente">Gemeente / Overheid</option>
+        <option value="isv">ISV / Tech Vendor</option>
+        <option value="enterprise">Enterprise / Corporate</option>
+        <option value="scaleup">Scale-up / Growth</option>
+        <option value="zorg">Zorg / MedTech</option>
+        <option value="mssp">MSSP / IT Dienstverlener</option>
+        <option value="general">Algemeen</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <label>utm_campaign</label>
+      <input type="text" id="campaign" placeholder="bv: dora_q2, nis2_launch, webinar_maart">
+    </div>
+    <div>
+      <label>utm_content</label>
+      <input type="text" id="content" placeholder="bv: brief_dora, post_3, cta_header">
+    </div>
+  </div>
+</div>
+
+<!-- OUTPUT -->
+<div class="section">
+  <h3>3. Jouw link</h3>
+  <div class="output-box empty" id="output">Vul hierboven de velden in...</div>
+  <button class="copy-btn" id="copyBtn" style="display:none">Kopieer</button>
+
+  <div class="preview" id="preview" style="display:none"></div>
+
+  <div class="tip">
+    <div class="icon">💡</div>
+    <div>Gebruik deze link in je LinkedIn post, email of InMail. De UTM-parameters zijn onzichtbaar voor de ontvanger maar zichtbaar in PostHog en GA4.</div>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="section">
+  <h3>📋 Laatste links</h3>
+  <div class="history" id="history">
+    <div style="font-size:11px;color:var(--gray);font-style:italic">Nog geen links gegenereerd...</div>
+  </div>
+  <button class="clear-btn" id="clearHistory" style="display:none">Geschiedenis wissen</button>
+</div>
+
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let selectedPage = '';
+let history = [];
+
+// Page buttons
+document.querySelectorAll('.page-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedPage = btn.dataset.page;
+    $('customPage').value = '';
+    generateLink();
+  });
+});
+
+// Custom page input clears buttons
+$('customPage').addEventListener('input', () => {
+  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+  selectedPage = '';
+  generateLink();
+});
+
+// All inputs trigger generation
+['site','source','segment','campaign','content'].forEach(id => {
+  $(id).addEventListener('change', generateLink);
+  $(id).addEventListener('input', generateLink);
+});
+
+function generateLink() {
+  const site = $('site').value;
+  const page = selectedPage || $('customPage').value || '/';
+  const source = $('source').value;
+  const segment = $('segment').value;
+  const campaign = $('campaign').value.trim().toLowerCase().replace(/\s+/g,'_');
+  const content = $('content').value.trim().toLowerCase().replace(/\s+/g,'_');
+
+  if (!source) {
+    $('output').textContent = 'Kies minimaal een utm_source...';
+    $('output').className = 'output-box empty';
+    $('copyBtn').style.display = 'none';
+    $('preview').style.display = 'none';
+    return;
+  }
+
+  const params = new URLSearchParams();
+  if (source) params.set('utm_source', source);
+  if (campaign) params.set('utm_campaign', campaign);
+  if (segment) params.set('utm_segment', segment);
+  if (content) params.set('utm_content', content);
+
+  const url = site + page + '?' + params.toString();
+  
+  $('output').textContent = url;
+  $('output').className = 'output-box';
+  $('copyBtn').style.display = 'block';
+
+  // Preview
+  let previewHTML = '';
+  const rows = [
+    ['Site', site.replace('https://','')],
+    ['Pagina', page],
+    ['Bron', source || '—'],
+    ['Campagne', campaign || '—'],
+    ['Segment', segment || '—'],
+    ['Content', content || '—'],
+  ];
+  rows.forEach(([k,v]) => {
+    previewHTML += `<div class="preview-row"><span class="key">${k}</span><span class="val">${v}</span></div>`;
+  });
+  $('preview').innerHTML = previewHTML;
+  $('preview').style.display = 'block';
+}
+
+// Copy
+$('copyBtn').addEventListener('click', () => {
+  const url = $('output').textContent;
+  navigator.clipboard.writeText(url).then(() => {
+    $('copyBtn').textContent = '✓ Gekopieerd!';
+    $('copyBtn').classList.add('copied');
+    addToHistory(url);
+    setTimeout(() => {
+      $('copyBtn').textContent = 'Kopieer';
+      $('copyBtn').classList.remove('copied');
+    }, 2000);
+  });
+});
+
+function addToHistory(url) {
+  const now = new Date();
+  const time = now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
+  const date = now.toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
+  history.unshift({ url, time: `${date} ${time}` });
+  if (history.length > 10) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  if (!history.length) return;
+  let html = '';
+  history.forEach(h => {
+    html += `<div class="history-item" onclick="navigator.clipboard.writeText('${h.url}')"><span class="url">${h.url}</span><span class="meta">${h.time}</span></div>`;
+  });
+  $('history').innerHTML = html;
+  $('clearHistory').style.display = 'inline-block';
+}
+
+$('clearHistory').addEventListener('click', () => {
+  history = [];
+  $('history').innerHTML = '<div style="font-size:11px;color:var(--gray);font-style:italic">Nog geen links gegenereerd...</div>';
+  $('clearHistory').style.display = 'none';
+});
+</script>
+</body>
+</html>

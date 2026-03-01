@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layer 3 Blueprint — AI Act Full Proposition — HCI IP (Intern)</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#a78bfa;--accent-light:#c4b5fd;--accent-dim:rgba(167,139,250,.08);--accent-border:rgba(167,139,250,.25);--gold:#c8a55a;--bg:#fafaf8;--bg-card:#fff;--border:#e5e5e0;--ink:#0f1419;--text:#374151;--text-dim:#6b7280;--red:#dc2626;--green:#16a34a;--amber:#d97706}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;max-width:860px;margin:0 auto;padding:40px 32px}
+.watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-family:'Geist Mono',monospace;font-size:80px;color:rgba(220,38,38,.04);pointer-events:none;z-index:0;white-space:nowrap;letter-spacing:8px}
+.header{border-bottom:3px solid var(--ink);padding-bottom:32px;margin-bottom:48px}
+.header .confidential{display:inline-block;background:var(--red);color:#fff;font-family:'Geist Mono',monospace;font-size:10px;padding:4px 12px;border-radius:4px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.header h1{font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink);line-height:1.2;margin-bottom:8px}.header h1 em{font-style:italic;color:var(--accent)}
+.header .sub{font-size:15px;color:var(--text-dim);margin-bottom:16px}
+.meta{display:flex;gap:24px;font-size:12px;color:var(--text-dim)}
+h2{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ink);margin:48px 0 16px;padding-top:24px;border-top:1px solid var(--border)}
+h3{font-size:16px;font-weight:600;color:var(--ink);margin:28px 0 10px}
+h4{font-size:14px;font-weight:600;color:var(--ink);margin:20px 0 8px}
+p{margin-bottom:12px}strong{color:var(--ink)}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0}
+.card.accent{border-left:4px solid var(--accent)}.card.gold{border-left:4px solid var(--gold)}.card.warn{border-left:4px solid var(--amber)}
+.card h4{margin-top:0}.card p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th{text-align:left;padding:10px 14px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent-border);background:var(--accent-dim)}
+td{padding:10px 14px;border-bottom:1px solid var(--border)}
+.num{font-family:'Geist Mono',monospace;text-align:right;color:var(--ink);font-weight:500}
+.total td{border-top:2px solid var(--accent-border);font-weight:600}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.pitch-slide{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px;counter-increment:slide}
+.pitch-slide::before{content:"Slide " counter(slide);font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.5px;display:block;margin-bottom:6px}
+.pitch-slide h5{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.pitch-slide p{font-size:12px;color:var(--text);margin:0;line-height:1.5}
+.timeline{margin:16px 0}
+.tl-item{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)}
+.tl-week{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);width:80px;flex-shrink:0}
+.tl-content h5{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.tl-content p{font-size:12px;margin:0;color:var(--text);line-height:1.5}
+.tl-content .deliverable{font-family:'Geist Mono',monospace;font-size:10px;color:var(--gold);margin-top:4px}
+.review-box{background:#fef3c7;border:1px solid #fde68a;border-radius:12px;padding:20px;margin:16px 0}
+.review-box h4{color:var(--amber);margin-top:0}.review-box p{font-size:13px;margin:0;color:#92400e}
+@media(max-width:700px){body{padding:20px 16px}.grid-2{grid-template-columns:1fr}.tl-item{flex-direction:column;gap:4px}.tl-week{width:auto}}
+</style>
+</head>
+<body>
+<div class="watermark">HCI CONFIDENTIAL</div>
+
+<div class="header">
+  <div class="confidential">🔒 Layer 3 — HCI IP — Niet publiceren</div>
+  <h1>AI Act Full Proposition Blueprint<br><em>First mover in de prille AI-governance markt</em></h1>
+  <div class="sub">Intern werkdocument. AI Act-specifiek: GPAI Inventory als instap, high-risk conformiteitsbeoordeling, sector-specifieke targeting (HR-tech, zorg, finance), deployer vs provider verplichtingen, en het GDPR-patroon als positioneringsstrategie.</div>
+  <div class="meta"><span>Versie 1.0 · Maart 2026</span><span>Status: Review door Mike</span><span>Regulering: AI Act (EU 2024/1689)</span></div>
+</div>
+
+<!-- 1. PMC WORKSHOP -->
+<h2>1. PMC Workshop: AI Act-propositie bouwen</h2>
+<p>De AI Act-markt is pril. Dat verandert de workshop fundamenteel: je bouwt niet een propositie in een bestaande markt — je creëert een markt. De partner wordt first mover.</p>
+
+<h3>1.1 Ochtend: AI Act Masterclass (3 uur)</h3>
+<div class="card accent">
+<h4>Blok A — AI Act Fundamentals (90 min)</h4>
+<p><strong>Doel:</strong> Partner begrijpt de AI Act structuur en kan het uitleggen aan een klant.</p>
+<p><strong>Inhoud:</strong></p>
+<p><strong>Risicoklassen:</strong> Verboden (social scoring, real-time biometrie), Hoog risico (Annex III: HR, zorg, finance, onderwijs, law enforcement), Beperkt risico (transparantieverplichtingen), Minimaal risico (geen extra verplichtingen).</p>
+<p><strong>Rollen:</strong> Provider (ontwikkelaar van AI-systeem), Deployer (gebruiker/inzetter), Importeur, Distributeur. Cruciaal: de meeste klanten zijn Deployer, niet Provider. Deployer-verplichtingen zijn minder zwaar maar bestaan wél — en worden genegeerd.</p>
+<p><strong>GPAI:</strong> General Purpose AI (ChatGPT, Copilot, Gemini, Claude). Transparantieverplichtingen. Systemic risk modellen (extra verplichtingen). Elke organisatie die Copilot uitrolt is deployer van GPAI.</p>
+<p><strong>Tijdlijn:</strong> Feb 2025 (verboden praktijken), Aug 2025 (GPAI + governance), Aug 2026 (high-risk), Aug 2027 (volledige handhaving).</p>
+</div>
+
+<div class="card accent">
+<h4>Blok B — De "Copilot-vraag" (45 min)</h4>
+<p><strong>Doel:</strong> Partner begrijpt waarom GPAI Inventory het perfecte instapproduct is.</p>
+<p><strong>Het probleem:</strong> Vrijwel elke organisatie 100+ medewerkers gebruikt GPAI-tools: Copilot, ChatGPT Enterprise, Gemini, Jasper, Midjourney. Niemand heeft een register. Niemand heeft transparantie-documentatie. Niemand weet welke AI-tools op welke afdelingen draaien. De CISO weet het niet. De CIO weet het niet. De directie weet het niet.</p>
+<p><strong>De oplossing:</strong> GPAI Inventory = AI-tools inventarisatie + risicoklasse-toewijzing + transparantie-documentatie + procurement framework. 4-6 weken doorlooptijd. €14-30K. Laag risico, hoog nut, duidelijke deliverables.</p>
+<p><strong>De upsell:</strong> Tijdens de GPAI Inventory identificeer je AI-systemen die als high-risk classificeren. Elke HR-afdeling met AI-screening. Elke financiële afdeling met AI-creditscoring. Elk ziekenhuis met AI-diagnostiek. Per systeem: €15-40K conformiteitstraject.</p>
+</div>
+
+<div class="card accent">
+<h4>Blok C — Sector Targeting (45 min)</h4>
+<p><strong>Doel:</strong> Partner kiest 1-2 sectoren voor first mover positionering.</p>
+<table>
+<tr><th>Sector</th><th>Waarom high-risk</th><th>Instap</th><th class="num">Klantwaarde</th></tr>
+<tr><td><strong>HR-tech / Recruitment</strong></td><td>AI in werving = Annex III expliciet</td><td>GPAI Inventory + AI-screening audit</td><td class="num">€40-80K</td></tr>
+<tr><td><strong>Zorg / MedTech</strong></td><td>AI-diagnostiek = high-risk + MDR overlap</td><td>AI Inventory + conformiteitsbeoordeling</td><td class="num">€80-160K</td></tr>
+<tr><td><strong>Finance</strong></td><td>Creditscoring + fraude-detectie = high-risk</td><td>DORA+AI Act combo assessment</td><td class="num">€60-120K</td></tr>
+<tr><td><strong>Breed (GPAI)</strong></td><td>Elke organisatie met Copilot/ChatGPT</td><td>GPAI Inventory Quick-Win</td><td class="num">€14-30K</td></tr>
+</table>
+</div>
+
+<h3>1.2 Middag: Propositie & Sales (2,5 uur)</h3>
+<div class="card accent">
+<h4>Blok D — Pricing & Positionering (60 min)</h4>
+<p><strong>A-B-C Model AI Act:</strong></p>
+<p><strong>A — GPAI Quick-Win (€14-30K):</strong> Inventarisatie, classificatie, transparantie-docs, procurement framework. Laagdrempelig. Elk bedrijf 200+ medewerkers. Volume play.</p>
+<p><strong>B — High-Risk Conformiteit (€15-40K per systeem):</strong> Conformiteitsbeoordeling, kwaliteitsmanagement, EU-database registratie, menselijk toezicht. Sector-specifiek. Hogere expertise vereist.</p>
+<p><strong>C — AI Governance Retainer (€2-3.5K/mnd):</strong> Nieuwe AI-tools beoordelen, beleidsactualisatie, audit readiness. Recurring. Groeit mee met AI-adoptie van klant.</p>
+<p><strong>Positionering:</strong> "De AI Act partner." Niet "wij doen ook AI governance" maar "AI Act is wat wij doen." First mover = category owner. Net als de GDPR-specialisten in 2016-2018.</p>
+</div>
+
+<div class="card accent">
+<h4>Blok E — De GDPR-parallel als sales pitch (30 min)</h4>
+<p><strong>Het verhaal:</strong> "In 2016 zag niemand GDPR-compliance als business. In 2018 verdienden privacy-consultancies miljoenen. De AI Act volgt exact hetzelfde patroon: hogere boetes (€35M vs €20M), bredere scope, meer complexiteit. Wie nu positioneert, wint 2 jaar voorsprong."</p>
+<p><strong>Concreet:</strong> Privacy-consultancies die in 2016-2017 startten met DPIA's en verwerkersovereenkomsten, hadden in 2018 volle orderboeken. AI Act-partners die nu starten met GPAI Inventories en conformiteitsbeoordelingen, hebben in 2027 volle orderboeken. Het window is 12-18 maanden.</p>
+</div>
+
+<div class="card accent">
+<h4>Blok F — GTM Planning (60 min)</h4>
+<p><strong>Specifiek voor AI Act:</strong> Thought leadership is cruciaal in een prille markt. De partner moet gezien worden als expert vóórdat de markt wakker wordt. LinkedIn strategie: 3 posts/week over AI Act. Webinar binnen 6 weken. Whitepaper/blog "AI Act in 10 minuten" als lead magnet.</p>
+</div>
+
+<!-- 2. VENDOR BENADERING -->
+<h2>2. Vendor Benadering: AI-specifiek</h2>
+
+<table>
+<tr><th>Vendor route</th><th>Aanpak</th><th>Waarom</th></tr>
+<tr><td><strong>Microsoft Copilot team</strong></td><td>Positioneer als "Copilot governance partner." Elke Copilot-uitrol vereist AI Act compliance. Microsoft kan dit niet zelf leveren.</td><td>Copilot is de GPAI die iedereen uitrolt. Elke Copilot-deal = AI Act-opportunity.</td></tr>
+<tr><td><strong>HR-tech vendors</strong></td><td>Benaderen van HR-software leveranciers (Workday, SAP SuccessFactors, Bullhorn, Textkernel). Hun klanten moeten high-risk conformiteit borgen.</td><td>HR-tech vendors worden Provider, hun klanten Deployer. Beide hebben verplichtingen.</td></tr>
+<tr><td><strong>MedTech / zorg-IT vendors</strong></td><td>AI-diagnostiek leveranciers benaderen. Overlap met MDR/IVDR maakt het complex maar waardevol.</td><td>Zorg-AI is het hoogste risicosegment. Bereidheid tot investering is groot.</td></tr>
+</table>
+
+<div class="card gold">
+<h4>De Copilot-angle als deuropener</h4>
+<p>Microsoft rolt Copilot agressief uit. Elke klant die Copilot koopt, wordt deployer van GPAI onder de AI Act. Microsoft AE's kunnen deze compliance-verantwoordelijkheid niet adresseren. De partner die zegt "Ik help uw klanten Copilot-compliant uitrollen" krijgt een open deur bij elke AE die Copilot verkoopt. En dat zijn er veel.</p>
+</div>
+
+<!-- 3. PITCH STRUCTUUR -->
+<h2>3. Pitch Structuur: 5 slides</h2>
+<p>Bij AI Act pitch je aan de CIO, CISO, of CDO (Chief Data Officer). Afhankelijk van de organisatie ook de HR-directeur (als AI in recruitment wordt gebruikt).</p>
+
+<div class="grid-2" style="counter-reset:slide">
+<div class="pitch-slide"><h5>"Hoeveel AI-tools gebruikt uw organisatie?"</h5><p>Niet retorisch — letterlijk de vraag stellen. De meeste CIO's weten het antwoord niet. "Als u het niet weet, is dat precies waarom we hier zitten." Shock value + herkenning.</p></div>
+<div class="pitch-slide"><h5>"De AI Act is wet. Dit is de tijdlijn."</h5><p>4 fases visueel. GPAI aug 2025 (NU). High-risk aug 2026 (12 maanden). "U heeft 12 maanden voor high-risk systemen. De GPAI-deadline is al gepasseerd."</p></div>
+<div class="pitch-slide"><h5>"Deployer ≠ vrijgesteld"</h5><p>Veel organisaties denken: "Wij ontwikkelen geen AI, dus het raakt ons niet." Fout. Deployers hebben eigen verplichtingen: transparantie, menselijk toezicht, monitoring. Elke Copilot-gebruiker is deployer.</p></div>
+<div class="pitch-slide"><h5>"Van inventory naar governance" (4 pillars)</h5><p>Pillar 1: Inventory & Classificatie. Pillar 2: High-Risk Conformiteit. Pillar 3: GPAI & Procurement. Pillar 4: AI Governance Programma. Investering: €14K (instap) tot €120K+ (full trajectory).</p></div>
+<div class="pitch-slide"><h5>"Start met de GPAI Inventory"</h5><p>"4 weken, €14-18K. U krijgt: compleet AI-register, risicoklasse per tool, transparantie-documentatie, procurement framework voor nieuwe AI-tools. 80% van de organisaties ontdekt tijdens deze exercise AI-tools die ze niet wisten te hebben."</p></div>
+</div>
+
+<!-- 4. COMPETITIVE POSITIONING -->
+<h2>4. Competitive Positioning</h2>
+
+<table>
+<tr><th>Wanneer klant zegt...</th><th>Jouw antwoord</th></tr>
+<tr><td>"De AI Act is pas over 2 jaar volledig van kracht"</td><td>"GPAI-verplichtingen gelden al sinds augustus 2025. High-risk in augustus 2026. Conformiteitsbeoordeling van complexe AI-systemen kost 6-12 maanden. Als u in augustus 2026 compliant wilt zijn, moet u nu starten."</td></tr>
+<tr><td>"Onze privacy officer doet dit erbij"</td><td>"GDPR en AI Act hebben overlap (DPIA's). Maar conformiteitsbeoordeling van AI-systemen vereist andere expertise: technische AI-kennis, Annex III classificatie, GPAI-transparantie. Dat is geen privacy-werk — dat is AI-governance."</td></tr>
+<tr><td>"We wachten op de marktstandaarden"</td><td>"Begrijpelijk. Maar de boete wacht niet: €35M of 7% wereldwijde omzet. En de standaarden die er zijn (ISO 42001, NIST AI RMF) zijn nu al bruikbaar als basis. Wij bouwen erop voort zodra de geharmoniseerde normen verschijnen."</td></tr>
+<tr><td>"Wij gebruiken alleen Copilot, dat is laag risico"</td><td>"Copilot als productiviteitstool: beperkt risico. Maar gebruikt uw HR-afdeling Copilot voor candidate screening? Gebruikt Finance het voor risicobeoordeling? Dan verschuift de classificatie naar high-risk. Dat is precies wat de GPAI Inventory uitwijst."</td></tr>
+</table>
+
+<!-- 5. GTM-TIMELINE -->
+<h2>5. GTM-Timeline: 8 weken naar eerste AI Act-klant</h2>
+
+<div class="timeline">
+<div class="tl-item"><div class="tl-week">WEEK 1-2</div><div class="tl-content"><h5>Thought leadership blitz</h5><p>15 LinkedIn posts schedulen ("AI Act in de praktijk"). Blog/whitepaper: "De 5 dingen die elke CIO moet weten over de AI Act." GPAI Inventory propositie documenteren. Assessment template bouwen.</p><div class="deliverable">→ Deliverables: 15 posts, whitepaper, propositie-document, assessment template</div></div></div>
+<div class="tl-item"><div class="tl-week">WEEK 3-4</div><div class="tl-content"><h5>Sector sprint</h5><p>30 HR-tech bedrijven + 20 MedTech/zorg targets. Outreach: "GPAI-verplichtingen gelden al. Heeft u een register?" MS Copilot AE briefen. HR-tech vendor benaderen voor partnership.</p><div class="deliverable">→ KPI: 5 gesprekken geboekt, 1 vendor partnership in bespreking</div></div></div>
+<div class="tl-item"><div class="tl-week">WEEK 5-6</div><div class="tl-content"><h5>First inventories</h5><p>5 GPAI Inventories uitvoeren. AI-register opleveren. High-risk systemen identificeren. Conformiteits-proposals schrijven voor klanten met high-risk AI.</p><div class="deliverable">→ KPI: 5 inventories, 2+ high-risk identificaties</div></div></div>
+<div class="tl-item"><div class="tl-week">WEEK 7-8</div><div class="tl-content"><h5>Convert & position</h5><p>3 getekende GPAI Quick-Wins (€14-30K elk). 1-2 high-risk conformiteitstrajecten starten. Webinar "AI Act in de praktijk" lanceren. Pipeline: 8+ opportunities.</p><div class="deliverable">→ KPI: 3 klanten, €42-90K omzet, thought leadership gevestigd</div></div></div>
+</div>
+
+<div class="card gold">
+<h4>Het first mover voordeel</h4>
+<p>In een prille markt is zichtbaarheid = expertise. De partner die nu 3x per week over AI Act post, een webinar geeft, en een whitepaper publiceert, wordt over 6 maanden gezien als "de AI Act expert." Niet omdat die meer weet dan anderen, maar omdat die eerder begonnen is met zichtbaar zijn. Dit is exact het GDPR-patroon: de eerste privacy-consultancies die LinkedIn vulden met GDPR-content werden de referentie-experts. De AI Act biedt dezelfde kans — maar het window sluit in Q3-Q4 2026.</p>
+</div>
+
+<div class="review-box">
+<h4>📝 Mike: review de volledige AI Act blueprint</h4>
+<p>(1) Klopt de Copilot-angle als hoofdinstap? Of zie je een andere deuropener? (2) Is de HR-tech targeting realistisch? Ken je partijen in dat segment? (3) Hoe zie je de overlap met GDPR-expertise — is dat een kans of een conflict? (4) Wil je de GPAI Inventory als apart assessment-template uitwerken? (5) Moet de MedTech/MDR overlap meer uitgewerkt worden?</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI DORA Brief – LinkedIn Visual</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 627px; overflow: hidden; font-family: 'DM Sans', sans-serif; background: #020b18; }
+
+  .card {
+    width: 1200px; height: 627px; position: relative;
+    background: linear-gradient(135deg, #0c0804 0%, #1a0e04 60%, #2a1608 100%);
+    overflow: hidden; display: flex; align-items: center; padding: 0 80px; gap: 60px;
+  }
+
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(251,146,60,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(251,146,60,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .orb1 { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(251,146,60,0.15) 0%, transparent 70%); top: -100px; right: 200px; }
+  .orb2 { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(200,165,90,0.10) 0%, transparent 70%); bottom: -80px; left: 300px; }
+
+  .left { position: relative; z-index: 2; flex: 1; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(251,146,60,0.15); border: 1px solid rgba(251,146,60,0.35);
+    border-radius: 100px; padding: 6px 16px; margin-bottom: 24px;
+    font-size: 12px; font-weight: 500; color: #fdba74; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #fb923c; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } }
+
+  h1 { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1.1; color: #ffffff; margin-bottom: 8px; }
+  h1 span { background: linear-gradient(90deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .subtitle { font-size: 16px; color: rgba(255,255,255,0.55); font-weight: 300; margin-bottom: 32px; line-height: 1.5; max-width: 420px; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+  .pill { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 7px 14px; font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .pill .icon { font-size: 14px; }
+
+  .url { font-size: 13px; color: rgba(251,146,60,0.7); letter-spacing: 0.04em; }
+
+  .right { position: relative; z-index: 2; flex-shrink: 0; width: 360px; }
+
+  .panel { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 28px; backdrop-filter: blur(20px); }
+  .panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); margin-bottom: 20px; font-weight: 500; }
+
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .stat-value { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; }
+  .stat-value.orange { color: #fdba74; }
+  .stat-value.green { color: #4ade80; }
+
+  .vs-bar { margin-top: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px; }
+  .vs-label { font-size: 11px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .vs-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .vs-name { font-size: 12px; color: rgba(255,255,255,0.6); width: 100px; flex-shrink: 0; }
+  .bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-fill.invest { background: linear-gradient(90deg, #fb923c, #fdba74); width: 11%; }
+  .bar-fill.risk { background: rgba(248,113,113,0.5); width: 100%; }
+  .bar-cost { font-size: 12px; font-weight: 600; flex-shrink: 0; }
+  .bar-cost.invest { color: #fdba74; }
+  .bar-cost.risk { color: rgba(248,113,113,0.6); }
+
+  .logo-area {
+    position: absolute; bottom: 30px; left: 80px; z-index: 3;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .logo-area img { height: 28px; opacity: 0.5; }
+  .divider { color: rgba(255,255,255,0.15); }
+  .logo-text { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="grid-bg"></div>
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+
+  <div class="left">
+    <div class="badge"><span class="dot"></span> Van kracht · 17 januari 2025</div>
+    <h1>DORA Market<br><span>Opportunity Brief</span></h1>
+    <p class="subtitle">De financiële sector zoekt hulp. €112K per klant in jaar 1. Sweet spot: middelgrote fintechs. De meeste IT-partners bedienen deze markt nog niet.</p>
+    <div class="pills">
+      <div class="pill"><span class="icon">🏦</span> Financiële sector</div>
+      <div class="pill"><span class="icon">⚡</span> Al van kracht</div>
+      <div class="pill"><span class="icon">📋</span> 4 Service Pillars</div>
+      <div class="pill"><span class="icon">🔄</span> €54K recurring/jr</div>
+    </div>
+    <div class="url">hes-consultancy-international.com/dora</div>
+  </div>
+
+  <div class="right">
+    <div class="panel">
+      <div class="panel-title">DORA in cijfers</div>
+      <div class="stat-row"><span class="stat-label">Status</span><span class="stat-value green">Van kracht ✓</span></div>
+      <div class="stat-row"><span class="stat-label">Scope NL</span><span class="stat-value orange">500+ entiteiten</span></div>
+      <div class="stat-row"><span class="stat-label">Jaar 1 per klant</span><span class="stat-value orange">€112.000</span></div>
+      <div class="stat-row"><span class="stat-label">Recurring per jaar</span><span class="stat-value orange">€54.000</span></div>
+      <div class="stat-row"><span class="stat-label">Max boete</span><span class="stat-value" style="color:#f87171">10% jaaromzet</span></div>
+
+      <div class="vs-bar">
+        <div class="vs-label">Investering vs. risico-exposure</div>
+        <div class="vs-row">
+          <span class="vs-name">Investering</span>
+          <div class="bar-wrap"><div class="bar-fill invest"></div></div>
+          <span class="bar-cost invest">€112K</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-name">Boete-risico</span>
+          <div class="bar-wrap"><div class="bar-fill risk"></div></div>
+          <span class="bar-cost risk">10% omzet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="White_logo_-_no_background.png" alt="HCI">
+    <span class="divider">|</span>
+    <span class="logo-text" style="color:rgba(251,146,60,0.5)">From Strategy to First Customer</span>
+  </div>
+</div>
+</body>
+</html>

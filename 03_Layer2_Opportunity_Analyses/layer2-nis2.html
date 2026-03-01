@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIS2 Opportunity Analysis — Revenue Model, Supply Chain Multiplier & Roadmap — HCI</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#2dd4bf;--accent-light:#5eead4;--accent-dim:rgba(45,212,191,.12);--accent-border:rgba(45,212,191,.3);--gold:#c8a55a;--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;--border:rgba(255,255,255,.06);--text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;--red:#f87171;--green:#4ade80}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 600px at 30% 10%,rgba(45,212,191,.06) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 80% 90%,rgba(200,165,90,.03) 0%,transparent 70%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;background:rgba(8,9,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-tag{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--accent-dim);color:var(--accent);letter-spacing:1px;text-transform:uppercase;border:1px solid var(--accent-border)}
+.container{max-width:960px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
+section{padding:80px 0}.section-border{border-top:1px solid var(--border)}
+.hero{padding:140px 0 60px}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);text-decoration:none;margin-bottom:32px}.hero-back:hover{color:var(--accent-light)}
+.hero-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.hero-cat{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.layer-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:4px;background:rgba(200,165,90,.1);border:1px solid rgba(200,165,90,.25);font-family:'Geist Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:1px}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4.5vw,44px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:20px}.hero h1 em{font-style:italic;color:var(--accent-light)}
+.hero-lead{font-size:17px;color:var(--text);line-height:1.7;max-width:640px;margin-bottom:32px}
+article h2{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;color:var(--white);margin:56px 0 16px;line-height:1.2}article h2 em{font-style:italic;color:var(--accent-light)}
+article h3{font-size:16px;font-weight:600;color:var(--text-bright);margin:32px 0 10px}
+article p{font-size:15px;line-height:1.8;margin-bottom:14px}article strong{color:var(--text-bright)}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.data-table th{text-align:left;padding:10px 14px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent-border);background:var(--bg-card)}
+.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text)}.data-table tr:hover td{background:rgba(255,255,255,.02)}
+.data-table .num{font-family:'Geist Mono',monospace;color:var(--text-bright);text-align:right}
+.data-table .total td{border-top:2px solid var(--accent-border);font-weight:600;color:var(--accent-light)}
+.insight-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0}
+.insight-card h4{font-size:14px;font-weight:600;color:var(--text-bright);margin-bottom:8px}.insight-card p{font-size:13px;margin:0;line-height:1.6;color:var(--text)}
+.roadmap{margin:32px 0}
+.rm-phase{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start}
+.rm-week{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);width:90px;flex-shrink:0;padding-top:2px;letter-spacing:.5px}
+.rm-content h4{font-size:14px;font-weight:600;color:var(--text-bright);margin-bottom:4px}.rm-content p{font-size:13px;margin:0;color:var(--text);line-height:1.6}
+.rm-phase.active{border-color:var(--accent-border);background:linear-gradient(135deg,var(--accent-dim),var(--bg-card))}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.comp-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.comp-card h4{font-size:13px;font-weight:600;color:var(--text-bright);margin-bottom:6px}
+.comp-card .comp-type{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:.5px;margin-bottom:8px}
+.comp-card p{font-size:12px;margin:0;line-height:1.6;color:var(--text)}
+.comp-card .strength{color:var(--green);font-size:11px;margin-top:8px}.comp-card .weakness{color:var(--red);font-size:11px;margin-top:4px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-num{font-family:'Instrument Serif',serif;font-size:32px;color:var(--accent-light);line-height:1}.stat-label{font-size:11px;color:var(--text-dim);margin-top:4px}
+.revenue-box{background:var(--bg-card);border:1px solid var(--accent-border);border-radius:14px;padding:28px;margin:24px 0}
+.revenue-box h3{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:16px}
+.multiplier-box{background:linear-gradient(135deg,var(--accent-dim),var(--bg-card));border:1px solid var(--accent-border);border-radius:14px;padding:28px;margin:24px 0}
+.multiplier-box h3{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:12px}
+.multiplier-box p{font-size:14px;color:var(--text);line-height:1.7}
+.final-cta{text-align:center;padding:80px 0}.final-cta h2{font-family:'Instrument Serif',serif;font-size:30px;font-weight:400;color:var(--white);margin-bottom:12px}.final-cta h2 em{font-style:italic;color:var(--accent-light)}.final-cta p{font-size:15px;color:var(--text);margin-bottom:24px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--accent);color:var(--bg-deep);transition:all .3s}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(45,212,191,.3)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;color:var(--text);border:1px solid var(--border);margin-left:12px}.btn-ghost:hover{border-color:var(--accent-border);color:var(--accent-light)}
+footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.footer-text{font-size:11px;color:var(--text-dim)}.footer-text a{color:var(--gold);text-decoration:none}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:700px){nav{padding:12px 20px}.container{padding:0 20px}.hero{padding:100px 0 40px}.stat-row,.comp-grid{grid-template-columns:1fr}.rm-phase{flex-direction:column;gap:8px}.rm-week{width:auto}}
+</style>
+</head>
+<body>
+<div class="ambient"></div><div class="grain"></div>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">NIS2 · Opportunity Analysis</span></div></nav>
+
+<div class="container">
+<section class="hero">
+  <a href="/insights/nis2" class="hero-back">← Terug naar NIS2 Public Brief</a>
+  <div class="hero-meta"><span class="hero-cat">NIS2 · Layer 2 Analysis</span><span class="layer-badge">🔒 Gated Content</span></div>
+  <h1>NIS2 Opportunity Analysis:<br><em>revenue model, supply chain multiplier & boardroom pitch</em></h1>
+  <p class="hero-lead">Het doorgerekende NIS2 revenue model, de supply chain multiplier die de markt 3x groter maakt dan je denkt, het concurrentielandschap, en een boardroom pitch deck strategie die deuren opent.</p>
+</section>
+
+<article>
+<h2>1. Revenue model: <em>vier pillars, doorgerekend</em></h2>
+
+<table class="data-table fade-up">
+<thead><tr><th>Service Pillar</th><th>Scope</th><th class="num">Projectwerk</th><th class="num">Recurring/mnd</th></tr></thead>
+<tbody>
+<tr><td><strong>Pillar 1:</strong> Scope & Classificatie</td><td>Entiteit-classificatie (essentieel/belangrijk), asset inventarisatie, sectoranalyse, registratieplicht</td><td class="num">€4.500 – €8.000</td><td class="num">—</td></tr>
+<tr><td><strong>Pillar 2:</strong> Gap Assessment</td><td>Technisch + organisatorisch gap assessment, risicobeheer toetsing, meldplicht readiness, supply chain analyse</td><td class="num">€8.000 – €15.000</td><td class="num">—</td></tr>
+<tr><td><strong>Pillar 3:</strong> Implementatie</td><td>Risicobeheermaatregelen, incidentrespons, supply chain security, awareness, governance inrichting</td><td class="num">€15.000 – €40.000</td><td class="num">—</td></tr>
+<tr><td><strong>Pillar 4:</strong> Managed Compliance</td><td>Doorlopende monitoring, periodieke herbeoordelingen, meldplicht-management, beleidsactualisatie</td><td class="num">—</td><td class="num">€2.500 – €4.500</td></tr>
+<tr class="total"><td colspan="2"><strong>Totaal per klant</strong></td><td class="num">€27.500 – €63.000</td><td class="num">€2.500 – €4.500</td></tr>
+</tbody>
+</table>
+
+<div class="revenue-box fade-up">
+<h3>Drie scenario's — Year 1 projectie</h3>
+<table class="data-table" style="margin:0">
+<thead><tr><th>Scenario</th><th class="num">Klanten Y1</th><th class="num">Projectwerk</th><th class="num">Recurring (8 mnd)</th><th class="num">Totaal Y1</th></tr></thead>
+<tbody>
+<tr><td>Conservative</td><td class="num">4</td><td class="num">€152.000</td><td class="num">€96.000</td><td class="num">€248.000</td></tr>
+<tr><td>Base case</td><td class="num">8</td><td class="num">€304.000</td><td class="num">€192.000</td><td class="num">€496.000</td></tr>
+<tr><td>Accelerated</td><td class="num">14</td><td class="num">€532.000</td><td class="num">€336.000</td><td class="num">€868.000</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="insight-card fade-up">
+<h4>Waarom NIS2 meer klanten per jaar oplevert dan DORA</h4>
+<p>Lagere gemiddelde klantwaarde (€74.5K vs €112K) maar 10-40x meer potentiële klanten. NIS2 is een volumemarkt: 20.000+ directe entiteiten versus ~500 bij DORA. De lagere drempel (instap €12.500) maakt snellere sales cycles mogelijk. En de supply chain multiplier vergroot de markt naar 70.000+.</p>
+</div>
+
+<!-- SUPPLY CHAIN MULTIPLIER -->
+<h2>2. Supply chain multiplier: <em>het verborgen volume</em></h2>
+
+<div class="multiplier-box fade-up">
+<h3>Waarom de markt 3x groter is dan je denkt</h3>
+<p>NIS2 verplicht essentiële en belangrijke entiteiten om hun <strong>supply chain security</strong> te waarborgen. Dat betekent dat elke leverancier van een NIS2-entiteit contractueel verplicht wordt om security-eisen te hanteren. Een IT-partner die levert aan een ziekenhuis, energiebedrijf of waterschap wordt onderdeel van de NIS2-keten — zonder zelf in scope te zijn.</p>
+</div>
+
+<table class="data-table fade-up">
+<thead><tr><th>Laag</th><th>Beschrijving</th><th class="num">Geschat volume NL</th></tr></thead>
+<tbody>
+<tr><td><strong>Laag 1:</strong> Essentiële entiteiten</td><td>Energie, transport, bankwezen, gezondheidszorg, drinkwater, digitale infra, overheid</td><td class="num">2.500 – 4.000</td></tr>
+<tr><td><strong>Laag 2:</strong> Belangrijke entiteiten</td><td>Post, afval, chemie, voedsel, productie, digitale dienstverleners, onderzoek</td><td class="num">12.000 – 20.000</td></tr>
+<tr><td><strong>Laag 3:</strong> Supply chain leveranciers</td><td>IT-dienstverleners, software leveranciers, cloud providers, managed services, facilitair</td><td class="num">50.000+</td></tr>
+<tr class="total"><td colspan="2"><strong>Totale adresseerbare markt</strong></td><td class="num">70.000+</td></tr>
+</tbody>
+</table>
+
+<div class="insight-card fade-up">
+<h4>De supply chain als upsell-strategie</h4>
+<p>Begin bij de essentiële entiteit (Pillar 1+2: €12.500). Tijdens de gap assessment identificeer je de leveranciers die niet NIS2-compliant zijn. Bied vervolgens aan om die leveranciers ook te begeleiden. Eén klant in de zorg kan 5-10 leveranciers opleveren die elk €12.500-€40.000 investeren. De supply chain multiplier maakt NIS2 het meest schaalbare model van alle reguleringen.</p>
+</div>
+
+<!-- COMPETITIVE LANDSCAPE -->
+<h2>3. Competitive landscape</h2>
+
+<div class="comp-grid fade-up">
+<div class="comp-card"><div class="comp-type">Categorie A</div><h4>Big 4 & grote consultancies</h4><p>Focus op essentiële entiteiten (top-50). Brede NIS2-services maar hoge prijspunten en lange trajecten.</p><div class="strength">+ Diepte, overheidsrelaties, merkvertrouwen</div><div class="weakness">− €200K+ per engagement, te traag voor middensegment</div></div>
+<div class="comp-card"><div class="comp-type">Categorie B</div><h4>Generieke IT-partners</h4><p>"Wij doen ook cybersecurity" — firewalls, pentest, awareness. Geen NIS2-specifiek framework of bestuurdersaansprakelijkheid kennis.</p><div class="strength">+ Bestaande klantrelaties, laagdrempelig</div><div class="weakness">− Geen NIS2-methodiek, geen boardroom pitch, uurtje-factuurtje</div></div>
+<div class="comp-card"><div class="comp-type">Categorie C</div><h4>Compliance-as-a-Service platforms</h4><p>SaaS-tooling voor risicobeheer en compliance management. Goed voor documentatie, maar geen strategische begeleiding.</p><div class="strength">+ Schaalbaar, betaalbaar, selfservice</div><div class="weakness">− Geen implementatie, geen bestuurdersadvies, generiek</div></div>
+<div class="comp-card"><div class="comp-type">Categorie D — Uw positie</div><h4>NIS2-specialist met boardroom pitch</h4><p>4-pillar framework + bestuurdersaansprakelijkheid als opener. Instap €12.500, retainer model, supply chain upsell.</p><div class="strength">+ Niche, boardroom access, supply chain multiplier, recurring</div><div class="weakness">− Track record opbouwen (eerste 3-4 klanten)</div></div>
+</div>
+
+<!-- BOARDROOM PITCH -->
+<h2>4. De boardroom pitch: <em>bestuurdersaansprakelijkheid als deuropener</em></h2>
+
+<p>NIS2 is de enige cybersecurity-wet met <strong>persoonlijke bestuurdersaansprakelijkheid</strong>. Dat verandert het gesprek fundamenteel: u gaat niet meer langs de IT-afdeling, u gaat direct naar de directie.</p>
+
+<div class="insight-card fade-up">
+<h4>De 8-minuten boardroom pitch</h4>
+<p>Eén A4: "Wat NIS2 betekent voor uw persoonlijke positie als bestuurder." Bevat: (1) uw organisatie valt onder NIS2, (2) u bent als bestuurder persoonlijk aansprakelijk, (3) boete tot €10 miljoen, (4) uw huidige staat van readiness (gap indicatie), (5) investering vs exposure (€12.500 vs €10M). De directeur leest het, realiseert dat dit persoonlijk is, en vraagt wanneer u kunt beginnen. Geen 40-pagina rapport. Geen PowerPoint. Eén A4.</p>
+</div>
+
+<!-- ROADMAP -->
+<h2>5. Roadmap: <em>12 weken naar eerste NIS2-pipeline</em></h2>
+
+<div class="roadmap fade-up">
+<div class="rm-phase active"><div class="rm-week">WEEK 1–2</div><div class="rm-content"><h4>Propositie & Boardroom Pitch</h4><p>4-pillar framework uitwerken. Boardroom A4 ontwerpen per sector (zorg, energie, water). Pricing vaststellen. Assessment methodiek bouwen. Sales enablement: NIS2 Market Brief + 10 LinkedIn posts.</p></div></div>
+<div class="rm-phase"><div class="rm-week">WEEK 3–4</div><div class="rm-content"><h4>Sector Targeting</h4><p>Focus op 2 sectoren (bijv. zorg + energie). 40 targets identificeren. Bestuurders LinkedIn-connectie bouwen. Boardroom A4 verzenden via warme introductie of InMail. Vendor AE's briefen.</p></div></div>
+<div class="rm-phase"><div class="rm-week">WEEK 5–6</div><div class="rm-content"><h4>Assessment Sprint</h4><p>Doel: 6 assessment-gesprekken. Pillar 1+2 quickscan (Scope + Gap). Gap rapport met persoonlijke exposure voor bestuurder. Supply chain leveranciers inventariseren als bonus-deliverable.</p></div></div>
+<div class="rm-phase"><div class="rm-week">WEEK 7–8</div><div class="rm-content"><h4>First Deals + Supply Chain</h4><p>Doel: 3 getekende Pillar 1+2 trajecten (€12.500 elk). Start implementatie. Supply chain leveranciers benaderen via introductie van eerste klant. Webinar plannen (bestuurders NIS2 awareness).</p></div></div>
+<div class="rm-phase"><div class="rm-week">WEEK 9–10</div><div class="rm-content"><h4>Upsell & Multiply</h4><p>Pillar 3 proposals bij eerste klanten (€15-40K). Supply chain leveranciers: 2-3 nieuwe klanten via introductie. Pipeline: 12+ opportunities (directe entiteiten + supply chain).</p></div></div>
+<div class="rm-phase"><div class="rm-week">WEEK 11–12</div><div class="rm-content"><h4>Retainer & Scale</h4><p>Managed Compliance retainers starten (€2.500-4.500/mnd). Case studies publiceren. Team evalueren: nodig u een dedicated NIS2-medewerker? Bij 5+ retainer-klanten: ja.</p></div></div>
+</div>
+
+<div class="stat-row fade-up">
+<div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Weken tot pipeline</div></div>
+<div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Klanten bij week 8</div></div>
+<div class="stat-card"><div class="stat-num">€37K+</div><div class="stat-label">Eerste projectwaarde</div></div>
+</div>
+
+</article>
+
+<div class="final-cta section-border">
+  <h2>Klaar om uw NIS2-practice te bouwen?<br><em>De boardroom wacht. De supply chain vermenigvuldigt.</em></h2>
+  <p>HCI helpt IT-partners de NIS2-propositie ontwerpen, de boardroom pitch bouwen, en de supply chain multiplier benutten.</p>
+  <a href="/cdn-cgi/l/email-protection#5e333c363b2d1e363b2d733d31302d2b322a3f303d277337302a3b2c303f2a3731303f32703d3133612d2b3c343b3d2a6310170d6c7b6c6e112e2e312c2a2b30372a277b6c6e1f303f32272d372d7b6c6e737b6c6e193b2d2e2c3b35" class="btn-primary">Plan een gesprek →</a>
+  <a href="/growth" class="btn-ghost">Bekijk Growth Route</a>
+</div>
+</div>
+
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.t

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU Market Entry — HES Consultancy International</title>
+<meta name="description" content="EU Revenue Without EU Office. Most tech companies burn €250K+ discovering they weren't ready for Europe. We find out in weeks, not quarters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   HCI — ROUTE 1: EU MARKET ENTRY (/eu-entry)
+   WP2 — 8 secties
+   Design system: matched to WP1 homepage
+   Route accent: #6C5CE7 (purple)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --gold: #c8a55a;
+  --gold-light: #e0c882;
+  --gold-dim: rgba(200,165,90,.12);
+  --gold-border: rgba(200,165,90,.25);
+
+  /* Route accent */
+  --accent: #6C5CE7;
+  --accent-light: #a29bfe;
+  --accent-dim: rgba(108,92,231,.12);
+  --accent-border: rgba(108,92,231,.3);
+
+  --bg-deep: #08090c;
+  --bg: #0d0f14;
+  --bg-card: #13151c;
+  --bg-elevated: #1c1e28;
+  --border: rgba(255,255,255,.06);
+  --border-hover: rgba(255,255,255,.12);
+
+  --text: #a8a6b4;
+  --text-dim: #5e5d6a;
+  --text-bright: #f0eef5;
+  --white: #ffffff;
+
+  --red: #f87171;
+  --red-dim: rgba(248,113,113,.1);
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,.1);
+  --amber: #fbbf24;
+  --amber-dim: rgba(251,191,36,.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 20%, rgba(108,92,231,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 800px at 80% 80%, rgba(200,165,90,.03) 0%, transparent 70%);
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(8,9,12,.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-mark {
+  width: 36px; height: 36px; border: 2px solid var(--gold);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 500;
+  color: var(--gold); letter-spacing: .5px; text-decoration: none;
+}
+.nav-brand { font-size: 13px; font-weight: 500; color: var(--text-bright); }
+.nav-route-badge {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  padding: 4px 10px; border-radius: 4px;
+  background: var(--accent-dim); color: var(--accent);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.lang-toggle {
+  display: flex; gap: 2px; background: rgba(0,0,0,.3);
+  padding: 3px; border-radius: 6px; border: 1px solid var(--border);
+}
+.lang-btn {
+  padding: 4px 10px; border: none; border-radius: 4px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  background: transparent; color: var(--text-dim); transition: all .2s;
+}
+.lang-btn.active { background: var(--accent); color: var(--white); }
+.lang-btn:hover:not(.active) { color: var(--text); }
+.nav-cta {
+  padding: 8px 20px; border-radius: 6px;
+  font-size: 12px; font-weight: 600; text-decoration: none;
+  background: var(--accent); color: var(--white); transition: all .2s;
+}
+.nav-cta:hover { background: var(--accent-light); }
+
+/* ═══ SHARED ═══ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
+section { padding: 120px 0; position: relative; }
+.section-border { border-top: 1px solid var(--border); }
+
+.section-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--accent-light); }
+.section-sub {
+  font-size: 16px; color: var(--text); line-height: 1.8;
+  max-width: 620px; margin-bottom: 56px;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  background: var(--accent); color: var(--white); transition: all .3s;
+}
+.btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,92,231,.3); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  color: var(--text); border: 1px solid var(--border); transition: all .2s;
+}
+.btn-ghost:hover { border-color: var(--accent-border); color: var(--accent-light); }
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  background: linear-gradient(135deg, var(--gold), #d4b45e);
+  color: var(--bg-deep); transition: all .3s;
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,165,90,.25); }
+
+/* ═══ JOURNEY RAIL ═══ */
+.journey-rail {
+  display: flex; align-items: center; gap: 0;
+  padding: 14px 20px; margin-bottom: 0;
+  background: var(--bg-card); border-radius: 12px;
+  border: 1px solid var(--border); overflow-x: auto;
+  position: sticky; top: 60px; z-index: 50;
+}
+.jp { display: flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 6px; white-space: nowrap; transition: all .2s; cursor: pointer; text-decoration: none; color: inherit; }
+.jp:hover { background: rgba(255,255,255,.03); }
+.jp-dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--text-dim); flex-shrink: 0; transition: all .2s; }
+.jp-label { font-size: 11px; font-weight: 500; color: var(--text-dim); transition: color .2s; }
+.jp-connector { width: 24px; height: 1px; background: linear-gradient(90deg, var(--text-dim) 50%, transparent 50%); background-size: 5px 1px; flex-shrink: 0; }
+.jp.active .jp-dot { background: var(--accent); border-color: var(--accent); }
+.jp.active .jp-label { color: var(--accent); }
+.jp.active { background: var(--accent-dim); }
+.jp.done .jp-dot { background: var(--green); border-color: var(--green); }
+.jp.done .jp-label { color: var(--green); }
+
+/* ═══ S01: HERO ═══ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 120px 0 80px;
+}
+.hero-inner { max-width: 780px; }
+.hero-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-dim); text-decoration: none;
+  margin-bottom: 24px; transition: color .2s;
+}
+.hero-back:hover { color: var(--accent-light); }
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 400; line-height: 1.08; color: var(--white); margin-bottom: 12px;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-hook {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; font-style: italic;
+  color: var(--accent-light); margin-bottom: 24px; line-height: 1.5;
+}
+.hero-sub {
+  font-size: 17px; line-height: 1.8; color: var(--text);
+  max-width: 560px; margin-bottom: 40px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-credbar {
+  display: flex; gap: 40px; margin-top: 56px;
+  padding-top: 32px; border-top: 1px solid var(--border);
+}
+.cred-item { display: flex; align-items: center; gap: 12px; }
+.cred-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: var(--accent-dim); border: 1px solid var(--accent-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.cred-text { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+.cred-text strong { color: var(--text-bright); display: block; }
+
+/* ═══ S02: PROBLEM ═══ */
+.problem-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.problem-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px 24px; transition: all .3s;
+}
+.problem-card:hover { border-color: var(--border-hover); }
+.problem-card.full-width { grid-column: 1 / -1; border-color: var(--red); border-color: rgba(248,113,113,.2); background: linear-gradient(135deg, var(--bg-card), rgba(248,113,113,.03)); }
+.problem-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  color: var(--red); letter-spacing: 1px; margin-bottom: 10px;
+}
+.problem-card h4 {
+  font-size: 15px; font-weight: 600; color: var(--white);
+  margin-bottom: 8px; line-height: 1.3;
+}
+.problem-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+
+/* ═══ S03: METHOD ═══ */
+.phase-timeline {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+}
+.phase-card {
+  background: var(--bg-card); padding: 32px 24px;
+  position: relative; transition: all .3s;
+}
+.phase-card:first-child { border-radius: 12px 0 0 12px; }
+.phase-card:last-child { border-radius: 0 12px 12px 0; }
+.phase-card:hover { background: var(--bg-elevated); }
+.phase-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  color: var(--accent); letter-spacing: 1px; margin-bottom: 12px;
+}
+.phase-card h4 {
+  font-family: 'Instrument Serif', serif; font-size: 19px;
+  font-weight: 400; color: var(--white); margin-bottom: 8px;
+}
+.phase-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+.phase-card .phase-deliverables {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  color: var(--accent); letter-spacing: .5px; line-height: 1.8;
+}
+
+/* ═══ S04: PROOF ═══ */
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.case-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 36px 32px; transition: all .3s;
+}
+.case-card:hover { border-color: var(--accent-border); }
+.case-badge {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  padding: 4px 10px; border-radius: 4px;
+  background: var(--accent-dim); color: var(--accent);
+  letter-spacing: 1px; display: inline-block; margin-bottom: 16px;
+}
+.case-card h4 {
+  font-family: 'Instrument Serif', serif; font-size: 26px;
+  font-weight: 400; color: var(--white); margin-bottom: 8px;
+}
+.case-card .case-sub {
+  font-size: 14px; color: var(--accent-light);
+  font-style: italic; margin-bottom: 16px;
+}
+.case-card p { font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
+.case-stats { display: flex; gap: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+.case-stat-num {
+  font-family: 'Instrument Serif', serif; font-size: 28px;
+  color: var(--accent-light); line-height: 1;
+}
+.case-stat-label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+/* ═══ S05: ASSESSMENT ═══ */
+.assessment-wrap {
+  background: var(--bg-card); border: 1px solid var(--accent-border);
+  border-radius: 16px; padding: 48px 40px; text-align: center;
+}
+.assessment-wrap h3 {
+  font-family: 'Instrument Serif', serif; font-size: 28px;
+  font-weight: 400; color: var(--white); margin-bottom: 12px;
+}
+.assessment-desc { font-size: 15px; color: var(--text); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
+.score-dimensions {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  margin-bottom: 32px;
+}
+.score-dim {
+  background: var(--bg-elevated); border-radius: 10px; padding: 20px 16px;
+  border: 1px solid var(--border);
+}
+.score-dim-label {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  color: var(--text-dim); letter-spacing: 1px; margin-bottom: 8px;
+}
+.score-dim-pts {
+  font-family: 'Instrument Serif', serif; font-size: 32px;
+  color: var(--accent-light);
+}
+.score-dim-desc { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+.score-total {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 12px 24px; background: var(--accent-dim);
+  border: 1px solid var(--accent-border); border-radius: 8px;
+  margin-bottom: 28px;
+}
+.score-total span { font-family: 'Geist Mono', monospace; font-size: 14px; color: var(--accent); }
+.score-total strong { font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--white); }
+
+/* ═══ S06: ENGAGEMENT ═══ */
+.lifecycle-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.lifecycle-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 32px 24px; transition: all .3s;
+  position: relative; overflow: hidden;
+}
+.lifecycle-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--lc-color); opacity: .6;
+}
+.lifecycle-card:hover { border-color: var(--border-hover); }
+.lc-phase {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.lifecycle-card h4 {
+  font-family: 'Instrument Serif', serif; font-size: 22px;
+  font-weight: 400; color: var(--white); margin-bottom: 6px;
+}
+.lc-duration {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  color: var(--text-dim); margin-bottom: 14px;
+}
+.lifecycle-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 14px; }
+.lc-deliverables {
+  padding-top: 12px; border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text); line-height: 1.8;
+}
+.lc-deliverables strong { color: var(--text-bright); }
+.lifecycle-card:nth-child(1) { --lc-color: var(--accent); }
+.lifecycle-card:nth-child(1) .lc-phase { color: var(--accent); }
+.lifecycle-card:nth-child(2) { --lc-color: var(--gold); }
+.lifecycle-card:nth-child(2) .lc-phase { color: var(--gold); }
+.lifecycle-card:nth-child(3) { --lc-color: var(--green); }
+.lifecycle-card:nth-child(3) .lc-phase { color: var(--green); }
+
+/* ═══ S07: MIKE ═══ */
+.mike-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: center; }
+.mike-photo {
+  width: 100%; max-width: 320px; aspect-ratio: 1/1;
+  border-radius: 16px; border: 1px solid var(--border);
+  overflow: hidden;
+}
+.mike-photo img { width: 100%; height: 100%; object-fit: cover; }
+.mike-content h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 20px;
+}
+.mike-content h2 em { font-style: italic; color: var(--accent-light); }
+.mike-bio { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 32px; }
+.mike-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ═══ S08: CTA ═══ */
+.cta-section {
+  text-align: center; padding: 120px 0 80px;
+}
+.cta-box {
+  background: linear-gradient(145deg, rgba(108,92,231,.08), rgba(200,165,90,.05));
+  border: 1px solid var(--accent-border);
+  border-radius: 20px; padding: 64px 48px;
+  max-width: 720px; margin: 0 auto;
+}
+.cta-box h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px; font-weight: 400; color: var(--white);
+  margin-bottom: 16px; line-height: 1.2;
+}
+.cta-box h2 em { font-style: italic; color: var(--accent-light); }
+.cta-box p { font-size: 15px; color: var(--text); margin-bottom: 32px; line-height: 1.7; }
+.cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ═══ FOOTER ═══ */
+footer {
+  padding: 40px 0; border-top: 1px solid var(--border);
+}
+.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-brand { font-size: 12px; color: var(--text-dim); }
+.footer-tagline { font-family: 'Instrument Serif', serif; font-size: 14px; color: var(--gold); font-style: italic; }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--text); }
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: .1s; } .stagger-2 { transition-delay: .2s; }
+.stagger-3 { transition-delay: .3s; } .stagger-4 { transition-delay: .4s; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 900px) {
+  nav { padding: 14px 20px; }
+  .container { padding: 0 20px; }
+  section { padding: 80px 0; }
+  .hero { padding: 100px 0 60px; min-height: auto; }
+  .hero h1 { font-size: 32px; }
+  .hero-credbar { flex-direction: column; gap: 16px; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .phase-timeline { grid-template-columns: 1fr 1fr; }
+  .phase-card:first-child { border-radius: 12px 0 0 0; }
+  .phase-card:nth-child(2) { border-radius: 0 12px 0 0; }
+  .phase-card:nth-child(3) { border-radius: 0 0 0 12px; }
+  .phase-card:last-child { border-radius: 0 0 12px 0; }
+  .case-grid { grid-template-columns: 1fr; }
+  .score-dimensions { grid-template-columns: 1fr 1fr; }
+  .lifecycle-grid { grid-template-columns: 1fr; }
+  .mike-grid { grid-template-columns: 1fr; gap: 32px; }
+  .journey-rail { display: none; }
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+}
+@media (max-width: 600px) {
+  .phase-timeline { grid-template-columns: 1fr; }
+  .phase-card { border-radius: 0 !important; }
+  .phase-card:first-child { border-radius: 12px 12px 0 0 !important; }
+  .phase-card:last-child { border-radius: 0 0 12px 12px !important; }
+  .score-dimensions { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<!-- ════════ NAV ════════ -->
+<nav>
+  <div class="nav-left">
+    <a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:36px;"></a>
+    <div class="nav-route-badge">EU Market Entry</div>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn" onclick="setLang('nl')">NL</button>
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#assessment" class="nav-cta" data-i18n="nav_cta">Take assessment →</a>
+  </div>
+</nav>
+
+
+<!-- ════════ JOURNEY RAIL ════════ -->
+<div class="container" style="padding-top:76px;">
+  <div class="journey-rail">
+    <a href="#hero" class="jp active"><div class="jp-dot"></div><div class="jp-label">Hook</div></a>
+    <div class="jp-connector"></div>
+    <a href="#problem" class="jp"><div class="jp-dot"></div><div class="jp-label" data-i18n="jr_problem">Problem</div></a>
+    <div class="jp-connector"></div>
+    <a href="#method" class="jp"><div class="jp-dot"></div><div class="jp-label" data-i18n="jr_method">Method</div></a>
+    <div class="jp-connector"></div>
+    <a href="#proof" class="jp"><div class="jp-dot"></div><div class="jp-label" data-i18n="jr_proof">Proof</div></a>
+    <div class="jp-connector"></div>
+    <a href="#assessment" class="jp"><div class="jp-dot"></div><div class="jp-label">Assessment</div></a>
+    <div class="jp-connector"></div>
+    <a href="#engagement" class="jp"><div class="jp-dot"></div><div class="jp-label" data-i18n="jr_engagement">Trajectory</div></a>
+    <div class="jp-connector"></div>
+    <a href="#mike" class="jp"><div class="jp-dot"></div><div class="jp-label">Mike Hes</div></a>
+    <div class="jp-connector"></div>
+    <a href="#cta" class="jp"><div class="jp-dot"></div><div class="jp-label" data-i18n="jr_action">Action</div></a>
+  </div>
+</div>
+
+
+<!-- ════════ S01: HERO ════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <a href="/" class="hero-back">← <span data-i18n="back_home">Back to overview</span></a>
+      <h1 data-i18n="hero_h1">EU Revenue<br>Without EU Office.<br><em>We find out in weeks, not quarters.</em></h1>
+      <p class="hero-hook" data-i18n="hero_hook">Most tech companies burn €250K+ discovering they weren't ready for Europe.</p>
+      <p class="hero-sub" data-i18n="hero_sub">No EU entity. No GDPR-compliant stack. No local network. No validated proposition. That's not a market entry — that's an expensive experiment. HCI structures the entire journey from strategy to first customer.</p>
+      <div class="hero-actions">
+        <a href="#assessment" class="btn-primary" data-i18n="hero_cta1">Check your EU Readiness →</a>
+        <a href="#method" class="btn-ghost" data-i18n="hero_cta2">See the method</a>
+      </div>
+
+      <div class="hero-credbar">
+        <div class="cred-item">
+          <div class="cred-icon">🇪🇺</div>
+          <div class="cred-text"><strong>Benelux & DACH</strong><span data-i18n="cred1">30+ years C-level network</span></div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-icon">📋</div>
+          <div class="cred-text"><strong>GDPR · NIS2 · CRA</strong><span data-i18n="cred2">Compliance as enabler</span></div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-icon">🚀</div>
+          <div class="cred-text"><strong data-i18n="cred3_strong">12 weeks</strong><span data-i18n="cred3">To first qualified pipeline</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S02: PROBLEM ════════ -->
+<section class="section-border" id="problem">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="prob_eyebrow">01 — Why 90% fail</div>
+    <h2 class="section-title" data-i18n="prob_title">Five mistakes.<br><em>Same outcome: burned budget, no customers.</em></h2>
+    <p class="section-sub" data-i18n="prob_sub">Every failed EU market entry we've seen makes at least three of these. They're predictable — and preventable.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card full-width fade-up">
+        <div class="problem-num" data-i18n="p0_num">MISTAKE #0 — THE ROOT CAUSE</div>
+        <h4 data-i18n="p0_title">Skipping validation and going straight to sales</h4>
+        <p data-i18n="p0_text">"We have a great product, we just need someone to sell it in Europe." This is the number one killer. Without validated proposition-market fit for EU buyers, everything that follows is wasted budget. European procurement is different. Decision cycles are longer. Compliance is table stakes.</p>
+      </div>
+      <div class="problem-card fade-up stagger-1">
+        <div class="problem-num" data-i18n="p1_num">MISTAKE #1</div>
+        <h4 data-i18n="p1_title">No EU legal entity</h4>
+        <p data-i18n="p1_text">European enterprise buyers cannot procure from a non-EU entity without significant legal risk. GDPR requires an EU representative. No entity = invisible to procurement.</p>
+      </div>
+      <div class="problem-card fade-up stagger-2">
+        <div class="problem-num" data-i18n="p2_num">MISTAKE #2</div>
+        <h4 data-i18n="p2_title">Compliance as afterthought</h4>
+        <p data-i18n="p2_text">GDPR, NIS2, CRA — these aren't obstacles. They're buying criteria. EU buyers check compliance before they check features. If you're not compliant, you're not in the conversation.</p>
+      </div>
+      <div class="problem-card fade-up stagger-3">
+        <div class="problem-num" data-i18n="p3_num">MISTAKE #3</div>
+        <h4 data-i18n="p3_title">Hiring before validating</h4>
+        <p data-i18n="p3_text">Hiring a country manager before validating your proposition is like hiring a pilot before building the plane. You need product-market combination first, then hire for execution.</p>
+      </div>
+      <div class="problem-card fade-up stagger-4">
+        <div class="problem-num" data-i18n="p4_num">MISTAKE #4</div>
+        <h4 data-i18n="p4_title">No local network</h4>
+        <p data-i18n="p4_text">C-level trust in Europe is earned through relationships, not cold outreach. Without a warm network in Benelux or DACH, your sales cycle doubles — or never starts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S03: METHOD ════════ -->
+<section class="section-border" id="method">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="meth_eyebrow">02 — The method</div>
+    <h2 class="section-title" data-i18n="meth_title">CMO → FMO.<br><em>Four phases. One outcome: first customer.</em></h2>
+    <p class="section-sub" data-i18n="meth_sub">From Current Mode of Operation to Future Mode of Operation. Applied to EU market entry, this means: from zero presence to revenue-generating pipeline in structured steps.</p>
+
+    <div class="phase-timeline">
+      <div class="phase-card fade-up stagger-1">
+        <div class="phase-num">PHASE 01</div>
+        <h4 data-i18n="ph1_title">CMO Analysis</h4>
+        <p data-i18n="ph1_text">Deep assessment of your current EU readiness. Product-market fit validation. Compliance gap analysis. Competitor landscape EU.</p>
+        <div class="phase-deliverables" data-i18n="ph1_del">→ EU Readiness Score<br>→ Compliance gap report<br>→ PMC validation</div>
+      </div>
+      <div class="phase-card fade-up stagger-2">
+        <div class="phase-num">PHASE 02</div>
+        <h4 data-i18n="ph2_title">FMO Design</h4>
+        <p data-i18n="ph2_text">EU-specific proposition. Pricing for European market. Legal entity setup. GDPR compliance architecture. Partner strategy.</p>
+        <div class="phase-deliverables" data-i18n="ph2_del">→ EU proposition deck<br>→ Entity & compliance<br>→ Partner mapping</div>
+      </div>
+      <div class="phase-card fade-up stagger-3">
+        <div class="phase-num">PHASE 03</div>
+        <h4 data-i18n="ph3_title">GTM Execution</h4>
+        <p data-i18n="ph3_text">Outreach via HCI network. Warm introductions to C-level buyers. Pilot negotiations. First deal support. Pipeline build.</p>
+        <div class="phase-deliverables" data-i18n="ph3_del">→ 50+ qualified intros<br>→ First 3 pilots<br>→ Pipeline active</div>
+      </div>
+      <div class="phase-card fade-up stagger-4">
+        <div class="phase-num">PHASE 04</div>
+        <h4 data-i18n="ph4_title">Handover</h4>
+        <p data-i18n="ph4_text">Your team takes over. Playbook documented. Network transferred. Recurring revenue model running. No consultant dependency.</p>
+        <div class="phase-deliverables" data-i18n="ph4_del">→ GTM playbook<br>→ Team trained<br>→ Pipeline self-sustaining</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S04: PROOF ════════ -->
+<section class="section-border" id="proof">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="proof_eyebrow">03 — Proof</div>
+    <h2 class="section-title" data-i18n="proof_title">Not theory.<br><em>Live cases.</em></h2>
+    <p class="section-sub" data-i18n="proof_sub">Two EU market entries. Different sectors. Same methodology. Measurable results.</p>
+
+    <div class="case-grid">
+      <div class="case-card fade-up stagger-1">
+        <div class="case-badge">CASE 01 — CYBERSECURITY</div>
+        <h4>Chunk Works</h4>
+        <p class="case-sub" data-i18n="case1_sub">Post-quantum encryption → EU partner enablement platform</p>
+        <p data-i18n="case1_text">From a post-quantum technology product to a full partner enablement platform. HCI structured the CMO→FMO methodology into a scalable SaaS tool with 6 sector-specific assessment modules, AI-generated compliance reports, and a complete deployment pipeline.</p>
+        <div class="case-stats">
+          <div><div class="case-stat-num">6</div><div class="case-stat-label" data-i18n="case1_s1">Sector templates</div></div>
+          <div><div class="case-stat-num">12w</div><div class="case-stat-label" data-i18n="case1_s2">Concept → live</div></div>
+          <div><div class="case-stat-num">96KB</div><div class="case-stat-label" data-i18n="case1_s3">Total app size</div></div>
+        </div>
+      </div>
+
+      <div class="case-card fade-up stagger-2">
+        <div class="case-badge">CASE 02 — HEALTHTECH</div>
+        <h4>Portable EHR</h4>
+        <p class="case-sub" data-i18n="case2_sub">Canadian ISV → EU healthcare market entry</p>
+        <p data-i18n="case2_text">A Canadian health-tech company with a portable electronic health record. Strong product, zero EU presence. HCI validated the proposition for European healthcare procurement, mapped NEN 7510 and GDPR compliance requirements, and opened the first conversations with Dutch hospital groups.</p>
+        <div class="case-stats">
+          <div><div class="case-stat-num">NL</div><div class="case-stat-label" data-i18n="case2_s1">First market</div></div>
+          <div><div class="case-stat-num">NEN</div><div class="case-stat-label" data-i18n="case2_s2">7510 mapped</div></div>
+          <div><div class="case-stat-num">3</div><div class="case-stat-label" data-i18n="case2_s3">Hospital intros</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S05: ASSESSMENT ════════ -->
+<section class="section-border" id="assessment">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="assess_eyebrow">04 — Your starting point</div>
+    <h2 class="section-title" data-i18n="assess_title">EU Readiness Assessment.<br><em>Where do you stand?</em></h2>
+    <p class="section-sub" data-i18n="assess_sub">Four dimensions. Score out of 85. Instant classification into Foundation, Almost Ready, or Market Ready. Takes 3 minutes.</p>
+
+    <div class="assessment-wrap fade-up">
+      <div class="score-dimensions">
+        <div class="score-dim">
+          <div class="score-dim-label">PRESENCE</div>
+          <div class="score-dim-pts">20</div>
+          <div class="score-dim-desc" data-i18n="dim1">EU entity · Office · Team</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-label">COMPLIANCE</div>
+          <div class="score-dim-pts">30</div>
+          <div class="score-dim-desc" data-i18n="dim2">GDPR · NIS2 · CRA</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-label">GTM</div>
+          <div class="score-dim-pts">25</div>
+          <div class="score-dim-desc" data-i18n="dim3">Proposition · Channel · Network</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-label">COMMERCIAL</div>
+          <div class="score-dim-pts">10</div>
+          <div class="score-dim-desc" data-i18n="dim4">Pipeline · Revenue · References</div>
+        </div>
+      </div>
+      <div class="score-total">
+        <span data-i18n="score_label">Total score</span>
+        <strong>/85</strong>
+      </div>
+      <h3 data-i18n="assess_cta_title">Ready to see where you stand?</h3>
+      <p class="assessment-desc" data-i18n="assess_cta_desc">The EU Readiness Assessment takes 3 minutes and gives you an instant score across all four dimensions, with a personalised gap analysis and recommended next steps.</p>
+      <a href="#" class="btn-primary" data-i18n="assess_cta_btn">Start EU Readiness Assessment →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S06: ENGAGEMENT ════════ -->
+<section class="section-border" id="engagement">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eng_eyebrow">05 — The trajectory</div>
+    <h2 class="section-title" data-i18n="eng_title">24-month lifecycle.<br><em>Three phases. Full handover.</em></h2>
+    <p class="section-sub" data-i18n="eng_sub">HCI doesn't stay forever. The goal is your independence. Three phases, clear milestones, structured handover.</p>
+
+    <div class="lifecycle-grid">
+      <div class="lifecycle-card fade-up stagger-1">
+        <div class="lc-phase">PHASE A</div>
+        <h4 data-i18n="lc_a_title">Full Service</h4>
+        <div class="lc-duration" data-i18n="lc_a_dur">Month 1–12</div>
+        <p data-i18n="lc_a_text">HCI leads strategy and execution. From proposition validation through first customers. Weekly steering. Direct access to HCI network.</p>
+        <div class="lc-deliverables" data-i18n="lc_a_del"><strong>Deliverables:</strong> EU entity setup, compliance, proposition, first 3 pilots, pipeline, GTM playbook</div>
+      </div>
+      <div class="lifecycle-card fade-up stagger-2">
+        <div class="lc-phase">PHASE B</div>
+        <h4 data-i18n="lc_b_title">Transition</h4>
+        <div class="lc-duration" data-i18n="lc_b_dur">Month 12–18</div>
+        <p data-i18n="lc_b_text">Your team takes the lead. HCI provides coaching, deal review, and strategic oversight. Monthly steering.</p>
+        <div class="lc-deliverables" data-i18n="lc_b_del"><strong>Deliverables:</strong> Team trained, playbook operational, pipeline self-generating, recurring revenue model active</div>
+      </div>
+      <div class="lifecycle-card fade-up stagger-3">
+        <div class="lc-phase">PHASE C</div>
+        <h4 data-i18n="lc_c_title">Alumni & Dealflow</h4>
+        <div class="lc-duration" data-i18n="lc_c_dur">Month 18–24+</div>
+        <p data-i18n="lc_c_text">You're independent. HCI stays available for strategic advice, deal introductions, and the alumni network. Quarterly check-in.</p>
+        <div class="lc-deliverables" data-i18n="lc_c_del"><strong>Deliverables:</strong> Full independence, network access maintained, deal flow sharing, quarterly strategic review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S07: MIKE ════════ -->
+<section class="section-border" id="mike">
+  <div class="container">
+    <div class="mike-grid">
+      <div class="mike-photo fade-up"><img src="Mike_Hes_Foto.jpg" alt="Mike Hes"></div>
+      <div class="mike-content fade-up stagger-2">
+        <div class="section-eyebrow" data-i18n="mike_eyebrow">06 — Your counterpart</div>
+        <h2 data-i18n="mike_title">You're not hiring<br>a consultancy.<br><em>You're hiring Mike.</em></h2>
+        <p class="mike-bio" data-i18n="mike_bio">30 years of C-level relationships across Benelux and DACH. I've seen the €250K mistakes — and I've structured the path that avoids them. Every EU market entry I guide follows the same proven methodology. The difference is: I walk with you until the first deal is signed.</p>
+        <div class="mike-actions">
+          <a href="/cdn-cgi/l/email-protection#09646b616c7a49616c7a246a66677a7c657d68676a702460677d6c7b67687d6066676865276a6664" class="btn-gold" data-i18n="mike_cta1">Schedule a conversation →</a>
+          <a href="#assessment" class="btn-ghost" data-i18n="mike_cta2">Take the assessment first</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ S08: CTA ════════ -->
+<section class="section-border cta-section" id="cta">
+  <div class="container">
+    <div class="cta-box fade-up">
+      <h2 data-i18n="cta_title">Ready for Europe?<br><em>Let's find out in 3 minutes.</em></h2>
+      <p data-i18n="cta_text">Take the EU Readiness Assessment. Get your score across Presence, Compliance, GTM, and Commercial readiness. No commitment — just clarity.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-primary" data-i18n="cta_btn1">Start EU Readiness Assessment →</a>
+        <a href="/cdn-cgi/l/email-protection#0a6768626f794a626f7927696564797f667e6b6469732763647e6f78646b7e6365646b6624696567" class="btn-ghost" data-i18n="cta_btn2">Or schedule a call directly</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">HES Consultancy International · Nxt Era Solutions</div>
+        <div class="footer-tagline">From Strategy to First Customer</div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#5b3639333e281b333e2876383435282e372f3a3538227632352f3e29353a2f3234353a3775383436">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════ JAVASCRIPT ════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const I18N = {
+  en: {
+    nav_brand:'HES Consultancy International', nav_cta:'Take assessment →',
+    back_home:'Back to overview',
+    hero_h1:'EU Revenue<br>Without EU Office.<br><em>We find out in weeks, not quarters.</em>',
+    hero_hook:'Most tech companies burn €250K+ discovering they weren\'t ready for Europe.',
+    hero_sub:'No EU entity. No GDPR-compliant stack. No local network. No validated proposition. That\'s not a market entry — that\'s an expensive experiment. HCI structures the entire journey from strategy to first customer.',
+    hero_cta1:'Check your EU Readiness →', hero_cta2:'See the method',
+    cred1:'30+ years C-level network', cred2:'Compliance as enabler', cred3_strong:'12 weeks', cred3:'To first qualified pipeline',
+    jr_problem:'Problem', jr_method:'Method', jr_proof:'Proof', jr_engagement:'Trajectory', jr_action:'Action',
+    prob_eyebrow:'01 — Why 90% fail', prob_title:'Five mistakes.<br><em>Same outcome: burned budget, no customers.</em>',
+    prob_sub:'Every failed EU market entry we\'ve seen makes at least three of these. They\'re predictable — and preventable.',
+    p0_num:'MISTAKE #0 — THE ROOT CAUSE', p0_title:'Skipping validation and going straight to sales',
+    p0_text:'"We have a great product, we just need someone to sell it in Europe." This is the number one killer. Without validated proposition-market fit for EU buyers, everything that follows is wasted budget.',
+    p1_num:'MISTAKE #1', p1_title:'No EU legal entity', p1_text:'European enterprise buyers cannot procure from a non-EU entity without significant legal risk. No entity = invisible to procurement.',
+    p2_num:'MISTAKE #2', p2_title:'Compliance as afterthought', p2_text:'GDPR, NIS2, CRA — these aren\'t obstacles. They\'re buying criteria. EU buyers check compliance before features.',
+    p3_num:'MISTAKE #3', p3_title:'Hiring before validating', p3_text:'Hiring a country manager before validating your proposition is like hiring a pilot before building the plane.',
+    p4_num:'MISTAKE #4', p4_title:'No local network', p4_text:'C-level trust in Europe is earned through relationships, not cold outreach. Without a warm network, your sales cycle doubles.',
+    meth_eyebrow:'02 — The method', meth_title:'CMO → FMO.<br><em>Four phases. One outcome: first customer.</em>',
+    meth_sub:'From Current Mode of Operation to Future Mode of Operation. Applied to EU market entry: from zero presence to revenue-generating pipeline.',
+    ph1_title:'CMO Analysis', ph1_text:'Deep assessment of your current EU readiness. Product-market fit validation. Compliance gap analysis.', ph1_del:'→ EU Readiness Score<br>→ Compliance gap report<br>→ PMC validation',
+    ph2_title:'FMO Design', ph2_text:'EU-specific proposition. Pricing for European market. Legal entity setup. GDPR compliance. Partner strategy.', ph2_del:'→ EU proposition deck<br>→ Entity & compliance<br>→ Partner mapping',
+    ph3_title:'GTM Execution', ph3_text:'Outreach via HCI network. Warm introductions. Pilot negotiations. First deal support. Pipeline build.', ph3_del:'→ 50+ qualified intros<br>→ First 3 pilots<br>→ Pipeline active',
+    ph4_title:'Handover', ph4_text:'Your team takes over. Playbook documented. Network transferred. Recurring revenue running.', ph4_del:'→ GTM playbook<br>→ Team trained<br>→ Pipeline self-sustaining',
+    proof_eyebrow:'03 — Proof', proof_title:'Not theory.<br><em>Live cases.</em>', proof_sub:'Two EU market entries. Different sectors. Same methodology.',
+    case1_sub:'Post-quantum encryption → EU partner enablement platform', case1_text:'From a post-quantum technology product to a full partner enablement platform with 6 sector-specific assessment modules, AI-generated compliance reports, and complete deployment pipeline.',
+    case1_s1:'Sector templates', case1_s2:'Concept → live', case1_s3:'Total app size',
+    case2_sub:'Canadian ISV → EU healthcare market entry', case2_text:'A Canadian health-tech company with a portable EHR. Strong product, zero EU presence. HCI validated the proposition, mapped NEN 7510 + GDPR requirements, and opened first conversations with Dutch hospital groups.',
+    case2_s1:'First market', case2_s2:'7510 mapped', case2_s3:'Hospital intros',
+    assess_eyebrow:'04 — Your starting point', assess_title:'EU Readiness Assessment.<br><em>Where do you stand?</em>',
+    assess_sub:'Four dimensions. Score out of 85. Instant classification. Takes 3 minutes.',
+    dim1:'EU entity · Office · Team', dim2:'GDPR · NIS2 · CRA', dim3:'Proposition · Channel · Network', dim4:'Pipeline · Revenue · References',
+    score_label:'Total score', assess_cta_title:'Ready to see where you stand?',
+    assess_cta_desc:'The EU Readiness Assessment takes 3 minutes and gives you an instant score with personalised gap analysis.',
+    assess_cta_btn:'Start EU Readiness Assessment →',
+    eng_eyebrow:'05 — The trajectory', eng_title:'24-month lifecycle.<br><em>Three phases. Full handover.</em>',
+    eng_sub:'HCI doesn\'t stay forever. The goal is your independence.',
+    lc_a_title:'Full Service', lc_a_dur:'Month 1–12', lc_a_text:'HCI leads strategy and execution. From proposition validation through first customers.',
+    lc_a_del:'<strong>Deliverables:</strong> EU entity, compliance, proposition, first 3 pilots, pipeline, GTM playbook',
+    lc_b_title:'Transition', lc_b_dur:'Month 12–18', lc_b_text:'Your team takes the lead. HCI provides coaching, deal review, and strategic oversight.',
+    lc_b_del:'<strong>Deliverables:</strong> Team trained, playbook operational, pipeline self-generating',
+    lc_c_title:'Alumni & Dealflow', lc_c_dur:'Month 18–24+', lc_c_text:'You\'re independent. HCI stays available for strategic advice and the alumni network.',
+    lc_c_del:'<strong>Deliverables:</strong> Full independence, network access maintained, quarterly review',
+    mike_eyebrow:'06 — Your counterpart', mike_title:'You\'re not hiring<br>a consultancy.<br><em>You\'re hiring Mike.</em>',
+    mike_bio:'30 years of C-level relationships across Benelux and DACH. I\'ve seen the €250K mistakes — and I\'ve structured the path that avoids them. Every EU market entry follows the same proven methodology. I walk with you until the first deal is signed.',
+    mike_cta1:'Schedule a conversation →', mike_cta2:'Take the assessment first',
+    cta_title:'Ready for Europe?<br><em>Let\'s find out in 3 minutes.</em>',
+    cta_text:'Take the EU Readiness Assessment. Get your score across Presence, Compliance, GTM, and Commercial readiness.',
+    cta_btn1:'Start EU Readiness Assessment →', cta_btn2:'Or schedule a call directly'
+  },
+  nl: {
+    nav_brand:'HES Consultancy International', nav_cta:'Start assessment →',
+    back_home:'Terug naar overzicht',
+    hero_h1:'EU Revenue<br>Zonder EU-kantoor.<br><em>Wij ontdekken het in weken, niet kwartalen.</em>',
+    hero_hook:'De meeste techbedrijven verbranden €250K+ om erachter te komen dat ze niet klaar waren voor Europa.',
+    hero_sub:'Geen EU-entiteit. Geen GDPR-compliant stack. Geen lokaal netwerk. Geen gevalideerde propositie. Dat is geen marktintrede — dat is een duur experiment. HCI structureert de volledige weg van strategie tot eerste klant.',
+    hero_cta1:'Check uw EU Readiness →', hero_cta2:'Bekijk de methode',
+    cred1:'30+ jaar C-level netwerk', cred2:'Compliance als enabler', cred3_strong:'12 weken', cred3:'Naar eerste gekwalificeerde pipeline',
+    jr_problem:'Probleem', jr_method:'Methode', jr_proof:'Bewijs', jr_engagement:'Traject', jr_action:'Actie',
+    prob_eyebrow:'01 — Waarom 90% faalt', prob_title:'Vijf fouten.<br><em>Hetzelfde resultaat: verbrand budget, geen klanten.</em>',
+    prob_sub:'Elke mislukte EU-marktintrede die wij zien maakt minstens drie van deze fouten. Ze zijn voorspelbaar — en vermijdbaar.',
+    p0_num:'FOUT #0 — DE KERNFOUT', p0_title:'Validatie overslaan en direct naar sales',
+    p0_text:'"We hebben een geweldig product, we hebben alleen iemand nodig die het in Europa verkoopt." Dit is de nummer één killer. Zonder gevalideerde propositie-markt fit voor EU-kopers is alles wat daarna komt verspild budget.',
+    p1_num:'FOUT #1', p1_title:'Geen EU juridische entiteit', p1_text:'Europese enterprise-kopers kunnen niet inkopen bij een non-EU entiteit zonder significant juridisch risico. Geen entiteit = onzichtbaar voor procurement.',
+    p2_num:'FOUT #2', p2_title:'Compliance als bijzaak', p2_text:'GDPR, NIS2, CRA — dit zijn geen obstakels. Het zijn inkoopcriteria. EU-kopers checken compliance vóór features.',
+    p3_num:'FOUT #3', p3_title:'Aannemen vóór valideren', p3_text:'Een country manager aannemen vóór je propositie is gevalideerd is als een piloot inhuren voordat het vliegtuig gebouwd is.',
+    p4_num:'FOUT #4', p4_title:'Geen lokaal netwerk', p4_text:'C-level vertrouwen in Europa wordt verdiend via relaties, niet via koude outreach. Zonder warm netwerk verdubbelt uw sales cycle.',
+    meth_eyebrow:'02 — De methode', meth_title:'CMO → FMO.<br><em>Vier fasen. Één resultaat: eerste klant.</em>',
+    meth_sub:'Van Current Mode of Operation naar Future Mode of Operation. Toegepast op EU-marktintrede: van nul aanwezigheid naar revenue-genererende pipeline.',
+    ph1_title:'CMO-analyse', ph1_text:'Diepte-assessment van uw huidige EU-gereedheid. Product-markt fit validatie. Compliance gap analyse.', ph1_del:'→ EU Readiness Score<br>→ Compliance gap rapport<br>→ PMC validatie',
+    ph2_title:'FMO-ontwerp', ph2_text:'EU-specifieke propositie. Pricing voor Europese markt. Entiteit opzetten. GDPR-compliance. Partner strategie.', ph2_del:'→ EU propositie deck<br>→ Entiteit & compliance<br>→ Partner mapping',
+    ph3_title:'GTM-executie', ph3_text:'Outreach via HCI netwerk. Warme introducties. Pilot-onderhandelingen. Eerste deal support. Pipeline opbouw.', ph3_del:'→ 50+ gekwalificeerde intros<br>→ Eerste 3 pilots<br>→ Pipeline actief',
+    ph4_title:'Overdracht', ph4_text:'Uw team neemt over. Playbook gedocumenteerd. Netwerk overgedragen. Recurring revenue draait.', ph4_del:'→ GTM playbook<br>→ Team opgeleid<br>→ Pipeline zelfstandig',
+    proof_eyebrow:'03 — Bewijs', proof_title:'Geen theorie.<br><em>Live cases.</em>', proof_sub:'Twee EU-marktintredens. Verschillende sectoren. Dezelfde methodiek.',
+    case1_sub:'Post-quantum encryptie → EU partner enablement platform', case1_text:'Van post-quantum technologieproduct naar volledig partner enablement platform met 6 sector-specifieke assessment modules, AI-gegenereerde compliance rapporten en complete deployment pipeline.',
+    case1_s1:'Sector templates', case1_s2:'Concept → live', case1_s3:'Totale app grootte',
+    case2_sub:'Canadese ISV → EU zorgmarkt intrede', case2_text:'Een Canadees health-tech bedrijf met een draagbaar EPD. Sterk product, nul EU-aanwezigheid. HCI valideerde de propositie, bracht NEN 7510 + GDPR eisen in kaart, en opende eerste gesprekken met Nederlandse ziekenhuisgroepen.',
+    case2_s1:'Eerste markt', case2_s2:'7510 in kaart', case2_s3:'Ziekenhuis intros',
+    assess_eyebrow:'04 — Uw startpunt', assess_title:'EU Readiness Assessment.<br><em>Waar staat u?</em>',
+    assess_sub:'Vier dimensies. Score uit 85. Directe classificatie. Duurt 3 minuten.',
+    dim1:'EU entiteit · Kantoor · Team', dim2:'GDPR · NIS2 · CRA', dim3:'Propositie · Kanaal · Netwerk', dim4:'Pipeline · Omzet · Referenties',
+    score_label:'Totaalscore', assess_cta_title:'Klaar om te zien waar u staat?',
+    assess_cta_desc:'De EU Readiness Assessment duurt 3 minuten en geeft u een directe score met gepersonaliseerde gap-analyse.',
+    assess_cta_btn:'Start EU Readiness Assessment →',
+    eng_eyebrow:'05 — Het traject', eng_title:'24-maanden lifecycle.<br><em>Drie fasen. Volledige overdracht.</em>',
+    eng_sub:'HCI blijft niet voor altijd. Het doel is uw onafhankelijkheid.',
+    lc_a_title:'Full Service', lc_a_dur:'Maand 1–12', lc_a_text:'HCI leidt strategie en executie. Van propositie-validatie tot eerste klanten.',
+    lc_a_del:'<strong>Deliverables:</strong> EU entiteit, compliance, propositie, eerste 3 pilots, pipeline, GTM playbook',
+    lc_b_title:'Transitie', lc_b_dur:'Maand 12–18', lc_b_text:'Uw team neemt de leiding. HCI biedt coaching, deal review en strategisch overzicht.',
+    lc_b_del:'<strong>Deliverables:</strong> Team opgeleid, playbook operationeel, pipeline zelfgenererend',
+    lc_c_title:'Alumni & Dealflow', lc_c_dur:'Maand 18–24+', lc_c_text:'U bent onafhankelijk. HCI blijft beschikbaar voor strategisch advies en het alumni-netwerk.',
+    lc_c_del:'<strong>Deliverables:</strong> Volledige onafhankelijkheid, netwerktoegang behouden, kwartaal review',
+    mike_eyebrow:'06 — Uw gesprekspartner', mike_title:'U huurt geen<br>consultancy in.<br><em>U huurt Mike in.</em>',
+    mike_bio:'30 jaar C-level relaties in Benelux en DACH. Ik heb de €250K-fouten gezien — en ik heb het pad gestructureerd dat ze vermijdt. Elke EU-marktintrede volgt dezelfde bewezen methodiek. Ik loop mee tot de eerste deal getekend is.',
+    mike_cta1:'Plan een gesprek →', mike_cta2:'Doe eerst de assessment',
+    cta_title:'Klaar voor Europa?<br><em>Ontdek het in 3 minuten.</em>',
+    cta_text:'Doe de EU Readiness Assessment. Krijg uw score op Presence, Compliance, GTM en Commercial readiness.',
+    cta_btn1:'Start EU Readiness Assessment →', cta_btn2:'Of plan direct een gesprek'
+  }
+};
+
+let currentLang = 'en';
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toUpperCase() === lang.toUpperCase()));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (I18N[lang]?.[k]) el.innerHTML = I18N[lang][k];
+  });
+}
+
+// Journey rail scroll tracking
+const sections = ['hero','problem','method','proof','assessment','engagement','mike','cta'];
+const jpLinks = document.querySelectorAll('.jp');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = sections.indexOf(e.target.id);
+      jpLinks.forEach((jp, i) => {
+        jp.classList.remove('active','done');
+        if (i < idx) jp.classList.add('done');
+        if (i === idx) jp.classList.add('active');
+      });
+    }
+  });
+}, { threshold: .3, rootMargin: '-80px 0px -40% 0px' });
+sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+
+// Fade-in
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
+}, { threshold: .15, rootMargin: '0px 

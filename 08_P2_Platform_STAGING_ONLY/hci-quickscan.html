@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI — CMO→FMO Quickscan</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hci-theme.css">
+<style>
+:root {
+  --midnight: #08090c;
+  --purple: #c8a55a;
+  --purple-dim: rgba(200,165,90,.08);
+  --dark-violet: #b8860b;
+  --charcoal: #a8a6b4;
+  --hover-blue: #e0c882;
+  --black: #08090c;
+  --white: #ffffff;
+  --bg: #0d0f14;
+  --border: rgba(255,255,255,.08);
+  --text: #f0eef5;
+  --muted: #5e5d6a;
+  --green: #4ade80;
+  --red: #f87171;
+  --amber: #fbbf24;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+
+/* ═══ SCREEN MANAGEMENT ═══ */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+/* ═══ SCREEN 1: SECTOR SELECT ═══ */
+.sector-screen {
+  background: linear-gradient(165deg, #08090c 0%, #0d1520 40%, var(--dark-violet) 100%);
+  padding: 0;
+}
+.sector-hero {
+  text-align: center;
+  padding: 80px 24px 40px;
+}
+.sector-hero .brand {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.sector-hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sector-hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,.5);
+  max-width: 520px;
+  margin: 0 auto;
+}
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.sector-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 28px;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+.sector-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sector-color, var(--purple));
+  opacity: 0;
+  transition: opacity .3s;
+}
+.sector-card:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.15);
+  transform: translateY(-2px);
+}
+.sector-card:hover::before { opacity: 1; }
+.sector-card .s-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--sector-color, var(--purple));
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.sector-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.sector-card p {
+  font-size: 12px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.6;
+}
+.sector-card .s-roles {
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sector-card .s-roles span {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.4);
+  letter-spacing: .5px;
+}
+
+/* ═══ SCREEN 2: QUICKSCAN ═══ */
+.scan-screen {
+  background: var(--bg);
+  color: var(--text);
+}
+.scan-header {
+  background: linear-gradient(135deg, var(--black) 0%, #0d1520 100%);
+  padding: 32px 24px;
+  color: var(--white);
+  text-align: center;
+}
+.scan-header .brand { font-size: 9px; font-weight: 700; letter-spacing: 3px; color: var(--purple); text-transform: uppercase; margin-bottom: 8px; }
+.scan-header h2 { font-family: 'Instrument Serif', serif; font-size: 22px; font-weight: 400; }
+.scan-header .sub { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 4px; }
+
+.scan-progress {
+  background: #13151c;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.progress-bar {
+  height: 4px;
+  background: #1c1e28;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--hover-blue));
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+.progress-text {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+  text-align: center;
+}
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* Scan content container */
+.scan-content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* Org info form */
+.org-form {
+  background: #13151c;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.org-form h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.form-row { margin-bottom: 14px; }
+.form-row label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a8a6b4;
+  margin-bottom: 4px;
+}
+.form-row input, .form-row select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Outfit', sans-serif;
+  transition: border-color .2s;
+  background: #1c1e28;
+  color: #f0eef5;
+}
+.form-row input:focus, .form-row select:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(200,165,90,.1);
+}
+
+/* Question cards */
+.q-card {
+  background: #13151c;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: border-color .2s;
+}
+.q-card.answered { border-color: var(--green); }
+.q-card .q-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.q-card .q-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+.q-options { display: flex; flex-direction: column; gap: 6px; }
+.q-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .2s;
+  font-size: 12px;
+}
+.q-option:hover { background: var(--purple-dim); border-color: rgba(200,165,90,.2); }
+.q-option.selected { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); font-weight: 600; }
+.q-option .q-dot {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.q-option.selected .q-dot { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 3px var(--white); }
+
+.scan-submit {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--purple);
+  color: var(--black);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  margin-top: 24px;
+}
+.scan-submit:hover { background: var(--hover-blue); transform: translateY(-1px); }
+.scan-submit:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+/* ═══ SCREEN 3: PROCESSING ═══ */
+.process-screen {
+  background: linear-gradient(165deg, #08090c 0%, #0d1520 50%, #1a1520 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.process-box { max-width: 400px; padding: 24px; }
+.process-box .spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255,255,255,.1);
+  border-top-color: var(--purple);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 24px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.process-box h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.process-box p { font-size: 13px; color: rgba(255,255,255,.5); }
+.process-box .steps { margin-top: 24px; text-align: left; }
+.process-box .step {
+  font-size: 12px;
+  color: rgba(255,255,255,.3);
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.process-box .step.active { color: rgba(255,255,255,.8); }
+.process-box .step.done { color: var(--green); }
+.process-box .step::before { content: '○'; font-size: 8px; }
+.process-box .step.active::before { content: '◉'; color: var(--purple); }
+.process-box .step.done::before { content: '●'; color: var(--green); }
+
+/* ═══ SCREEN 4: REPORT ═══ */
+.report-screen {
+  background: var(--bg);
+  color: var(--text);
+}
+.report-header {
+  background: linear-gradient(135deg, var(--black) 0%, #0d1520 100%);
+  padding: 32px 24px;
+  color: var(--white);
+  text-align: center;
+}
+.report-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.report-actions button {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+.btn-primary { background: var(--purple); color: var(--white); border: none; }
+.btn-primary:hover { background: var(--dark-violet); }
+.btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.2); }
+.btn-secondary:hover { border-color: rgba(255,255,255,.4); }
+
+.report-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.report-card {
+  background: #13151c;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.report-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+/* Score bars */
+.score-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.score-label { font-size: 11px; font-weight: 600; width: 180px; flex-shrink: 0; color: #a8a6b4; }
+.score-bar { flex: 1; height: 8px; background: #1c1e28; border-radius: 4px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+.score-bar-fill.high { background: var(--green); }
+.score-bar-fill.mid { background: var(--amber); }
+.score-bar-fill.low { background: var(--red); }
+.score-val { font-size: 13px; font-weight: 700; width: 32px; text-align: right; }
+
+/* Gap cards */
+.gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gap-card { padding: 14px; border-radius: 8px; border: 1px solid var(--border); background: #1c1e28; }
+.gap-card .gap-status { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.gap-card .gap-status.red { color: var(--red); }
+.gap-card .gap-status.amber { color: var(--amber); }
+.gap-card .gap-status.green { color: var(--green); }
+.gap-card h4 { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 4px; color: #f0eef5; }
+.gap-card p { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* FMO table */
+.fmo-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.fmo-table th { text-align: left; padding: 8px 10px; background: #1c1e28; color: var(--white); font-weight: 600; }
+.fmo-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: #a8a6b4; }
+.fmo-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+
+/* Error state */
+.error-box { background: rgba(248,113,113,.08); border: 1px solid rgba(248,113,113,.25); border-radius: 8px; padding: 16px; color: var(--red); font-size: 13px; margin-top: 16px; }
+
+/* JSON debug */
+.json-debug { background: #0a0a14; color: #e5e7eb; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 11px; white-space: pre-wrap; max-height: 400px; overflow-y: auto; margin-top: 16px; display: none; }
+.json-debug.visible { display: block; }
+
+@media (max-width: 600px) {
+  .sector-grid { grid-template-columns: 1fr; }
+  .gap-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══ LANGUAGE TOGGLE ═══ */
+.lang-bar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  display: flex;
+  gap: 2px;
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(10px);
+  border-radius: 6px;
+  padding: 3px;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.lang-btn {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  background: transparent;
+  color: rgba(255,255,255,.4);
+  transition: all .2s;
+}
+.lang-btn.active {
+  background: var(--purple);
+  color: var(--black);
+}
+
+/* ═══ DOCUMENT UPLOAD ═══ */
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+  margin-top: 14px;
+  position: relative;
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--purple);
+  background: var(--purple-dim);
+}
+.upload-zone.has-file {
+  border-color: var(--green);
+  background: rgba(74,222,128,.05);
+}
+.upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.upload-icon { font-size: 28px; margin-bottom: 6px; }
+.upload-label { font-size: 12px; font-weight: 600; color: #a8a6b4; }
+.upload-hint { font-size: 10px; color: var(--muted); margin-top: 4px; }
+.upload-file-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(74,222,128,.08);
+  border-radius: 6px;
+  font-size: 11px;
+}
+.upload-file-info .file-name { font-weight: 600; color: var(--green); flex: 1; }
+.upload-file-info .file-remove {
+  background: none;
+  border: none;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 1: SECTOR SELECT
+     ═══════════════════════════════════════════ -->
+<div id="screen-select" class="screen sector-screen active">
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('nl')">NL</button>
+  </div>
+  <div class="sector-hero">
+    <div class="brand">HES Consultancy International</div>
+    <h1 data-i18n="hero_title">CMO → FMO<br>Quickscan</h1>
+    <p data-i18n="hero_sub">Discover in 5 minutes where your organisation stands on cybersecurity compliance — and where you need to go.</p>
+  </div>
+  <div class="sector-grid" id="sectorGrid"></div>
+  <div style="text-align:center;padding:24px;font-size:10px;color:rgba(255,255,255,.2)">HES Consultancy International · CMO→FMO Assessment Platform · v2.0</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 2: QUICKSCAN
+     ═══════════════════════════════════════════ -->
+<div id="screen-scan" class="screen scan-screen">
+  <div class="scan-header">
+    <div class="lang-bar">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('nl')">NL</button>
+    </div>
+    <div class="brand">HCI · <span id="scanSectorName"></span></div>
+    <h2>CMO → FMO Quickscan</h2>
+    <div class="sub" id="scanSectorSub"></div>
+  </div>
+  <div class="scan-progress">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-text" id="progressText">0 / 0 vragen beantwoord</div>
+  </div>
+  <div class="scan-content">
+    <div class="org-form">
+      <h3 data-i18n="org_title">Your organisation</h3>
+      <div class="form-row"><label data-i18n="org_name_label">Organisation name *</label><input type="text" id="orgName" data-placeholder-i18n="org_name_ph" placeholder="e.g. Municipality of Utrecht"></div>
+      <div class="form-row"><label data-i18n="contact_name_label">Your name *</label><input type="text" id="contactName" data-placeholder-i18n="contact_name_ph" placeholder="e.g. Jan de Vries"></div>
+      <div class="form-row"><label data-i18n="contact_role_label">Your role *</label><select id="contactRole"><option value="" data-i18n="select_ph">Select...</option></select></div>
+      
+      <!-- Document Upload -->
+      <div class="form-row">
+        <label data-i18n="upload_label">Upload annual report or strategy document <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="docUpload" accept=".pdf" onchange="handleFileUpload(this)">
+          <div id="uploadEmpty">
+            <div class="upload-icon">📄</div>
+            <div class="upload-label" data-i18n="upload_cta">Drop PDF here or click to upload</div>
+            <div class="upload-hint" data-i18n="upload_hint">Annual report, strategy document, or IT policy (PDF, max 10MB). Claude AI will analyse this to personalise your report.</div>
+          </div>
+          <div id="uploadFileInfo" class="upload-file-info" style="display:none">
+            <span>📄</span>
+            <span class="file-name" id="uploadFileName"></span>
+            <button class="file-remove" onclick="removeFile(event)">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="questionsContainer"></div>
+    <button class="scan-submit" id="submitBtn" disabled onclick="submitScan()" data-i18n="submit_btn">Generate CMO→FMO Report</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 3: PROCESSING
+     ═══════════════════════════════════════════ -->
+<div id="screen-process" class="screen process-screen">
+  <div class="process-box">
+    <div class="spinner"></div>
+    <h2 data-i18n="process_title">Generating report...</h2>
+    <p data-i18n="process_sub">HCI is analysing your quickscan answers</p>
+    <div class="steps">
+      <div class="step active" id="step1" data-i18n="step1">Processing quickscan data</div>
+      <div class="step" id="step2" data-i18n="step2">Loading sector context</div>
+      <div class="step" id="step3" data-i18n="step3">Analysing uploaded document</div>
+      <div class="step" id="step4" data-i18n="step4">Generating CMO→FMO report</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 4: REPORT
+     ═══════════════════════════════════════════ -->
+<div id="screen-report" class="screen report-screen">
+  <div class="report-header">
+    <div class="lang-bar">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('nl')">NL</button>
+    </div>
+    <div class="brand">HCI · CMO→FMO Report</div>
+    <h2 id="reportTitle"></h2>
+    <div class="sub" id="reportSub"></div>
+    <div class="report-actions">
+      <button class="btn-primary" onclick="downloadBrandedReport()" data-i18n="report_download">⬇ Download Branded Report</button>
+      <button class="btn-secondary" onclick="previewBrandedReport()" data-i18n="report_preview">Preview in new tab</button>
+      <button class="btn-secondary" onclick="toggleDebug()">JSON Debug</button>
+      <button class="btn-secondary" onclick="resetApp()" data-i18n="report_new">New scan</button>
+    </div>
+  </div>
+  <div class="report-content" id="reportContent"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// i18n — ENGLISH DEFAULT, DUTCH TOGGLE
+// ═══════════════════════════════════════════════════════════════
+let currentLang = 'en';
+let uploadedFileBase64 = null;
+let uploadedFileName = null;
+
+const I18N = {
+  en: {
+    hero_sub: 'Discover in 5 minutes where your organisation stands on cybersecurity compliance — and where you need to go.',
+    org_title: 'Your organisation', org_name_label: 'Organisation name *', org_name_ph: 'e.g. Municipality of Utrecht',
+    contact_name_label: 'Your name *', contact_name_ph: 'e.g. Jan de Vries', contact_role_label: 'Your role *', select_ph: 'Select...',
+    upload_label: 'Upload annual report or strategy document <span style="font-weight:400;color:var(--muted)">(optional)</span>',
+    upload_cta: 'Drop PDF here or click to upload',
+    upload_hint: 'Annual report, strategy document, or IT policy (PDF, max 10MB). Claude AI will analyse this to personalise your report.',
+    submit_btn: 'Generate CMO→FMO Report',
+    process_title: 'Generating report...', process_sub: 'HCI is analysing your quickscan answers',
+    step1: 'Processing quickscan data', step2: 'Loading sector context', step3: 'Analysing uploaded document', step4: 'Generating CMO→FMO report',
+    report_download: '⬇ Download Branded Report', report_preview: 'Preview in new tab', report_new: 'New scan',
+    score_title: 'Maturity score per dimension', gap_title: 'Gap analysis',
+    fmo_title: 'CMO → FMO Transformation',
+    fmo_th_dim: 'Dimension', fmo_th_cmo: 'CMO (current state)', fmo_th_fmo: 'FMO (target state)', fmo_th_impact: 'Impact',
+    invest_title: 'Engagement Proposal', invest_sub: 'Based on the quickscan results, we recommend the following programme:',
+    invest_label: 'Investment', invest_secure: 'SECURE subsidy: up to 50% coverage',
+    timeline_label: 'Timeline', timeline_phases: 'DEFINE → DEVELOP → DEPLOY → OPTIMIZE',
+    sector_context_title: 'Sector context', findings_title: 'Findings'
+  },
+  nl: {
+    hero_sub: 'Ontdek in 5 minuten waar uw organisatie staat op cybersecurity compliance — en waar u naartoe moet.',
+    org_title: 'Uw organisatie', org_name_label: 'Organisatienaam *', org_name_ph: 'bijv. Gemeente Utrecht',
+    contact_name_label: 'Uw naam *', contact_name_ph: 'bijv. Jan de Vries', contact_role_label: 'Uw rol *', select_ph: 'Selecteer...',
+    upload_label: 'Upload jaarverslag of visiedocument <span style="font-weight:400;color:var(--muted)">(optioneel)</span>',
+    upload_cta: 'Sleep PDF hierheen of klik om te uploaden',
+    upload_hint: 'Jaarverslag, strategiedocument of IT-beleidsdocument (PDF, max 10MB). Claude AI analyseert dit om uw rapport te personaliseren.',
+    submit_btn: 'Genereer CMO→FMO Rapport',
+    process_title: 'Rapport wordt gegenereerd...', process_sub: 'HCI analyseert uw quickscan-antwoorden',
+    step1: 'Quickscan data verwerken', step2: 'Sectorcontext laden', step3: 'Geüpload document analyseren', step4: 'CMO→FMO rapport genereren',
+    report_download: '⬇ Download Branded Rapport', report_preview: 'Preview in nieuw tabblad', report_new: 'Nieuwe scan',
+    score_title: 'Volwassenheidsscore per dimensie', gap_title: 'Gap-analyse',
+    fmo_title: 'CMO → FMO Transformatie',
+    fmo_th_dim: 'Dimensie', fmo_th_cmo: 'CMO (huidige situatie)', fmo_th_fmo: 'FMO (gewenste situatie)', fmo_th_impact: 'Impact',
+    invest_title: 'Engagement Voorstel', invest_sub: '<!-- -->${t('invest_sub')}',
+    invest_label: 'Investering', invest_secure: 'SECURE subsidie: tot 50% dekking',
+    timeline_label: 'Doorlooptijd', timeline_phases: 'DEFINE → DEVELOP → DEPLOY → OPTIMIZE',
+    sector_context_title: 'Sectorcontext', findings_title: 'Bevindingen'
+  }
+};
+
+function t(key) { return I18N[currentLang]?.[key] || I18N.en[key] || key; }
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (I18N[lang]?.[key]) el.innerHTML = I18N[lang][key];
+  });
+  document.querySelectorAll('[data-placeholder-i18n]').forEach(el => {
+    const key = el.dataset['placeholderI18n'];
+    if (I18N[lang]?.[key]) el.placeholder = I18N[lang][key];
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DOCUMENT UPLOAD HANDLERS
+// ═══════════════════════════════════════════════════════════════
+function handleFileUpload(input) {
+  const file = input.files?.[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) { alert(currentLang === 'nl' ? 'Bestand te groot (max 10MB)' : 'File too large (max 10MB)'); input.value = ''; return; }
+  if (!file.type.includes('pdf')) { alert(currentLang === 'nl' ? 'Alleen PDF' : 'Only PDF files supported'); input.value = ''; return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    uploadedFileBase64 = reader.result.split(',')[1];
+    uploadedFileName = file.name;
+    document.getElementById('uploadZone').classList.add('has-file');
+    document.getElementById('uploadEmpty').style.display = 'none';
+    document.getElementById('uploadFileInfo').style.display = 'flex';
+    document.getElementById('uploadFileName').textContent = `${file.name} (${(file.size/1024/1024).toFixed(1)} MB)`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeFile(e) {
+  e.stopPropagation(); e.preventDefault();
+  uploadedFileBase64 = null; uploadedFileName = null;
+  document.getElementById('docUpload').value = '';
+  document.getElementById('uploadZone').classList.remove('has-file');
+  document.getElementById('uploadEmpty').style.display = '';
+  document.getElementById('uploadFileInfo').style.display = 'none';
+}
+
+// Drag & drop setup (runs after DOM ready)
+document.addEventListener('DOMContentLoaded', () => {
+  const zone = document.getElementById('uploadZone');
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    if (e.dataTransfer.files?.length) { document.getElementById('docUpload').files = e.dataTransfer.files; handleFileUpload(document.getElementById('docUpload')); }
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// SECTOR CONFIGURATIONS
+// ═══════════════════════════════════════════════════════════════
+const SECTORS = {
+  s01: {
+    id: 's01', name: 'Government & Public Sector', color: '#1e3a5f',
+    sub: 'Gemeenten · Provincies · Waterschappen · ZBO\'s',
+    desc: 'BIO-compliance, NIS2 bestuurdersaansprakelijkheid, digitale soevereiniteit, CRA bij inkoop',
+    roles: ['CISO', 'CIO', 'CFO', 'Gemeentesecretaris'],
+    dimensions: ['Governance & Leiderschap', 'Informatiebeveiliging', 'Digitale Dienstverlening', 'Data & Privacy', 'Innovatie & Veranderkracht'],
+    questions: [
+      { dim: 0, text: 'Is er een aangestelde CISO of informatiebeveiligingsfunctionaris?', opts: ['Nee, niet aanwezig', 'Ja, maar parttime / gecombineerde functie', 'Ja, dedicated CISO met mandaat', 'Ja, CISO met team en boardrapportage'] },
+      { dim: 0, text: 'Staat cybersecurity structureel op de agenda van het bestuur?', opts: ['Nooit besproken', 'Incidenteel bij issues', 'Kwartaalrapportage', 'Maandelijks met KPI\'s en budget'] },
+      { dim: 1, text: 'Hoe ver is uw BIO-compliance?', opts: ['Net gestart / onbekend', 'Inventarisatie gedaan, nog veel gaps', 'Grotendeels compliant, enkele openstaande punten', 'Volledig compliant, jaarlijkse audit'] },
+      { dim: 1, text: 'Is multifactorauthenticatie (MFA) breed uitgerold?', opts: ['Niet aanwezig', 'Alleen voor IT-beheerders', 'Voor alle medewerkers op kantoor', 'Volledig, inclusief thuiswerk en mobiel'] },
+      { dim: 2, text: 'Worden webapplicaties en portalen regelmatig beveiligingsgetest?', opts: ['Niet of zelden', 'Bij grote wijzigingen', 'Jaarlijks pentest', 'Continue scanning + pentest bij elke release'] },
+      { dim: 3, text: 'Is er een dataclassificatieschema in gebruik?', opts: ['Niet aanwezig', 'Op papier maar niet toegepast', 'Toegepast op kritieke systemen', 'Organisatiebreed met automatische enforcement'] },
+      { dim: 3, text: 'Hoe gaat u om met SBOM (Software Bill of Materials) bij inkoop?', opts: ['Onbekend begrip', 'Bekend maar niet als eis gesteld', 'Bij sommige aanbestedingen gevraagd', 'Standaard inkoopeis voor alle software'] },
+      { dim: 4, text: 'Heeft u een incident response plan dat getest is?', opts: ['Geen plan aanwezig', 'Plan bestaat maar nooit geoefend', 'Jaarlijks tabletop exercise', 'Kwartaal drills + 24/72h meldplicht getest'] },
+      { dim: 4, text: 'Hoe kijkt u naar cloud soevereiniteit en vendor lock-in?', opts: ['Geen beleid', 'Enige zorgen maar geen actie', 'Exit-strategie in ontwikkeling', 'Multi-cloud strategie met exit-clausules'] },
+    ]
+  },
+  s02: {
+    id: 's02', name: 'Healthcare', color: '#065f46',
+    sub: 'Ziekenhuizen · GGZ · Huisartsen · ZBC\'s',
+    desc: 'NEN 7510, EPD-beveiliging, NIS2, MDR+CRA overlap, AI Act medische devices',
+    roles: ['CISO', 'CMIO', 'CFO', 'CTO'],
+    dimensions: ['NEN 7510 Compliance', 'NIS2 Readiness', 'EPD Security', 'AI Governance', 'Data Soevereiniteit'],
+    questions: [
+      { dim: 0, text: 'Hoe ver is uw NEN 7510 implementatie?', opts: ['Net gestart / onbekend', 'Gap-analyse uitgevoerd', 'Grotendeels geïmplementeerd', 'Gecertificeerd met jaarlijkse audit'] },
+      { dim: 1, text: 'Is uw organisatie geregistreerd als essentiële entiteit onder NIS2?', opts: ['Onbekend / niet mee bezig', 'Bewust maar nog niet geregistreerd', 'Geregistreerd, compliance in opbouw', 'Compliant met aantoonbare maatregelen'] },
+      { dim: 1, text: 'Is er een CISO met mandaat en budget voor informatiebeveiliging?', opts: ['Nee', 'Gecombineerde functie', 'Dedicated CISO', 'CISO met team en board-rapportage'] },
+      { dim: 2, text: 'Hoe is de beveiliging van uw EPD-systeem geregeld?', opts: ['Standaard vendor-configuratie', 'Basis hardening toegepast', 'Regelmatige pentests + monitoring', 'Zero-trust architectuur met continue monitoring'] },
+      { dim: 2, text: 'Is uw Z-CERT aansluiting actief en getest?', opts: ['Niet aangesloten', 'Aangesloten maar nooit getest', 'Aangesloten met jaarlijkse test', 'Actief met real-time threat intelligence'] },
+      { dim: 3, text: 'Gebruikt uw organisatie AI in diagnostiek of triage?', opts: ['Nee', 'In pilot / evaluatie', 'Ja, beperkt in productie', 'Ja, breed ingezet met governance'] },
+      { dim: 3, text: 'Is er een risicoclassificatie voor medische AI-systemen conform AI Act?', opts: ['Niet mee bezig', 'Bewust maar geen actie', 'Inventarisatie gestart', 'Classificatie compleet met documentatie'] },
+      { dim: 4, text: 'Hoe gaat u om met de bewaarplicht (20 jaar) en encryptie van patiëntdata?', opts: ['Geen specifiek beleid', 'Standaard encryptie in transit', 'Encryptie at-rest + in-transit', 'Post-quantum aware encryptiestrategie'] },
+      { dim: 4, text: 'Heeft u een MDR+CRA overlap-analyse voor connected medical devices?', opts: ['Onbekend', 'Bewust maar geen analyse', 'Analyse gestart', 'Compleet met remediatie-plan'] },
+    ]
+  },
+  s03: {
+    id: 's03', name: 'Developers & Engineers', color: '#6C5CE7',
+    sub: 'Software bedrijven 10-250 FTE · SaaS · Platform',
+    desc: 'CRA CE-markering, SBOM lifecycle, AI Act, secure SDLC, EU-markttoegang',
+    roles: ['CISO / Security Lead', 'CTO', 'CFO', 'CEO'],
+    dimensions: ['CRA Compliance', 'SDLC Security', 'SBOM Maturity', 'AI Governance', 'EU-markttoegang'],
+    questions: [
+      { dim: 0, text: 'Bent u bekend met de CRA-verplichtingen voor uw software producten?', opts: ['Niet van gehoord', 'Globaal bekend, geen actie', 'Inventarisatie gestart', 'Productclassificatie compleet'] },
+      { dim: 0, text: 'Heeft u CE-markering voor uw producten in voorbereiding?', opts: ['Nee / niet relevant geacht', 'Bewust maar niet gestart', 'Conformity assessment in opbouw', 'CE-markering traject actief'] },
+      { dim: 1, text: 'Hoe is security geïntegreerd in uw development lifecycle (SDLC)?', opts: ['Ad-hoc / niet structureel', 'Basis code reviews', 'SAST/DAST in CI/CD pipeline', 'Volledig DevSecOps + OWASP SAMM 2+'] },
+      { dim: 1, text: 'Wat is uw vulnerability disclosure en patch beleid?', opts: ['Geen formeel beleid', 'Reactief bij meldingen', 'Coordinated disclosure proces', 'Proactief met SLA\'s en automatische alerting'] },
+      { dim: 2, text: 'Genereert u SBOM\'s voor uw producten?', opts: ['Nee', 'Eenmalig gedaan', 'Bij major releases', 'Continu via CI/CD (SPDX/CycloneDX)'] },
+      { dim: 2, text: 'Hoe beheert u open source dependencies?', opts: ['Geen overzicht', 'Handmatige inventarisatie', 'Dependency scanning tool', 'Volledig beheer + license compliance + security scoring'] },
+      { dim: 3, text: 'Gebruikt uw product AI-functionaliteit?', opts: ['Nee', 'In ontwikkeling', 'Ja, beperkt', 'Ja, kernfunctionaliteit'] },
+      { dim: 3, text: 'Is er een AI-risicoclassificatie conform EU AI Act?', opts: ['Niet mee bezig', 'Bewust maar geen actie', 'Classificatie in voorbereiding', 'Compleet met governance framework'] },
+      { dim: 4, text: 'Verkoopt u aan klanten in andere EU-landen?', opts: ['Alleen NL', 'Een paar EU-landen', 'Breed in EU', 'EU-breed + internationale expansie'] },
+    ]
+  },
+  s04: {
+    id: 's04', name: 'Enterprise Organizations', color: '#78350f',
+    sub: 'Organisaties 250+ FTE · Manufacturing · Services',
+    desc: 'Supply chain security, CE-markering, multi-framework alignment, EU-markttoegang',
+    roles: ['CISO', 'CIO', 'CFO', 'CTO'],
+    dimensions: ['CRA Compliance & CE-markering', 'Supply Chain Security', 'Cloud Security', 'Incident Response', 'EU-markttoegang'],
+    questions: [
+      { dim: 0, text: 'Bent u bekend met CRA-verplichtingen voor producten die u verkoopt of importeert?', opts: ['Niet van gehoord', 'Globaal bekend', 'Impact-analyse gestart', 'Compliance programma actief'] },
+      { dim: 0, text: 'Heeft u een multi-framework alignment (ISO 27001 + SOC 2 + CRA)?', opts: ['Geen frameworks', 'Eén framework (bijv. ISO)', 'Twee frameworks', 'Multi-framework met gap mapping'] },
+      { dim: 1, text: 'Hoe beoordeelt u de cybersecurity van uw leveranciers?', opts: ['Niet structureel', 'Vragenlijst bij onboarding', 'Jaarlijkse assessment top-leveranciers', 'Continue monitoring + SBOM-eis'] },
+      { dim: 1, text: 'Stelt u SBOM als eis aan uw software-leveranciers?', opts: ['Nee', 'Bij sommige leveranciers', 'Bij alle nieuwe contracten', 'Standaardeis + verificatie'] },
+      { dim: 2, text: 'Hoe is uw cloud security governance ingericht?', opts: ['Minimaal / per team verschillend', 'Basis cloud security beleid', 'CSA CCM of vergelijkbaar framework', 'Multi-cloud governance met unified baseline'] },
+      { dim: 2, text: 'Hoeveel cloud providers gebruikt u?', opts: ['Geen cloud', '1 hyperscaler', '2-3 providers', 'Multi-cloud met exit-strategie'] },
+      { dim: 3, text: 'Kunt u binnen 24 uur een significant incident melden?', opts: ['Onzeker / geen proces', 'Proces bestaat maar niet getest', 'Jaarlijks geoefend', '24/72h compliant + automatische detectie'] },
+      { dim: 3, text: 'Is er een Security Operations Center (SOC)?', opts: ['Nee', 'Extern SOC basis', 'Extern SOC 24/7', 'Eigen of hybrid SOC met SIEM/SOAR'] },
+      { dim: 4, text: 'Exporteert of importeert uw organisatie producten met digitale elementen naar/vanuit de EU?', opts: ['Nee', 'Beperkt', 'Significant deel van omzet', 'Kernactiviteit'] },
+    ]
+  },
+  s05: {
+    id: 's05', name: 'Financial Services', color: '#7f1d1d',
+    sub: 'Banken · Verzekeraars · Pensioenfondsen · Betaaldiensten',
+    desc: 'DORA ICT Risk, TLPT/TIBER-NL, DNB toezicht, third-party risk, AI governance',
+    roles: ['CISO', 'CIO', 'CFO', 'CTO'],
+    dimensions: ['DORA ICT Risk Management', 'TLPT & Resilience Testing', 'Third-Party ICT Risk', 'Incident Classificatie', 'AI Governance'],
+    questions: [
+      { dim: 0, text: 'Heeft u een DORA-compliant ICT Risk Management Framework?', opts: ['Niet gestart', 'Bestaand framework, DORA gap nog niet in kaart', 'Gap-analyse uitgevoerd, remediatie gestart', 'Volledig DORA-compliant framework'] },
+      { dim: 0, text: 'Rapporteert u structureel over ICT-risico aan het bestuur?', opts: ['Incidenteel', 'Kwartaalrapportage', 'Maandelijks met KPI\'s', 'Real-time dashboard + maandelijkse board update'] },
+      { dim: 1, text: 'Voert u Threat-Led Penetration Testing (TLPT) uit conform TIBER-NL?', opts: ['Nooit uitgevoerd', 'Reguliere pentest (geen TLPT)', 'TLPT in voorbereiding', 'TIBER-NL test uitgevoerd'] },
+      { dim: 2, text: 'Heeft u een register van alle kritieke ICT-dienstverleners (Art.28)?', opts: ['Geen register', 'Gedeeltelijk', 'Compleet register', 'Register + concentratierisico analyse + exit-plannen'] },
+      { dim: 2, text: 'Heeft u exit-strategieën voor uw top-3 cloud providers?', opts: ['Nee', 'Conceptueel', 'Gedocumenteerd', 'Gedocumenteerd + periodiek getest'] },
+      { dim: 3, text: 'Gebruikt u het DORA incident classificatieschema?', opts: ['Onbekend', 'Eigen classificatie', 'DORA taxonomie in voorbereiding', 'DORA-compliant met DNB rapportage'] },
+      { dim: 3, text: 'Kunt u binnen de verplichte termijnen melden bij DNB?', opts: ['Onzeker', 'Handmatig proces', 'Geautomatiseerd maar niet getest', 'Volledig getest en operationeel'] },
+      { dim: 4, text: 'Gebruikt u AI voor kredietscoring, AML of fraude-detectie?', opts: ['Nee', 'In pilot', 'Ja, in productie', 'Ja, met governance framework'] },
+      { dim: 4, text: 'Is er een AI-risicoclassificatie conform EU AI Act voor uw modellen?', opts: ['Niet mee bezig', 'Bewust maar geen actie', 'Inventarisatie gestart', 'Classificatie compleet + model validation'] },
+    ]
+  },
+  s06: {
+    id: 's06', name: 'Telecom & Critical Infrastructure', color: '#134e4a',
+    sub: 'Telecomoperators · ISP\'s · Datacenters · Utilities',
+    desc: 'NIS2+EECC dubbel regime, OT/ICS security, 5G Toolbox, post-quantum readiness',
+    roles: ['CISO', 'CIO', 'CFO', 'CTO'],
+    dimensions: ['NIS2 & EECC Compliance', 'OT/ICS Security', '5G Security', 'Incident Response', 'Post-Quantum Readiness'],
+    questions: [
+      { dim: 0, text: 'Bent u compliant met zowel NIS2 als EECC beveiligingsvereisten?', opts: ['Niet gestart', 'NIS2 gestart, EECC onbekend', 'Beide in voorbereiding', 'Dual-regime compliance operationeel'] },
+      { dim: 0, text: 'Is bestuurdersaansprakelijkheid voor cybersecurity formeel geborgd?', opts: ['Niet besproken', 'Bestuur geïnformeerd', 'Formeel mandaat CISO', 'Board accountability + jaarlijkse training'] },
+      { dim: 1, text: 'Hoe is uw OT/ICS (SCADA) beveiliging ingericht?', opts: ['Geen specifiek OT beleid', 'Basis IT/OT segmentatie', 'IEC 62443 in voorbereiding', 'IEC 62443 gecertificeerd + monitoring'] },
+      { dim: 1, text: 'Zijn uw legacy SCADA-systemen beveiligd tegen IP-gebaseerde aanvallen?', opts: ['Niet specifiek', 'Air-gapped waar mogelijk', 'Monitoring + access control', 'Volledig gehardend + anomaly detection'] },
+      { dim: 2, text: 'Heeft u de EU 5G Cybersecurity Toolbox geïmplementeerd?', opts: ['Onbekend', 'Bewust maar niet gestart', 'Gedeeltelijk', 'Volledig geïmplementeerd'] },
+      { dim: 2, text: 'Hoe gaat u om met vendor diversificatie in uw netwerk?', opts: ['Single vendor', 'Overwegend single vendor', 'Dual vendor strategie', 'Multi-vendor met exit-opties'] },
+      { dim: 3, text: 'Kunt u significante incidenten melden bij Agentschap Telecom/RDI?', opts: ['Onzeker / geen proces', 'Handmatig proces', 'Geautomatiseerd, jaarlijks getest', '24/72h compliant + automatische escalatie'] },
+      { dim: 4, text: 'Heeft u een crypto-inventarisatie voor post-quantum migratie?', opts: ['Niet mee bezig', 'Bewust maar niet gestart', 'Inventarisatie gestart', 'Inventarisatie compleet + migratieplan'] },
+      { dim: 4, text: 'Kent u de ETSI PQC 2030 deadline en wat het voor uw infra betekent?', opts: ['Onbekend', 'Globaal bekend', 'Impact-analyse gedaan', 'Migratieplan met tijdlijn'] },
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// SYSTEM PROMPTS
+// ═══════════════════════════════════════════════════════════════
+const MASTER_PROMPT = `You are the HCI CMO→FMO Analysis Generator — an expert cybersecurity consultant generating personalised reports based on quickscan answers and optional uploaded documents.
+
+## IDENTITY
+- You generate output on behalf of HES Consultancy International (HCI)
+- You NEVER reference ChunkWorks, Triple Defence or PubliekIT
+- You write in the language specified (EN or NL)
+- Your tone is professional, persuasive but not excessive — consultant-level
+
+## TASK
+Analyse the quickscan answers (0-3 scale per question) and any uploaded document content, then generate a complete JSON object with all template variables for the sector report.
+
+## DOCUMENT ANALYSIS (when provided)
+If an annual report, strategy document, or IT policy is included:
+- Extract concrete facts: revenue, FTE count, IT budget %, digital strategy goals, named systems/platforms, risk assessments, audit findings
+- Identify cybersecurity maturity indicators: existing certifications, mentioned frameworks, incident history, board-level attention
+- Use these facts to ENRICH the analysis — replace generic statements with organisation-specific observations
+- Quote specific numbers and initiatives from the document where relevant
+- This should dramatically improve the specificity and credibility of the CMO→FMO report
+
+## SCORING
+Calculate per dimension a weighted score 1-10 based on answers (0=nothing, 1=basic, 2=advanced, 3=best practice).
+If a document is provided, adjust scores based on evidence found in the document.
+- 1-3: class="low", color="red"
+- 4-6: class="mid", color="amber"
+- 7-9: class="high", color="green"
+- pct = score × 10
+
+## OUTPUT
+Return ONLY valid JSON. No markdown, no text before or after.
+JSON contains all variables the sector template requires.`;
+
+const SECTOR_PROMPTS = {
+  s01: `## SECTOR: OVERHEID (S01)
+Kennisbank: BIO verplicht, NIS2 essentieel, Hof van Twente scenario, 344 gemeenten, 80% worstelt met infosec, digitale volwassenheid 3.23/5, CRA bij inkoop, SBOM-verplichting, digitale soevereiniteit, M365 lock-in, post-quantum BSN-data.
+Dimensies: Governance & Leiderschap, Informatiebeveiliging, Digitale Dienstverlening, Data & Privacy, Innovatie & Veranderkracht.
+Investering: €12.000-€35.000 (kleine gemeente) tot €35.000-€85.000 (grote gemeente).
+
+## EXACT JSON OUTPUT FORMAT (gebruik deze exacte keys):
+{
+  "score_governance": "7",
+  "score_infosec": "4",
+  "score_dienst": "6",
+  "score_data": "5",
+  "score_innovatie": "3",
+  "val_governance": "70",
+  "val_infosec": "40",
+  "val_dienst": "60",
+  "val_data": "50",
+  "val_innovatie": "30",
+  "val_ir_current": "35",
+  "val_sov_current": "25",
+  "ok_bio": "AANDACHT",
+  "gap_sbom": "Geen SBOM-eis bij software-inkoop. Leveranciers worden niet getoetst op CRA-compliance. Risico op non-compliant software in productieomgeving.",
+  "gap_incident_response": "Incident response plan niet getest op 24/72h CRA-meldplicht. Escalatiepad naar NCSC/toezichthouder ontbreekt.",
+  "gap_cra_reporting": "CRA rapportageverplichtingen niet ingebed in bestaande BIO-processen. Geen koppeling met leveranciersmanagement.",
+  "gap_security_by_design": "Security-by-design niet verankerd in inkoopvoorwaarden en projectmethodiek. Ontwikkelteams niet getraind.",
+  "gap_sovereignty": "Hoge afhankelijkheid M365/Azure zonder exit-strategie. Geen post-quantum encryptieplan voor BSN-data.",
+  "gap_sovereignty_class": "amber",
+  "gap_sovereignty_label": "AANDACHT",
+  "cmo_intro_paragraph": "3-4 zinnen sector+org intro",
+  "cmo_assessment_paragraph": "3-4 zinnen bevindingen op basis van quickscan",
+  "fmo_vision_paragraph": "3-4 zinnen gewenste eindsituatie",
+  "fmo_concrete_outcomes": "3-4 concrete deliverables",
+  "shift_infosec": "Van ad-hoc beveiligingsmaatregelen naar structureel BIO+NIS2 compliant informatiebeveiligingsbeleid.",
+  "shift_ir": "Van reactieve incidentafhandeling naar getest 24/72h response capability met directe escalatie.",
+  "shift_sov": "Van single-vendor afhankelijkheid naar multi-cloud strategie met soevereiniteitsgaranties.",
+  "investment_range": "€15.000 — €45.000"
+}`,
+
+  s02: `## SECTOR: HEALTHCARE (S02)
+Kennisbank: NEN 7510 verplicht, NIS2 essentieel, 60% niet NIS2-compliant, EPD (ChipSoft/Epic) kritiek, FHIR interop, MDR+CRA overlap, AI Act hoog-risico diagnostiek, Z-CERT, Maastricht UMC scenario, 5.3M patiëntrecords, bewaarplicht 20 jaar, post-quantum urgent.
+Dimensies: NEN 7510 Compliance, NIS2 Readiness, EPD Security, AI Governance, Data Soevereiniteit.
+Investering: €20.000-€50.000 (ZBC) tot €50.000-€150.000 (ziekenhuis).
+
+## EXACT JSON OUTPUT FORMAT:
+{
+  "score_epd": "4", "score_fhir": "3", "score_ir": "5", "score_ai": "2",
+  "val_epd": "40", "val_fhir": "30", "val_ir": "50", "val_ai": "20", "val_epd_current": "35",
+  "class_epd": "mid", "class_fhir": "low", "class_ir": "mid", "class_ai": "low",
+  "gap_epd_security": "EPD-systeem draait op standaard vendor-configuratie zonder aanvullende hardening of monitoring.",
+  "gap_fhir": "FHIR-interfaces onvoldoende beveiligd. Geen API gateway of tokenvalidatie.",
+  "gap_fhir_class": "red", "gap_fhir_label": "KRITIEK",
+  "gap_ai_governance": "AI in diagnostiek zonder risicoclassificatie conform EU AI Act. Geen model validation.",
+  "gap_cra_medical": "MDR+CRA overlap niet in kaart. Connected medical devices zonder CRA-conformity assessment.",
+  "cmo_intro_paragraph": "sector+org context", "cmo_assessment_paragraph": "bevindingen",
+  "fmo_vision_paragraph": "gewenste situatie", "fmo_concrete_outcomes": "deliverables",
+  "shift_epd": "Van basis vendor-config naar zero-trust EPD-architectuur met continue monitoring.",
+  "investment_range": "€25.000 — €65.000"
+}`,
+
+  s03: `## SECTOR: DEVELOPERS (S03)
+Kennisbank: CRA CE-markering verplicht, SBOM continu (SPDX/CycloneDX), CRA+AI Act dubbel, 67% onderschat impact, AI Act aug 2026, OWASP SAMM 2 vereist, OpenSSF Scorecard, Data Act portabiliteit, NL #1 DESI, 37 unicorns.
+Dimensies: CRA Compliance, SDLC Security, SBOM Maturity, AI Governance, EU-markttoegang.
+Investering: €10.000-€30.000 (10-50 FTE) tot €30.000-€75.000 (50-250 FTE).
+
+## EXACT JSON OUTPUT FORMAT:
+{
+  "score_ce": "3", "score_sdlc": "5", "score_sbom": "2", "score_delivery": "6", "score_vuln": "4",
+  "val_ce": "30", "val_sdlc": "50", "val_sbom": "20", "val_delivery": "60", "val_vuln": "40",
+  "val_sdlc_current": "45", "val_ir_current": "30",
+  "class_ce": "low", "class_sdlc": "mid", "class_sbom": "low", "class_delivery": "mid", "class_vuln": "mid",
+  "gap_ce_marking": "CRA productclassificatie niet uitgevoerd. Geen CE-markering traject gestart.",
+  "gap_sbom_own": "Geen continue SBOM-generatie in CI/CD. Eenmalige snapshot verouderd.",
+  "gap_vulnerability": "Geen coordinated vulnerability disclosure. Patch SLA ontbreekt.",
+  "gap_sdlc": "Security niet geïntegreerd in SDLC. Geen SAST/DAST in pipeline.",
+  "gap_sdlc_class": "amber", "gap_sdlc_label": "AANDACHT",
+  "gap_ir": "Incident response voor productincidenten ontbreekt.",
+  "gap_ir_class": "red", "gap_ir_label": "KRITIEK",
+  "gap_eumarket": "EU-markttoegang via compliance nog niet als strategie benut.",
+  "gap_eumarket_class": "amber", "gap_eumarket_label": "AANDACHT",
+  "cmo_intro_paragraph": "context", "cmo_assessment_paragraph": "bevindingen",
+  "fmo_vision_paragraph": "gewenste situatie", "fmo_concrete_outcomes": "deliverables",
+  "shift_sdlc": "Van ad-hoc security naar OWASP SAMM 2+ compliant DevSecOps pipeline.",
+  "shift_ir": "Van geen productincident response naar CRA-compliant 24/72h meldplicht.",
+  "investment_range": "€15.000 — €40.000"
+}`,
+
+  s04: `## SECTOR: ENTERPRISE (S04)
+Kennisbank: NIS2 bestuurdersaansprakelijkheid, CRA importeursplicht Art.15-16, 200+ leveranciers gemiddeld, multi-framework (ISO+SOC+CRA), 78% multi-cloud zonder baseline, 24/72h meldplicht, CE-markering concurrentievoordeel, cloud concentratierisico >70%, SBOM leverancierseisen.
+Dimensies: CRA Compliance, Supply Chain Security, Cloud Security, Incident Response, EU-markttoegang.
+Investering: €25.000-€65.000 (250-500 FTE) tot €65.000-€150.000 (500+ FTE).
+
+## EXACT JSON OUTPUT FORMAT:
+{
+  "cra_compliance_score": "4", "cra_compliance_class": "mid", "cra_compliance_pct": "40", "cra_compliance_color": "amber",
+  "supply_chain_score": "3", "supply_chain_class": "low", "supply_chain_pct": "30", "supply_chain_color": "red",
+  "cloud_security_score": "5", "cloud_security_class": "mid", "cloud_security_pct": "50", "cloud_security_color": "amber",
+  "incident_response_score": "3", "incident_response_class": "low", "incident_response_pct": "30", "incident_response_color": "red",
+  "eu_market_score": "6", "eu_market_class": "mid", "eu_market_pct": "60", "eu_market_color": "amber",
+  "cmo_sector_context": "3-4 zinnen sectorcontext enterprise",
+  "cmo_org_findings": "3-4 zinnen organisatie-specifiek",
+  "fmo_cra_cmo": "huidige situatie max 15 woorden", "fmo_cra_fmo": "gewenste situatie", "fmo_cra_impact": "impact max 10 woorden",
+  "fmo_supply_cmo": "...", "fmo_supply_fmo": "...", "fmo_supply_impact": "...",
+  "fmo_cloud_cmo": "...", "fmo_cloud_fmo": "...", "fmo_cloud_impact": "...",
+  "fmo_ir_cmo": "...", "fmo_ir_fmo": "...", "fmo_ir_impact": "...",
+  "fmo_eu_cmo": "...", "fmo_eu_fmo": "...", "fmo_eu_impact": "...",
+  "fmo_sov_cmo": "...", "fmo_sov_fmo": "...", "fmo_sov_impact": "...",
+  "hci_investment_range": "€30.000 — €75.000",
+  "hci_timeline": "9-12 maanden"
+}`,
+
+  s05: `## SECTOR: FINANCIEEL (S05)
+Kennisbank: DORA verplicht jan 2025, TLPT 3-jaarlijks, TIBER-NL DNB, Art.28 concentratierisico, 22.000+ entiteiten scope, DNB handhaving 2026, DORA+NIS2+CRA triple compliance, AI kredietscoring hoog-risico, 73% op AWS/Azure, post-quantum financiële data, CRA betaalplatforms.
+Dimensies: DORA ICT Risk Management, TLPT & Resilience Testing, Third-Party ICT Risk, Incident Classificatie, AI Governance.
+Investering: €30.000-€80.000 (mid-size) tot €80.000-€250.000 (systeembank/verzekeraar).
+
+## EXACT JSON OUTPUT FORMAT:
+{
+  "dora_compliance_score": "4", "dora_compliance_class": "mid", "dora_compliance_pct": "40", "dora_compliance_color": "amber",
+  "tlpt_score": "2", "tlpt_class": "low", "tlpt_pct": "20", "tlpt_color": "red",
+  "third_party_score": "3", "third_party_class": "low", "third_party_pct": "30", "third_party_color": "red",
+  "incident_score": "5", "incident_class": "mid", "incident_pct": "50", "incident_color": "amber",
+  "ai_governance_score": "3", "ai_governance_class": "low", "ai_governance_pct": "30", "ai_governance_color": "red",
+  "cmo_sector_context": "3-4 zinnen DORA/NIS2/CRA triple druk",
+  "cmo_org_findings": "3-4 zinnen organisatie-specifiek",
+  "fmo_dora_cmo": "...", "fmo_dora_fmo": "...", "fmo_dora_impact": "...",
+  "fmo_tlpt_cmo": "...", "fmo_tlpt_fmo": "...", "fmo_tlpt_impact": "...",
+  "fmo_tpr_cmo": "...", "fmo_tpr_fmo": "...", "fmo_tpr_impact": "...",
+  "fmo_ir_cmo": "...", "fmo_ir_fmo": "...", "fmo_ir_impact": "...",
+  "fmo_ai_cmo": "...", "fmo_ai_fmo": "...", "fmo_ai_impact": "...",
+  "fmo_sov_cmo": "...", "fmo_sov_fmo": "...", "fmo_sov_impact": "...",
+  "hci_investment_range": "€40.000 — €95.000",
+  "hci_timeline": "12-18 maanden"
+}`,
+
+  s06: `## SECTOR: TELECOM (S06)
+Kennisbank: NIS2+EECC dubbel regime, essentiële entiteit, 127 incidenten sectorgemiddelde, Agentschap Telecom/RDI meldplicht, SCADA 15-20 jaar oud, IEC 62443 slechts 34% gecertificeerd, 5G Toolbox, PQC deadline 2030, statelijke actoren, 3-4 netwerkleveranciers, CRA netwerkapparatuur.
+Dimensies: NIS2 & EECC Compliance, OT/ICS Security, 5G Security, Incident Response, Post-Quantum Readiness.
+Investering: €35.000-€90.000 (ISP/datacenter) tot €90.000-€300.000 (operator).
+
+## EXACT JSON OUTPUT FORMAT:
+{
+  "ot_score": "3", "ot_class": "low", "ot_pct": "30", "ot_color": "red",
+  "fiveg_score": "4", "fiveg_class": "mid", "fiveg_pct": "40", "fiveg_color": "amber",
+  "incident_score": "5", "incident_class": "mid", "incident_pct": "50", "incident_color": "amber",
+  "pqc_score": "2", "pqc_class": "low", "pqc_pct": "20", "pqc_color": "red",
+  "cmo_sector_context": "3-4 zinnen NIS2+EECC context",
+  "cmo_org_findings": "3-4 zinnen organisatie-specifiek",
+  "fmo_ot_cmo": "...", "fmo_ot_fmo": "...", "fmo_ot_impact": "...",
+  "fmo_supply_cmo": "...", "fmo_supply_fmo": "...", "fmo_supply_impact": "...",
+  "fmo_ir_cmo": "...", "fmo_ir_fmo": "...", "fmo_ir_impact": "...",
+  "fmo_sov_cmo": "...", "fmo_sov_fmo": "...", "fmo_sov_impact": "...",
+  "hci_investment_range": "€45.000 — €120.000",
+  "hci_timeline": "12-18 maanden"
+}`
+};
+
+// ═══════════════════════════════════════════════════════════════
+// TEMPLATE VARIABLE MAPPING (exact vars per sector template)
+// ═══════════════════════════════════════════════════════════════
+const TEMPLATE_VARS = {
+  s01: {
+    // Org & meta
+    shared: ['org_name','contact_name','contact_role','date','investment_range'],
+    // Scores (1-10 or text)
+    scores: ['score_governance','score_infosec','score_dienst','score_data','score_innovatie'],
+    // Percentages for bars
+    vals: ['val_governance','val_infosec','val_dienst','val_data','val_innovatie','val_ir_current','val_sov_current'],
+    // Gaps
+    gaps: ['gap_sbom','gap_incident_response','gap_cra_reporting','gap_security_by_design','gap_sovereignty','gap_sovereignty_class','gap_sovereignty_label','ok_bio'],
+    // FMO / CMO paragraphs
+    text: ['cmo_intro_paragraph','cmo_assessment_paragraph','fmo_vision_paragraph','fmo_concrete_outcomes','shift_infosec','shift_ir','shift_sov']
+  },
+  s02: {
+    shared: ['org_name','contact_name','contact_role','date','investment_range'],
+    scores: ['score_epd','score_fhir','score_ir','score_ai'],
+    vals: ['val_epd','val_fhir','val_ir','val_ai','val_epd_current'],
+    gaps: ['gap_epd_security','gap_fhir','gap_fhir_class','gap_fhir_label','gap_ai_governance','gap_cra_medical','class_epd','class_fhir','class_ir','class_ai'],
+    text: ['cmo_intro_paragraph','cmo_assessment_paragraph','fmo_vision_paragraph','fmo_concrete_outcomes','shift_epd']
+  },
+  s03: {
+    shared: ['org_name','contact_name','contact_role','date','investment_range'],
+    scores: ['score_ce','score_sdlc','score_sbom','score_delivery','score_vuln'],
+    vals: ['val_ce','val_sdlc','val_sbom','val_delivery','val_vuln','val_sdlc_current','val_ir_current'],
+    gaps: ['gap_ce_marking','gap_sbom_own','gap_vulnerability','gap_sdlc','gap_sdlc_class','gap_sdlc_label','gap_ir','gap_ir_class','gap_ir_label','gap_eumarket','gap_eumarket_class','gap_eumarket_label','class_ce','class_sdlc','class_sbom','class_delivery','class_vuln'],
+    text: ['cmo_intro_paragraph','cmo_assessment_paragraph','fmo_vision_paragraph','fmo_concrete_outcomes','shift_sdlc','shift_ir']
+  },
+  s04: {
+    shared: ['org_name','org_description','org_fte_range','receiver_role','report_date','hci_investment_range','hci_timeline'],
+    scores: ['cra_compliance_score','cra_compliance_class','cra_compliance_pct','cra_compliance_color',
+             'supply_chain_score','supply_chain_class','supply_chain_pct','supply_chain_color',
+             'cloud_security_score','cloud_security_class','cloud_security_pct','cloud_security_color',
+             'incident_response_score','incident_response_class','incident_response_pct','incident_response_color',
+             'eu_market_score','eu_market_class','eu_market_pct','eu_market_color'],
+    text: ['cmo_sector_context','cmo_org_findings',
+           'fmo_cra_cmo','fmo_cra_fmo','fmo_cra_impact',
+           'fmo_supply_cmo','fmo_supply_fmo','fmo_supply_impact',
+           'fmo_cloud_cmo','fmo_cloud_fmo','fmo_cloud_impact',
+           'fmo_ir_cmo','fmo_ir_fmo','fmo_ir_impact',
+           'fmo_eu_cmo','fmo_eu_fmo','fmo_eu_impact',
+           'fmo_sov_cmo','fmo_sov_fmo','fmo_sov_impact']
+  },
+  s05: {
+    shared: ['org_name','org_description','org_segment','receiver_role','report_date','hci_investment_range','hci_timeline'],
+    scores: ['dora_compliance_score','dora_compliance_class','dora_compliance_pct','dora_compliance_color',
+             'tlpt_score','tlpt_class','tlpt_pct','tlpt_color',
+             'third_party_score','third_party_class','third_party_pct','third_party_color',
+             'incident_score','incident_class','incident_pct','incident_color',
+             'ai_governance_score','ai_governance_class','ai_governance_pct','ai_governance_color'],
+    text: ['cmo_sector_context','cmo_org_findings',
+           'fmo_dora_cmo','fmo_dora_fmo','fmo_dora_impact',
+           'fmo_tlpt_cmo','fmo_tlpt_fmo','fmo_tlpt_impact',
+           'fmo_tpr_cmo','fmo_tpr_fmo','fmo_tpr_impact',
+           'fmo_ir_cmo','fmo_ir_fmo','fmo_ir_impact',
+           'fmo_ai_cmo','fmo_ai_fmo','fmo_ai_impact',
+           'fmo_sov_cmo','fmo_sov_fmo','fmo_sov_impact']
+  },
+  s06: {
+    shared: ['org_name','org_description','org_type','receiver_role','report_date','hci_investment_range','hci_timeline'],
+    scores: ['ot_score','ot_class','ot_pct','ot_color',
+             'fiveg_score','fiveg_class','fiveg_pct','fiveg_color',
+             'incident_score','incident_class','incident_pct','incident_color',
+             'pqc_score','pqc_class','pqc_pct','pqc_color'],
+    text: ['cmo_sector_context','cmo_org_findings',
+           'fmo_ot_cmo','fmo_ot_fmo','fmo_ot_impact',
+           'fmo_supply_cmo','fmo_supply_fmo','fmo_supply_impact',
+           'fmo_ir_cmo','fmo_ir_fmo','fmo_ir_impact',
+           'fmo_sov_cmo','fmo_sov_fmo','fmo_sov_impact']
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// TEMPLATE RENDERER
+// ═══════════════════════════════════════════════════════════════
+async function fetchTemplate(sectorId) {
+  try {
+    const res = await fetch(`/templates/${sectorId}.html`);
+    if (res.ok) return await res.text();
+  } catch (e) {}
+  // Fallback: try relative path
+  try {
+    const res2 = await fetch(`templates/${sectorId}.html`);
+    if (res2.ok) return await res2.text();
+  } catch (e) {}
+  return null;
+}
+
+function injectTemplateVars(templateHtml, vars) {
+  // Replace all {{variable_name}} with values from vars object
+  return templateHtml.replace(/\{\{([a-z_]+)\}\}/g, (match, key) => {
+    if (vars.hasOwnProperty(key)) return vars[key];
+    return match; // Leave unreplaced if not found
+  });
+}
+
+function flattenApiResponse(apiData, orgMeta, sectorId) {
+  // Flatten the nested Claude API response into a flat key-value map
+  // that matches the template {{variables}}
+  const flat = { ...orgMeta };
+  
+  // For S04-S06 style (flat score properties)
+  if (typeof apiData === 'object') {
+    Object.keys(apiData).forEach(key => {
+      const val = apiData[key];
+      if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+        // Nested object like scores.cra_compliance
+        Object.keys(val).forEach(subKey => {
+          flat[`${key}_${subKey}`] = String(val[subKey]);
+        });
+      } else if (!Array.isArray(val)) {
+        flat[key] = String(val);
+      }
+    });
+    
+    // Also flatten any direct score/class/pct/color properties
+    if (apiData.scores && typeof apiData.scores === 'object') {
+      Object.keys(apiData.scores).forEach(dimKey => {
+        const dimData = apiData.scores[dimKey];
+        if (typeof dimData === 'object') {
+          Object.keys(dimData).forEach(prop => {
+            flat[`${dimKey}_${prop}`] = String(dimData[prop]);
+          });
+          // Also set the combined key
+          flat[dimKey] = String(dimData.score || dimData);
+        } else {
+          flat[dimKey] = String(dimData);
+        }
+      });
+    }
+  }
+  
+  return flat;
+}
+
+async function downloadBrandedReport() {
+  if (!reportData || !currentSector) return;
+  
+  const sectorId = currentSector.id;
+  const templateHtml = await fetchTemplate(sectorId);
+  
+  if (!templateHtml) {
+    alert('Template kon niet geladen worden. Zorg dat /templates/' + sectorId + '.html beschikbaar is.');
+    return;
+  }
+  
+  // Build org meta from form
+  const orgMeta = {
+    org_name: document.getElementById('orgName').value,
+    contact_name: document.getElementById('contactName').value,
+    contact_role: document.getElementById('contactRole').value,
+    receiver_role: document.getElementById('contactRole').value,
+    date: new Date().toLocaleDateString('nl-NL'),
+    report_date: new Date().toLocaleDateString('nl-NL'),
+    org_description: `${currentSector.name} organisatie`,
+    org_fte_range: '50-250 FTE',
+    org_segment: currentSector.sub.split('·')[0]?.trim() || '',
+    org_type: currentSector.sub.split('·')[0]?.trim() || ''
+  };
+  
+  // Flatten API response to match template vars
+  const flatVars = flattenApiResponse(reportData, orgMeta, sectorId);
+  
+  // Inject into template
+  const finalHtml = injectTemplateVars(templateHtml, flatVars);
+  
+  // Count unreplaced vars for debug
+  const unreplaced = (finalHtml.match(/\{\{[a-z_]+\}\}/g) || []);
+  if (unreplaced.length > 0) {
+    console.warn('Unreplaced template vars:', [...new Set(unreplaced)]);
+  }
+  
+  // Download as HTML file
+  const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `HCI_CMO-FMO_${document.getElementById('orgName').value.replace(/\s+/g, '_')}_${sectorId.toUpperCase()}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function previewBrandedReport() {
+  if (!reportData || !currentSector) return;
+  
+  const sectorId = currentSector.id;
+  fetchTemplate(sectorId).then(templateHtml => {
+    if (!templateHtml) {
+      alert('Template niet beschikbaar.');
+      return;
+    }
+    const orgMeta = {
+      org_name: document.getElementById('orgName').value,
+      contact_name: document.getElementById('contactName').value,
+      contact_role: document.getElementById('contactRole').value,
+      receiver_role: document.getElementById('contactRole').value,
+      date: new Date().toLocaleDateString('nl-NL'),
+      report_date: new Date().toLocaleDateString('nl-NL'),
+      org_description: `${currentSector.name} organisatie`,
+      org_fte_range: '50-250 FTE',
+      org_segment: currentSector.sub.split('·')[0]?.trim() || '',
+      org_type: currentSector.sub.split('·')[0]?.trim() || ''
+    };
+    const flatVars = flattenApiResponse(reportData, orgMeta, sectorId);
+    const finalHtml = injectTemplateVars(templateHtml, flatVars);
+    
+    // Open in new tab
+    const win = window.open('', '_blank');
+    win.document.write(finalHtml);
+    win.document.close();
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════════════════════════
+let currentSector = null;
+let answers = {};
+let reportData = null;
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER SECTOR GRID
+// ═══════════════════════════════════════════════════════════════
+function renderSectorGrid() {
+  const grid = document.getElementById('sectorGrid');
+  grid.innerHTML = Object.values(SECTORS).map(s => `
+    <div class="sector-card" style="--sector-color:${s.color}" onclick="selectSector('${s.id}')">
+      <div class="s-badge">${s.id.toUpperCase()}</div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <div class="s-roles">${s.roles.map(r => `<span>${r}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SELECT SECTOR → SHOW QUICKSCAN
+// ═══════════════════════════════════════════════════════════════
+function selectSector(id) {
+  currentSector = SECTORS[id];
+  answers = {};
+  
+  document.getElementById('scanSectorName').textContent = currentSector.name;
+  document.getElementById('scanSectorSub').textContent = currentSector.sub;
+  
+  // Populate roles dropdown
+  const roleSelect = document.getElementById('contactRole');
+  roleSelect.innerHTML = '<option value="">Selecteer...</option>' + 
+    currentSector.roles.map(r => `<option value="${r}">${r}</option>`).join('');
+  
+  // Render questions
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = currentSector.questions.map((q, i) => `
+    <div class="q-card" id="qcard-${i}">
+      <div class="q-label">${currentSector.dimensions[q.dim]}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-options">
+        ${q.opts.map((opt, j) => `
+          <div class="q-option" onclick="selectAnswer(${i}, ${j}, this)">
+            <div class="q-dot"></div>
+            <span>${opt}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+  
+  showScreen('screen-scan');
+  updateProgress();
+}
+
+function selectAnswer(qi, val, el) {
+  answers[qi] = val;
+  // Update UI
+  el.parentElement.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(`qcard-${qi}`).classList.add('answered');
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = currentSector.questions.length;
+  const answered = Object.keys(answers).length;
+  const orgFilled = document.getElementById('orgName').value && document.getElementById('contactName').value && document.getElementById('contactRole').value;
+  
+  document.getElementById('progressFill').style.width = `${(answered / total) * 100}%`;
+  document.getElementById('progressText').textContent = `${answered} / ${total} vragen beantwoord`;
+  document.getElementById('submitBtn').disabled = !(answered === total && orgFilled);
+}
+
+// Listen for org form changes
+['orgName', 'contactName', 'contactRole'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateProgress);
+  document.getElementById(id).addEventListener('change', updateProgress);
+});
+
+// ═══════════════════════════════════════════════════════════════
+// SUBMIT → CALL CLAUDE API
+// ═══════════════════════════════════════════════════════════════
+async function submitScan() {
+  showScreen('screen-process');
+  
+  const orgName = document.getElementById('orgName').value;
+  const contactName = document.getElementById('contactName').value;
+  const contactRole = document.getElementById('contactRole').value;
+  const langInstruction = currentLang === 'nl' ? 'Schrijf alle output in het Nederlands.' : 'Write all output in English.';
+  
+  // Build answer summary
+  const answerSummary = currentSector.questions.map((q, i) => ({
+    dimension: currentSector.dimensions[q.dim],
+    question: q.text,
+    answer: q.opts[answers[i]],
+    score: answers[i]
+  }));
+  
+  animateSteps();
+  
+  const userText = `${langInstruction}
+
+Generate a CMO→FMO report for:
+Organisation: ${orgName}
+Contact: ${contactName}
+Role: ${contactRole}
+Sector: ${currentSector.name}
+Dimensions: ${currentSector.dimensions.join(', ')}
+
+Quickscan answers (score 0=nothing, 1=basic, 2=advanced, 3=best practice):
+${JSON.stringify(answerSummary, null, 2)}
+
+${uploadedFileName ? `\nATTACHED DOCUMENT: "${uploadedFileName}" — analyse this document for organisation-specific facts, IT maturity indicators, strategy, budgets, existing certifications. Use these to enrich and personalise the report.\n` : ''}
+Generate the complete JSON object with all template variables for this sector.`;
+
+  // Build messages array
+  const userContent = [];
+  
+  // Add document if uploaded
+  if (uploadedFileBase64) {
+    userContent.push({
+      type: 'document',
+      source: { type: 'base64', media_type: 'application/pdf', data: uploadedFileBase64 }
+    });
+  }
+  userContent.push({ type: 'text', text: userText });
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        system: MASTER_PROMPT + '\n\n' + SECTOR_PROMPTS[currentSector.id],
+        messages: [{ role: 'user', content: userContent }]
+      })
+    });
+    
+    const data = await response.json();
+    const text = data.content?.map(b => b.text || '').join('') || '';
+    const clean = text.replace(/```json|```/g, '').trim();
+    reportData = JSON.parse(clean);
+    
+    renderReport(orgName, contactName, contactRole);
+    showScreen('screen-report');
+    
+  } catch (err) {
+    console.error('API Error:', err);
+    reportData = generateMockData(orgName, contactName, contactRole);
+    renderReport(orgName, contactName, contactRole);
+    showScreen('screen-report');
+  }
+}
+
+function animateSteps() {
+  const steps = ['step1', 'step2', 'step3', 'step4'];
+  steps.forEach((s, i) => {
+    setTimeout(() => {
+      if (i > 0) document.getElementById(steps[i-1]).className = 'step done';
+      document.getElementById(s).className = 'step active';
+    }, i * 1500);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MOCK DATA (fallback when API unavailable)
+// ═══════════════════════════════════════════════════════════════
+function generateMockData(orgName, contactName, contactRole) {
+  const dims = currentSector.dimensions;
+  const sid = currentSector.id;
+  
+  // Calculate dimension scores from answers
+  function dimScore(dimIdx) {
+    const dimQs = currentSector.questions.map((q, i) => ({ q, i })).filter(x => x.q.dim === dimIdx);
+    const vals = dimQs.map(x => answers[x.i] || 0);
+    const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+    return Math.max(1, Math.min(10, Math.round(avg * 2.5 + 1.5)));
+  }
+  
+  function cls(s) { return s <= 3 ? 'low' : s <= 6 ? 'mid' : 'high'; }
+  function clr(s) { return s <= 3 ? 'red' : s <= 6 ? 'amber' : 'green'; }
+  function gapStatus(s) { return s <= 3 ? 'KRITIEK' : s <= 6 ? 'AANDACHT' : 'ADEQUAAT'; }
+  
+  const d0 = dimScore(0), d1 = dimScore(1), d2 = dimScore(2), d3 = dimScore(3), d4 = dimScore(4);
+  
+  // Build sector-specific output matching EXACT template vars
+  const base = {
+    cmo_sector_context: `${currentSector.name} organisaties staan onder toenemende compliance-druk door CRA, NIS2 en sectorspecifieke regelgeving. De deadline van september 2026 nadert snel. Organisaties die nu niet investeren lopen risico op boetes, markttoegangsbeperking en reputatieschade.`,
+    cmo_org_findings: `${orgName} toont op basis van de quickscan een gemengd volwassenheidsniveau. Er zijn sterke punten maar ook duidelijke gaps die aandacht vereisen. Met gerichte investeringen kan ${orgName} binnen 9-12 maanden naar een aantoonbaar compliant niveau groeien.`,
+    cmo_intro_paragraph: `${orgName} opereert in een sector waar ${currentSector.name.toLowerCase()} organisaties onder toenemende druk staan van Europese cybersecurity-wetgeving. Deze CMO→FMO analyse brengt de huidige situatie in kaart en schetst een realistisch pad naar compliance.`,
+    cmo_assessment_paragraph: `Op basis van de quickscan scoort ${orgName} wisselend over de vijf dimensies. ${d0 <= 4 ? 'Governance vraagt urgente aandacht.' : 'Governance is redelijk op orde.'} ${d1 <= 4 ? 'Operationele beveiliging vertoont significante gaps.' : 'Operationele maatregelen zijn gedeeltelijk ingericht.'}`,
+    fmo_vision_paragraph: `${orgName} groeit naar een organisatie die aantoonbaar compliant is met alle relevante wet- en regelgeving, met ingebedde security-processen die continue verbetering ondersteunen.`,
+    fmo_concrete_outcomes: `CRA-compliant organisatie met aantoonbare maatregelen, getest incident response plan, actuele gap-analyse met remediatie-roadmap, en SECURE subsidie-aanvraag voor maximale co-financiering.`
+  };
+  
+  if (sid === 's01') {
+    return { ...base,
+      score_governance: String(d0), score_infosec: String(d1), score_dienst: String(d2), score_data: String(d3), score_innovatie: String(d4),
+      val_governance: String(d0*10), val_infosec: String(d1*10), val_dienst: String(d2*10), val_data: String(d3*10), val_innovatie: String(d4*10),
+      val_ir_current: String(Math.round(d4*8)), val_sov_current: String(Math.round(d3*7)),
+      ok_bio: gapStatus(d1),
+      gap_sbom: `${orgName} stelt geen SBOM-eis bij software-inkoop. Leveranciers worden niet getoetst op CRA-compliance.`,
+      gap_incident_response: `Incident response plan ${d4 <= 3 ? 'ontbreekt' : 'is niet getest'} op 24/72h CRA-meldplicht.`,
+      gap_cra_reporting: `CRA rapportageverplichtingen niet ingebed in bestaande BIO-processen.`,
+      gap_security_by_design: `Security-by-design niet verankerd in inkoopvoorwaarden en projectmethodiek.`,
+      gap_sovereignty: `${d3 <= 4 ? 'Hoge afhankelijkheid' : 'Matige afhankelijkheid'} van cloud zonder exit-strategie.`,
+      gap_sovereignty_class: clr(d3), gap_sovereignty_label: gapStatus(d3),
+      shift_infosec: 'Van ad-hoc beveiligingsmaatregelen naar structureel BIO+NIS2 compliant informatiebeveiligingsbeleid.',
+      shift_ir: 'Van reactieve incidentafhandeling naar getest 24/72h response capability.',
+      shift_sov: 'Van single-vendor afhankelijkheid naar multi-cloud strategie met soevereiniteitsgaranties.',
+      investment_range: d0+d1 <= 6 ? '€25.000 — €55.000' : '€15.000 — €35.000',
+      // Also include generic report fields for the inline report
+      scores: { governance: {score:d0,class:cls(d0),color:clr(d0),pct:d0*10}, infosec: {score:d1,class:cls(d1),color:clr(d1),pct:d1*10}, dienstverlening: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, data_privacy: {score:d3,class:cls(d3),color:clr(d3),pct:d3*10}, innovatie: {score:d4,class:cls(d4),color:clr(d4),pct:d4*10} },
+      gaps: dims.map((dim,i) => { const s=dimScore(i); return {title:dim,status:gapStatus(s),status_class:clr(s),description:`Score ${s}/10 op ${dim}. ${s<=5?'Significante verbeterpunten.':'Optimalisatie mogelijk.'}`}; }),
+      fmo_rows: dims.map((dim,i) => { const s=dimScore(i); return {dimension:dim,cmo:s<=3?'Minimaal ingericht':'Gedeeltelijk ingericht',fmo:'Volledig compliant en aantoonbaar',impact:s<=3?'Hoog risico reductie':'Compliance verbetering'}; }),
+      investment_range: d0+d1 <= 6 ? '€25.000 — €55.000' : '€15.000 — €35.000',
+      timeline: '9-12 maanden'
+    };
+  }
+  
+  if (sid === 's02') {
+    return { ...base,
+      score_epd: String(d2), score_fhir: String(d2), score_ir: String(d3), score_ai: String(d3),
+      val_epd: String(d2*10), val_fhir: String(d2*10), val_ir: String(d3*10), val_ai: String(d3*10), val_epd_current: String(d2*8),
+      class_epd: cls(d2), class_fhir: cls(d2), class_ir: cls(d3), class_ai: cls(d3),
+      gap_epd_security: `EPD-systeem ${d2<=3?'draait op standaard vendor-configuratie':'heeft basis hardening maar mist monitoring'}.`,
+      gap_fhir: `FHIR-interfaces ${d2<=3?'onbeveiligd':'gedeeltelijk beveiligd maar mist tokenvalidatie'}.`,
+      gap_fhir_class: clr(d2), gap_fhir_label: gapStatus(d2),
+      gap_ai_governance: `AI in diagnostiek ${d3<=3?'zonder risicoclassificatie':'met beperkte governance'} conform EU AI Act.`,
+      gap_cra_medical: `MDR+CRA overlap ${d1<=3?'niet in kaart':'gedeeltelijk geanalyseerd'}.`,
+      shift_epd: 'Van basis vendor-config naar zero-trust EPD-architectuur met continue monitoring.',
+      investment_range: d0+d1 <= 6 ? '€35.000 — €75.000' : '€20.000 — €45.000',
+      scores: { nen_7510: {score:d0,class:cls(d0),color:clr(d0),pct:d0*10}, nis2: {score:d1,class:cls(d1),color:clr(d1),pct:d1*10}, epd_security: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, ai_governance: {score:d3,class:cls(d3),color:clr(d3),pct:d3*10}, data_sovereignty: {score:d4,class:cls(d4),color:clr(d4),pct:d4*10} },
+      gaps: dims.map((dim,i) => { const s=dimScore(i); return {title:dim,status:gapStatus(s),status_class:clr(s),description:`Score ${s}/10 op ${dim}.`}; }),
+      fmo_rows: dims.map((dim,i) => { const s=dimScore(i); return {dimension:dim,cmo:s<=3?'Minimaal ingericht':'Gedeeltelijk ingericht',fmo:'Volledig compliant',impact:s<=3?'Hoog risico reductie':'Verbetering'}; }),
+      timeline: '9-12 maanden'
+    };
+  }
+  
+  if (sid === 's03') {
+    return { ...base,
+      score_ce: String(d0), score_sdlc: String(d2), score_sbom: String(d2), score_delivery: String(d2), score_vuln: String(d3),
+      val_ce: String(d0*10), val_sdlc: String(d2*10), val_sbom: String(d2*10), val_delivery: String(d2*10), val_vuln: String(d3*10),
+      val_sdlc_current: String(d2*8), val_ir_current: String(d3*7),
+      class_ce: cls(d0), class_sdlc: cls(d2), class_sbom: cls(d2), class_delivery: cls(d2), class_vuln: cls(d3),
+      gap_ce_marking: `CRA productclassificatie ${d0<=3?'niet uitgevoerd':'gestart maar niet afgerond'}.`,
+      gap_sbom_own: `${d2<=3?'Geen':'Beperkte'} SBOM-generatie in CI/CD pipeline.`,
+      gap_vulnerability: `${d3<=3?'Geen':'Beperkt'} vulnerability disclosure proces.`,
+      gap_sdlc: `Security ${d2<=3?'niet':'gedeeltelijk'} geïntegreerd in SDLC.`,
+      gap_sdlc_class: clr(d2), gap_sdlc_label: gapStatus(d2),
+      gap_ir: `Incident response voor productincidenten ${d3<=3?'ontbreekt':'onvoldoende getest'}.`,
+      gap_ir_class: clr(d3), gap_ir_label: gapStatus(d3),
+      gap_eumarket: `EU-markttoegang via compliance ${d4<=3?'niet':'beperkt'} als strategie benut.`,
+      gap_eumarket_class: clr(d4), gap_eumarket_label: gapStatus(d4),
+      shift_sdlc: 'Van ad-hoc security naar OWASP SAMM 2+ compliant DevSecOps pipeline.',
+      shift_ir: 'Van geen productincident response naar CRA-compliant 24/72h meldplicht.',
+      investment_range: d0+d1 <= 6 ? '€20.000 — €50.000' : '€12.000 — €30.000',
+      scores: { cra: {score:d0,class:cls(d0),color:clr(d0),pct:d0*10}, sdlc: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, sbom: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, ai: {score:d3,class:cls(d3),color:clr(d3),pct:d3*10}, eu_market: {score:d4,class:cls(d4),color:clr(d4),pct:d4*10} },
+      gaps: dims.map((dim,i) => { const s=dimScore(i); return {title:dim,status:gapStatus(s),status_class:clr(s),description:`Score ${s}/10 op ${dim}.`}; }),
+      fmo_rows: dims.map((dim,i) => { const s=dimScore(i); return {dimension:dim,cmo:s<=3?'Minimaal ingericht':'Gedeeltelijk ingericht',fmo:'Volledig compliant',impact:s<=3?'Hoog risico reductie':'Verbetering'}; }),
+      timeline: '6-9 maanden'
+    };
+  }
+  
+  if (sid === 's04') {
+    return { ...base,
+      cra_compliance_score: String(d0), cra_compliance_class: cls(d0), cra_compliance_pct: String(d0*10), cra_compliance_color: clr(d0),
+      supply_chain_score: String(d1), supply_chain_class: cls(d1), supply_chain_pct: String(d1*10), supply_chain_color: clr(d1),
+      cloud_security_score: String(d2), cloud_security_class: cls(d2), cloud_security_pct: String(d2*10), cloud_security_color: clr(d2),
+      incident_response_score: String(d3), incident_response_class: cls(d3), incident_response_pct: String(d3*10), incident_response_color: clr(d3),
+      eu_market_score: String(d4), eu_market_class: cls(d4), eu_market_pct: String(d4*10), eu_market_color: clr(d4),
+      fmo_cra_cmo: `CRA-compliance ${d0<=3?'niet gestart':'in opbouw'}`, fmo_cra_fmo: 'Volledig CRA-compliant met CE-markering', fmo_cra_impact: 'EU-markttoegang geborgd',
+      fmo_supply_cmo: `Supply chain ${d1<=3?'niet':'beperkt'} beoordeeld`, fmo_supply_fmo: 'Continue leveranciersmonitoring + SBOM', fmo_supply_impact: 'Ketenrisico beheerst',
+      fmo_cloud_cmo: `Cloud security ${d2<=3?'minimaal':'gedeeltelijk'}`, fmo_cloud_fmo: 'Multi-cloud governance baseline', fmo_cloud_impact: 'Concentratierisico weg',
+      fmo_ir_cmo: `IR ${d3<=3?'niet getest':'jaarlijks geoefend'}`, fmo_ir_fmo: '24/72h compliant + automatische detectie', fmo_ir_impact: 'Meldplicht geborgd',
+      fmo_eu_cmo: `EU-markt ${d4<=3?'onvoorbereid':'deels compliant'}`, fmo_eu_fmo: 'Compliance als concurrentievoordeel', fmo_eu_impact: 'Omzetgroei EU',
+      fmo_sov_cmo: 'Vendor afhankelijkheid hoog', fmo_sov_fmo: 'Multi-vendor met exit-strategie', fmo_sov_impact: 'Soevereiniteit geborgd',
+      hci_investment_range: d0+d1 <= 6 ? '€35.000 — €85.000' : '€25.000 — €55.000',
+      hci_timeline: '9-12 maanden',
+      scores: { cra: {score:d0,class:cls(d0),color:clr(d0),pct:d0*10}, supply_chain: {score:d1,class:cls(d1),color:clr(d1),pct:d1*10}, cloud: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, ir: {score:d3,class:cls(d3),color:clr(d3),pct:d3*10}, eu_market: {score:d4,class:cls(d4),color:clr(d4),pct:d4*10} },
+      gaps: dims.map((dim,i) => { const s=dimScore(i); return {title:dim,status:gapStatus(s),status_class:clr(s),description:`Score ${s}/10 op ${dim}.`}; }),
+      fmo_rows: dims.map((dim,i) => { const s=dimScore(i); return {dimension:dim,cmo:s<=3?'Minimaal ingericht':'Gedeeltelijk ingericht',fmo:'Volledig compliant',impact:s<=3?'Hoog risico reductie':'Verbetering'}; }),
+      investment_range: d0+d1 <= 6 ? '€35.000 — €85.000' : '€25.000 — €55.000',
+      timeline: '9-12 maanden'
+    };
+  }
+  
+  if (sid === 's05') {
+    return { ...base,
+      dora_compliance_score: String(d0), dora_compliance_class: cls(d0), dora_compliance_pct: String(d0*10), dora_compliance_color: clr(d0),
+      tlpt_score: String(d1), tlpt_class: cls(d1), tlpt_pct: String(d1*10), tlpt_color: clr(d1),
+      third_party_score: String(d2), third_party_class: cls(d2), third_party_pct: String(d2*10), third_party_color: clr(d2),
+      incident_score: String(d3), incident_class: cls(d3), incident_pct: String(d3*10), incident_color: clr(d3),
+      ai_governance_score: String(d4), ai_governance_class: cls(d4), ai_governance_pct: String(d4*10), ai_governance_color: clr(d4),
+      fmo_dora_cmo: `DORA framework ${d0<=3?'niet gestart':'in opbouw'}`, fmo_dora_fmo: 'Volledig DORA-compliant ICT Risk framework', fmo_dora_impact: 'DNB-proof',
+      fmo_tlpt_cmo: `TLPT ${d1<=3?'nooit uitgevoerd':'reguliere pentest'}`, fmo_tlpt_fmo: 'TIBER-NL test uitgevoerd', fmo_tlpt_impact: 'Resilience bewezen',
+      fmo_tpr_cmo: `Third-party register ${d2<=3?'ontbreekt':'gedeeltelijk'}`, fmo_tpr_fmo: 'Compleet Art.28 register + exit-plannen', fmo_tpr_impact: 'Concentratierisico beheerst',
+      fmo_ir_cmo: `DORA classificatie ${d3<=3?'onbekend':'in voorbereiding'}`, fmo_ir_fmo: 'DORA-compliant + DNB rapportage', fmo_ir_impact: 'Meldplicht geborgd',
+      fmo_ai_cmo: `AI governance ${d4<=3?'ontbreekt':'beperkt'}`, fmo_ai_fmo: 'AI Act compliant + model validation', fmo_ai_impact: 'Hoog-risico AI geborgd',
+      fmo_sov_cmo: 'Cloud concentratie op hyperscalers', fmo_sov_fmo: 'Multi-cloud met exit-strategie', fmo_sov_impact: 'Soevereiniteit geborgd',
+      hci_investment_range: d0+d1 <= 6 ? '€50.000 — €120.000' : '€30.000 — €75.000',
+      hci_timeline: '12-18 maanden',
+      scores: { dora: {score:d0,class:cls(d0),color:clr(d0),pct:d0*10}, tlpt: {score:d1,class:cls(d1),color:clr(d1),pct:d1*10}, third_party: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, incident: {score:d3,class:cls(d3),color:clr(d3),pct:d3*10}, ai: {score:d4,class:cls(d4),color:clr(d4),pct:d4*10} },
+      gaps: dims.map((dim,i) => { const s=dimScore(i); return {title:dim,status:gapStatus(s),status_class:clr(s),description:`Score ${s}/10 op ${dim}.`}; }),
+      fmo_rows: dims.map((dim,i) => { const s=dimScore(i); return {dimension:dim,cmo:s<=3?'Minimaal ingericht':'Gedeeltelijk ingericht',fmo:'Volledig compliant',impact:s<=3?'Hoog risico reductie':'Verbetering'}; }),
+      investment_range: d0+d1 <= 6 ? '€50.000 — €120.000' : '€30.000 — €75.000',
+      timeline: '12-18 maanden'
+    };
+  }
+  
+  if (sid === 's06') {
+    return { ...base,
+      ot_score: String(d1), ot_class: cls(d1), ot_pct: String(d1*10), ot_color: clr(d1),
+      fiveg_score: String(d2), fiveg_class: cls(d2), fiveg_pct: String(d2*10), fiveg_color: clr(d2),
+      incident_score: String(d3), incident_class: cls(d3), incident_pct: String(d3*10), incident_color: clr(d3),
+      pqc_score: String(d4), pqc_class: cls(d4), pqc_pct: String(d4*10), pqc_color: clr(d4),
+      fmo_ot_cmo: `OT/ICS security ${d1<=3?'geen beleid':'basis segmentatie'}`, fmo_ot_fmo: 'IEC 62443 gecertificeerd + monitoring', fmo_ot_impact: 'OT risico beheerst',
+      fmo_supply_cmo: `Vendor ${d2<=3?'single vendor':'dual vendor'}`, fmo_supply_fmo: 'Multi-vendor met exit-opties', fmo_supply_impact: 'Lock-in doorbroken',
+      fmo_ir_cmo: `Meldplicht ${d3<=3?'onzeker':'handmatig'}`, fmo_ir_fmo: '24/72h compliant + automatische escalatie', fmo_ir_impact: 'Meldplicht geborgd',
+      fmo_sov_cmo: 'Beperkte crypto-inventarisatie', fmo_sov_fmo: 'PQC migratieplan met tijdlijn', fmo_sov_impact: 'Toekomstbestendig',
+      hci_investment_range: d0+d1 <= 6 ? '€55.000 — €140.000' : '€35.000 — €85.000',
+      hci_timeline: '12-18 maanden',
+      scores: { nis2_eecc: {score:d0,class:cls(d0),color:clr(d0),pct:d0*10}, ot_ics: {score:d1,class:cls(d1),color:clr(d1),pct:d1*10}, fiveg: {score:d2,class:cls(d2),color:clr(d2),pct:d2*10}, ir: {score:d3,class:cls(d3),color:clr(d3),pct:d3*10}, pqc: {score:d4,class:cls(d4),color:clr(d4),pct:d4*10} },
+      gaps: dims.map((dim,i) => { const s=dimScore(i); return {title:dim,status:gapStatus(s),status_class:clr(s),description:`Score ${s}/10 op ${dim}.`}; }),
+      fmo_rows: dims.map((dim,i) => { const s=dimScore(i); return {dimension:dim,cmo:s<=3?'Minimaal ingericht':'Gedeeltelijk ingericht',fmo:'Volledig compliant',impact:s<=3?'Hoog risico reductie':'Verbetering'}; }),
+      investment_range: d0+d1 <= 6 ? '€55.000 — €140.000' : '€35.000 — €85.000',
+      timeline: '12-18 maanden'
+    };
+  }
+  
+  // Fallback
+  return base;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER REPORT
+// ═══════════════════════════════════════════════════════════════
+function renderReport(orgName, contactName, contactRole) {
+  const d = reportData;
+  
+  document.getElementById('reportTitle').textContent = `${orgName} — CMO→FMO Analyse`;
+  document.getElementById('reportSub').textContent = `${contactRole} · ${contactName} · ${new Date().toLocaleDateString('nl-NL')}`;
+  
+  const content = document.getElementById('reportContent');
+  
+  // Scores section
+  let scoresHTML = '';
+  if (d.scores) {
+    const entries = typeof d.scores === 'object' ? Object.entries(d.scores) : [];
+    scoresHTML = entries.map(([key, val]) => {
+      const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      const score = val.score || val;
+      const cls = val.class || (score <= 3 ? 'low' : score <= 6 ? 'mid' : 'high');
+      const pct = val.pct || score * 10;
+      return `<div class="score-row">
+        <div class="score-label">${label}</div>
+        <div class="score-bar"><div class="score-bar-fill ${cls}" style="width:${pct}%"></div></div>
+        <div class="score-val">${score}/10</div>
+      </div>`;
+    }).join('');
+  }
+  
+  // Gaps section
+  let gapsHTML = '';
+  if (d.gaps && d.gaps.length) {
+    gapsHTML = d.gaps.map(g => `
+      <div class="gap-card">
+        <div class="gap-status ${g.status_class}">${g.status}</div>
+        <h4>${g.title}</h4>
+        <p>${g.description}</p>
+      </div>
+    `).join('');
+  }
+  
+  // FMO table
+  let fmoHTML = '';
+  if (d.fmo_rows && d.fmo_rows.length) {
+    fmoHTML = d.fmo_rows.map(r => `
+      <tr><td style="font-weight:600">${r.dimension}</td><td>${r.cmo}</td><td>${r.fmo}</td><td>${r.impact}</td></tr>
+    `).join('');
+  }
+  
+  content.innerHTML = `
+    <!-- CMO Context -->
+    <div class="report-card">
+      <h3>${t('sector_context_title')}</h3>
+      <p style="font-size:13px;line-height:1.8">${d.cmo_sector_context || d.cmo_intro_paragraph || ''}</p>
+    </div>
+    
+    <div class="report-card">
+      <h3>${t('findings_title')} ${orgName}</h3>
+      <p style="font-size:13px;line-height:1.8">${d.cmo_org_findings || d.cmo_assessment_paragraph || ''}</p>
+    </div>
+    
+    <!-- Scores -->
+    <div class="report-card">
+      <h3>${t('score_title')}</h3>
+      ${scoresHTML}
+    </div>
+    
+    <!-- Gaps -->
+    <div class="report-card">
+      <h3>${t('gap_title')}</h3>
+      <div class="gap-grid">${gapsHTML}</div>
+    </div>
+    
+    <!-- FMO Table -->
+    <div class="report-card">
+      <h3>${t("fmo_title")}</h3>
+      <table class="fmo-table">
+        <thead><tr><th>${t("fmo_th_dim")}</th><th>${t("fmo_th_cmo")}</th><th>${t("fmo_th_fmo")}</th><th>${t("fmo_th_impact")}</th></tr></thead>
+        <tbody>${fmoHTML}</tbody>
+      </table>
+    </div>
+    
+    <!-- Investment -->
+    <div class="report-card" style="border-color:var(--purple);border-width:2px">
+      <h3>${t('invest_title')}</h3>
+      <p style="font-size:13px;margin-bottom:12px"><!-- -->${t('invest_sub')}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:var(--purple-dim);padding:16px;border-radius:8px;text-align:center">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${t('invest_label')}</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;color:var(--purple)">${d.investment_range || d.hci_investment_range || '€20.000 — €55.000'}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">${t('invest_secure')}</div>
+        </div>
+        <div style="background:rgba(0,40,69,.04);padding:16px;border-radius:8px;text-align:center">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${t('timeline_label')}</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;color:var(--midnight)">${d.timeline || d.hci_timeline || '9-12 months'}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">${t('timeline_phases')}</div>
+        </div>
+      </div>
+    </div>
+    
+    ${uploadedFileName ? `<div class="report-card"><h3>📄 ${currentLang === 'nl' ? 'Geanalyseerd document' : 'Analysed document'}</h3><p style="font-size:12px;color:var(--muted)">${uploadedFileName} — ${currentLang === 'nl' ? 'inzichten uit dit document zijn verwerkt in de analyse.' : 'insights from this document have been incorporated into the analysis.'}</p></div>` : ''}
+    <!-- JSON Debug -->
+    <div class="json-debug" id="jsonDebug">${JSON.stringify(d, null, 2)}</div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleDebug() {
+  document.getElementById('jsonDebug').classList.toggle('visible');
+}
+
+function resetApp() {
+  currentSector = null;
+  answers = {};
+  reportData = null;
+  uploadedFileBase64 = null;
+  uploadedFileName = null;
+  document.getElementById('orgName').value = '';
+  document.getElementById('contactName').value = '';
+  document.getElementById('contactRole').value = '';
+  showScreen('screen-select');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// URL PARAM DETECTION
+// ═══════════════════════════════════════════════════════════════
+function checkUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  
+  // Language detection
+  const lang = params.get('lang') || params.get('language');
+  if (lang && (lang === 'nl' || lang === 'en')) setLang(lang);
+  
+  const sector = params.get('sector') || params.get('icp');
+  if (sector && SECTORS[sector]) {
+    const name = params.get('naam') || params.get('name') || '';
+    const org = params.get('org') || '';
+    const role = params.get('rol') || params.get('role') || '';
+    
+    selectSector(sector);
+    if (org) document.getElementById('orgName').value = org;
+    if (name) document.getElementById('contactName').value = name;
+    if (role) {
+      const sel = document.getElementById('contactRole');
+      for (let opt of sel.options) {
+        if (opt.value.toLowerCase().includes(role.toLowerCase())) { sel.value = opt.value; break; }
+      }
+    }
+    updateProgress();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+renderSectorGrid();
+checkUrlParams();
+</script>
+</body>
+</html>
