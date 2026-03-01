@@ -58,6 +58,22 @@ article p{font-size:15px;line-height:1.8;margin-bottom:14px}article strong{color
 footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.footer-text{font-size:11px;color:var(--text-dim)}.footer-text a{color:var(--gold);text-decoration:none}
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}.fade-up.visible{opacity:1;transform:translateY(0)}
 @media(max-width:700px){nav{padding:12px 20px}.container{padding:0 20px}.hero{padding:100px 0 40px}.stat-row,.comp-grid{grid-template-columns:1fr}.rm-phase{flex-direction:column;gap:8px}.rm-week{width:auto}}
+
+/* --- EMAIL GATE --- */
+.gated-content{position:relative}
+.gated-content.locked::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(13,15,20,0) 0%,rgba(13,15,20,.95) 30%);z-index:50;pointer-events:none}
+.gated-content.locked>*:not(.gate-overlay){pointer-events:none;user-select:none}
+.gate-overlay{position:sticky;top:40%;z-index:60;max-width:480px;margin:0 auto;padding:40px;background:var(--bg-card,#13151c);border:1px solid var(--accent-border,rgba(108,92,231,.3));border-radius:16px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.gate-overlay h3{font-family:'Instrument Serif',serif;font-size:24px;color:var(--white,#fff);margin-bottom:8px}
+.gate-overlay p{font-size:14px;color:var(--text,#a8a6b4);margin-bottom:20px;line-height:1.6}
+.gate-fields{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.gate-fields input{padding:12px 16px;border-radius:8px;border:1px solid var(--border,rgba(255,255,255,.06));background:rgba(255,255,255,.04);color:var(--white,#fff);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border .2s}
+.gate-fields input:focus{border-color:var(--accent,#6C5CE7)}
+.gate-btn{padding:14px 24px;background:var(--accent,#6C5CE7);color:#fff;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;width:100%}
+.gate-btn:hover{opacity:.9;transform:translateY(-1px)}
+.gate-note{font-size:11px;color:var(--text-dim,#5e5d6a);margin-top:8px}
+.gate-note a{color:var(--accent,#6C5CE7)}
+
 </style>
 </head>
 <body>
@@ -103,6 +119,19 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 <p>Lagere gemiddelde klantwaarde (€74.5K vs €112K) maar 10-40x meer potentiële klanten. NIS2 is een volumemarkt: 20.000+ directe entiteiten versus ~500 bij DORA. De lagere drempel (instap €12.500) maakt snellere sales cycles mogelijk. En de supply chain multiplier vergroot de markt naar 70.000+.</p>
 </div>
 
+<!-- EMAIL GATE -->
+<div class="gated-content locked" id="gatedContent">
+  <div class="gate-overlay" id="gateOverlay">
+    <h3>Volledige analyse ontgrendelen</h3>
+    <p>Sectie 1 was gratis. De complete marktanalyse &mdash; competitive landscape, roadmap en investering &mdash; is beschikbaar na registratie.</p>
+    <div class="gate-fields">
+      <input type="text" id="gateName" placeholder="Naam">
+      <input type="email" id="gateEmail" placeholder="zakelijk e-mailadres">
+      <input type="text" id="gateCompany" placeholder="Bedrijfsnaam">
+    </div>
+    <button class="gate-btn" onclick="unlockContent()">Ontgrendel volledige analyse &rarr;</button>
+    <div class="gate-note">Geen spam. Alleen relevante updates. <a href="/privacy">Privacybeleid</a></div>
+  </div>
 <!-- SUPPLY CHAIN MULTIPLIER -->
 <h2>2. Supply chain multiplier: <em>het verborgen volume</em></h2>
 
@@ -174,12 +203,36 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 </div>
 </div>
 
-<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/insights">Insights Hub</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/insights">Insights Hub</a> · <a href="/growth">Pipeline & Growth</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Voorwaarden</a></div></div></footer>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.tet.classList.add('visible');obs.unobserve(en.target);
       }
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 </script>
+</div><!-- /gated-content -->
+
+<form name="hci-layer2-gate" netlify netlify-honeypot="bot-field" hidden>
+  <input name="bot-field"><input name="name"><input name="email"><input name="company"><input name="regulation"><input name="page">
+</form>
+<script>
+function unlockContent(){
+  var e=document.getElementById('gateEmail').value;
+  if(!e||!e.includes('@')){document.getElementById('gateEmail').style.borderColor='#f87171';return}
+  var n=document.getElementById('gateName').value;
+  var c=document.getElementById('gateCompany').value;
+  var fd=new URLSearchParams();
+  fd.append('form-name','hci-layer2-gate');
+  fd.append('name',n);fd.append('email',e);fd.append('company',c);
+  fd.append('regulation',document.title.split(' ')[0]);
+  fd.append('page',window.location.pathname);
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:fd.toString()}).catch(function(){});
+  document.getElementById('gatedContent').classList.remove('locked');
+  document.getElementById('gateOverlay').style.display='none';
+  try{localStorage.setItem('hci_gate_'+window.location.pathname,'1')}catch(x){}
+}
+try{if(localStorage.getItem('hci_gate_'+window.location.pathname)){document.getElementById('gatedContent').classList.remove('locked');document.getElementById('gateOverlay').style.display='none'}}catch(x){}
+</script>
+
 </body>
 </html>
