@@ -84,7 +84,11 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 </head>
 <body>
 <div class="ambient"></div><div class="grain"></div>
-<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">AI Act · Opportunity Analysis</span></div></nav>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">AI Act · Opportunity Analysis</span></div>
+<div style="display:flex;gap:4px;margin-right:16px;align-items:center">
+  <button onclick="setLang('nl')" id="lnl" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:var(--accent);color:#fff">NL</button>
+  <button onclick="setLang('en')" id="len" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:transparent;color:var(--text-dim)">EN</button>
+</div></nav>
 
 <div class="container">
 <section class="hero">
@@ -206,7 +210,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 <div class="final-cta section-border">
   <h2>Klaar om de AI Act-markt te pakken?<br><em>De markt is pril. First movers winnen.</em></h2>
   <p>HCI helpt IT-partners de AI Act-propositie ontwerpen, de GPAI Quick-Win lanceren, en als eerste de markt betreden.</p>
-  <a href="/cdn-cgi/l/email-protection#204d42484553604845530d434f4e53554c54414e43590d494e5445524e4154494f4e414c0e434f4d1f5355424a4543541d61690512106143540512106f50504f5254554e495459051210614e414c595349530512100d0512106745535052454b" class="btn-primary">Plan een gesprek →</a>
+  <a href="#"  class="btn-primary" onclick="window.location.href=\'mailto:\'+\'mbhes\'+\'@\'+\'nxterasolutions.eu\';return false;">Spreek Mike direct</a>
   <a href="/assessment?route=growth" class="btn-primary">Start Assessment →</a>
 </div>
 </div>
@@ -242,5 +246,26 @@ function unlockContent(){
 try{if(localStorage.getItem('hci_gate_'+window.location.pathname)){document.getElementById('gatedContent').classList.remove('locked');document.getElementById('gateOverlay').style.display='none'}}catch(x){}
 </script>
 
+<script>
+function setLang(l){
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  // Translate structural elements
+  var heroBack=document.querySelector('.hero-back');
+  if(heroBack)heroBack.textContent=l==='en'?'← Back to AI Act Brief':'← Terug naar AI Act Brief';
+  var ctaBtn=document.querySelector('.final-cta .btn-primary');
+  if(ctaBtn)ctaBtn.textContent=l==='en'?'Start Growth Assessment →':'Start Growth Assessment →';
+  var ctaGhost=document.querySelector('.final-cta .btn-ghost');
+  if(ctaGhost)ctaGhost.textContent=l==='en'?'Talk to Mike directly':'Spreek Mike direct';
+  // Gate overlay
+  var gateTitle=document.querySelector('.gate-overlay h3');
+  if(gateTitle)gateTitle.textContent=l==='en'?'Unlock full analysis':'Volledige analyse ontgrendelen';
+  var gateBtn=document.querySelector('.gate-btn');
+  if(gateBtn)gateBtn.textContent=l==='en'?'Unlock →':'Ontgrendelen →';
+}
+</script>
 </body>
 </html>

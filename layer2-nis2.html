@@ -78,7 +78,11 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 </head>
 <body>
 <div class="ambient"></div><div class="grain"></div>
-<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">NIS2 · Opportunity Analysis</span></div></nav>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">NIS2 · Opportunity Analysis</span></div>
+<div style="display:flex;gap:4px;margin-right:16px;align-items:center">
+  <button onclick="setLang('nl')" id="lnl" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:var(--accent);color:#fff">NL</button>
+  <button onclick="setLang('en')" id="len" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:transparent;color:var(--text-dim)">EN</button>
+</div></nav>
 
 <div class="container">
 <section class="hero">
@@ -198,7 +202,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 <div class="final-cta section-border">
   <h2>Klaar om uw NIS2-practice te bouwen?<br><em>De boardroom wacht. De supply chain vermenigvuldigt.</em></h2>
   <p>HCI helpt IT-partners de NIS2-propositie ontwerpen, de boardroom pitch bouwen, en de supply chain multiplier benutten.</p>
-  <a href="/cdn-cgi/l/email-protection#18757a707d6b58707d6b357b77766b6d746c79767b613571766c7d6a76796c7177767974367b7775276b6d7a727d7b6c2556514b2a3d2a28576868776a6c6d76716c613d2a2859767974616b716b3d2a28353d2a285f7d6b686a7d73" class="btn-primary">Plan een gesprek →</a>
+  <a href="#"  class="btn-primary" onclick="window.location.href=\'mailto:\'+\'mbhes\'+\'@\'+\'nxterasolutions.eu\';return false;">Spreek Mike direct</a>
   <a href="/assessment?route=growth" class="btn-primary">Start Assessment →</a>
 </div>
 </div>
@@ -234,5 +238,26 @@ function unlockContent(){
 try{if(localStorage.getItem('hci_gate_'+window.location.pathname)){document.getElementById('gatedContent').classList.remove('locked');document.getElementById('gateOverlay').style.display='none'}}catch(x){}
 </script>
 
+<script>
+function setLang(l){
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  // Translate structural elements
+  var heroBack=document.querySelector('.hero-back');
+  if(heroBack)heroBack.textContent=l==='en'?'← Back to NIS2 Brief':'← Terug naar NIS2 Brief';
+  var ctaBtn=document.querySelector('.final-cta .btn-primary');
+  if(ctaBtn)ctaBtn.textContent=l==='en'?'Start Growth Assessment →':'Start Growth Assessment →';
+  var ctaGhost=document.querySelector('.final-cta .btn-ghost');
+  if(ctaGhost)ctaGhost.textContent=l==='en'?'Talk to Mike directly':'Spreek Mike direct';
+  // Gate overlay
+  var gateTitle=document.querySelector('.gate-overlay h3');
+  if(gateTitle)gateTitle.textContent=l==='en'?'Unlock full analysis':'Volledige analyse ontgrendelen';
+  var gateBtn=document.querySelector('.gate-btn');
+  if(gateBtn)gateBtn.textContent=l==='en'?'Unlock →':'Ontgrendelen →';
+}
+</script>
 </body>
 </html>

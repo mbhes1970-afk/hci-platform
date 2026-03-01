@@ -95,7 +95,11 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 </head>
 <body>
 <div class="ambient"></div><div class="grain"></div>
-<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">CRA · Opportunity Analysis</span></div></nav>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">CRA · Opportunity Analysis</span></div>
+<div style="display:flex;gap:4px;margin-right:16px;align-items:center">
+  <button onclick="setLang('nl')" id="lnl" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:var(--accent);color:#fff">NL</button>
+  <button onclick="setLang('en')" id="len" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:transparent;color:var(--text-dim)">EN</button>
+</div></nav>
 
 <div class="container wide">
 <section class="hero">
@@ -263,7 +267,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 <div class="final-cta section-border">
   <h2>Klaar om uw CRA-practice te bouwen?<br><em>In 12 weken van propositie naar pipeline.</em></h2>
   <p>HCI helpt IT-partners de propositie ontwerpen, de sales enablement opzetten, en de eerste pipeline genereren. Van strategie tot eerste klant.</p>
-  <a href="/cdn-cgi/l/email-protection#6f020d070a1c2f070a1c420c00011c1a031b0e010c164206011b0a1d010e1b0600010e03410c0002501c1a0d050a0c1b522c3d2e4a5d5f201f1f001d1b1a01061b164a5d5f2e010e03161c061c4a5d5f424a5d5f280a1c1f1d0a04" class="btn-primary">Plan een gesprek →</a>
+  <a href="#"  class="btn-primary" onclick="window.location.href=\'mailto:\'+\'mbhes\'+\'@\'+\'nxterasolutions.eu\';return false;">Spreek Mike direct</a>
   <a href="/assessment?route=growth" class="btn-primary">Start Assessment →</a>
 </div>
 </div>
@@ -301,5 +305,26 @@ function unlockContent(){
 try{if(localStorage.getItem('hci_gate_'+window.location.pathname)){document.getElementById('gatedContent').classList.remove('locked');document.getElementById('gateOverlay').style.display='none'}}catch(x){}
 </script>
 
+<script>
+function setLang(l){
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  // Translate structural elements
+  var heroBack=document.querySelector('.hero-back');
+  if(heroBack)heroBack.textContent=l==='en'?'← Back to CRA Brief':'← Terug naar CRA Brief';
+  var ctaBtn=document.querySelector('.final-cta .btn-primary');
+  if(ctaBtn)ctaBtn.textContent=l==='en'?'Start Growth Assessment →':'Start Growth Assessment →';
+  var ctaGhost=document.querySelector('.final-cta .btn-ghost');
+  if(ctaGhost)ctaGhost.textContent=l==='en'?'Talk to Mike directly':'Spreek Mike direct';
+  // Gate overlay
+  var gateTitle=document.querySelector('.gate-overlay h3');
+  if(gateTitle)gateTitle.textContent=l==='en'?'Unlock full analysis':'Volledige analyse ontgrendelen';
+  var gateBtn=document.querySelector('.gate-btn');
+  if(gateBtn)gateBtn.textContent=l==='en'?'Unlock →':'Ontgrendelen →';
+}
+</script>
 </body>
 </html>
