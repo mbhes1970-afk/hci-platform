@@ -78,13 +78,6 @@
   to = "/hci-output-s06.html"
   status = 200
 
-# API proxy
-[[redirects]]
-  from = "/.netlify/functions/claude-proxy"
-  to = "/.netlify/functions/claude-proxy"
-  status = 200
-
-# Security headers
 [[headers]]
   for = "/*"
   [headers.values]
