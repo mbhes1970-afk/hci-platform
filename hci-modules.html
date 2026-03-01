@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI Modules — HES Consultancy International</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--hci-gold:#c8a55a;--hci-gold-light:#e0c882;--hci-gold-dim:rgba(200,165,90,.15);--hci-gold-border:rgba(200,165,90,.25);--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--border:rgba(255,255,255,.06);--text:#c8c6d4;--text-dim:#6e6d7a;--text-bright:#f0eef5;--white:#fff;--success:#4ade80;--info:#60a5fa;--pink:#f472b6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 800px 600px at 10% 20%,rgba(200,165,90,.04) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 90% 80%,rgba(200,165,90,.03) 0%,transparent 70%)}
+header{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:10;background:rgba(13,15,20,.8);backdrop-filter:blur(12px)}
+.hci-logo{display:flex;align-items:center;gap:14px}
+.hci-mark{width:38px;height:38px;border:2px solid var(--hci-gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;font-weight:500;color:var(--hci-gold)}
+.hci-name{font-size:14px;font-weight:500;color:var(--text-bright)}
+.hci-badge{font-family:'Geist Mono',monospace;font-size:10px;padding:5px 12px;border-radius:4px;background:var(--hci-gold-dim);color:var(--hci-gold);border:1px solid var(--hci-gold-border);letter-spacing:.5px}
+.container{max-width:960px;margin:0 auto;padding:60px 40px;position:relative;z-index:10}
+.hero{text-align:center;margin-bottom:60px}
+.hero .kicker{font-family:'Geist Mono',monospace;font-size:11px;color:var(--hci-gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.hero h1{font-family:'Instrument Serif',serif;font-size:48px;font-weight:400;color:var(--white);line-height:1.15;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--hci-gold-light)}
+.hero p{font-size:16px;color:var(--text-dim);line-height:1.6;max-width:560px;margin:0 auto}
+
+/* Journey */
+.journey{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:48px;padding:20px;background:var(--bg-card);border-radius:14px;border:1px solid var(--border);flex-wrap:wrap}
+.j-phase{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:8px}
+.j-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.j-text{font-size:12px;font-weight:500}
+.j-sub{font-size:10px;color:var(--text-dim)}
+.j-conn{width:32px;height:1px;background:linear-gradient(90deg,var(--text-dim) 50%,transparent 50%);background-size:6px 1px}
+
+/* Module cards */
+.modules{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}
+.mod-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .3s;position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block}
+.mod-card:hover{border-color:var(--hci-gold-border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;transition:opacity .3s;opacity:0}
+.mod-card:hover::before{opacity:1}
+.mod-card.pmc::before{background:var(--hci-gold)}
+.mod-card.gtm::before{background:var(--info)}
+.mod-card.outreach::before{background:var(--success)}
+.mod-card.sales::before{background:var(--hci-gold)}
+.mod-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.mod-card.pmc .mod-icon{background:rgba(200,165,90,.12);border:1px solid rgba(200,165,90,.2)}
+.mod-card.gtm .mod-icon{background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.2)}
+.mod-card.outreach .mod-icon{background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.2)}
+.mod-card.sales .mod-icon{background:rgba(200,165,90,.12);border:1px solid rgba(200,165,90,.2)}
+.mod-title{font-size:18px;font-weight:600;color:var(--text-bright);margin-bottom:4px}
+.mod-sub{font-size:12px;color:var(--text-dim);margin-bottom:12px;font-family:'Geist Mono',monospace}
+.mod-desc{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:16px}
+.mod-status{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;display:inline-block}
+.mod-status.live{background:rgba(74,222,128,.12);color:var(--success);border:1px solid rgba(74,222,128,.2)}
+.mod-status.soon{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+.mod-status.planned{background:rgba(255,255,255,.04);color:var(--text-dim);border:1px solid var(--border)}
+
+/* AI badge */
+.ai-strip{text-align:center;padding:20px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border)}
+.ai-strip p{font-size:13px;color:var(--text-dim)}
+.ai-strip strong{color:var(--hci-gold)}
+
+footer{text-align:center;padding:32px 40px;font-size:11px;color:var(--text-dim);border-top:1px solid var(--border);margin-top:40px}
+footer a{color:var(--hci-gold);text-decoration:none}
+.lang-toggle{display:flex;gap:2px;background:rgba(0,0,0,.3);padding:3px;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+.lang-btn{padding:5px 12px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;background:transparent;color:var(--text-dim)}
+.lang-btn.active{background:var(--hci-gold);color:var(--bg-deep)}
+.lang-btn:hover:not(.active){color:var(--text)}
+
+@media(max-width:700px){.modules{grid-template-columns:1fr}.hero h1{font-size:34px}.container{padding:40px 20px}}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<header>
+  <div class="hci-logo"><div class="hci-mark">HCI</div><div class="hci-name">HES Consultancy International</div></div>
+  <div style="display:flex;align-items:center;gap:14px"><div class="lang-toggle"><button class="lang-btn active" id="langNL" onclick="setLang('nl')">NL</button><button class="lang-btn" id="langEN" onclick="setLang('en')">EN</button></div><div class="hci-badge">FROM STRATEGY TO FIRST CUSTOMER</div></div>
+</header>
+
+<div class="container">
+  <div class="hero">
+    <div class="kicker">Client Engagement Platform</div>
+    <h1>From Strategy to <em>First Customer</em></h1>
+    <p>Modulaire, AI-ondersteunde werkmodules die je stap voor stap begeleiden van propositie tot deal close. Elk met een ingebouwde AI Assistant.</p>
+  </div>
+
+  <div class="journey">
+    <div class="j-phase"><div class="j-dot" style="background:var(--hci-gold);border:2px solid var(--hci-gold)"></div><div><div class="j-text" style="color:var(--hci-gold)">PMC Creatie</div><div class="j-sub">5 bouwstenen</div></div></div>
+    <div class="j-conn"></div>
+    <div class="j-phase"><div class="j-dot" style="background:var(--info);border:2px solid var(--info)"></div><div><div class="j-text" style="color:var(--info)">GTM Voorbereiding</div><div class="j-sub">Pitch, CRM, Campaign Box</div></div></div>
+    <div class="j-conn"></div>
+    <div class="j-phase"><div class="j-dot" style="border:2px solid var(--text-dim)"></div><div><div class="j-text" style="color:var(--text-dim)">Outreach & Engagement</div><div class="j-sub">Multi-channel</div></div></div>
+    <div class="j-conn"></div>
+    <div class="j-phase"><div class="j-dot" style="border:2px solid var(--hci-gold);background:var(--hci-gold)"></div><div><div class="j-text" style="color:var(--hci-gold)">Sales Executie</div><div class="j-sub">CMO→FMO</div></div></div>
+  </div>
+
+  <div class="modules">
+    <a href="/pmc" class="mod-card pmc">
+      <div class="mod-icon">🎯</div>
+      <div class="mod-title">PMC Creatie</div>
+      <div class="mod-sub">Fase 1 · Onboarding</div>
+      <div class="mod-desc">Product-Markt Combinatie definiëren. Doelmarkt, kernprobleem, waardepropositie, offer packaging en partnership alignment.</div>
+      <span class="mod-status live">● LIVE</span>
+    </a>
+    <a href="/gtm" class="mod-card gtm">
+      <div class="mod-icon">🚀</div>
+      <div class="mod-title">GTM Voorbereiding</div>
+      <div class="mod-sub">Fase 2 · Go-to-Market</div>
+      <div class="mod-desc">Pitch deck, CRM pipeline setup, Campaign in a Box, database voorbereiding en sales enablement materiaal.</div>
+      <span class="mod-status live">● LIVE</span>
+    </a>
+    <a href="/outreach" class="mod-card outreach">
+      <div class="mod-icon">📡</div>
+      <div class="mod-title">Outreach & Engagement</div>
+      <div class="mod-sub">Fase 3 · Multi-channel</div>
+      <div class="mod-desc">Email sequences, LinkedIn campagnes, Revynu benchmark engagement, telefoon scripts en event planning.</div>
+      <span class="mod-status live">● LIVE</span>
+    </a>
+    <a class="mod-card sales" href="/sales">
+      <div class="mod-icon">🤝</div>
+      <div class="mod-title">Sales Executie</div>
+      <div class="mod-sub">Fase 4 · Deal Close</div>
+      <div class="mod-desc">CMO→FMO methodologie, proposal templates, negotiation playbook, vendor co-sell activatie.</div>
+      <span class="mod-status live">● LIVE</span>
+    </a>
+  </div>
+
+  <div class="ai-strip">
+    <p>Elke module bevat een <strong>AI Assistant powered by Claude</strong> — context-aware begeleiding bij elke stap, in het Nederlands en Engels.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <a href="https://hes-consultancy-international.com" target="_blank">HES Consultancy International</a> · 30+ jaar ervaring in Europese marktintroductie</p>
+</footer>
+<script>
+var i18n={
+nl:{subtitle:'Modulaire, AI-ondersteunde werkmodules die je stap voor stap begeleiden van propositie tot deal close. Elk met een ingebouwde AI Assistant.',
+  journey:[['PMC Creatie','5 bouwstenen'],['GTM Voorbereiding','Pitch, CRM, Campaign Box'],['Outreach & Engagement','Multi-channel'],['Sales Executie','CMO\u2192FMO']],
+  titles:['PMC Creatie','GTM Voorbereiding','Outreach & Engagement','Sales Executie'],
+  subs:['Fase 1 \u00b7 Onboarding','Fase 2 \u00b7 Go-to-Market','Fase 3 \u00b7 Multi-channel','Fase 4 \u00b7 Deal Close'],
+  descs:['Product-Markt Combinatie defini\u00ebren. Doelmarkt, kernprobleem, waardepropositie, offer packaging en partnership alignment.','Pitch deck, CRM pipeline setup, Campaign in a Box, database voorbereiding en sales enablement materiaal.','Email sequences, LinkedIn campagnes, Revynu benchmark engagement, telefoon scripts en event planning.','CMO\u2192FMO methodologie, proposal templates, negotiation playbook, vendor co-sell activatie.'],
+  statuses:['\u25cf LIVE','\u25cf LIVE','\u25cf LIVE','\u25cb GEPLAND'],
+  ai:'Elke module bevat een <strong>AI Assistant powered by Claude</strong> \u2014 context-aware begeleiding bij elke stap, in het Nederlands en Engels.',
+  footer:'\u00a9 2026 <a href="https://hes-consultancy-international.com" target="_blank">HES Consultancy International</a> \u00b7 30+ jaar ervaring in Europese marktintroductie'},
+en:{subtitle:'Modular, AI-assisted work modules that guide you step by step from proposition to deal close. Each with a built-in AI Assistant.',
+  journey:[['PMC Creation','5 building blocks'],['GTM Preparation','Pitch, CRM, Campaign Box'],['Outreach & Engagement','Multi-channel'],['Sales Execution','CMO\u2192FMO']],
+  titles:['PMC Creation','GTM Preparation','Outreach & Engagement','Sales Execution'],
+  subs:['Phase 1 \u00b7 Onboarding','Phase 2 \u00b7 Go-to-Market','Phase 3 \u00b7 Multi-channel','Phase 4 \u00b7 Deal Close'],
+  descs:['Define Product-Market Combination. Target market, core problem, value proposition, offer packaging and partnership alignment.','Pitch deck, CRM pipeline setup, Campaign in a Box, database preparation and sales enablement materials.','Email sequences, LinkedIn campaigns, Revynu benchmark engagement, phone scripts and event planning.','CMO\u2192FMO methodology, proposal templates, negotiation playbook, vendor co-sell activation.'],
+  statuses:['\u25cf LIVE','\u25cf LIVE','\u25cf LIVE','\u25cb PLANNED'],
+  ai:'Each module includes an <strong>AI Assistant powered by Claude</strong> \u2014 context-aware guidance at every step, in Dutch and English.',
+  footer:'\u00a9 2026 <a href="https://hes-consultancy-international.com" target="_blank">HES Consultancy International</a> \u00b7 30+ years experience in European market entry'}
+};
+function setLang(l){
+  document.getElementById('langNL').classList.toggle('active',l==='nl');
+  document.getElementById('langEN').classList.toggle('active',l==='en');
+  var t=i18n[l];if(!t)return;
+  var p=document.querySelector('.hero p');if(p)p.textContent=t.subtitle;
+  document.querySelectorAll('.j-phase').forEach(function(ph,i){if(t.journey[i]){var tx=ph.querySelector('.j-text');if(tx)tx.textContent=t.journey[i][0];var su=ph.querySelector('.j-sub');if(su)su.textContent=t.journey[i][1];}});
+  document.querySelectorAll('.mod-card').forEach(function(c,i){var ti=c.querySelector('.mod-title');if(ti&&t.titles[i])ti.textContent=t.titles[i];var su=c.querySelector('.mod-sub');if(su&&t.subs[i])su.textContent=t.subs[i];var de=c.querySelector('.mod-desc');if(de&&t.descs[i])de.textContent=t.descs[i];var st=c.querySelector('.mod-status');if(st&&t.statuses[i])st.textContent=t.statuses[i];});
+  var ai=document.querySelector('.ai-strip p');if(ai)ai.innerHTML=t.ai;
+  var ft=document.querySelector('footer p');if(ft)ft.innerHTML=t.footer;
+}
+setLang('en');
+</script>
+<script>
+// Netlify Identity token handler — detects invite/confirm/recovery from email links
+(function(){
+  var hash = window.location.hash;
+  if (hash && (hash.includes('invite_token') || hash.includes('confirmation_token') || hash.includes('recovery_token'))) {
+    if (window.netlifyIdentity) {
+      // Widget auto-detects tokens from hash, just need to open it
+      window.netlifyIdentity.on('init', function() {
+        window.netlifyIdentity.open();
+      });
+    }
+  }
+  // After login from any token flow, redirect to PMC module
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('login', function() {
+      window.location.href = '/pmc';
+    });
+  }
+})();
+</script>
+</body>
+</html>

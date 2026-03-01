@@ -1,0 +1,12 @@
+{
+  "name": "hci-platform-staging",
+  "version": "1.0.0",
+  "description": "HES Consultancy International - Intelligence Platform Staging",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "scripts": {
+    "dev": "netlify dev"
+  }
+}
