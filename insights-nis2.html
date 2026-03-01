@@ -159,7 +159,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
   <h2>Klaar om NIS2 als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
   <a href="/assessment?route=growth" class="btn-primary">Start Growth Assessment →</a>
-  <a href="/cdn-cgi/l/email-protection#5439363c3127143c312779373b3a27213820353a372d793d3a2031263a35203d3b3a35387a373b39" class="btn-ghost">Spreek Mike direct</a>
+  <a href="#" class="btn-ghost" onclick="window.location.href='mailto:'+'mbhes'+'@'+'nxterasolutions.eu';return false;">Spreek Mike direct</a>
 </div>
 </div>
 
@@ -172,6 +172,105 @@ const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.t
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+<script>
+var T={en:{
+  h1:'18 sectors. Directors personally liable.<br><em>Your clients need help. Now.</em>',
+  lead:'NIS2 has been active since October 2024. Essential and important entities must demonstrably comply. The supervisor enforces. Your clients are looking for help \u2014 from their IT partner.',
+  reading:'\u23f1 5 minute read',
+  headings:[
+    'What is NIS2? <em>The successor with teeth.</em>',
+    'Who is affected? <em>The scope is enormous.</em>',
+    'The boardroom effect: <em>personal liability</em>',
+    'The opportunity: <em>four service pillars</em>',
+    'What does it yield? <em>The business case.</em>',
+    'The entry: <em>boardroom urgency as an opener</em>',
+    'Want to know what NIS2 looks like<br><em>for your situation?</em>',
+    'Ready to seize NIS2 as an opportunity?<br><em>Find out where you stand.</em>'
+  ],
+  paras:[
+    'The original NIS directive (2016) was a start. <strong>NIS2</strong> is the real deal. Broader scope, stricter requirements, heavier sanctions. And most importantly: personal liability for management.',
+    'NIS2 applies to <strong>essential</strong> entities (energy, transport, health, water, digital infrastructure) and <strong>important</strong> entities (post, waste, food, manufacturing, digital providers). Together: thousands of organisations in the Netherlands alone.',
+    'Unlike many regulations, NIS2 is not just about the IT department. <strong>Directors and board members are personally liable</strong> for non-compliance. That changes the dynamic completely \u2014 this is a boardroom topic.',
+    null,
+    'Companies that need to become NIS2-compliant need help. Not from generalists who \u201calso do security\u201d \u2014 but from partners with a structured offering.',
+    null,
+    'With an average project value of \u20ac20-50K and recurring monitoring contracts, the business case is clear.',
+    null,
+    'The key to NIS2 sales is not technical \u2014 it\u2019s <strong>urgency at board level</strong>. Directors who learn they are personally liable take action. That\u2019s your entry.',
+    null
+  ],
+  stats:['Sectors covered','Entities in NL','Personal liability'],
+  pillars:[
+    ['NIS2 Gap Assessment','Scope determination, gap analysis against NIS2 requirements, risk classification, board-level reporting.'],
+    ['Policy & Governance','Security policies, incident response procedures, supply chain risk management, documentation.'],
+    ['Technical Implementation','Network segmentation, monitoring, access management, encryption, vulnerability management.'],
+    ['Compliance Monitoring','Continuous compliance monitoring, audit preparation, regulatory reporting, annual reviews.']
+  ],
+  revLabels:['Average project work','Recurring per month','Per client per year'],
+  rev_h:'Indicative revenue model per client',
+  gate_h:'Want to know what NIS2 looks like<br><em>for your situation?</em>',
+  gate_p:'Download the NIS2 Market Opportunity Analysis: concrete service pillars, revenue model, competitive positioning, and a realistic outline business plan.',
+  teasers:[
+    ['Supply chain multiplier','Which sectors have the highest multiplier effect? Where do chain requirements create automatic demand?'],
+    ['Board-level positioning','How to position NIS2 as a boardroom topic. Personal liability as entry point.'],
+    ['12-week roadmap','From proposition to first client. Concrete steps, investment, milestones.']
+  ],
+  cta_h:'Ready to seize NIS2 as an opportunity?<br><em>Find out where you stand.</em>',
+  cta_p:'The Growth Assessment measures your PMC clarity, vendor alignment and pipeline structure in 5 minutes.',
+  cta_btn:'Start Growth Assessment \u2192'
+}};
+function setLang(l){
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  if(l==='nl'){location.reload();return;}
+  var t=T.en;if(!t)return;
+  // Hero
+  var h1=document.querySelector('.hero h1');if(h1)h1.innerHTML=t.h1;
+  var hl=document.querySelector('.hero-lead');if(hl)hl.textContent=t.lead;
+  var hb=document.querySelector('.hero-back');if(hb)hb.textContent='\u2190 Back to Insights Hub';
+  var hr=document.querySelector('.hero-reading');if(hr)hr.textContent=t.reading;
+  // Article h2s
+  var h2s=document.querySelectorAll('article h2');
+  if(t.headings)t.headings.forEach(function(txt,i){if(h2s[i])h2s[i].innerHTML=txt;});
+  // Article paragraphs
+  var ps=document.querySelectorAll('article > p');
+  if(t.paras)t.paras.forEach(function(txt,i){if(ps[i]&&txt)ps[i].innerHTML=txt;});
+  // Stat labels
+  var sl=document.querySelectorAll('.stat-label');
+  if(t.stats)t.stats.forEach(function(txt,i){if(sl[i])sl[i].textContent=txt;});
+  // Pillars
+  var ph=document.querySelectorAll('.pillar h4');
+  var pp=document.querySelectorAll('.pillar p');
+  if(t.pillars)t.pillars.forEach(function(p,i){if(ph[i])ph[i].textContent=p[0];if(pp[i])pp[i].textContent=p[1];});
+  // Revenue labels
+  var rl=document.querySelectorAll('.rev-label');
+  if(t.revLabels)t.revLabels.forEach(function(txt,i){if(rl[i])rl[i].textContent=txt;});
+  // Deadline
+  var dh=document.querySelector('.deadline-text h4');if(dh&&t.dl_h)dh.textContent=t.dl_h;
+  var dp=document.querySelector('.deadline-text p');if(dp&&t.dl_p)dp.innerHTML=t.dl_p;
+  // Gate
+  var gh=document.querySelector('.gate-section h2');if(gh&&t.gate_h)gh.innerHTML=t.gate_h;
+  var gp=document.querySelector('.gate-section > p');if(gp&&t.gate_p)gp.textContent=t.gate_p;
+  var gth=document.querySelectorAll('.gate-teaser h5');
+  var gtp=document.querySelectorAll('.gate-teaser p');
+  if(t.teasers)t.teasers.forEach(function(tr,i){if(gth[i])gth[i].textContent=tr[0];if(gtp[i])gtp[i].textContent=tr[1];});
+  var gb=document.querySelector('.email-submit');if(gb)gb.textContent='Download Analysis \u2192';
+  var gi=document.getElementById('gateEmail');if(gi)gi.placeholder='you@company.com';
+  // CTA
+  var ch=document.querySelector('.final-cta h2');if(ch&&t.cta_h)ch.innerHTML=t.cta_h;
+  var cp=document.querySelector('.final-cta p');if(cp&&t.cta_p)cp.textContent=t.cta_p;
+  var cb=document.querySelector('.final-cta .btn-primary');if(cb)cb.textContent=t.cta_btn||'Start Growth Assessment \u2192';
+  var cg=document.querySelector('.final-cta .btn-ghost');if(cg)cg.textContent='Talk to Mike directly';
+  // Quote
+  var qp=document.querySelector('.quote-block p');if(qp&&t.quote)qp.textContent=t.quote;
+  // Rev box title
+  var rh=document.querySelector('.revenue-box h3');if(rh&&t.rev_h)rh.textContent=t.rev_h;
+}
 </script>
 <form name="hci-insights-gate" netlify netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="email"><input name="regulation"><input name="page"></form>
 </body>

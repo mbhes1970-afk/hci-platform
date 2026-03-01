@@ -113,20 +113,24 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
     <a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px;"></a>
     <div class="nav-tag">Market Opportunity Brief</div>
   </div>
+  <div style="display:flex;gap:4px;margin-right:16px">
+    <button class="lang-btn" onclick="setLang('nl')" id="lnl" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:var(--accent);color:#fff">NL</button>
+    <button class="lang-btn" onclick="setLang('en')" id="len" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:transparent;color:var(--text-dim)">EN</button>
+  </div>
 </nav>
 
 <div class="container">
 
 <!-- HERO -->
 <section class="hero">
-  <a href="/insights" class="hero-back">← Terug naar Insights Hub</a>
+  <a href="/insights" class="hero-back" id="i-back">← Terug naar Insights Hub</a>
   <div class="hero-meta">
     <span class="hero-cat">CRA · Cyber Resilience Act</span>
-    <span class="hero-date">Februari 2026</span>
+    <span class="hero-date" id="i-date">Februari 2026</span>
   </div>
   <h1>90.000+ bedrijven<br>moeten CRA-compliant worden.<br><em>Bied jij het al aan?</em></h1>
   <p class="hero-lead">De Cyber Resilience Act is de grootste EU-cybersecurity regulering sinds GDPR. Deadline: september 2026. De meeste IT-partners en software engineering firms bieden nog geen CRA-diensten aan. Dat is geen risico — dat is een markt.</p>
-  <p class="hero-reading">⏱ 4 minuten leestijd</p>
+  <p class="hero-reading" id="i-reading">⏱ 4 minuten leestijd</p>
 </section>
 
 <!-- ARTICLE -->
@@ -237,8 +241,8 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
     <input type="email" class="email-input" id="gateEmail" placeholder="uw@bedrijf.nl">
     <button class="email-submit" onclick="submitGate()">Download Analysis →</button>
   </div>
-  <p class="gate-note">Geen spam. Eén email met de analyse + een uitnodiging voor een gesprek.</p>
-  <p class="gate-note" id="gateSent" style="display:none;color:var(--green);">✓ De CRA Opportunity Analysis wordt naar uw inbox gestuurd.</p>
+  <p class="gate-note" id="i-gate-note">Geen spam. Eén email met de analyse + een uitnodiging voor een gesprek.</p>
+  <p class="gate-note gate-sent" id="gateSent" style="display:none;color:var(--green);">✓ De CRA Opportunity Analysis wordt naar uw inbox gestuurd.</p>
 </div>
 
 <!-- FINAL CTA -->
@@ -246,7 +250,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
   <h2>Klaar om CRA als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
   <a href="/assessment?route=growth" class="btn-primary">Start Growth Assessment →</a>
-  <a href="/cdn-cgi/l/email-protection#335e515b5640735b56401e505c5d40465f47525d504a1e5a5d4756415d52475a5c5d525f1d505c5e" class="btn-ghost">Spreek Mike direct</a>
+  <a href="#" class="btn-ghost" onclick="window.location.href='mailto:'+'mbhes'+'@'+'nxterasolutions.eu';return false;">Spreek Mike direct</a>
 </div>
 
 </div>
@@ -260,6 +264,161 @@ const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.t
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+<script>
+var TRANSLATIONS = {
+  nl: {
+    back: '← Terug naar Insights Hub',
+    reading: '⏱ 4 minuten leestijd',
+    date: 'Februari 2026',
+    h1: '90.000+ bedrijven<br>moeten CRA-compliant worden.<br><em>Bied jij het al aan?</em>',
+    lead: 'De Cyber Resilience Act is de grootste EU-cybersecurity regulering sinds GDPR. Deadline: september 2026. De meeste IT-partners en software engineering firms bieden nog geen CRA-diensten aan. Dat is geen risico \u2014 dat is een markt.',
+    s1h: 'Wat is de CRA? <em>En waarom nu?</em>',
+    s1p1: 'De <strong>Cyber Resilience Act (CRA)</strong> is een EU-verordening die cybersecurity-eisen stelt aan alle producten met digitale elementen die op de Europese markt worden verkocht. Dat raakt niet alleen hardware \u2014 het raakt elk stuk software dat wordt geleverd aan of binnen de EU.',
+    s1p2: 'De CRA verplicht fabrikanten en ontwikkelaars tot <strong>security-by-design</strong>, vulnerability management, een Software Bill of Materials (SBOM), en een gestructureerd meldproces bij incidenten. Producten zonder CE-markering mogen vanaf de deadline niet meer op de EU-markt.',
+    stat1: 'Bedrijven in NL geraakt', stat2: 'Eerste meldplicht deadline', stat3: 'Volledige compliance verplicht',
+    dl_h: 'September 2026: meldplicht actief',
+    dl_p: 'Vanaf 11 september 2026 geldt een actieve meldplicht voor kwetsbaarheden en incidenten bij ENISA. Bedrijven die dit niet kunnen, zijn non-compliant \u2014 en hun producten mogen niet meer op de EU-markt.',
+    s2h: 'Wie wordt geraakt? <em>Vrijwel iedereen.</em>',
+    s2p1: 'De CRA onderscheidt drie categorie\u00ebn producten: standaard, belangrijk (Important), en kritiek (Critical). Maar in de praktijk raakt de verordening <strong>elk bedrijf dat software ontwikkelt, levert, of onderhoudt</strong> voor de Europese markt. Van SaaS-platforms tot embedded software, van IoT-devices tot enterprise applicaties.',
+    s2p2: 'Het gaat niet alleen om de productontwikkelaar. <strong>Importeurs en distributeurs</strong> hebben eigen verplichtingen: zij moeten controleren of de producten die zij op de markt brengen CRA-compliant zijn. Dat maakt de keten compleet \u2014 en de vraag naar deskundig advies enorm.',
+    s3h: 'De kans voor IT-partners: <em>vier service pillars</em>',
+    s3p: 'Bedrijven die CRA-compliant moeten worden, hebben hulp nodig. Niet van generalisten die \u201cook security doen\u201d \u2014 maar van partners met een gestructureerd aanbod. De CRA-markt kent vier logische diensten:',
+    p1h: 'Assessment & Gap Analysis', p1p: 'Inventarisatie van alle producten met digitale elementen. Classificatie (standaard/belangrijk/kritiek). Gap analyse tegen CRA-eisen. Prioritering en roadmap.',
+    p2h: 'Security-by-Design Implementatie', p2p: 'SDLC-aanpassingen. Hardening van ontwikkelomgevingen (M365/Azure). Secure coding practices. Test-frameworks en tooling.',
+    p3h: 'SBOM & Vulnerability Management', p3p: 'Software Bill of Materials generatie en onderhoud. Vulnerability tracking. Patch management. Documentatie voor CE-markering.',
+    p4h: 'Incident Response & Meldplicht', p4p: 'Meldprocedures richting ENISA. Incident response playbooks. Monitoring en detectie. 24-uurs meldingsprocessen.',
+    s4h: 'De markt in cijfers: <em>wat is dit waard?</em>',
+    s4p1: 'De CRA cre\u00ebert een markt die vergelijkbaar is met de GDPR-implementatiegolf van 2016-2018. Het verschil: de CRA is technischer, de deadlines zijn strakker, en de boetes zijn hoger (tot \u20ac15 miljoen of 2,5% van de wereldwijde omzet).',
+    rev_h: 'Indicatief revenue model per klant',
+    rev1: 'Gemiddeld projectwerk', rev2: 'Recurring per maand', rev3: 'Per klant per jaar (totaal)',
+    s4p2: 'Met een TAM (Total Addressable Market) van meer dan 90.000 bedrijven in Nederland alleen, en break-even bij slechts <strong>2-3 klanten</strong>, is de business case helder. De vraag is niet \u00f3f deze markt ontstaat \u2014 de vraag is wie er als eerste klaarstaat.',
+    quote: '\u201cDe partij die het eerst een CRA-propositie neerlegt bij de Microsoft AE wint. De rest wacht op leads die nooit komen.\u201d',
+    s5h: 'Waarom de meeste IT-partners <em>deze kans missen</em>',
+    s5p1: 'De meeste software engineering firms en IT-dienstverleners zien CRA als \u201chet probleem van de klant\u201d \u2014 niet als hun eigen product. Ze wachten tot klanten erom vragen. Maar klanten vragen niet om CRA-hulp bij hun huidige IT-partner. Ze vragen het bij de partij die er als eerste mee komt.',
+    s5p2: 'Het verschil zit in <strong>positionering</strong>. Niet \u201cwij doen ook security\u201d \u2014 maar een gestructureerde propositie met assessment methodiek, duidelijke deliverables, en een revenue model dat recurring inkomsten genereert.',
+    s5p3: 'De engineering firms die dit het snelst oppakken, versterken bovendien hun positie bij de grote vendors. Microsoft, AWS en Google zoeken partners die compliance-propositie kunnen bieden aan hun klanten. Dat levert <strong>warme introductions</strong> op via de vendor account teams \u2014 en dat is meer waard dan duizend cold calls.',
+    gate_h: 'Wilt u weten hoe dit er<br><em>voor uw situatie uitziet?</em>',
+    gate_p: 'Download de CRA Market Opportunity Analysis: concrete service pillars, revenue model, competitive positioning, en een realistisch business plan op hoofdlijnen.',
+    gt1h: 'Revenue model', gt1p: 'Project + recurring opbrengst per klant. Year 1 projectie. Break-even berekening.',
+    gt2h: 'Competitive landscape', gt2p: 'Wie biedt dit al aan? Big 4, pure-play security, andere MS partners. Uw positie.',
+    gt3h: 'Roadmap 12 weken', gt3p: 'Van propositie naar eerste klant. Concrete stappen, investering, milestones.',
+    gate_btn: 'Download Analysis \u2192',
+    gate_note: 'Geen spam. E\u00e9n email met de analyse + een uitnodiging voor een gesprek.',
+    gate_sent: '\u2713 De CRA Opportunity Analysis wordt naar uw inbox gestuurd.',
+    cta_h: 'Klaar om CRA als kans te pakken?<br><em>Ontdek waar u staat.</em>',
+    cta_p: 'De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.',
+    cta_btn: 'Start Growth Assessment \u2192',
+    cta_ghost: 'Spreek Mike direct',
+    ph: 'uw@bedrijf.nl'
+  },
+  en: {
+    back: '\u2190 Back to Insights Hub',
+    reading: '\u23f1 4 minute read',
+    date: 'February 2026',
+    h1: '90,000+ companies<br>must become CRA-compliant.<br><em>Are you offering it yet?</em>',
+    lead: 'The Cyber Resilience Act is the largest EU cybersecurity regulation since GDPR. Deadline: September 2026. Most IT partners and software engineering firms do not yet offer CRA services. That\u2019s not a risk \u2014 it\u2019s a market.',
+    s1h: 'What is the CRA? <em>And why now?</em>',
+    s1p1: 'The <strong>Cyber Resilience Act (CRA)</strong> is an EU regulation that imposes cybersecurity requirements on all products with digital elements sold on the European market. This affects not just hardware \u2014 it impacts every piece of software delivered to or within the EU.',
+    s1p2: 'The CRA requires manufacturers and developers to implement <strong>security-by-design</strong>, vulnerability management, a Software Bill of Materials (SBOM), and a structured incident reporting process. Products without CE marking will be banned from the EU market after the deadline.',
+    stat1: 'Companies in NL affected', stat2: 'First reporting deadline', stat3: 'Full compliance required',
+    dl_h: 'September 2026: reporting obligation active',
+    dl_p: 'From 11 September 2026, an active reporting obligation for vulnerabilities and incidents to ENISA takes effect. Companies that cannot comply are non-compliant \u2014 and their products may no longer be sold on the EU market.',
+    s2h: 'Who is affected? <em>Almost everyone.</em>',
+    s2p1: 'The CRA distinguishes three product categories: standard, important, and critical. But in practice, the regulation affects <strong>every company that develops, delivers, or maintains software</strong> for the European market. From SaaS platforms to embedded software, from IoT devices to enterprise applications.',
+    s2p2: 'It\u2019s not just about the product developer. <strong>Importers and distributors</strong> have their own obligations: they must verify that the products they bring to market are CRA-compliant. This completes the chain \u2014 and makes the demand for expert advice enormous.',
+    s3h: 'The opportunity for IT partners: <em>four service pillars</em>',
+    s3p: 'Companies that need to become CRA-compliant need help. Not from generalists who \u201calso do security\u201d \u2014 but from partners with a structured offering. The CRA market has four logical services:',
+    p1h: 'Assessment & Gap Analysis', p1p: 'Inventory of all products with digital elements. Classification (standard/important/critical). Gap analysis against CRA requirements. Prioritisation and roadmap.',
+    p2h: 'Security-by-Design Implementation', p2p: 'SDLC adjustments. Hardening of development environments (M365/Azure). Secure coding practices. Test frameworks and tooling.',
+    p3h: 'SBOM & Vulnerability Management', p3p: 'Software Bill of Materials generation and maintenance. Vulnerability tracking. Patch management. Documentation for CE marking.',
+    p4h: 'Incident Response & Reporting', p4p: 'Reporting procedures to ENISA. Incident response playbooks. Monitoring and detection. 24-hour reporting processes.',
+    s4h: 'The market in numbers: <em>what is this worth?</em>',
+    s4p1: 'The CRA creates a market comparable to the GDPR implementation wave of 2016-2018. The difference: the CRA is more technical, the deadlines are tighter, and the fines are higher (up to \u20ac15 million or 2.5% of global turnover).',
+    rev_h: 'Indicative revenue model per client',
+    rev1: 'Average project work', rev2: 'Recurring per month', rev3: 'Per client per year (total)',
+    s4p2: 'With a TAM (Total Addressable Market) of more than 90,000 companies in the Netherlands alone, and break-even at just <strong>2-3 clients</strong>, the business case is clear. The question is not whether this market emerges \u2014 the question is who will be ready first.',
+    quote: '\u201cThe party that first puts a CRA proposition in front of the Microsoft AE wins. The rest waits for leads that never come.\u201d',
+    s5h: 'Why most IT partners <em>are missing this opportunity</em>',
+    s5p1: 'Most software engineering firms and IT service providers see CRA as \u201cthe customer\u2019s problem\u201d \u2014 not as their own product. They wait for customers to ask. But customers don\u2019t ask their current IT partner for CRA help. They ask the party that comes to them first.',
+    s5p2: 'The difference is in <strong>positioning</strong>. Not \u201cwe also do security\u201d \u2014 but a structured proposition with assessment methodology, clear deliverables, and a revenue model that generates recurring income.',
+    s5p3: 'The engineering firms that pick this up fastest also strengthen their position with major vendors. Microsoft, AWS and Google are looking for partners that can offer compliance propositions to their customers. That generates <strong>warm introductions</strong> via the vendor account teams \u2014 and that\u2019s worth more than a thousand cold calls.',
+    gate_h: 'Want to know what this looks like<br><em>for your situation?</em>',
+    gate_p: 'Download the CRA Market Opportunity Analysis: concrete service pillars, revenue model, competitive positioning, and a realistic outline business plan.',
+    gt1h: 'Revenue model', gt1p: 'Project + recurring revenue per client. Year 1 projection. Break-even calculation.',
+    gt2h: 'Competitive landscape', gt2p: 'Who is already offering this? Big 4, pure-play security, other MS partners. Your position.',
+    gt3h: '12-week roadmap', gt3p: 'From proposition to first client. Concrete steps, investment, milestones.',
+    gate_btn: 'Download Analysis \u2192',
+    gate_note: 'No spam. One email with the analysis + an invitation for a conversation.',
+    gate_sent: '\u2713 The CRA Opportunity Analysis will be sent to your inbox.',
+    cta_h: 'Ready to seize CRA as an opportunity?<br><em>Find out where you stand.</em>',
+    cta_p: 'The Growth Assessment measures your PMC clarity, vendor alignment and pipeline structure in 5 minutes.',
+    cta_btn: 'Start Growth Assessment \u2192',
+    cta_ghost: 'Talk to Mike directly',
+    ph: 'you@company.com'
+  }
+};
+function setLang(l){
+  var t=TRANSLATIONS[l];if(!t)return;
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  // Map IDs to translation keys
+  var m={
+    'i-back':'back','i-reading':'reading','i-date':'date','i-gate-note':'gate_note'
+  };
+  for(var id in m){var el=document.getElementById(id);if(el)el.textContent=t[m[id]];}
+  // innerHTML elements
+  var hi={};
+  var h1=document.querySelector('.hero h1');if(h1)h1.innerHTML=t.h1;
+  var hl=document.querySelector('.hero-lead');if(hl)hl.textContent=t.lead;
+  // Article sections
+  var h2s=document.querySelectorAll('article h2');
+  var h2keys=['s1h','s2h','s3h','s4h','s5h'];
+  h2s.forEach(function(el,i){if(t[h2keys[i]])el.innerHTML=t[h2keys[i]];});
+  var ps=document.querySelectorAll('article > p');
+  var pkeys=['s1p1','s1p2','s2p1','s2p2','s3p','s4p1','s4p2','s5p1','s5p2','s5p3'];
+  ps.forEach(function(el,i){if(t[pkeys[i]])el.innerHTML=t[pkeys[i]];});
+  // Stat labels
+  var stats=document.querySelectorAll('.stat-label');
+  var skeys=['stat1','stat2','stat3'];
+  stats.forEach(function(el,i){if(t[skeys[i]])el.textContent=t[skeys[i]];});
+  // Deadline
+  var dlh=document.querySelector('.deadline-text h4');if(dlh)dlh.textContent=t.dl_h;
+  var dlp=document.querySelector('.deadline-text p');if(dlp)dlp.innerHTML=t.dl_p;
+  // Pillars
+  var ph4=document.querySelectorAll('.pillar h4');
+  var pp=document.querySelectorAll('.pillar p');
+  ['p1','p2','p3','p4'].forEach(function(k,i){
+    if(ph4[i])ph4[i].textContent=t[k+'h'];
+    if(pp[i])pp[i].textContent=t[k+'p'];
+  });
+  // Revenue
+  var revh=document.querySelector('.revenue-box h3');if(revh)revh.textContent=t.rev_h;
+  var revl=document.querySelectorAll('.rev-label');
+  ['rev1','rev2','rev3'].forEach(function(k,i){if(revl[i])revl[i].textContent=t[k];});
+  // Quote
+  var qp=document.querySelector('.quote-block p');if(qp)qp.textContent=t.quote;
+  // Gate
+  var gh=document.querySelector('.gate-section h2');if(gh)gh.innerHTML=t.gate_h;
+  var gp=document.querySelector('.gate-section > p');if(gp)gp.textContent=t.gate_p;
+  var gth=document.querySelectorAll('.gate-teaser h5');
+  var gtp=document.querySelectorAll('.gate-teaser p');
+  ['gt1','gt2','gt3'].forEach(function(k,i){
+    if(gth[i])gth[i].textContent=t[k+'h'];
+    if(gtp[i])gtp[i].textContent=t[k+'p'];
+  });
+  var gbtn=document.querySelector('.email-submit');if(gbtn)gbtn.textContent=t.gate_btn;
+  var ginp=document.getElementById('gateEmail');if(ginp)ginp.placeholder=t.ph;
+  // CTA
+  var ch=document.querySelector('.final-cta h2');if(ch)ch.innerHTML=t.cta_h;
+  var cp=document.querySelector('.final-cta p');if(cp)cp.textContent=t.cta_p;
+  var cb=document.querySelector('.final-cta .btn-primary');if(cb)cb.textContent=t.cta_btn;
+  var cg=document.querySelector('.final-cta .btn-ghost');if(cg)cg.textContent=t.cta_ghost;
+}
 </script>
 <form name="hci-insights-gate" netlify netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="email"><input name="regulation"><input name="page"></form>
 </body>

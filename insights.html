@@ -98,8 +98,8 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
 <div class="container">
 
 <section class="hero">
-  <h1>Market Opportunity Briefs.<br><em>Regelgeving is geen risico. Het is een markt.</em></h1>
-  <p class="hero-sub">Vier EU-reguleringen creëren samen een markt van honderdduizenden bedrijven die hulp nodig hebben. Deze briefs laten zien wat de kans is — en hoe groot. De oplossing? Dat is wat Mike levert.</p>
+  <h1 id="heroTitle">Market Opportunity Briefs.<br><em>Regelgeving is geen risico. Het is een markt.</em></h1>
+  <p class="hero-sub" id="heroSub">Vier EU-reguleringen creëren samen een markt van honderdduizenden bedrijven die hulp nodig hebben. Deze briefs laten zien wat de kans is — en hoe groot. De oplossing? Dat is wat Mike levert.</p>
 </section>
 
 <!-- BRIEFS -->
@@ -178,8 +178,8 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
 
 <!-- PIPELINE TABLE -->
 <div class="pipeline-header section-border" style="padding-top:80px">
-  <h2>Regulatoire content-pipeline.<br><em>Vier reguleringen, drie content-lagen.</em></h2>
-  <p class="pipeline-sub">Elke regulering wordt uitgewerkt in drie lagen: publieke brief (Laag 1), gated opportunity analysis (Laag 2), en het volledige HCI-traject (Laag 3). Alleen Laag 1 en 2 staan hier — Laag 3 is wat Mike levert.</p>
+  <h2 id="pipelineTitle">Regulatoire content-pipeline.<br><em>Vier reguleringen, drie content-lagen.</em></h2>
+  <p class="pipeline-sub" id="pipelineSub">Elke regulering wordt uitgewerkt in drie lagen: publieke brief (Laag 1), gated opportunity analysis (Laag 2), en het volledige HCI-traject (Laag 3). Alleen Laag 1 en 2 staan hier — Laag 3 is wat Mike levert.</p>
 </div>
 
 <table class="pipeline-table fade-up">
@@ -231,7 +231,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
 
 <!-- CTA -->
 <div class="cta-section section-border">
-  <h2>Wilt u weten hoe u van regelgeving<br><em>een verkoopbaar product maakt?</em></h2>
+  <h2 id="ctaTitle">Wilt u weten hoe u van regelgeving<br><em>een verkoopbaar product maakt?</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur. De GTM Calculator toont drie scenario's met concrete getallen.</p>
   <a href="/growth#assessment" class="btn-primary">Start Growth Assessment →</a>
   <a href="/cdn-cgi/l/email-protection#5f323d373a2c1f373a2c723c30312c2a332b3e313c267236312b3a2d313e2b3630313e33713c3032" class="btn-ghost">Spreek Mike direct</a>
@@ -247,6 +247,39 @@ const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.t
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+<script>
+var I18N_HUB = {
+  nl: {
+    heroTitle: 'Market Opportunity Briefs.<br><em>Regelgeving is geen risico. Het is een markt.</em>',
+    heroSub: 'Vier EU-reguleringen creëren samen een markt van honderdduizenden bedrijven die hulp nodig hebben. Deze briefs laten zien wat de kans is — en hoe groot. De oplossing? Dat is wat Mike levert.',
+    pipelineTitle: 'Regulatoire content-pipeline.<br><em>Vier reguleringen, drie content-lagen.</em>',
+    pipelineSub: 'Elke regulering wordt uitgewerkt in drie lagen: publieke brief (Laag 1), gated opportunity analysis (Laag 2), en het volledige HCI-traject (Laag 3). Alleen Laag 1 en 2 staan hier — Laag 3 is wat Mike levert.',
+    ctaTitle: 'Wilt u weten hoe u van regelgeving<br><em>een verkoopbaar product maakt?</em>'
+  },
+  en: {
+    heroTitle: 'Market Opportunity Briefs.<br><em>Regulation is not a risk. It\u2019s a market.</em>',
+    heroSub: 'Four EU regulations together create a market of hundreds of thousands of companies that need help. These briefs show what the opportunity is — and how big. The solution? That\u2019s what Mike delivers.',
+    pipelineTitle: 'Regulatory content pipeline.<br><em>Four regulations, three content layers.</em>',
+    pipelineSub: 'Each regulation is developed in three layers: public brief (Layer 1), gated opportunity analysis (Layer 2), and the full HCI engagement (Layer 3). Only Layers 1 and 2 are shown here — Layer 3 is what Mike delivers.',
+    ctaTitle: 'Want to know how to turn regulation<br><em>into a sellable product?</em>'
+  }
+};
+function setLang(l) {
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    var isActive = b.textContent.trim().toUpperCase() === l.toUpperCase();
+    b.style.background = isActive ? 'var(--gold)' : 'transparent';
+    b.style.color = isActive ? 'var(--bg-deep)' : 'var(--text-dim)';
+  });
+  var t = I18N_HUB[l]; if (!t) return;
+  var el;
+  el = document.getElementById('heroTitle'); if (el) el.innerHTML = t.heroTitle;
+  el = document.getElementById('heroSub'); if (el) el.textContent = t.heroSub;
+  el = document.getElementById('pipelineTitle'); if (el) el.innerHTML = t.pipelineTitle;
+  el = document.getElementById('pipelineSub'); if (el) el.textContent = t.pipelineSub;
+  el = document.getElementById('ctaTitle'); if (el) el.innerHTML = t.ctaTitle;
+}
 </script>
 </body>
 </html>

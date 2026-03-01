@@ -176,7 +176,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
   <h2>Klaar om de AI Act als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
   <a href="/assessment?route=growth" class="btn-primary">Start Growth Assessment →</a>
-  <a href="/cdn-cgi/l/email-protection#620f000a0711220a07114f010d0c11170e16030c011b4f0b0c1607100c03160b0d0c030e4c010d0f" class="btn-ghost">Spreek Mike direct</a>
+  <a href="#" class="btn-ghost" onclick="window.location.href='mailto:'+'mbhes'+'@'+'nxterasolutions.eu';return false;">Spreek Mike direct</a>
 </div>
 </div>
 
@@ -189,6 +189,104 @@ const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.t
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+<script>
+var T={en:{
+  h1:'Every company using AI must<br>take action. Most don\u2019t know<br><em>where to begin.</em>',
+  lead:'The AI Act is the world\u2019s first comprehensive AI regulation. First obligations start in 2025. High-risk AI systems must meet strict requirements. The demand for expert guidance is just beginning.',
+  reading:'\u23f1 5 minute read',
+  headings:[
+    'What is the AI Act? <em>The world\u2019s first AI law.</em>',
+    'The timeline: <em>step by step.</em>',
+    'Who is affected? <em>More than expected.</em>',
+    'The opportunity: <em>four service pillars</em>',
+    'What does it yield? <em>The business case.</em>',
+    'The low-hanging fruit: <em>GPAI Inventory</em>',
+    'Why move <em>now</em>',
+    'Want to know what the AI Act looks like<br><em>for your situation?</em>'
+  ],
+  paras:[
+    'The <strong>EU AI Act</strong> is a risk-based regulation that classifies AI systems into four categories: unacceptable risk (banned), high-risk (strict requirements), limited risk (transparency obligations), and minimal risk (no requirements).',
+    null,
+    'The AI Act affects <strong>every organisation that develops, deploys, imports or distributes AI systems</strong> in the EU market. That includes companies using AI in HR, finance, healthcare, education, and critical infrastructure.',
+    null,
+    'Companies that use or develop AI systems need help understanding their obligations. Not abstract policy advice \u2014 but practical classification, documentation and compliance support.',
+    null,
+    null,
+    'The fastest entry into the AI Act market is the <strong>GPAI Inventory</strong>: helping organisations identify all AI systems they use or develop, classify risk levels, and create a compliance roadmap.',
+    'The AI Act market is <strong>still emerging</strong>. Most consultancies offer generic AI ethics workshops. The partners who build structured compliance propositions now will dominate the market when enforcement begins.'
+  ],
+  stats:['Risk categories','First obligations','High-risk deadline'],
+  pillars:[
+    ['AI System Inventory & Classification','Identify all AI systems. Risk classification (unacceptable/high/limited/minimal). Regulatory mapping per system.'],
+    ['Conformity Assessment','Technical documentation. Human oversight design. Data governance. Bias testing. Transparency requirements.'],
+    ['AI Governance Framework','AI policies, roles and responsibilities, risk management, incident procedures, audit trails.'],
+    ['Monitoring & Compliance','Post-market monitoring, performance tracking, regulatory reporting, annual reviews, re-classification.']
+  ],
+  revLabels:['Average project work','Recurring per month','Per client per year'],
+  rev_h:'Indicative revenue model per client',
+  gate_h:'Want to know what the AI Act looks like<br><em>for your situation?</em>',
+  gate_p:'Download the AI Act Market Opportunity Analysis: concrete service pillars, revenue model, competitive positioning, and a realistic outline business plan.',
+  teasers:[
+    ['GPAI Inventory','The fastest entry: help organisations map all their AI systems and classify risk levels.'],
+    ['Competitive landscape','Who offers AI Act services? How to differentiate. First-mover advantage analysis.'],
+    ['12-week roadmap','From proposition to first client. Concrete steps, investment, milestones.']
+  ],
+  cta_h:'Ready to seize the AI Act as an opportunity?<br><em>Find out where you stand.</em>',
+  cta_p:'The Growth Assessment measures your PMC clarity, vendor alignment and pipeline structure in 5 minutes.',
+  cta_btn:'Start Growth Assessment \u2192'
+}};
+function setLang(l){
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  if(l==='nl'){location.reload();return;}
+  var t=T.en;if(!t)return;
+  // Hero
+  var h1=document.querySelector('.hero h1');if(h1)h1.innerHTML=t.h1;
+  var hl=document.querySelector('.hero-lead');if(hl)hl.textContent=t.lead;
+  var hb=document.querySelector('.hero-back');if(hb)hb.textContent='\u2190 Back to Insights Hub';
+  var hr=document.querySelector('.hero-reading');if(hr)hr.textContent=t.reading;
+  // Article h2s
+  var h2s=document.querySelectorAll('article h2');
+  if(t.headings)t.headings.forEach(function(txt,i){if(h2s[i])h2s[i].innerHTML=txt;});
+  // Article paragraphs
+  var ps=document.querySelectorAll('article > p');
+  if(t.paras)t.paras.forEach(function(txt,i){if(ps[i]&&txt)ps[i].innerHTML=txt;});
+  // Stat labels
+  var sl=document.querySelectorAll('.stat-label');
+  if(t.stats)t.stats.forEach(function(txt,i){if(sl[i])sl[i].textContent=txt;});
+  // Pillars
+  var ph=document.querySelectorAll('.pillar h4');
+  var pp=document.querySelectorAll('.pillar p');
+  if(t.pillars)t.pillars.forEach(function(p,i){if(ph[i])ph[i].textContent=p[0];if(pp[i])pp[i].textContent=p[1];});
+  // Revenue labels
+  var rl=document.querySelectorAll('.rev-label');
+  if(t.revLabels)t.revLabels.forEach(function(txt,i){if(rl[i])rl[i].textContent=txt;});
+  // Deadline
+  var dh=document.querySelector('.deadline-text h4');if(dh&&t.dl_h)dh.textContent=t.dl_h;
+  var dp=document.querySelector('.deadline-text p');if(dp&&t.dl_p)dp.innerHTML=t.dl_p;
+  // Gate
+  var gh=document.querySelector('.gate-section h2');if(gh&&t.gate_h)gh.innerHTML=t.gate_h;
+  var gp=document.querySelector('.gate-section > p');if(gp&&t.gate_p)gp.textContent=t.gate_p;
+  var gth=document.querySelectorAll('.gate-teaser h5');
+  var gtp=document.querySelectorAll('.gate-teaser p');
+  if(t.teasers)t.teasers.forEach(function(tr,i){if(gth[i])gth[i].textContent=tr[0];if(gtp[i])gtp[i].textContent=tr[1];});
+  var gb=document.querySelector('.email-submit');if(gb)gb.textContent='Download Analysis \u2192';
+  var gi=document.getElementById('gateEmail');if(gi)gi.placeholder='you@company.com';
+  // CTA
+  var ch=document.querySelector('.final-cta h2');if(ch&&t.cta_h)ch.innerHTML=t.cta_h;
+  var cp=document.querySelector('.final-cta p');if(cp&&t.cta_p)cp.textContent=t.cta_p;
+  var cb=document.querySelector('.final-cta .btn-primary');if(cb)cb.textContent=t.cta_btn||'Start Growth Assessment \u2192';
+  var cg=document.querySelector('.final-cta .btn-ghost');if(cg)cg.textContent='Talk to Mike directly';
+  // Quote
+  var qp=document.querySelector('.quote-block p');if(qp&&t.quote)qp.textContent=t.quote;
+  // Rev box title
+  var rh=document.querySelector('.revenue-box h3');if(rh&&t.rev_h)rh.textContent=t.rev_h;
+}
 </script>
 <form name="hci-insights-gate" netlify netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="email"><input name="regulation"><input name="page"></form>
 </body>

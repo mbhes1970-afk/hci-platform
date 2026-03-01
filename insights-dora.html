@@ -164,7 +164,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
   <h2>Klaar om DORA als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
   <a href="/assessment?route=growth" class="btn-primary">Start Growth Assessment →</a>
-  <a href="/cdn-cgi/l/email-protection#86ebe4eee3f5c6eee3f5abe5e9e8f5f3eaf2e7e8e5ffabefe8f2e3f4e8e7f2efe9e8e7eaa8e5e9eb" class="btn-ghost">Spreek Mike direct</a>
+  <a href="#" class="btn-ghost" onclick="window.location.href='mailto:'+'mbhes'+'@'+'nxterasolutions.eu';return false;">Spreek Mike direct</a>
 </div>
 </div>
 
@@ -177,6 +177,104 @@ const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.t
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+<script>
+var T={en:{
+  h1:'The financial sector is looking for<br>IT partners who understand DORA.<br><em>Are you one of them?</em>',
+  lead:'DORA has been active since January 2025. Banks, insurers, pension funds \u2014 and their ICT service providers. The entire chain is affected. The demand for expert partners is enormous.',
+  reading:'\u23f1 5 minute read',
+  headings:[
+    'What is DORA? <em>And why is it different?</em>',
+    'Who is affected? <em>More than you think.</em>',
+    'The sweet spot: <em>mid-sized fintechs</em>',
+    'The opportunity: <em>four service pillars</em>',
+    'What does it yield? <em>The business case.</em>',
+    'Why position <em>now</em>',
+    'Who competes here? <em>Almost no one.</em>',
+    'Want to know what DORA looks like<br><em>for your situation?</em>'
+  ],
+  paras:[
+    'DORA is not another security framework. It is an <strong>EU regulation</strong> that requires the entire financial sector to demonstrably manage digital operational resilience. ICT risk management, incident reporting, resilience testing, and third-party risk management.',
+    'DORA applies to over <strong>22,000 financial entities</strong> in the EU. But it goes further: their <strong>ICT service providers</strong> (including cloud providers, SaaS platforms, and IT partners) are also directly regulated.',
+    null,
+    'The biggest opportunity lies with <strong>mid-sized fintechs and financial service providers</strong>. Too large to ignore DORA, too small for Big 4 budgets. They need pragmatic partners.',
+    'Companies in the financial sector that need to become DORA-compliant need specialised help. Not generic security consulting \u2014 but DORA-specific expertise.',
+    null,
+    null,
+    null,
+    'The DORA compliance market is still <strong>wide open</strong>. Most IT partners focus on NIS2 or general security. DORA requires financial sector knowledge \u2014 and that\u2019s a barrier that protects early movers.'
+  ],
+  stats:['Financial entities EU','ICT providers in scope','Active since'],
+  pillars:[
+    ['ICT Risk Management','Risk assessment framework, risk appetite definition, board reporting, control implementation.'],
+    ['Incident Management','Classification taxonomy, reporting to authorities, root cause analysis, communication procedures.'],
+    ['Resilience Testing','TLPT programmes, scenario testing, penetration testing, recovery procedures.'],
+    ['Third-Party Risk','ICT provider register, concentration risk analysis, exit strategies, contractual requirements.']
+  ],
+  revLabels:['Average project work','Recurring per month','Per client per year'],
+  rev_h:'Indicative revenue model per client',
+  gate_h:'Want to know what DORA looks like<br><em>for your situation?</em>',
+  gate_p:'Download the DORA Market Opportunity Analysis: concrete service pillars, revenue model, competitive positioning, and a realistic outline business plan.',
+  teasers:[
+    ['The sweet spot','Mid-sized fintechs: too large to ignore, too small for Big 4. Your ideal client profile.'],
+    ['Competitive landscape','Who offers DORA services? How to differentiate. Vendor alignment opportunities.'],
+    ['12-week roadmap','From proposition to first client. Concrete steps, investment, milestones.']
+  ],
+  cta_h:'Ready to seize DORA as an opportunity?<br><em>Find out where you stand.</em>',
+  cta_p:'The Growth Assessment measures your PMC clarity, vendor alignment and pipeline structure in 5 minutes.',
+  cta_btn:'Start Growth Assessment \u2192'
+}};
+function setLang(l){
+  document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--accent)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'#fff':'var(--text-dim)';
+  document.documentElement.lang=l;
+  if(l==='nl'){location.reload();return;}
+  var t=T.en;if(!t)return;
+  // Hero
+  var h1=document.querySelector('.hero h1');if(h1)h1.innerHTML=t.h1;
+  var hl=document.querySelector('.hero-lead');if(hl)hl.textContent=t.lead;
+  var hb=document.querySelector('.hero-back');if(hb)hb.textContent='\u2190 Back to Insights Hub';
+  var hr=document.querySelector('.hero-reading');if(hr)hr.textContent=t.reading;
+  // Article h2s
+  var h2s=document.querySelectorAll('article h2');
+  if(t.headings)t.headings.forEach(function(txt,i){if(h2s[i])h2s[i].innerHTML=txt;});
+  // Article paragraphs
+  var ps=document.querySelectorAll('article > p');
+  if(t.paras)t.paras.forEach(function(txt,i){if(ps[i]&&txt)ps[i].innerHTML=txt;});
+  // Stat labels
+  var sl=document.querySelectorAll('.stat-label');
+  if(t.stats)t.stats.forEach(function(txt,i){if(sl[i])sl[i].textContent=txt;});
+  // Pillars
+  var ph=document.querySelectorAll('.pillar h4');
+  var pp=document.querySelectorAll('.pillar p');
+  if(t.pillars)t.pillars.forEach(function(p,i){if(ph[i])ph[i].textContent=p[0];if(pp[i])pp[i].textContent=p[1];});
+  // Revenue labels
+  var rl=document.querySelectorAll('.rev-label');
+  if(t.revLabels)t.revLabels.forEach(function(txt,i){if(rl[i])rl[i].textContent=txt;});
+  // Deadline
+  var dh=document.querySelector('.deadline-text h4');if(dh&&t.dl_h)dh.textContent=t.dl_h;
+  var dp=document.querySelector('.deadline-text p');if(dp&&t.dl_p)dp.innerHTML=t.dl_p;
+  // Gate
+  var gh=document.querySelector('.gate-section h2');if(gh&&t.gate_h)gh.innerHTML=t.gate_h;
+  var gp=document.querySelector('.gate-section > p');if(gp&&t.gate_p)gp.textContent=t.gate_p;
+  var gth=document.querySelectorAll('.gate-teaser h5');
+  var gtp=document.querySelectorAll('.gate-teaser p');
+  if(t.teasers)t.teasers.forEach(function(tr,i){if(gth[i])gth[i].textContent=tr[0];if(gtp[i])gtp[i].textContent=tr[1];});
+  var gb=document.querySelector('.email-submit');if(gb)gb.textContent='Download Analysis \u2192';
+  var gi=document.getElementById('gateEmail');if(gi)gi.placeholder='you@company.com';
+  // CTA
+  var ch=document.querySelector('.final-cta h2');if(ch&&t.cta_h)ch.innerHTML=t.cta_h;
+  var cp=document.querySelector('.final-cta p');if(cp&&t.cta_p)cp.textContent=t.cta_p;
+  var cb=document.querySelector('.final-cta .btn-primary');if(cb)cb.textContent=t.cta_btn||'Start Growth Assessment \u2192';
+  var cg=document.querySelector('.final-cta .btn-ghost');if(cg)cg.textContent='Talk to Mike directly';
+  // Quote
+  var qp=document.querySelector('.quote-block p');if(qp&&t.quote)qp.textContent=t.quote;
+  // Rev box title
+  var rh=document.querySelector('.revenue-box h3');if(rh&&t.rev_h)rh.textContent=t.rev_h;
+}
 </script>
 <form name="hci-insights-gate" netlify netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="email"><input name="regulation"><input name="page"></form>
 </body>
