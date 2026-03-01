@@ -28,3 +28,7 @@
 /analysis/aiact   /layer2-aiact.html         200
 /api/claude       /.netlify/functions/claude-proxy  200
 /api/slack        /.netlify/functions/claude-proxy  200
+/hci-cra-brief-wp6  /insights/cra     301
+/hci-nis2-brief     /insights/nis2    301
+/hci-dora-brief     /insights/dora    301
+/hci-aiact-brief    /insights/aiact   301

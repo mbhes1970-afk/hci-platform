@@ -156,3 +156,24 @@
   from = "/api/slack"
   to = "/.netlify/functions/claude-proxy"
   status = 200
+
+# Legacy brief redirects (→ insights pages)
+[[redirects]]
+  from = "/hci-cra-brief-wp6"
+  to = "/insights/cra"
+  status = 301
+
+[[redirects]]
+  from = "/hci-nis2-brief"
+  to = "/insights/nis2"
+  status = 301
+
+[[redirects]]
+  from = "/hci-dora-brief"
+  to = "/insights/dora"
+  status = 301
+
+[[redirects]]
+  from = "/hci-aiact-brief"
+  to = "/insights/aiact"
+  status = 301

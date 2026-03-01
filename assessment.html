@@ -210,7 +210,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
       <div class="result-gaps" id="resultGaps"><h3 id="gapTitle">Key gaps identified</h3></div>
 
       <div class="result-cta-area">
-        <a href="/cdn-cgi/l/email-protection#c9a4aba1acba89a1acbae4aaa6a7babca5bda8a7aab0e4a0a7bdacbba7a8bda0a6a7a8a5e7aaa6a4" class="btn-primary" id="resultCta1">Schedule a conversation →</a>
+        <a href="#" class="btn-primary" id="resultCta1" onclick="window.location.href='mailto:' + 'mbhes' + '@' + 'nxterasolutions.eu'; return false;">Schedule a conversation →</a>
         <a href="/" class="btn-ghost" id="resultCta2">Back to overview</a>
       </div>
 
@@ -737,6 +737,9 @@ function setLang(l) {
   // Update gap title if results are shown
   var gt = document.querySelector('#resultGaps h3'); if (gt) gt.textContent = tr.gapTitle;
 }
+
+// ═══ BOOT ═══
+init();
 </script>
 
 <!-- Hidden Netlify Form for bot detection -->
