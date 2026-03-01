@@ -1,7 +1,7 @@
 [build]
   publish = "."
-  functions = "netlify/functions"
 
+# Platform tools (behind auth)
 [[redirects]]
   from = "/modules"
   to = "/hci-modules.html"
@@ -57,7 +57,7 @@
   to = "/hci-output-engine-v2.html"
   status = 200
 
-# Sector output templates (called by quickscan)
+# Sector output templates (quickscan fetch)
 [[redirects]]
   from = "/templates/s01.html"
   to = "/hci-output-s01.html"
@@ -88,13 +88,13 @@
   to = "/hci-output-s06.html"
   status = 200
 
-# Layer 1 Insights briefs (clean URLs)
-[[redirects]]
+# Insights hub + Layer 1 briefs (public)
 [[redirects]]
   from = "/insights"
   to = "/insights.html"
   status = 200
 
+[[redirects]]
   from = "/insights/cra"
   to = "/insights-cra.html"
   status = 200
@@ -125,26 +125,8 @@
   to = "/terms.html"
   status = 200
 
-# Security headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+# Claude proxy function
+[[redirects]]
+  from = "/.netlify/functions/claude-proxy"
+  to = "/.netlify/functions/claude-proxy"
+  status = 200
