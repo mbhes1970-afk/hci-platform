@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTM Calculator — Regulatory Practice Revenue Model — HCI</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c8a55a;--gold-dim:rgba(200,165,90,.12);--gold-border:rgba(200,165,90,.3);--accent:#0891b2;--accent-light:#22d3ee;--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;--border:rgba(255,255,255,.06);--text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a78bfa;--teal:#2dd4bf;--orange:#fb923c}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 600px at 30% 10%,rgba(200,165,90,.06) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 80% 90%,rgba(8,145,178,.04) 0%,transparent 70%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;background:rgba(8,9,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-tag{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--gold-dim);color:var(--gold);letter-spacing:1px;text-transform:uppercase;border:1px solid var(--gold-border)}
+.container{max-width:960px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
+.hero{padding:140px 0 48px}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4.5vw,42px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:16px}.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-lead{font-size:16px;color:var(--text);line-height:1.7;max-width:640px;margin-bottom:32px}
+h2{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400;color:var(--white);margin:48px 0 16px}h2 em{font-style:italic;color:var(--gold)}
+p{font-size:15px;line-height:1.8;margin-bottom:14px}
+
+/* Config Panel */
+.config{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:40px}
+.config h3{font-size:16px;font-weight:600;color:var(--text-bright);margin-bottom:20px}
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.field label{display:block;font-size:12px;font-weight:500;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.field select,.field input{width:100%;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--text-bright);font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.field select:focus,.field input:focus{border-color:var(--gold-border)}
+.field select option{background:var(--bg-card)}
+
+/* Regulation Toggles */
+.reg-toggles{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 24px}
+.reg-toggle{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-dim);transition:all .2s;user-select:none}
+.reg-toggle.active{color:var(--white);border-color:transparent}
+.reg-toggle[data-reg="cra"].active{background:rgba(8,145,178,.2);border-color:rgba(8,145,178,.4);color:var(--accent-light)}
+.reg-toggle[data-reg="nis2"].active{background:rgba(45,212,191,.2);border-color:rgba(45,212,191,.4);color:var(--teal)}
+.reg-toggle[data-reg="dora"].active{background:rgba(251,146,60,.2);border-color:rgba(251,146,60,.4);color:var(--orange)}
+.reg-toggle[data-reg="aiact"].active{background:rgba(167,139,250,.2);border-color:rgba(167,139,250,.4);color:var(--purple)}
+
+/* Scenario Cards */
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.scenario{background:var(--bg-card);border:2px solid var(--border);border-radius:16px;padding:24px;position:relative;transition:all .3s}
+.scenario.highlight{border-color:var(--gold-border);background:linear-gradient(135deg,var(--gold-dim),var(--bg-card))}
+.scenario-label{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px}
+.scenario.highlight .scenario-label{color:var(--gold)}
+.scenario h4{font-family:'Instrument Serif',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:4px}
+.scenario .desc{font-size:12px;color:var(--text-dim);margin-bottom:20px}
+.scenario .big-num{font-family:'Instrument Serif',serif;font-size:36px;color:var(--gold);line-height:1;margin-bottom:4px}
+.scenario .big-label{font-size:11px;color:var(--text-dim);margin-bottom:16px}
+.scenario .detail{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.scenario .detail:last-child{border:none}
+.scenario .detail .dl{color:var(--text-dim)}
+.scenario .detail .dv{font-family:'Geist Mono',monospace;color:var(--text-bright)}
+
+/* Results Summary */
+.results-summary{background:var(--bg-card);border:1px solid var(--gold-border);border-radius:16px;padding:32px;margin:32px 0;text-align:center}
+.results-summary h3{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:20px}
+.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.result-item .result-num{font-family:'Instrument Serif',serif;font-size:28px;color:var(--gold);line-height:1}
+.result-item .result-label{font-size:11px;color:var(--text-dim);margin-top:4px}
+
+/* Bar chart */
+.bar-chart{margin:24px 0}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bar-label{width:120px;font-size:12px;color:var(--text-dim);flex-shrink:0;text-align:right}
+.bar-track{flex:1;height:28px;background:var(--bg-elevated);border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;transition:width .6s ease;display:flex;align-items:center;padding:0 10px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--bg-deep);font-weight:600;min-width:60px}
+.bar-fill.project{background:linear-gradient(90deg,var(--gold),#dab96e)}
+.bar-fill.recurring{background:linear-gradient(90deg,var(--green),#86efac)}
+
+.final-cta{text-align:center;padding:64px 0;border-top:1px solid var(--border)}.final-cta h2{margin-bottom:12px}.final-cta p{color:var(--text);margin-bottom:24px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--gold);color:var(--bg-deep);transition:all .3s}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,165,90,.3)}
+footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.footer-text{font-size:11px;color:var(--text-dim)}.footer-text a{color:var(--gold);text-decoration:none}
+@media(max-width:700px){nav{padding:12px 20px}.container{padding:0 20px}.hero{padding:100px 0 32px}.scenarios,.results-grid{grid-template-columns:1fr}.config-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">GTM Calculator · Growth</span></div></nav>
+
+<div class="container">
+<section class="hero">
+  <h1>GTM Calculator.<br><em>Bereken uw regulatory practice revenue.</em></h1>
+  <p class="hero-lead">Selecteer de reguleringen die u wilt aanbieden, stel uw scenario in, en zie direct wat het oplevert. Drie scenario's: status quo, één PMC, en het volledige traject.</p>
+</section>
+
+<!-- CONFIGURATION -->
+<div class="config">
+  <h3>Configuratie</h3>
+  <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px">Selecteer de reguleringen die u wilt aanbieden:</p>
+  <div class="reg-toggles" id="regToggles">
+    <div class="reg-toggle active" data-reg="cra" onclick="toggleReg(this)">🛡️ CRA</div>
+    <div class="reg-toggle" data-reg="nis2" onclick="toggleReg(this)">⚖️ NIS2</div>
+    <div class="reg-toggle" data-reg="dora" onclick="toggleReg(this)">🏦 DORA</div>
+    <div class="reg-toggle" data-reg="aiact" onclick="toggleReg(this)">🤖 AI Act</div>
+  </div>
+  <div class="config-grid">
+    <div class="field">
+      <label>Klanten Year 1 (per regulering)</label>
+      <select id="clientCount" onchange="calculate()">
+        <option value="2">2 klanten (conservative)</option>
+        <option value="4" selected>4 klanten (base case)</option>
+        <option value="6">6 klanten (accelerated)</option>
+        <option value="8">8 klanten (aggressive)</option>
+        <option value="10">10 klanten (scale)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Recurring maanden Year 1</label>
+      <select id="recMonths" onchange="calculate()">
+        <option value="6">6 maanden</option>
+        <option value="8" selected>8 maanden</option>
+        <option value="10">10 maanden</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIOS -->
+<h2>Drie scenario's: <em>wat levert het op?</em></h2>
+<p>Scenario A = u doet niets (status quo). Scenario B = u start met één regulering. Scenario C = het volledige traject over meerdere reguleringen.</p>
+
+<div class="scenarios" id="scenarios">
+  <div class="scenario" id="scenA">
+    <div class="scenario-label">Scenario A</div>
+    <h4>Status Quo</h4>
+    <div class="desc">Geen regulatory practice. Alleen bestaande diensten.</div>
+    <div class="big-num">€0</div>
+    <div class="big-label">Nieuwe omzet Year 1</div>
+    <div class="detail"><span class="dl">Projectwerk</span><span class="dv">€0</span></div>
+    <div class="detail"><span class="dl">Recurring/jaar</span><span class="dv">€0</span></div>
+    <div class="detail"><span class="dl">Klanten</span><span class="dv">0</span></div>
+    <div class="detail"><span class="dl">Gemiste kans</span><span class="dv" id="missedOpp" style="color:var(--red)">—</span></div>
+  </div>
+  <div class="scenario highlight" id="scenB">
+    <div class="scenario-label">Scenario B — Aanbevolen start</div>
+    <h4>Eén PMC</h4>
+    <div class="desc">Start met de regulering met hoogste urgentie.</div>
+    <div class="big-num" id="scenBTotal">—</div>
+    <div class="big-label">Nieuwe omzet Year 1</div>
+    <div class="detail"><span class="dl">Regulering</span><span class="dv" id="scenBReg">—</span></div>
+    <div class="detail"><span class="dl">Projectwerk</span><span class="dv" id="scenBProject">—</span></div>
+    <div class="detail"><span class="dl">Recurring/jaar</span><span class="dv" id="scenBRec">—</span></div>
+    <div class="detail"><span class="dl">Klanten</span><span class="dv" id="scenBClients">—</span></div>
+  </div>
+  <div class="scenario" id="scenC">
+    <div class="scenario-label">Scenario C</div>
+    <h4>Full Trajectory</h4>
+    <div class="desc">Alle geselecteerde reguleringen als practice.</div>
+    <div class="big-num" id="scenCTotal">—</div>
+    <div class="big-label">Nieuwe omzet Year 1</div>
+    <div class="detail"><span class="dl">Reguleringen</span><span class="dv" id="scenCRegs">—</span></div>
+    <div class="detail"><span class="dl">Projectwerk</span><span class="dv" id="scenCProject">—</span></div>
+    <div class="detail"><span class="dl">Recurring/jaar</span><span class="dv" id="scenCRec">—</span></div>
+    <div class="detail"><span class="dl">Klanten totaal</span><span class="dv" id="scenCClients">—</span></div>
+  </div>
+</div>
+
+<!-- REVENUE BREAKDOWN -->
+<h2>Revenue breakdown <em>per regulering</em></h2>
+<div class="bar-chart" id="barChart"></div>
+
+<!-- RESULTS SUMMARY -->
+<div class="results-summary" id="resultsSummary">
+  <h3>Year 1 samenvatting (Scenario C)</h3>
+  <div class="results-grid">
+    <div class="result-item"><div class="result-num" id="resTotalRev">—</div><div class="result-label">Totale omzet Y1</div></div>
+    <div class="result-item"><div class="result-num" id="resRecurring">—</div><div class="result-label">Recurring/jaar</div></div>
+    <div class="result-item"><div class="result-num" id="resClients">—</div><div class="result-label">Klanten totaal</div></div>
+    <div class="result-item"><div class="result-num" id="resBreakeven">—</div><div class="result-label">Break-even (klanten)</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="final-cta">
+  <h2>Klaar om deze cijfers werkelijkheid te maken?<br><em>Van calculator naar concrete propositie.</em></h2>
+  <p>HCI helpt IT-partners de regulatory practice ontwerpen, de sales enablement opzetten, en de eerste pipeline genereren.</p>
+  <a href="/cdn-cgi/l/email-protection#e28f808a8791a28a8791cf818d8c91978e96838c819bcf8b8c9687908c83968b8d8c838ecc818d8fdd91978088878196dfa5b6afc7d0d2a1838e81978e83968d90c7d0d2cfc7d0d2a5879192908789" class="btn-primary">Plan een gesprek →</a>
+</div>
+</div>
+
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const REG_DATA = {
+  cra:   { name: 'CRA',    color: '#0891b2', projectAvg: 31500, recMonth: 2500, priority: 2 },
+  nis2:  { name: 'NIS2',   color: '#2dd4bf', projectAvg: 38000, recMonth: 3000, priority: 2 },
+  dora:  { name: 'DORA',   color: '#fb923c', projectAvg: 58000, recMonth: 4500, priority: 1 },
+  aiact: { name: 'AI Act', color: '#a78bfa', projectAvg: 87000, recMonth: 2800, priority: 3 }
+};
+
+function getActiveRegs() {
+  return Array.from(document.querySelectorAll('.reg-toggle.active')).map(el => el.dataset.reg);
+}
+
+function toggleReg(el) {
+  el.classList.toggle('active');
+  if (getActiveRegs().length === 0) el.classList.add('active'); // min 1
+  calculate();
+}
+
+function fmt(n) { return '€' + Math.round(n).toLocaleString('nl-NL'); }
+
+function calculate() {
+  const regs = getActiveRegs();
+  const clients = parseInt(document.getElementById('clientCount').value);
+  const months = parseInt(document.getElementById('recMonths').value);
+
+  // Sort by priority to find best single PMC
+  const sorted = regs.slice().sort((a, b) => REG_DATA[a].priority - REG_DATA[b].priority);
+  const bestReg = sorted[0];
+
+  // Scenario B: one PMC (best priority)
+  const bProject = REG_DATA[bestReg].projectAvg * clients;
+  const bRec = REG_DATA[bestReg].recMonth * clients * months;
+  const bTotal = bProject + bRec;
+  const bRecYear = REG_DATA[bestReg].recMonth * clients * 12;
+
+  document.getElementById('scenBTotal').textContent = fmt(bTotal);
+  document.getElementById('scenBReg').textContent = REG_DATA[bestReg].name;
+  document.getElementById('scenBProject').textContent = fmt(bProject);
+  document.getElementById('scenBRec').textContent = fmt(bRecYear);
+  document.getElementById('scenBClients').textContent = clients;
+
+  // Scenario C: all selected
+  let cProject = 0, cRec = 0, cRecYear = 0, cClients = 0;
+  regs.forEach(r => {
+    cProject += REG_DATA[r].projectAvg * clients;
+    cRec += REG_DATA[r].recMonth * clients * months;
+    cRecYear += REG_DATA[r].recMonth * clients * 12;
+    cClients += clients;
+  });
+  const cTotal = cProject + cRec;
+
+  document.getElementById('scenCTotal').textContent = fmt(cTotal);
+  document.getElementById('scenCRegs').textContent = regs.map(r => REG_DATA[r].name).join(' + ');
+  document.getElementById('scenCProject').textContent = fmt(cProject);
+  document.getElementById('scenCRec').textContent = fmt(cRecYear);
+  document.getElementById('scenCClients').textContent = cClients;
+  document.getElementById('missedOpp').textContent = fmt(cTotal);
+
+  // Results summary
+  document.getElementById('resTotalRev').textContent = fmt(cTotal);
+  document.getElementById('resRecurring').textContent = fmt(cRecYear);
+  document.getElementById('resClients').textContent = cClients;
+  document.getElementById('resBreakeven').textContent = Math.ceil(15000 / (REG_DATA[bestReg].projectAvg));
+
+  // Bar chart
+  const maxVal = Math.max(...regs.map(r => REG_DATA[r].projectAvg * clients + REG_DATA[r].recMonth * clients * months));
+  let bars = '';
+  regs.forEach(r => {
+    const proj = REG_DATA[r].projectAvg * clients;
+    const rec = REG_DATA[r].recMonth * clients * months;
+    const projW = (proj / maxVal * 100).toFixed(1);
+    const recW = (rec / maxVal * 100).toFixed(1);
+    bars += `<div class="bar-row"><span class="bar-label">${REG_DATA[r].name}</span><div class="bar-track"><div class="bar-fill project" style="width:${projW}%;background:${REG_DATA[r].color}">${fmt(proj)}</div></div></div>`;
+    bars += `<div class="bar-row"><span class="bar-label" style="font-size:10px;color:var(--text-dim)">↳ recurring</span><div class="bar-

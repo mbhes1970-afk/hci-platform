@@ -1,0 +1,27 @@
+# Clean URLs
+/eu-entry          /eu-entry.html          200
+/growth            /growth.html            200
+/validate          /validate.html          200
+/assessment        /assessment.html        200
+/calculator        /calculator.html        200
+/insights          /insights.html          200
+/insights/cra      /insights-cra.html      200
+/insights/nis2     /insights-nis2.html     200
+/insights/dora     /insights-dora.html     200
+/insights/aiact    /insights-aiact.html    200
+/webinar           /webinar.html           200
+/utm-builder       /utm-builder.html       200
+/linkedin          /linkedin-templates.html 200
+
+# Old filenames (backwards compatibility)
+/hci-homepage-wp1.html      /               301
+/hci-eu-entry-wp2.html      /eu-entry       301
+/hci-growth-wp3.html        /growth         301
+/hci-validate-wp4.html      /validate       301
+/hci-assessment-wp5.html    /assessment     301
+/hci-cra-brief-wp6.html     /insights/cra   301
+/hci-nis2-brief.html        /insights/nis2  301
+/hci-dora-brief.html        /insights/dora  301
+/hci-aiact-brief.html       /insights/aiact 301
+/gtm-calculator-growth.html /calculator     301
+/hci-insights-wp6.html      /insights       301

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI Test Checklist — Ronde 1: Lokale Review</title>
+<style>
+:root{--bg:#0f1419;--card:#1a1f2e;--border:#2a2f3e;--white:#f0f0f0;--gray:#8892a4;--dim:#555e6e;--purple:#6C5CE7;--green:#16a34a;--amber:#d97706;--red:#dc2626;--teal:#0891b2;--gold:#c8a55a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--white);padding:32px;min-height:100vh}
+.container{max-width:800px;margin:0 auto}
+.header{margin-bottom:32px}
+.header h1{font-size:24px;font-weight:700;margin-bottom:4px}
+.header p{font-size:13px;color:var(--gray);line-height:1.6}
+.progress-bar{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:16px;position:sticky;top:16px;z-index:10;backdrop-filter:blur(10px)}
+.progress-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:4px;transition:width .3s ease;width:0}
+.progress-text{font-size:13px;font-weight:700;white-space:nowrap}
+.section{margin-bottom:24px}
+.section-header{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px 10px 0 0;cursor:pointer}
+.section-header h2{font-size:14px;font-weight:700;flex:1}
+.section-header .badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.5px}
+.badge.p1{background:var(--purple);color:#fff}.badge.content{background:var(--teal);color:#fff}.badge.tools{background:var(--amber);color:#fff}.badge.docs{background:var(--gold);color:#fff}.badge.skip{background:var(--dim);color:#fff}
+.section-body{border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden}
+.test-item{padding:14px 16px;border-bottom:1px solid var(--border);transition:background .2s}
+.test-item:last-child{border-bottom:none}
+.test-item.done{background:rgba(22,163,106,.05)}
+.test-row{display:flex;align-items:flex-start;gap:12px}
+.checkbox{width:22px;height:22px;border:2px solid var(--border);border-radius:6px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:2px}
+.checkbox:hover{border-color:var(--purple)}
+.checkbox.checked{background:var(--green);border-color:var(--green)}
+.checkbox.checked::after{content:'✓';color:#fff;font-size:13px;font-weight:700}
+.test-info{flex:1}
+.test-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.test-file{font-size:11px;color:var(--purple);font-family:monospace;margin-bottom:6px}
+.test-checks{font-size:12px;color:var(--gray);line-height:1.8}
+.test-checks span{display:block;padding-left:14px;position:relative}
+.test-checks span::before{content:'→';position:absolute;left:0;color:var(--dim)}
+.notes-toggle{font-size:11px;color:var(--purple);cursor:pointer;margin-top:8px;display:inline-block}
+.notes-toggle:hover{text-decoration:underline}
+.notes-area{margin-top:8px;display:none}
+.notes-area.visible{display:block}
+.notes-area textarea{width:100%;height:60px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--white);padding:10px;font-size:12px;font-family:inherit;resize:vertical}
+.notes-area textarea:focus{outline:none;border-color:var(--purple)}
+.summary{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:24px}
+.summary h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.summary textarea{width:100%;height:120px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--white);padding:12px;font-size:12px;font-family:inherit;resize:vertical}
+.summary textarea:focus{outline:none;border-color:var(--purple)}
+.copy-summary{margin-top:10px;padding:10px 20px;background:var(--purple);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}
+.copy-summary:hover{background:#5a4bd6}
+.tip{display:flex;gap:8px;padding:12px;background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);border-radius:8px;margin-bottom:20px;font-size:11px;color:var(--gray);line-height:1.5}
+.tip .icon{font-size:14px;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>✅ HCI Test Checklist — Ronde 1</h1>
+<p>Lokale review van alle deliverables. Open elk bestand in je browser, check de punten, noteer bevindingen. Deel je notities daarna met Claude voor verwerking.</p>
+</div>
+
+<div class="tip">
+<div class="icon">💡</div>
+<div><strong>Hoe te gebruiken:</strong> Kopieer alle bestanden naar één map op je bureaublad. Zet het logo-bestand (White_logo_-_no_background.png / Color_logo__no_background.png) in dezelfde map. Open bestanden door erop te dubbelklikken. Klik de checkbox als je klaar bent. Noteer bevindingen per item.</div>
+</div>
+
+<div class="progress-bar">
+<div class="progress-text" id="progressText">0 / 28</div>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+<div class="progress-text" id="progressPct">0%</div>
+</div>
+
+<!-- ═══ RONDE 1A: P1 WEBSITE ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge p1">P1 WEBSITE</span><h2>Ronde 1A — Website pagina's</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="1">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Homepage</div>
+<div class="test-file">hci-homepage-wp1.html</div>
+<div class="test-checks">
+<span>Hero tekst: klinkt het overtuigend? Drie problemen herkenbaar?</span>
+<span>Drie route-cards: kloppen de beschrijvingen?</span>
+<span>4-fasen methode: is het helder?</span>
+<span>Mike sectie: foto, tekst, credentials</span>
+<span>NL/EN toggle: werkt de taalswitch?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="2">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Route 1: EU Market Entry</div>
+<div class="test-file">hci-eu-entry-wp2.html</div>
+<div class="test-checks">
+<span>Hero: "EU Revenue Without EU Office" — klinkt dit goed?</span>
+<span>Probleemomschrijving: 90% faalt — herkenbaar voor ICP 1?</span>
+<span>Cases: Chunk Works, Portable EHR — kloppen de referenties?</span>
+<span>Assessment link / CTA zichtbaar?</span>
+<span>Lifecycle visualisatie (Fase A→B→C)</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="3">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Route 2: Pipeline & Growth</div>
+<div class="test-file">hci-growth-wp3.html</div>
+<div class="test-checks">
+<span>Hero: bodyshop-spiegel — scherp genoeg? Niet beledigend?</span>
+<span>5 fouten: herkenbaar voor engineering firms?</span>
+<span>ElanWave case: EDU + CRA — mag dit publiek?</span>
+<span>CRA als template case: overtuigend?</span>
+<span>Growth assessment CTA zichtbaar?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="4">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Route 3: Product Validation</div>
+<div class="test-file">hci-validate-wp4.html</div>
+<div class="test-checks">
+<span>Hero: "Je team zegt goud" — spreekt dit startups aan?</span>
+<span>Goud/Lood filter uitleg: helder?</span>
+<span>PMC-validatie CTA: laagdrempelig genoeg?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="5">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Assessment Engine</div>
+<div class="test-file">hci-assessment-wp5.html</div>
+<div class="test-checks">
+<span>Kies elke route (EU/Growth/Validate) en doorloop de vragen</span>
+<span>Kloppen de vragen per route? Ontbreken er cruciale vragen?</span>
+<span>Score-berekening: komt er een realistisch resultaat uit?</span>
+<span>Fase-labels: Foundation/Almost Ready/Market Ready — kloppen die?</span>
+<span>⚠️ FormSubmit werkt niet lokaal — dat is normaal</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1B: LAYER 1 BRIEFS ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge content">CONTENT</span><h2>Ronde 1B — Layer 1 Market Briefs (publiek)</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="6">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">CRA Brief</div>
+<div class="test-file">hci-cra-brief-wp6.html</div>
+<div class="test-checks">
+<span>Deadlines correct? (sep 2026 rapportage, dec 2027 volledig)</span>
+<span>Marktomvang klopt? (90.000+ bedrijven)</span>
+<span>Geeft het genoeg weg om interesse te wekken, niet te veel?</span>
+<span>CTA naar Layer 2 download aanwezig?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="7">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">NIS2 Brief</div>
+<div class="test-file">hci-nis2-brief.html</div>
+<div class="test-checks">
+<span>Bestuurdersaansprakelijkheid correct uitgelegd?</span>
+<span>Sector-impact: welke sectoren worden geraakt?</span>
+<span>Urgentie: NIS2 is nu actief — komt dat over?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="8">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">DORA Brief</div>
+<div class="test-file">hci-dora-brief.html</div>
+<div class="test-checks">
+<span>DNB toezicht correct beschreven?</span>
+<span>Scope: financiële sector + IT-dienstverleners — klopt dit?</span>
+<span>TLPT/TIBER-NL referenties correct?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="9">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">AI Act Brief</div>
+<div class="test-file">hci-aiact-brief.html</div>
+<div class="test-checks">
+<span>Risicocategorieën correct? (verboden/hoog/beperkt/minimaal)</span>
+<span>GPAI-verplichtingen timing correct?</span>
+<span>Copilot/M365 AI angle: herkenbaar voor doelgroep?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1C: LAYER 2 ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge content">CONTENT</span><h2>Ronde 1C — Layer 2 Opportunity Analyses (gated)</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="10">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">CRA Opportunity Analysis</div>
+<div class="test-file">layer2-cra.html</div>
+<div class="test-checks">
+<span>Revenue model: €22K project + €2.500/mo — realistisch?</span>
+<span>Service pillars: 4 pillars beschreven — kloppen ze?</span>
+<span>Geeft het genoeg weg? Of te veel? (vuistregel: lezer denkt "hoe bouw ik dit?")</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="11">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">NIS2 Opportunity Analysis</div>
+<div class="test-file">layer2-nis2.html</div>
+<div class="test-checks">
+<span>Pricing indicatie realistisch?</span>
+<span>Competitive landscape: Big 4 vs boutique — herkenbaar?</span>
+<span>Supply chain multiplier: klopt de logica?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="12">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">DORA Opportunity Analysis</div>
+<div class="test-file">layer2-dora.html</div>
+<div class="test-checks">
+<span>Pricing per pillar realistisch?</span>
+<span>Fintech sweet spot: klopt de positionering?</span>
+<span>DNB-focus: correct voor NL markt?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="13">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">AI Act Opportunity Analysis</div>
+<div class="test-file">layer2-aiact.html</div>
+<div class="test-checks">
+<span>GPAI-verplichtingen correct en actueel?</span>
+<span>Revenue model per risico-categorie: realistisch?</span>
+<span>GDPR-parallel als sales angle: overtuigend?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1D: LAYER 3 BLUEPRINTS ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge p1">HCI IP</span><h2>Ronde 1D — Layer 3 Proposition Blueprints (privé)</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="14">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">NIS2 Blueprint</div>
+<div class="test-file">layer3-nis2-blueprint.html</div>
+<div class="test-checks">
+<span>PMC Workshop opzet: past bij hoe jij het levert? (4-phase tool → output → PPT → online review)</span>
+<span>Vendor benadering: AE-briefing structuur correct?</span>
+<span>Pricing A-B-C: €12.500 / €25.000 / €40.000 — realistisch?</span>
+<span>Competitive positioning vs Big 4 en MSSP's: herkenbaar?</span>
+<span>12-weken GTM timeline: haalbaar?</span>
+<span>📝 Beantwoord de review-blokken in het document</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen + antwoorden op 📝 review-blokken..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="15">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">DORA Blueprint</div>
+<div class="test-file">layer3-dora-blueprint.html</div>
+<div class="test-checks">
+<span>DNB-specifieke inhoud: correct en actueel?</span>
+<span>Sweet spot analyse: fintech 50-500 mwk — klopt die focus?</span>
+<span>Pricing vs Big 4 vergelijking: realistisch?</span>
+<span>TLPT/TIBER-NL: correct beschreven?</span>
+<span>📝 Beantwoord de review-blokken in het document</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen + antwoorden op 📝 review-blokken..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="16">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">AI Act Blueprint</div>
+<div class="test-file">layer3-aiact-blueprint.html</div>
+<div class="test-checks">
+<span>GPAI-verplichtingen timing: correct en actueel?</span>
+<span>Copilot-angle: herkenbaar voor software engineering firms?</span>
+<span>GDPR-parallel als overtuigingsmiddel: werkt dit?</span>
+<span>📝 Beantwoord de review-blokken in het document</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen + antwoorden op 📝 review-blokken..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1E: TOOLS ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge tools">TOOLS</span><h2>Ronde 1E — Interactieve tools</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="17">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">GTM Calculator (Growth)</div>
+<div class="test-file">gtm-calculator-growth.html</div>
+<div class="test-checks">
+<span>Drie scenario's vergelijken: getallen realistisch?</span>
+<span>Sliders/inputs: werken ze?</span>
+<span>Grafiek: is het overtuigend voor een directie?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="18">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">UTM Builder</div>
+<div class="test-file">hci-utm-builder.html</div>
+<div class="test-checks">
+<span>Pagina-knoppen werken?</span>
+<span>Link wordt correct gegenereerd?</span>
+<span>Kopieer-knop werkt?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="19">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Insights Hub</div>
+<div class="test-file">hci-insights-wp6.html</div>
+<div class="test-checks">
+<span>Overzicht van alle briefs: links kloppen?</span>
+<span>Layer 1 (publiek) vs Layer 2 (gated) onderscheid duidelijk?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="20">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Webinar Template</div>
+<div class="test-file">webinar-template.html</div>
+<div class="test-checks">
+<span>Structuur: klinkt het als een professioneel webinar?</span>
+<span>CTA's: aanmelden, assessment, contact — aanwezig?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1F: LINKEDIN ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge content">CONTENT</span><h2>Ronde 1F — LinkedIn Templates</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="21">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">40 LinkedIn Post Templates</div>
+<div class="test-file">hci-linkedin-templates-wp6.html</div>
+<div class="test-checks">
+<span>Toon: past bij jouw LinkedIn stem?</span>
+<span>CRA/NIS2/DORA/AI Act: per regulering 10 posts — variatie genoeg?</span>
+<span>CTA's: linken naar de juiste pagina's?</span>
+<span>Kies 3-5 favorieten die je direct wilt plaatsen na go-live</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen + favoriete posts..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="22">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">LinkedIn Visuals (4)</div>
+<div class="test-file">visual-cra.html, visual-nis2.html, visual-dora.html, visual-aiact.html</div>
+<div class="test-checks">
+<span>Branding: HCI look & feel consistent?</span>
+<span>Leesbaar op LinkedIn formaat?</span>
+<span>Kleurcoding per regulering: teal/oranje/paars correct?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1G: STRATEGIE DOCS ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge docs">STRATEGIE</span><h2>Ronde 1G — Strategie & Planning documenten</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="23">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">Journey Architectuur v4</div>
+<div class="test-file">hci-journey-architecture-v4.html</div>
+<div class="test-checks">
+<span>ICP Cascade Model: klopt het volledig?</span>
+<span>Mike's Toolbox (A/B/C/D): correct beschreven?</span>
+<span>Werkpakketten: status per WP correct?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="24">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">WP7 Intelligence Flywheel Plan</div>
+<div class="test-file">wp7-intelligence-flywheel-plan.html</div>
+<div class="test-checks">
+<span>3 herkenningslagen: helder?</span>
+<span>PostHog events: kloppen de 15 events?</span>
+<span>DealFlow integratie: assessment → auto-lead flow correct?</span>
+<span>12-weken uitvoeringsplan: haalbaar?</span>
+<span>6 beslispunten: alle antwoorden verwerkt?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="25">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">ChunkWorks Vergelijking</div>
+<div class="test-file">chunkworks-vs-hci-intelligence-vergelijking.html</div>
+<div class="test-checks">
+<span>ChunkWorks info correct? (check met Dennis morgen)</span>
+<span>7 gesprekspunten: bruikbaar voor het gesprek?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ RONDE 1H: SKIP LOKAAL ═══ -->
+<div class="section">
+<div class="section-header"><span class="badge skip">STAGING</span><h2>Ronde 2 — Alleen op staging (niet lokaal)</h2></div>
+<div class="section-body">
+
+<div class="test-item" data-id="26">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">P2 Platform — Quickscan + AI output</div>
+<div class="test-file">hci-platform-v2/ (hele map)</div>
+<div class="test-checks">
+<span>⚠️ Vereist Netlify deploy + ANTHROPIC_API_KEY</span>
+<span>Login met Netlify Identity</span>
+<span>Quickscan per sector: AI-gegenereerde output testen</span>
+<span>DOCX export: werkt het?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen na staging deploy..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="27">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">FormSubmit email capture</div>
+<div class="test-file">Layer 2 download forms, contact forms</div>
+<div class="test-checks">
+<span>⚠️ FormSubmit werkt alleen op live domein</span>
+<span>Email ontvangen na Layer 2 download?</span>
+<span>Contact formulier werkt?</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen na staging deploy..."></textarea></div>
+</div>
+</div>
+</div>
+
+<div class="test-item" data-id="28">
+<div class="test-row">
+<div class="checkbox" onclick="toggle(this)"></div>
+<div class="test-info">
+<div class="test-name">End-to-end journey test</div>
+<div class="test-file">Volledige flow op staging</div>
+<div class="test-checks">
+<span>⚠️ Alleen na succesvolle Ronde 1</span>
+<span>Homepage → route → assessment → resultaat → brief → Layer 2 → contact</span>
+<span>Platform: login → quickscan → sector → output → export</span>
+</div>
+<div class="notes-toggle" onclick="toggleNotes(this)">+ Notities toevoegen</div>
+<div class="notes-area"><textarea placeholder="Bevindingen na staging deploy..."></textarea></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══ SAMENVATTING ═══ -->
+<div class="summary">
+<h3>📋 Samenvatting bevindingen — kopieer naar Claude</h3>
+<textarea id="summaryField" placeholder="Plak hier je totale bevindingen, of klik 'Verzamel alle notities' om automatisch te vullen..."></textarea>
+<button class="copy-summary" onclick="collectNotes()">Verzamel alle notities</button>
+<button class="copy-summary" style="margin-left:8px;background:var(--green)" onclick="copySummary()">Kopieer naar klembord</button>
+</div>
+
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('checked');
+  el.closest('.test-item').classList.toggle('done');
+  updateProgress();
+}
+
+function toggleNotes(el) {
+  const area = el.nextElementSibling;
+  area.classList.toggle('visible');
+  el.textContent = area.classList.contains('visible') ? '− Notities verbergen' : '+ Notities toevoegen';
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('.checkbox').length;
+  const done = document.querySelectorAll('.checkbox.checked').length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progressText').textContent = `${done} / ${total}`;
+  document.getElementById('progressPct').textContent = `${pct}%`;
+  document.getElementById('progressFill').style.width = `${pct}%`;
+}
+
+function collectNotes() {
+  let output = 'HCI Test Checklist — Bevindingen Ronde 1\n';
+  output += '==========================================\n\n';
+  document.querySelectorAll('.test-item').forEach(item => {
+    const name = item.querySelector('.test-name').textContent;
+    const file = item.querySelector('.test-file').textContent;
+    const checked = item.querySelector('.checkbox').classList.contains('checked');
+    const textarea = item.querySelector('textarea');
+    const notes = textarea ? textarea.value.trim() : '';
+    if (notes || checked) {
+      output += `${checked ? '✅' : '⬜'} ${name} (${file})\n`;
+      if (notes) output += `   ${notes}\n`;
+      output += '\n';
+    }
+  });
+  document.getElementById('summaryField').value = output;
+}
+
+function copySummary() {
+  const field = document.getElementById('summaryField');
+  navigator.clipboard.writeText(field.value).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Gekopieerd!';
+    setTimeout(() => btn.textContent = 'Kopieer naar klembord', 2000);
+  });
+}
+</script>
+</body>
+</html>

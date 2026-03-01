@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRA Market Opportunity — 90.000+ bedrijven zoeken hulp. Bied jij het al aan? — HCI</title>
+<meta name="description" content="De Cyber Resilience Act raakt 90.000+ bedrijven in Nederland. September 2026 nadert. De meeste IT-partners bieden nog geen CRA-diensten aan. Dat is de kans.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#0891b2;--accent-light:#22d3ee;--accent-dim:rgba(8,145,178,.12);--accent-border:rgba(8,145,178,.3);--gold:#c8a55a;--gold-light:#e0c882;--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;--border:rgba(255,255,255,.06);--border-hover:rgba(255,255,255,.12);--text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;--red:#f87171;--green:#4ade80;--amber:#fbbf24}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 600px at 30% 10%,rgba(8,145,178,.06) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 80% 90%,rgba(200,165,90,.03) 0%,transparent 70%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,9,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-tag{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--accent-dim);color:var(--accent);letter-spacing:1px;text-transform:uppercase}
+
+.container{max-width:800px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
+.wide-container{max-width:1100px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
+section{padding:100px 0}
+.section-border{border-top:1px solid var(--border)}
+
+/* HERO */
+.hero{padding:140px 0 80px}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);text-decoration:none;margin-bottom:32px;transition:color .2s}
+.hero-back:hover{color:var(--accent-light)}
+.hero-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.hero-cat{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.hero-date{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-dim)}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,52px);font-weight:400;color:var(--white);line-height:1.1;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent-light)}
+.hero-lead{font-size:18px;color:var(--text);line-height:1.7;max-width:640px;margin-bottom:32px}
+.hero-reading{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim)}
+
+/* ARTICLE */
+article h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin:48px 0 16px;line-height:1.2}
+article h2 em{font-style:italic;color:var(--accent-light)}
+article p{font-size:15px;line-height:1.8;margin-bottom:16px}
+article strong{color:var(--text-bright)}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;text-align:center}
+.stat-num{font-family:'Instrument Serif',serif;font-size:36px;color:var(--accent-light);line-height:1}
+.stat-label{font-size:12px;color:var(--text-dim);margin-top:4px}
+
+.deadline-bar{background:linear-gradient(90deg,var(--accent-dim),rgba(248,113,113,.1));border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:24px 28px;margin:32px 0;display:flex;align-items:center;gap:20px}
+.deadline-icon{font-size:32px;flex-shrink:0}
+.deadline-text h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}
+.deadline-text p{font-size:13px;color:var(--text-dim);margin:0}
+
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:32px 0}
+.pillar{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:all .3s}
+.pillar:hover{border-color:var(--accent-border)}
+.pillar-num{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.pillar h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}
+.pillar p{font-size:12px;color:var(--text-dim);margin:0;line-height:1.6}
+
+.revenue-box{background:var(--bg-card);border:1px solid var(--accent-border);border-radius:14px;padding:32px;margin:32px 0}
+.revenue-box h3{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:16px}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.rev-item{text-align:center}
+.rev-num{font-family:'Instrument Serif',serif;font-size:28px;color:var(--accent-light)}
+.rev-label{font-size:11px;color:var(--text-dim)}
+
+.quote-block{border-left:3px solid var(--accent);padding:20px 24px;margin:32px 0;background:var(--bg-card);border-radius:0 12px 12px 0}
+.quote-block p{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;color:var(--text-bright);margin:0;line-height:1.5}
+.quote-block cite{display:block;font-family:'Outfit',sans-serif;font-size:12px;font-style:normal;color:var(--text-dim);margin-top:8px}
+
+/* CTA GATE */
+.gate-section{background:linear-gradient(145deg,rgba(8,145,178,.08),rgba(200,165,90,.05));border:1px solid var(--accent-border);border-radius:20px;padding:48px 40px;text-align:center;margin:48px 0}
+.gate-section h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin:0 0 12px}
+.gate-section h2 em{font-style:italic;color:var(--accent-light)}
+.gate-section>p{font-size:15px;color:var(--text);max-width:520px;margin:0 auto 28px;line-height:1.7}
+.gate-teasers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;text-align:left}
+.gate-teaser{background:var(--bg-elevated);border-radius:10px;padding:16px;border:1px solid var(--border)}
+.gate-teaser h5{font-size:12px;font-weight:600;color:var(--text-bright);margin-bottom:4px}
+.gate-teaser p{font-size:11px;color:var(--text-dim);margin:0;line-height:1.5}
+.email-capture{display:flex;gap:8px;max-width:480px;margin:0 auto}
+.email-input{flex:1;padding:12px 16px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.email-input:focus{border-color:var(--accent)}
+.email-input::placeholder{color:var(--text-dim)}
+.email-submit{padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:var(--white);border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.email-submit:hover{background:var(--accent-light)}
+.gate-note{font-size:11px;color:var(--text-dim);margin-top:12px}
+
+/* FINAL CTA */
+.final-cta{text-align:center;padding:80px 0}
+.final-cta h2{font-family:'Instrument Serif',serif;font-size:32px;font-weight:400;color:var(--white);margin-bottom:12px}
+.final-cta h2 em{font-style:italic;color:var(--accent-light)}
+.final-cta p{font-size:15px;color:var(--text);margin-bottom:28px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--accent);color:var(--white);transition:all .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(8,145,178,.3)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;color:var(--text);border:1px solid var(--border);transition:all .2s;margin-left:12px}
+.btn-ghost:hover{border-color:var(--accent-border);color:var(--accent-light)}
+
+footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
+.footer-text{font-size:11px;color:var(--text-dim)}
+.footer-text a{color:var(--gold);text-decoration:none}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:700px){nav{padding:12px 16px}.container,.wide-container{padding:0 16px}.hero{padding:100px 0 60px}.stat-row,.pillar-grid,.rev-grid,.gate-teasers{grid-template-columns:1fr}.email-capture{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="ambient"></div><div class="grain"></div>
+
+<nav>
+  <div class="nav-left">
+    <a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px;"></a>
+    <div class="nav-tag">Market Opportunity Brief</div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="hero">
+  <a href="/growth" class="hero-back">← Terug naar Pipeline & Growth</a>
+  <div class="hero-meta">
+    <span class="hero-cat">CRA · Cyber Resilience Act</span>
+    <span class="hero-date">Februari 2026</span>
+  </div>
+  <h1>90.000+ bedrijven<br>moeten CRA-compliant worden.<br><em>Bied jij het al aan?</em></h1>
+  <p class="hero-lead">De Cyber Resilience Act is de grootste EU-cybersecurity regulering sinds GDPR. Deadline: september 2026. De meeste IT-partners en software engineering firms bieden nog geen CRA-diensten aan. Dat is geen risico — dat is een markt.</p>
+  <p class="hero-reading">⏱ 4 minuten leestijd</p>
+</section>
+
+<!-- ARTICLE -->
+<article>
+
+  <h2>Wat is de CRA? <em>En waarom nu?</em></h2>
+  <p>De <strong>Cyber Resilience Act (CRA)</strong> is een EU-verordening die cybersecurity-eisen stelt aan alle producten met digitale elementen die op de Europese markt worden verkocht. Dat raakt niet alleen hardware — het raakt elk stuk software dat wordt geleverd aan of binnen de EU.</p>
+  <p>De CRA verplicht fabrikanten en ontwikkelaars tot <strong>security-by-design</strong>, vulnerability management, een Software Bill of Materials (SBOM), en een gestructureerd meldproces bij incidenten. Producten zonder CE-markering mogen vanaf de deadline niet meer op de EU-markt.</p>
+
+  <div class="stat-row fade-up">
+    <div class="stat-card">
+      <div class="stat-num">90K+</div>
+      <div class="stat-label">Bedrijven in NL geraakt</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">Sep '26</div>
+      <div class="stat-label">Eerste meldplicht deadline</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">Dec '27</div>
+      <div class="stat-label">Volledige compliance verplicht</div>
+    </div>
+  </div>
+
+  <div class="deadline-bar fade-up">
+    <div class="deadline-icon">⚠️</div>
+    <div class="deadline-text">
+      <h4>September 2026: meldplicht actief</h4>
+      <p>Vanaf 11 september 2026 geldt een actieve meldplicht voor kwetsbaarheden en incidenten bij ENISA. Bedrijven die dit niet kunnen, zijn non-compliant — en hun producten mogen niet meer op de EU-markt.</p>
+    </div>
+  </div>
+
+  <h2>Wie wordt geraakt? <em>Vrijwel iedereen.</em></h2>
+  <p>De CRA onderscheidt drie categorieën producten: standaard, belangrijk (Important), en kritiek (Critical). Maar in de praktijk raakt de verordening <strong>elk bedrijf dat software ontwikkelt, levert, of onderhoudt</strong> voor de Europese markt. Van SaaS-platforms tot embedded software, van IoT-devices tot enterprise applicaties.</p>
+  <p>Het gaat niet alleen om de productontwikkelaar. <strong>Importeurs en distributeurs</strong> hebben eigen verplichtingen: zij moeten controleren of de producten die zij op de markt brengen CRA-compliant zijn. Dat maakt de keten compleet — en de vraag naar deskundig advies enorm.</p>
+
+  <h2>De kans voor IT-partners: <em>vier service pillars</em></h2>
+  <p>Bedrijven die CRA-compliant moeten worden, hebben hulp nodig. Niet van generalisten die "ook security doen" — maar van partners met een gestructureerd aanbod. De CRA-markt kent vier logische diensten:</p>
+
+  <div class="pillar-grid fade-up">
+    <div class="pillar">
+      <div class="pillar-num">PILLAR 01</div>
+      <h4>Assessment & Gap Analysis</h4>
+      <p>Inventarisatie van alle producten met digitale elementen. Classificatie (standaard/belangrijk/kritiek). Gap analyse tegen CRA-eisen. Prioritering en roadmap.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">PILLAR 02</div>
+      <h4>Security-by-Design Implementatie</h4>
+      <p>SDLC-aanpassingen. Hardening van ontwikkelomgevingen (M365/Azure). Secure coding practices. Test-frameworks en tooling.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">PILLAR 03</div>
+      <h4>SBOM & Vulnerability Management</h4>
+      <p>Software Bill of Materials generatie en onderhoud. Vulnerability tracking. Patch management. Documentatie voor CE-markering.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">PILLAR 04</div>
+      <h4>Incident Response & Meldplicht</h4>
+      <p>Meldprocedures richting ENISA. Incident response playbooks. Monitoring en detectie. 24-uurs meldingsprocessen.</p>
+    </div>
+  </div>
+
+  <h2>De markt in cijfers: <em>wat is dit waard?</em></h2>
+  <p>De CRA creëert een markt die vergelijkbaar is met de GDPR-implementatiegolf van 2016-2018. Het verschil: de CRA is technischer, de deadlines zijn strakker, en de boetes zijn hoger (tot €15 miljoen of 2,5% van de wereldwijde omzet).</p>
+
+  <div class="revenue-box fade-up">
+    <h3>Indicatief revenue model per klant</h3>
+    <div class="rev-grid">
+      <div class="rev-item"><div class="rev-num">€22K</div><div class="rev-label">Gemiddeld projectwerk</div></div>
+      <div class="rev-item"><div class="rev-num">€2.5K</div><div class="rev-label">Recurring per maand</div></div>
+      <div class="rev-item"><div class="rev-num">€52K</div><div class="rev-label">Per klant per jaar (totaal)</div></div>
+    </div>
+  </div>
+
+  <p>Met een TAM (Total Addressable Market) van meer dan 90.000 bedrijven in Nederland alleen, en break-even bij slechts <strong>2-3 klanten</strong>, is de business case helder. De vraag is niet óf deze markt ontstaat — de vraag is wie er als eerste klaarstaat.</p>
+
+  <div class="quote-block fade-up">
+    <p>"De partij die het eerst een CRA-propositie neerlegt bij de Microsoft AE wint. De rest wacht op leads die nooit komen."</p>
+    <cite>— Mike Hes, HES Consultancy International</cite>
+  </div>
+
+  <h2>Waarom de meeste IT-partners <em>deze kans missen</em></h2>
+  <p>De meeste software engineering firms en IT-dienstverleners zien CRA als "het probleem van de klant" — niet als hun eigen product. Ze wachten tot klanten erom vragen. Maar klanten vragen niet om CRA-hulp bij hun huidige IT-partner. Ze vragen het bij de partij die er als eerste mee komt.</p>
+  <p>Het verschil zit in <strong>positionering</strong>. Niet "wij doen ook security" — maar een gestructureerde propositie met assessment methodiek, duidelijke deliverables, en een revenue model dat recurring inkomsten genereert.</p>
+  <p>De engineering firms die dit het snelst oppakken, versterken bovendien hun positie bij de grote vendors. Microsoft, AWS en Google zoeken partners die compliance-propositie kunnen bieden aan hun klanten. Dat levert <strong>warme introductions</strong> op via de vendor account teams — en dat is meer waard dan duizend cold calls.</p>
+
+</article>
+
+<!-- GATE: LAYER 2 — Opportunity Analysis -->
+<div class="gate-section fade-up">
+  <h2>Wilt u weten hoe dit er<br><em>voor uw situatie uitziet?</em></h2>
+  <p>Download de CRA Market Opportunity Analysis: concrete service pillars, revenue model, competitive positioning, en een realistisch business plan op hoofdlijnen.</p>
+  <div class="gate-teasers">
+    <div class="gate-teaser">
+      <h5>Revenue model</h5>
+      <p>Project + recurring opbrengst per klant. Year 1 projectie. Break-even berekening.</p>
+    </div>
+    <div class="gate-teaser">
+      <h5>Competitive landscape</h5>
+      <p>Wie biedt dit al aan? Big 4, pure-play security, andere MS partners. Uw positie.</p>
+    </div>
+    <div class="gate-teaser">
+      <h5>12-weken roadmap</h5>
+      <p>Van propositie naar eerste klant. Concrete stappen, investering, milestones.</p>
+    </div>
+  </div>
+  <div class="email-capture" id="emailCapture">
+    <input type="email" class="email-input" id="gateEmail" placeholder="uw@bedrijf.nl">
+    <button class="email-submit" onclick="submitGate()">Download Analysis →</button>
+  </div>
+  <p class="gate-note">Geen spam. Eén email met de analyse + een uitnodiging voor een gesprek.</p>
+  <p class="gate-note" id="gateSent" style="display:none;color:var(--green);">✓ De CRA Opportunity Analysis wordt naar uw inbox gestuurd.</p>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta section-border">
+  <h2>Klaar om CRA als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
+  <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
+  <a href="/growth#assessment" class="btn-primary">Start Growth Assessment →</a>
+  <a href="/cdn-cgi/l/email-protection#335e515b5640735b56401e505c5d40465f47525d504a1e5a5d4756415d52475a5c5d525f1d505c5e" class="btn-ghost">Spreek Mike direct</a>
+</div>
+
+</div>
+
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function submitGate(){const e=document.getElementById('gateEmail');if(!e.value||!e.value.includes('@')){e.style.borderColor='var(--red)';return}document.getElementById('emailCapture').style.display='none';document.getElementById('gateSent').style.display='block';console.log('Gate submit:',e.value)}
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target

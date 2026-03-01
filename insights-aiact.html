@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Act Market Opportunity — Elk bedrijf met AI moet in actie komen. — HCI</title>
+<meta name="description" content="De EU AI Act is de eerste AI-wet ter wereld. High-risk deadline: augustus 2026. Elk bedrijf dat AI inzet — van Copilot tot creditscoring — moet nu handelen. De markt is pril. Dat is de kans.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#a78bfa;--accent-light:#c4b5fd;--accent-dim:rgba(167,139,250,.12);--accent-border:rgba(167,139,250,.3);--gold:#c8a55a;--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;--border:rgba(255,255,255,.06);--text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;--red:#f87171;--green:#4ade80}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 600px at 30% 10%,rgba(167,139,250,.06) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 80% 90%,rgba(200,165,90,.03) 0%,transparent 70%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,9,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-tag{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--accent-dim);color:var(--accent);letter-spacing:1px;text-transform:uppercase}
+.container{max-width:800px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
+section{padding:100px 0}.section-border{border-top:1px solid var(--border)}
+.hero{padding:140px 0 80px}
+.hero-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);text-decoration:none;margin-bottom:32px}.hero-back:hover{color:var(--accent-light)}
+.hero-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.hero-cat{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.hero-date{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-dim)}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,52px);font-weight:400;color:var(--white);line-height:1.1;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent-light)}
+.hero-lead{font-size:18px;color:var(--text);line-height:1.7;max-width:640px;margin-bottom:32px}
+.hero-reading{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim)}
+article h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin:48px 0 16px;line-height:1.2}article h2 em{font-style:italic;color:var(--accent-light)}
+article p{font-size:15px;line-height:1.8;margin-bottom:16px}article strong{color:var(--text-bright)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;text-align:center}
+.stat-num{font-family:'Instrument Serif',serif;font-size:36px;color:var(--accent-light);line-height:1}.stat-label{font-size:12px;color:var(--text-dim);margin-top:4px}
+.deadline-bar{background:linear-gradient(90deg,var(--accent-dim),rgba(251,191,36,.08));border:1px solid var(--accent-border);border-radius:12px;padding:24px 28px;margin:32px 0;display:flex;align-items:center;gap:20px}
+.deadline-icon{font-size:32px;flex-shrink:0}.deadline-text h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}.deadline-text p{font-size:13px;color:var(--text-dim);margin:0}
+.timeline{display:flex;flex-direction:column;gap:2px;margin:32px 0}
+.tl-item{display:flex;gap:16px;padding:12px 16px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border)}
+.tl-date{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);width:100px;flex-shrink:0;padding-top:2px}
+.tl-content{font-size:13px;color:var(--text);line-height:1.5}.tl-content strong{color:var(--text-bright)}
+.tl-item.active{border-color:var(--accent-border);background:var(--accent-dim)}
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:32px 0}
+.pillar{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:all .3s}.pillar:hover{border-color:var(--accent-border)}
+.pillar-num{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.pillar h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}.pillar p{font-size:12px;color:var(--text-dim);margin:0;line-height:1.6}
+.pillar .price{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);margin-top:8px}
+.revenue-box{background:var(--bg-card);border:1px solid var(--accent-border);border-radius:14px;padding:32px;margin:32px 0}
+.revenue-box h3{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:16px}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}.rev-item{text-align:center}
+.rev-num{font-family:'Instrument Serif',serif;font-size:28px;color:var(--accent-light)}.rev-label{font-size:11px;color:var(--text-dim)}
+.quote-block{border-left:3px solid var(--accent);padding:20px 24px;margin:32px 0;background:var(--bg-card);border-radius:0 12px 12px 0}
+.quote-block p{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;color:var(--text-bright);margin:0;line-height:1.5}
+.quote-block cite{display:block;font-family:'Outfit',sans-serif;font-size:12px;font-style:normal;color:var(--text-dim);margin-top:8px}
+.gate-section{background:linear-gradient(145deg,rgba(167,139,250,.08),rgba(200,165,90,.05));border:1px solid var(--accent-border);border-radius:20px;padding:48px 40px;text-align:center;margin:48px 0}
+.gate-section h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin:0 0 12px}.gate-section h2 em{font-style:italic;color:var(--accent-light)}
+.gate-section>p{font-size:15px;color:var(--text);max-width:520px;margin:0 auto 28px;line-height:1.7}
+.gate-teasers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;text-align:left}
+.gate-teaser{background:var(--bg-elevated);border-radius:10px;padding:16px;border:1px solid var(--border)}.gate-teaser h5{font-size:12px;font-weight:600;color:var(--text-bright);margin-bottom:4px}.gate-teaser p{font-size:11px;color:var(--text-dim);margin:0;line-height:1.5}
+.email-capture{display:flex;gap:8px;max-width:480px;margin:0 auto}
+.email-input{flex:1;padding:12px 16px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:14px;font-family:'Outfit',sans-serif;outline:none}.email-input:focus{border-color:var(--accent)}.email-input::placeholder{color:var(--text-dim)}
+.email-submit{padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:var(--bg-deep);border:none;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap}.email-submit:hover{background:var(--accent-light)}
+.gate-note{font-size:11px;color:var(--text-dim);margin-top:12px}
+.final-cta{text-align:center;padding:80px 0}.final-cta h2{font-family:'Instrument Serif',serif;font-size:32px;font-weight:400;color:var(--white);margin-bottom:12px}.final-cta h2 em{font-style:italic;color:var(--accent-light)}.final-cta p{font-size:15px;color:var(--text);margin-bottom:28px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--accent);color:var(--bg-deep);transition:all .3s}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(167,139,250,.3)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;color:var(--text);border:1px solid var(--border);margin-left:12px}.btn-ghost:hover{border-color:var(--accent-border);color:var(--accent-light)}
+footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.footer-text{font-size:11px;color:var(--text-dim)}.footer-text a{color:var(--gold);text-decoration:none}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:700px){nav{padding:12px 20px}.container{padding:0 20px}.hero{padding:100px 0 60px}.stat-row,.rev-grid{grid-template-columns:1fr}.pillar-grid,.gate-teasers{grid-template-columns:1fr}.email-capture{flex-direction:column}.timeline .tl-date{width:80px}}
+</style>
+</head>
+<body>
+<div class="ambient"></div><div class="grain"></div>
+<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">AI Act · Market Brief</span></div></nav>
+
+<div class="container">
+<section class="hero">
+  <a href="/growth" class="hero-back">← Terug naar Growth Route</a>
+  <div class="hero-meta"><span class="hero-cat">AI Act · Market Opportunity</span><span class="hero-date">Maart 2026</span></div>
+  <h1>De AI Act komt eraan.<br>Elk bedrijf met AI <em>moet in actie.</em></h1>
+  <p class="hero-lead">De EU AI Act is de eerste AI-wet ter wereld. Gefaseerde inwerkingtreding, met de high-risk deadline in augustus 2026. Elk bedrijf dat AI inzet — van Copilot tot creditscoring — moet nu handelen. De markt is pril. De early movers winnen.</p>
+  <span class="hero-reading">⏱ 6 minuten leestijd · Publieke brief (Layer 1)</span>
+</section>
+
+<article>
+  <h2>Wat is de AI Act? <em>De eerste AI-wet ter wereld.</em></h2>
+  <p>De EU AI Act is een risicogebaseerde verordening die AI-systemen classificeert naar risico-niveau: verboden, hoog-risico, beperkt risico, en minimaal risico. Het geldt voor <strong>elke organisatie die AI-systemen ontwikkelt, aanbiedt, of inzet</strong> op de Europese markt.</p>
+  <p>Het gaat niet alleen om deep learning en machine learning. De AI Act raakt ook <strong>General Purpose AI (GPAI)</strong> — denk aan Microsoft Copilot, ChatGPT Enterprise, en andere AI-tools die bedrijven breed inzetten. Elk bedrijf met een Copilot-licentie heeft in potentie met de AI Act te maken.</p>
+
+  <div class="deadline-bar fade-up">
+    <div class="deadline-icon">🔮</div>
+    <div class="deadline-text">
+      <h4>Gefaseerde inwerkingtreding — high-risk deadline: augustus 2026</h4>
+      <p>Verboden praktijken sinds feb 2025. GPAI-verplichtingen vanaf aug 2025. High-risk AI-systemen vanaf aug 2026. Volledige handhaving vanaf aug 2027.</p>
+    </div>
+  </div>
+
+  <h2>De tijdlijn: <em>stap voor stap.</em></h2>
+
+  <div class="timeline fade-up">
+    <div class="tl-item"><div class="tl-date">FEB 2025</div><div class="tl-content"><strong>Verboden AI-praktijken</strong> — Social scoring, real-time biometrische identificatie, manipulatieve AI. Al van kracht.</div></div>
+    <div class="tl-item active"><div class="tl-date">AUG 2025</div><div class="tl-content"><strong>GPAI-verplichtingen</strong> — Transparantie-eisen voor General Purpose AI. Documentatie, risicobeoordeling, model cards.</div></div>
+    <div class="tl-item"><div class="tl-date">AUG 2026</div><div class="tl-content"><strong>High-risk AI-systemen</strong> — Conformiteitsbeoordeling, registratie in EU-database, menselijk toezicht, kwaliteitsmanagement.</div></div>
+    <div class="tl-item"><div class="tl-date">AUG 2027</div><div class="tl-content"><strong>Volledige handhaving</strong> — Alle bepalingen actief. Boetes tot €35 miljoen of 7% van de wereldwijde omzet.</div></div>
+  </div>
+
+  <h2>Wie wordt geraakt? <em>Meer dan verwacht.</em></h2>
+
+  <div class="stat-row fade-up">
+    <div class="stat-card"><div class="stat-num">€35M</div><div class="stat-label">Max boete</div></div>
+    <div class="stat-card"><div class="stat-num">7%</div><div class="stat-label">Of % wereldwijde omzet</div></div>
+    <div class="stat-card"><div class="stat-num">1.000+</div><div class="stat-label">NL bedrijven met high-risk AI</div></div>
+  </div>
+
+  <p>De AI Act raakt vier brede marktsegmenten:</p>
+  <p><strong>HR-tech & recruitment</strong> — AI in werving en selectie is expliciet high-risk geclassificeerd. Elk bedrijf met AI-screening tools moet compliant worden.</p>
+  <p><strong>Zorg & MedTech</strong> — AI-diagnostiek, behandelplannen, triage-systemen. Al zwaar gereguleerd, maar de AI Act voegt een nieuwe laag toe.</p>
+  <p><strong>Financiële sector</strong> — Creditscoring, fraude-detectie, risicobeoordeling. Overlap met DORA maakt dit complex maar ook lucratief.</p>
+  <p><strong>Elk bedrijf met GPAI-tools</strong> — Copilot, ChatGPT Enterprise, Gemini for Workspace. Het merendeel van de grotere organisaties in Nederland gebruikt inmiddels GPAI. Allen moeten aan transparantie-eisen voldoen.</p>
+
+  <h2>De kans: <em>vier service pillars</em></h2>
+
+  <div class="pillar-grid fade-up">
+    <div class="pillar"><div class="pillar-num">PILLAR 01</div><h4>AI Inventory & Classificatie</h4><p>Volledige inventarisatie van alle AI-systemen (intern + vendor-supplied). Risicoklasse-toewijzing per systeem. Impact assessment en prioritering.</p><div class="price">€6.000 – €12.000</div></div>
+    <div class="pillar"><div class="pillar-num">PILLAR 02</div><h4>High-Risk Conformiteit</h4><p>Conformiteitsbeoordeling per high-risk systeem. Kwaliteitsmanagementsysteem. Technische documentatie. EU-database registratie. Menselijk toezicht.</p><div class="price">€15.000 – €40.000 per systeem</div></div>
+    <div class="pillar"><div class="pillar-num">PILLAR 03</div><h4>GPAI & Procurement</h4><p>GPAI-compliance assessment (Copilot, ChatGPT, etc.). Vendor due diligence. AI procurement framework. Transparantie-documentatie.</p><div class="price">€8.000 – €18.000</div></div>
+    <div class="pillar"><div class="pillar-num">PILLAR 04</div><h4>AI Governance Programma</h4><p>AI governance framework. AI-register onderhoud. Periodieke audits. Training en awareness. Monitoring op nieuwe standaarden en guidance.</p><div class="price">€2.000 – €3.500/maand</div></div>
+  </div>
+
+  <h2>Wat levert het op? <em>De business case.</em></h2>
+
+  <div class="revenue-box fade-up">
+    <h3>Revenue model per klant (gem. 3 high-risk systemen)</h3>
+    <div class="rev-grid">
+      <div class="rev-item"><div class="rev-num">€87K</div><div class="rev-label">Jaar 1 projectwerk</div></div>
+      <div class="rev-item"><div class="rev-num">€2.8K</div><div class="rev-label">Recurring per maand</div></div>
+      <div class="rev-item"><div class="rev-num">€120.6K</div><div class="rev-label">Per klant per jaar (totaal)</div></div>
+    </div>
+  </div>
+
+  <p>De AI Act-markt biedt het <strong>hoogste revenue per klant</strong> van alle EU-regelgevingen — gemiddeld €120.600 in jaar 1 bij drie high-risk systemen. De recurring component (€33.600/jaar) bouwt snel op. En de markt is nog nauwelijks bezet.</p>
+
+  <div class="stat-row fade-up">
+    <div class="stat-card"><div class="stat-num">€120.6K</div><div class="stat-label">Jaar 1 per klant</div></div>
+    <div class="stat-card"><div class="stat-num">€33.6K</div><div class="stat-label">Recurring per jaar</div></div>
+    <div class="stat-card"><div class="stat-num">~pril</div><div class="stat-label">Concurrentie (nog)</div></div>
+  </div>
+
+  <h2>Het laaghangend fruit: <em>GPAI Inventory</em></h2>
+  <p>De slimste instap in de AI Act-markt is <strong>niet</strong> high-risk conformiteit (dat is complex en duur). Het laaghangend fruit is de <strong>GPAI Inventory</strong>: help organisaties inventariseren welke AI-tools ze gebruiken (Copilot, ChatGPT, Gemini, Jasper, etc.) en wat de compliance-implicaties zijn.</p>
+  <p>Vrijwel elk middelgroot bedrijf gebruikt inmiddels GPAI-tools — maar geen van hen heeft een register, een risicoklasse-toewijzing, of transparantie-documentatie. Dat is Pillar 1 + een deel van Pillar 3: <strong>€14.000-€30.000 per engagement</strong> met minimale implementatie-risico's.</p>
+
+  <div class="quote-block fade-up">
+    <p>"De AI Act markt is pril — maar wie nu positioneert als 'de AI Act partner' voor Q1-Q2 2026 pakt een first-mover voordeel dat twee jaar meegaat. Dit wordt de volgende GDPR-golf."</p>
+    <cite>— Mike Hes, HES Consultancy International</cite>
+  </div>
+
+  <h2>Waarom <em>nu</em> bewegen</h2>
+  <p>De high-risk deadline is augustus 2026. Dat klinkt als ver weg — maar organisaties met complexe AI-systemen hebben <strong>12-18 maanden</strong> nodig voor volledige conformiteit. Dat betekent: wie in Q1 2026 niet begint, haalt augustus 2026 niet.</p>
+  <p>De partij die nu een AI Act-propositie neerlegt — met GPAI Inventory als instap en high-risk conformiteit als upsell — wordt gepositioneerd als de go-to partner wanneer de bulk van de markt in Q2-Q3 2026 wakker wordt.</p>
+</article>
+
+<div class="gate-section fade-up">
+  <h2>Wilt u weten hoe de AI Act er<br><em>voor uw situatie uitziet?</em></h2>
+  <p>Download de AI Act Opportunity Analysis: service pillars, GPAI quick-win strategie, revenue model en een routekaart naar uw eerste AI Act-klant.</p>
+  <div class="gate-teasers">
+    <div class="gate-teaser"><h5>Revenue model</h5><p>€120.6K per klant in jaar 1. Recurring €33.6K/jr. Hoogste klantwaarde van alle EU-regelgevingen.</p></div>
+    <div class="gate-teaser"><h5>GPAI quick-win</h5><p>Copilot/ChatGPT inventory als instap. €14-30K per engagement. Minimale technische risico's.</p></div>
+    <div class="gate-teaser"><h5>Sector targeting</h5><p>HR-tech, MedTech, fintech — welke sectoren bewegen het snelst? Timing per segment.</p></div>
+  </div>
+  <div class="email-capture" id="emailCapture"><input type="email" class="email-input" id="gateEmail" placeholder="uw@bedrijf.nl"><button class="email-submit" onclick="submitGate()">Download Analysis →</button></div>
+  <p class="gate-note">Geen spam. Eén email met de analyse + een uitnodiging voor een gesprek.</p>
+  <p class="gate-note" id="gateSent" style="display:none;color:var(--green);">✓ De AI Act Opportunity Analysis wordt naar uw inbox gestuurd.</p>
+</div>
+
+<div class="final-cta section-border">
+  <h2>Klaar om de AI Act als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
+  <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
+  <a href="/growth#assessment" class="btn-primary">Start Growth Assessment →</a>
+  <a href="/cdn-cgi/l/email-protection#620f000a0711220a07114f010d0c11170e16030c011b4f0b0c1607100c03160b0d0c030e4c010d0f" class="btn-ghost">Spreek Mike direct</a>
+</div>
+</div>
+
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function submitGate(){const e=document.getElementById('gateEmail');if(!e.value||!e.value.includes('@')){e.style.borderColor='var(--red)';return}document.getElementById('emailCapture').style.display='none';document.getElementById('gateSent').style.display='block'}
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target
