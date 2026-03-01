@@ -250,14 +250,14 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
   <h2>Klaar om CRA als kans te pakken?<br><em>Ontdek waar u staat.</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.</p>
   <a href="/assessment?route=growth" class="btn-primary">Start Growth Assessment →</a>
-  <a href="#" class="btn-ghost" onclick="window.location.href='mailto:'+'mbhes'+'@'+'nxterasolutions.eu';return false;">Spreek Mike direct</a>
+  <a href="#" class="btn-ghost" onclick="window.location.href='mailto:'+'mbhes'+'@'+'hes-consultancy-international.com';return false;">Spreek Mike direct</a>
 </div>
 
 </div>
 
 <footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/insights">Insights Hub</a> · <a href="/growth">Pipeline & Growth</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Voorwaarden</a></div></div></footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 function submitGate(){var e=document.getElementById('gateEmail');if(!e.value||!e.value.includes('@')){e.style.borderColor='var(--red)';return}document.getElementById('emailCapture').style.display='none';document.getElementById('gateSent').style.display='block';var fd=new URLSearchParams();fd.append('form-name','hci-insights-gate');fd.append('email',e.value);fd.append('regulation','CRA');fd.append('page',window.location.pathname);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:fd.toString()}).then(function(){setTimeout(function(){window.location.href='/analysis/cra'},1500)}).catch(function(){setTimeout(function(){window.location.href='/analysis/cra'},1500)})}
 const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target);
       }
@@ -360,6 +360,7 @@ var TRANSLATIONS = {
   }
 };
 function setLang(l){
+  try{localStorage.setItem('hci-lang',l);}catch(e){}
   var t=TRANSLATIONS[l];if(!t)return;
   document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
   document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
@@ -421,5 +422,10 @@ function setLang(l){
 }
 </script>
 <form name="hci-insights-gate" netlify netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="email"><input name="regulation"><input name="page"></form>
+<script>
+(function(){try{var l=localStorage.getItem('hci-lang');if(l==='en'){
+  var fn=window.setLang;if(fn)fn('en');
+}}catch(e){}})();
+</script>
 </body>
 </html>

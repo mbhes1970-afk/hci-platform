@@ -93,6 +93,10 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
     <a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px;"></a>
     <div class="nav-tag">Insights</div>
   </div>
+  <div style="display:flex;gap:4px;margin-right:16px">
+    <button onclick="setLang('nl')" id="lnl" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:var(--gold);color:var(--bg-deep)">NL</button>
+    <button onclick="setLang('en')" id="len" style="padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;background:transparent;color:var(--text-dim)">EN</button>
+  </div>
 </nav>
 
 <div class="container">
@@ -234,14 +238,14 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
   <h2 id="ctaTitle">Wilt u weten hoe u van regelgeving<br><em>een verkoopbaar product maakt?</em></h2>
   <p>De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur. De GTM Calculator toont drie scenario's met concrete getallen.</p>
   <a href="/growth#assessment" class="btn-primary">Start Growth Assessment →</a>
-  <a href="/cdn-cgi/l/email-protection#5f323d373a2c1f373a2c723c30312c2a332b3e313c267236312b3a2d313e2b3630313e33713c3032" class="btn-ghost">Spreek Mike direct</a>
+  <a href="#" onclick="window.location.href='mailto:'+'mbhes'+'@'+'hes-consultancy-international.com';return false;" class="btn-ghost">Spreek Mike direct</a>
 </div>
 
 </div>
 
 <footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/privacy">Privacybeleid</a> · <a href="/terms">Voorwaarden</a></div></div></footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target);
       }
     });
@@ -256,22 +260,40 @@ var I18N_HUB = {
     heroSub: 'Vier EU-reguleringen creëren samen een markt van honderdduizenden bedrijven die hulp nodig hebben. Deze briefs laten zien wat de kans is — en hoe groot. De oplossing? Dat is wat Mike levert.',
     pipelineTitle: 'Regulatoire content-pipeline.<br><em>Vier reguleringen, drie content-lagen.</em>',
     pipelineSub: 'Elke regulering wordt uitgewerkt in drie lagen: publieke brief (Laag 1), gated opportunity analysis (Laag 2), en het volledige HCI-traject (Laag 3). Alleen Laag 1 en 2 staan hier — Laag 3 is wat Mike levert.',
-    ctaTitle: 'Wilt u weten hoe u van regelgeving<br><em>een verkoopbaar product maakt?</em>'
+    ctaTitle: 'Wilt u weten hoe u van regelgeving<br><em>een verkoopbaar product maakt?</em>',
+    cards: [
+      {title:'90.000+ bedrijven moeten CRA-compliant worden. Bied jij het al aan?', desc:'De grootste EU-cybersecurity regulering sinds GDPR. September 2026 nadert. Vier service pillars, indicatief revenue model, en de kans voor IT-partners die als eerste bewegen.'},
+      {title:'NIS2 is nu actief. Uw klanten in vitale sectoren moeten aantoonbaar compliant zijn.', desc:'De richtlijn is per oktober 2024 van kracht. Essentiële en belangrijke entiteiten moeten maatregelen treffen. De toezichthouder handhaaft. Uw klanten zoeken hulp — van hun IT-partner.'},
+      {title:'Financiële sector moet digitale weerbaarheid aantonen. DORA is nu van kracht.', desc:'Banken, verzekeraars, pensioenfondsen — en hun ICT-dienstverleners. DORA stelt eisen aan ICT-risicobeheer, incidentrapportage, en resilience testing. De hele keten wordt geraakt.'},
+      {title:'AI-systemen worden geclassificeerd en gereguleerd. De eerste deadlines naderen.', desc:'Hoog-risico AI-systemen moeten voldoen aan strenge eisen: transparantie, menselijk toezicht, data governance, conformiteitsbeoordeling. De AI Act raakt elke organisatie die AI inzet of ontwikkelt.'}
+    ],
+    ctaSub: 'De Growth Assessment meet uw PMC-helderheid, vendor alignment en pipeline structuur in 5 minuten.',
+    ctaBtn: 'Start Growth Assessment →',
+    ctaGhost: 'Spreek Mike direct'
   },
   en: {
     heroTitle: 'Market Opportunity Briefs.<br><em>Regulation is not a risk. It\u2019s a market.</em>',
     heroSub: 'Four EU regulations together create a market of hundreds of thousands of companies that need help. These briefs show what the opportunity is — and how big. The solution? That\u2019s what Mike delivers.',
     pipelineTitle: 'Regulatory content pipeline.<br><em>Four regulations, three content layers.</em>',
     pipelineSub: 'Each regulation is developed in three layers: public brief (Layer 1), gated opportunity analysis (Layer 2), and the full HCI engagement (Layer 3). Only Layers 1 and 2 are shown here — Layer 3 is what Mike delivers.',
-    ctaTitle: 'Want to know how to turn regulation<br><em>into a sellable product?</em>'
+    ctaTitle: 'Want to know how to turn regulation<br><em>into a sellable product?</em>',
+    cards: [
+      {title:'90,000+ companies must become CRA-compliant. Are you offering it yet?', desc:'The largest EU cybersecurity regulation since GDPR. September 2026 is approaching. Four service pillars, indicative revenue model, and the opportunity for IT partners who move first.'},
+      {title:'NIS2 is now active. Your clients in vital sectors must demonstrably comply.', desc:'The directive has been in force since October 2024. Essential and important entities must take measures. The supervisor enforces. Your clients are looking for help — from their IT partner.'},
+      {title:'Financial sector must demonstrate digital resilience. DORA is now in force.', desc:'Banks, insurers, pension funds — and their ICT service providers. DORA sets requirements for ICT risk management, incident reporting, and resilience testing. The entire chain is affected.'},
+      {title:'AI systems are being classified and regulated. The first deadlines are approaching.', desc:'High-risk AI systems must meet strict requirements: transparency, human oversight, data governance, conformity assessment. The AI Act affects every organisation that deploys or develops AI.'}
+    ],
+    ctaSub: 'The Growth Assessment measures your PMC clarity, vendor alignment and pipeline structure in 5 minutes.',
+    ctaBtn: 'Start Growth Assessment →',
+    ctaGhost: 'Talk to Mike directly'
   }
 };
 function setLang(l) {
-  document.querySelectorAll('.lang-btn').forEach(function(b) {
-    var isActive = b.textContent.trim().toUpperCase() === l.toUpperCase();
-    b.style.background = isActive ? 'var(--gold)' : 'transparent';
-    b.style.color = isActive ? 'var(--bg-deep)' : 'var(--text-dim)';
-  });
+  try{localStorage.setItem('hci-lang',l);}catch(e){}
+  document.getElementById('lnl').style.background=l==='nl'?'var(--gold)':'transparent';
+  document.getElementById('lnl').style.color=l==='nl'?'var(--bg-deep)':'var(--text-dim)';
+  document.getElementById('len').style.background=l==='en'?'var(--gold)':'transparent';
+  document.getElementById('len').style.color=l==='en'?'var(--bg-deep)':'var(--text-dim)';
   var t = I18N_HUB[l]; if (!t) return;
   var el;
   el = document.getElementById('heroTitle'); if (el) el.innerHTML = t.heroTitle;
@@ -279,7 +301,22 @@ function setLang(l) {
   el = document.getElementById('pipelineTitle'); if (el) el.innerHTML = t.pipelineTitle;
   el = document.getElementById('pipelineSub'); if (el) el.textContent = t.pipelineSub;
   el = document.getElementById('ctaTitle'); if (el) el.innerHTML = t.ctaTitle;
+  // Card titles and descriptions
+  var titles = document.querySelectorAll('.brief-title');
+  var descs = document.querySelectorAll('.brief-desc');
+  if (t.cards) t.cards.forEach(function(c,i){
+    if(titles[i]) titles[i].textContent = c.title;
+    if(descs[i]) descs[i].textContent = c.desc;
+  });
+  // CTA section
+  var ctaSub = document.querySelector('.cta-section p');if(ctaSub)ctaSub.textContent=t.ctaSub;
+  var ctaBtn = document.querySelector('.cta-section .btn-primary');if(ctaBtn)ctaBtn.textContent=t.ctaBtn;
+  var ctaGhost = document.querySelector('.cta-section .btn-ghost');if(ctaGhost)ctaGhost.textContent=t.ctaGhost;
 }
+// Auto-detect stored language
+(function(){
+  try{var l=localStorage.getItem('hci-lang');if(l==='en')setLang('en');}catch(e){}
+})();
 </script>
 </body>
 </html>

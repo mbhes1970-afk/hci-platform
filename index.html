@@ -804,7 +804,7 @@ footer {
         </p>
 
         <div class="mike-actions">
-          <a href="/cdn-cgi/l/email-protection#2548474d4056654d405608464a4b56504951444b465c084c4b5140574b44514c4a4b44490b464a48" class="btn-primary" data-i18n="mike_cta_primary">Plan een gesprek →</a>
+          <a href="#" onclick="window.location.href='mailto:'+'mbhes'+'@'+'hes-consultancy-international.com';return false;" class="btn-primary" data-i18n="mike_cta_primary">Plan een gesprek →</a>
           <a href="#routes" class="btn-ghost" data-i18n="mike_cta_ghost">Start assessment</a>
         </div>
 
@@ -841,7 +841,7 @@ footer {
       <ul class="footer-links">
         <li><a href="/privacy" data-i18n="footer_privacy">Privacybeleid</a></li>
         <li><a href="/terms" data-i18n="footer_terms">Voorwaarden</a></li>
-        <li><a href="/cdn-cgi/l/email-protection#315c53595442715954421c525e5f42445d45505f52481c585f4554435f5045585e5f505d1f525e5c" data-i18n="footer_contact">Contact</a></li>
+        <li><a href="#" onclick="window.location.href='mailto:'+'mbhes'+'@'+'hes-consultancy-international.com';return false;" data-i18n="footer_contact">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -851,7 +851,7 @@ footer {
 <!-- ════════════════════════════════════════════════════════════
      JAVASCRIPT — i18n, scroll, animations
      ════════════════════════════════════════════════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ═══ i18n ═══
 const I18N = {
   nl: {
@@ -959,6 +959,7 @@ let currentLang = 'nl';
 function setLang(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
+  try{localStorage.setItem('hci-lang',lang);}catch(e){}
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim().toUpperCase() === lang.toUpperCase());
   });
@@ -991,10 +992,14 @@ const observer = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // Detect browser language
+  // Detect language: localStorage > URL param > browser
+  var storedLang = null;
+  try{storedLang = localStorage.getItem('hci-lang');}catch(e){}
   const urlLang = new URLSearchParams(window.location.search).get('lang');
   if (urlLang && I18N[urlLang]) {
     setLang(urlLang);
+  } else if (storedLang && I18N[storedLang]) {
+    setLang(storedLang);
   } else {
     const browserLang = (navigator.language || '').slice(0, 2);
     if (browserLang === 'en') setLang('en');
