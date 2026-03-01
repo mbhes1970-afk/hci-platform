@@ -90,6 +90,11 @@
 
 # Layer 1 Insights briefs (clean URLs)
 [[redirects]]
+[[redirects]]
+  from = "/insights"
+  to = "/insights.html"
+  status = 200
+
   from = "/insights/cra"
   to = "/insights-cra.html"
   status = 200
@@ -107,6 +112,17 @@
 [[redirects]]
   from = "/insights/aiact"
   to = "/insights-aiact.html"
+  status = 200
+
+# Legal pages
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
   status = 200
 
 # Security headers

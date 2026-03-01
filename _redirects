@@ -13,9 +13,12 @@
 /insights/nis2    /insights-nis2.html        200
 /insights/dora    /insights-dora.html        200
 /insights/aiact   /insights-aiact.html       200
+/privacy          /privacy.html              200
+/terms            /terms.html                200
 /templates/s01.html  /hci-output-s01.html    200
 /templates/s02.html  /hci-output-s02.html    200
 /templates/s03.html  /hci-output-s03.html    200
 /templates/s04.html  /hci-output-s04.html    200
 /templates/s05.html  /hci-output-s05.html    200
 /templates/s06.html  /hci-output-s06.html    200
+/insights         /insights.html             200

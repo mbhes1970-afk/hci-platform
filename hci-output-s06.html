@@ -6,17 +6,17 @@
 <title>CMO→FMO Analyse — {{org_name}}</title>
 <style>
 /* ═══════════════════════════════════════════════════════════════
-   CMO→FMO OUTPUT TEMPLATE — ENTERPRISE ORGANIZATIONS (S04)
+   CMO→FMO OUTPUT TEMPLATE — TELECOM & CRITICAL INFRASTRUCTURE (S06)
    HES Consultancy International
    ═══════════════════════════════════════════════════════════════ */
 
-/* --- SECTOR THEME: Enterprise --- */
+/* --- SECTOR THEME: Telecom --- */
 :root {
-  --sector-primary: #78350f;
-  --sector-dark: #451a03;
-  --sector-accent: #d97706;
-  --sector-accent-light: #fffbeb;
-  --sector-glow: rgba(217,119,6,.08);
+  --sector-primary: #134e4a;
+  --sector-dark: #042f2e;
+  --sector-accent: #14b8a6;
+  --sector-accent-light: #f0fdfa;
+  --sector-glow: rgba(20,184,166,.08);
   --gold: #c8a55a;
   --gold-dim: rgba(136,0,204,.06);
   --bg: #fafaf8;
@@ -49,7 +49,7 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 /* --- COVER PAGE --- */
 .cover {
   min-height: 100vh;
-  background: linear-gradient(145deg, var(--sector-dark) 0%, var(--sector-primary) 40%, #92400e 100%);
+  background: linear-gradient(145deg, var(--sector-dark) 0%, var(--sector-primary) 40%, #115e59 100%);
   color: white;
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 60px 56px;
@@ -59,79 +59,88 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
   content: '';
   position: absolute; top: -30%; right: -15%;
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(217,119,6,.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(20,184,166,.12) 0%, transparent 70%);
   border-radius: 50%;
 }
 .cover-brand { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
 .cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 680px; }
-.cover-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--sector-accent); text-transform: uppercase; margin-bottom: 12px; }
-.cover-title { font-family: 'Instrument Serif', serif; font-size: 42px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; }
-.cover-title em { font-style: normal; color: var(--gold); }
-.cover-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,.55); line-height: 1.6; max-width: 560px; }
-.cover-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; }
-.cover-meta-item { font-size: 10px; color: rgba(255,255,255,.35); }
-.cover-meta-item strong { display: block; color: var(--gold); font-size: 12px; margin-bottom: 2px; }
-.cover-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-35deg); font-size: 72px; font-weight: 900; color: rgba(255,255,255,.04); letter-spacing: 12px; white-space: nowrap; }
+.cover-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+.cover-title { font-family: 'Instrument Serif', serif; font-size: 42px; line-height: 1.15; margin-bottom: 20px; }
+.cover-title em { font-style: italic; color: var(--gold); }
+.cover-sub { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,.8); max-width: 560px; }
+.cover-meta { display: flex; gap: 40px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,.15); }
+.cover-meta-item { font-size: 11px; color: rgba(255,255,255,.5); }
+.cover-meta-item strong { display: block; color: white; font-size: 13px; margin-bottom: 2px; }
+.cover-watermark { position: absolute; bottom: -20px; right: -10px; font-family: 'Instrument Serif', serif; font-size: 180px; color: rgba(255,255,255,.03); font-style: italic; pointer-events: none; }
 
-/* --- CONTENT PAGES --- */
-.page { max-width: 820px; margin: 0 auto; padding: 48px 56px; }
-.section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--sector-accent); margin-bottom: 4px; }
-.section-title { font-family: 'Instrument Serif', serif; font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-.section-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+/* --- PAGES --- */
+.page { background: #13151c; padding: 56px; min-height: auto; }
+.section-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+.section-title { font-family: 'Instrument Serif', serif; font-size: 28px; color: white; margin-bottom: 8px; }
+.section-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
 
-/* Metric cards */
-.metric-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
-.metric-card { background: #13151c; border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
-.metric-score { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; line-height: 1; }
-.metric-score.low { color: var(--red); }
-.metric-score.mid { color: var(--amber); }
+/* --- METRIC CARDS --- */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.metric-card { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.metric-score { font-family: 'Instrument Serif', serif; font-size: 28px; margin-bottom: 4px; }
 .metric-score.high { color: var(--green); }
-.metric-label { font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.3; }
-.metric-bar { height: 4px; border-radius: 2px; background: var(--border); margin-top: 6px; }
-.metric-fill { height: 100%; border-radius: 2px; }
+.metric-score.mid { color: var(--amber); }
+.metric-score.low { color: var(--red); }
+.metric-label { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.metric-bar { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; }
+.metric-fill { height: 100%; border-radius: 2px; transition: width .6s ease; }
 
-/* CMO context */
-.cmo-context { background: #13151c; border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
-.cmo-context h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-.cmo-context p { font-size: 12px; color: var(--muted); }
+/* --- CMO CONTEXT --- */
+.cmo-context { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+.cmo-context h3 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 8px; }
+.cmo-context p { font-size: 13px; color: var(--text); line-height: 1.7; margin: 0; }
 
-/* Gap cards */
-.gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.gap-card { background: #13151c; border: 1px solid var(--border); border-left: 4px solid var(--red); border-radius: 10px; padding: 16px; }
-.gap-card.amber { border-left-color: var(--amber); }
-.gap-card.green { border-left-color: var(--green); }
-.gap-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-.gap-status { font-size: 10px; font-weight: 600; display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
-.gap-status.red { background: var(--red-bg); color: var(--red); }
-.gap-status.amber { background: var(--amber-bg); color: var(--amber); }
-.gap-status.green { background: var(--green-bg); color: var(--green); }
-.gap-desc { font-size: 11px; color: var(--muted); }
+/* --- GAP CARDS --- */
+.gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gap-card { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.gap-card.border-red { border-left: 3px solid var(--red); }
+.gap-card.border-amber { border-left: 3px solid var(--amber); }
+.gap-card.border-green { border-left: 3px solid var(--green); }
+.gap-title { font-size: 12px; font-weight: 700; color: white; margin-bottom: 6px; }
+.gap-status { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+.gap-status.status-red { background: var(--red-bg); color: var(--red); }
+.gap-status.status-amber { background: var(--amber-bg); color: var(--amber); }
+.gap-status.status-green { background: var(--green-bg); color: var(--green); }
+.gap-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
 
-/* FMO table */
+/* --- FMO TABLE --- */
 .fmo-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.fmo-table th { text-align: left; padding: 10px 12px; background: var(--sector-primary); color: white; font-weight: 600; font-size: 11px; }
-.fmo-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
-.fmo-table tr:last-child td { border-bottom: none; }
-.fmo-table tr:nth-child(even) td { background: rgba(217,119,6,.02); }
+.fmo-table th { text-align: left; padding: 10px 12px; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); border-bottom: 2px solid var(--border); background: rgba(255,255,255,.03); }
+.fmo-table td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; line-height: 1.6; }
+.fmo-table tr:hover { background: rgba(255,255,255,.02); }
 
-/* Roadmap */
-.road-timeline { position: relative; padding-left: 28px; }
-.road-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--sector-accent), var(--sector-primary)); }
-.road-item { position: relative; margin-bottom: 20px; display: grid; grid-template-columns: 80px 1fr; gap: 12px; }
-.road-time { font-size: 10px; font-weight: 700; color: var(--sector-accent); text-align: right; padding-top: 2px; }
-.road-dot { position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; background: var(--sector-accent); border: 2px solid var(--bg); border-radius: 50%; }
-.road-content { background: #13151c; border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
-.road-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-.road-text { font-size: 11px; color: var(--muted); }
+/* --- ROADMAP --- */
+.road-timeline { position: relative; padding-left: 80px; }
+.road-item { position: relative; padding-bottom: 24px; border-left: 2px solid var(--border); padding-left: 24px; }
+.road-item:last-child { border-left: 2px solid transparent; }
+.road-time { position: absolute; left: -80px; width: 70px; font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--gold); text-align: right; padding-top: 2px; }
+.road-dot { position: absolute; left: -7px; top: 4px; width: 12px; height: 12px; background: var(--sector-accent); border-radius: 50%; border: 2px solid #13151c; }
+.road-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+.road-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
 
-/* HCI block */
-.hci-block { background: var(--gold-dim); border: 1px solid rgba(136,0,204,.15); border-radius: 10px; padding: 20px; margin-top: 28px; }
-.hci-block h3 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-.hci-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.hci-card { background: #13151c; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
-.hci-phase { font-size: 10px; font-weight: 700; color: var(--sector-accent); text-transform: uppercase; letter-spacing: 1px; }
-.hci-name { font-size: 12px; font-weight: 600; margin-top: 2px; }
-.hci-invest { margin-top: 14px; padding: 12px; background: #13151c; border: 1px solid var(--border); border-radius: 8px; font-size: 12px; }
+/* --- HCI BLOCK --- */
+.hci-block { background: rgba(200,165,90,.05); border: 1px solid rgba(200,165,90,.2); border-radius: 12px; padding: 24px; margin-top: 32px; }
+.hci-block h3 { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--gold); margin-bottom: 16px; }
+.hci-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.hci-card { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.hci-phase { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.hci-name { font-size: 12px; font-weight: 600; color: white; }
+.hci-invest { font-size: 12px; color: var(--muted); line-height: 1.7; padding-top: 12px; border-top: 1px solid var(--border); }
+.hci-invest strong { color: white; }
+
+@media (max-width: 700px) {
+  .cover { padding: 40px 24px; }
+  .page { padding: 32px 20px; }
+  .metric-grid { grid-template-columns: 1fr 1fr; }
+  .gap-grid { grid-template-columns: 1fr; }
+  .hci-grid { grid-template-columns: 1fr; }
+  .cover-meta { flex-direction: column; gap: 16px; }
+}
 </style>
 </head>
 <body>
@@ -142,17 +151,17 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 <div class="cover">
   <div class="cover-brand">HCI</div>
   <div class="cover-body">
-    <div class="cover-label">CMO → FMO Analyse · Enterprise Organizations</div>
-    <h1 class="cover-title">Van compliance-vraagstuk<br>naar <em>marktvoordeel</em></h1>
-    <p class="cover-sub">{{org_description}} — Hoe {{org_name}} CRA-compliance, supply chain security en EU-markttoegang transformeert van kostenpost naar concurrentievoordeel.</p>
+    <div class="cover-label">CMO → FMO Analyse · Telecom & Critical Infrastructure</div>
+    <h1 class="cover-title">Van netwerk-operatie<br>naar <em>kritieke weerbaarheid</em></h1>
+    <p class="cover-sub">{{org_description}} — Hoe {{org_name}} het NIS2+EECC dubbel-regime, OT/ICS-beveiliging en post-quantum readiness transformeert naar operationele weerbaarheid.</p>
   </div>
   <div class="cover-meta">
     <div class="cover-meta-item"><strong>{{org_name}}</strong>Organisatie</div>
     <div class="cover-meta-item"><strong>{{report_date}}</strong>Rapportdatum</div>
     <div class="cover-meta-item"><strong>{{receiver_role}}</strong>Ontvanger</div>
-    <div class="cover-meta-item"><strong>{{org_fte_range}}</strong>Omvang</div>
+    <div class="cover-meta-item"><strong>{{org_type}}</strong>Type</div>
   </div>
-  <div class="cover-watermark">ENTERPRISE</div>
+  <div class="cover-watermark">TELECOM</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -161,38 +170,33 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 <div class="page page-break">
   <div class="section-label">01 · Huidige Situatie</div>
   <div class="section-title">Current Mode of Operation</div>
-  <div class="section-sub">Cybersecurity & compliance positie van {{org_name}} op basis van de CRA quickscan en beschikbare informatie.</div>
+  <div class="section-sub">NIS2/EECC-compliance en operationele weerbaarheid van {{org_name}} op basis van de quickscan en beschikbare informatie.</div>
 
   <div class="metric-grid">
     <div class="metric-card">
-      <div class="metric-score {{cra_compliance_class}}">{{cra_compliance_score}}</div>
-      <div class="metric-label">CRA Compliance & CE-markering</div>
-      <div class="metric-bar"><div class="metric-fill" style="width:{{cra_compliance_pct}}%;background:var(--{{cra_compliance_color}})"></div></div>
+      <div class="metric-score {{ot_class}}">{{ot_score}}</div>
+      <div class="metric-label">OT/ICS Security (SCADA)</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:{{ot_pct}}%;background:var(--{{ot_color}})"></div></div>
     </div>
     <div class="metric-card">
-      <div class="metric-score {{supply_chain_class}}">{{supply_chain_score}}</div>
-      <div class="metric-label">Supply Chain Security</div>
-      <div class="metric-bar"><div class="metric-fill" style="width:{{supply_chain_pct}}%;background:var(--{{supply_chain_color}})"></div></div>
+      <div class="metric-score {{fiveg_class}}">{{fiveg_score}}</div>
+      <div class="metric-label">5G Security & Vendor Diversificatie</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:{{fiveg_pct}}%;background:var(--{{fiveg_color}})"></div></div>
     </div>
     <div class="metric-card">
-      <div class="metric-score {{cloud_security_class}}">{{cloud_security_score}}</div>
-      <div class="metric-label">Cloud Security & Frameworks</div>
-      <div class="metric-bar"><div class="metric-fill" style="width:{{cloud_security_pct}}%;background:var(--{{cloud_security_color}})"></div></div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-score {{incident_response_class}}">{{incident_response_score}}</div>
+      <div class="metric-score {{incident_class}}">{{incident_score}}</div>
       <div class="metric-label">Incident Response & Meldplicht</div>
-      <div class="metric-bar"><div class="metric-fill" style="width:{{incident_response_pct}}%;background:var(--{{incident_response_color}})"></div></div>
+      <div class="metric-bar"><div class="metric-fill" style="width:{{incident_pct}}%;background:var(--{{incident_color}})"></div></div>
     </div>
     <div class="metric-card">
-      <div class="metric-score {{eu_market_class}}">{{eu_market_score}}</div>
-      <div class="metric-label">EU-markttoegang & Conformity</div>
-      <div class="metric-bar"><div class="metric-fill" style="width:{{eu_market_pct}}%;background:var(--{{eu_market_color}})"></div></div>
+      <div class="metric-score {{pqc_class}}">{{pqc_score}}</div>
+      <div class="metric-label">Post-Quantum Readiness</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:{{pqc_pct}}%;background:var(--{{pqc_color}})"></div></div>
     </div>
   </div>
 
   <div class="cmo-context">
-    <h3>Sectorcontext — Enterprise</h3>
+    <h3>Sectorcontext — Telecom & Critical Infrastructure</h3>
     <p>{{cmo_sector_context}}</p>
   </div>
   <div class="cmo-context">
@@ -207,36 +211,36 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 <div class="page page-break">
   <div class="section-label">02 · Gap-Analyse</div>
   <div class="section-title">Waar staan de kritieke gaps?</div>
-  <div class="section-sub">De zes belangrijkste gaps tussen huidige situatie en CRA/NIS2 compliance, specifiek voor enterprise organisaties.</div>
+  <div class="section-sub">De belangrijkste gaps voor telecom en kritieke infrastructuur onder het NIS2+EECC dubbel-regime.</div>
 
   <div class="gap-grid">
     <div class="gap-card {{gap1_border}}">
-      <div class="gap-title">CRA Productclassificatie & CE-markering</div>
+      <div class="gap-title">NIS2 & EECC Dual-Regime Compliance</div>
       <span class="gap-status {{gap1_status_class}}">{{gap1_status}}</span>
       <div class="gap-desc">{{gap1_description}}</div>
     </div>
     <div class="gap-card {{gap2_border}}">
-      <div class="gap-title">Supply Chain Security & SBOM</div>
+      <div class="gap-title">OT/ICS Beveiliging (IEC 62443)</div>
       <span class="gap-status {{gap2_status_class}}">{{gap2_status}}</span>
       <div class="gap-desc">{{gap2_description}}</div>
     </div>
     <div class="gap-card {{gap3_border}}">
-      <div class="gap-title">Cloud Security Framework & Baseline</div>
+      <div class="gap-title">5G Cybersecurity Toolbox & Vendor Risk</div>
       <span class="gap-status {{gap3_status_class}}">{{gap3_status}}</span>
       <div class="gap-desc">{{gap3_description}}</div>
     </div>
     <div class="gap-card {{gap4_border}}">
-      <div class="gap-title">Incident Response & 24/72h Meldplicht</div>
+      <div class="gap-title">Incident Response & Agentschap Telecom Melding</div>
       <span class="gap-status {{gap4_status_class}}">{{gap4_status}}</span>
       <div class="gap-desc">{{gap4_description}}</div>
     </div>
     <div class="gap-card {{gap5_border}}">
-      <div class="gap-title">EU-markttoegang & Importeursplicht (Art.15-16)</div>
+      <div class="gap-title">Post-Quantum Cryptografie Migratie</div>
       <span class="gap-status {{gap5_status_class}}">{{gap5_status}}</span>
       <div class="gap-desc">{{gap5_description}}</div>
     </div>
     <div class="gap-card {{gap6_border}}">
-      <div class="gap-title">Multi-framework Alignment (ISO/SOC/CRA)</div>
+      <div class="gap-title">Supply Chain & Leveranciersketenbeveiliging</div>
       <span class="gap-status {{gap6_status_class}}">{{gap6_status}}</span>
       <div class="gap-desc">{{gap6_description}}</div>
     </div>
@@ -249,16 +253,14 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 <div class="page page-break">
   <div class="section-label">03 · Gewenste Situatie</div>
   <div class="section-title">Future Mode of Operation</div>
-  <div class="section-sub">Het doelbeeld voor {{org_name}}: CRA-compliance als concurrentievoordeel en EU-markttoegang enabler.</div>
+  <div class="section-sub">Het doelbeeld voor {{org_name}}: NIS2+EECC-compliance en operationele weerbaarheid als basis voor vertrouwen van toezichthouder en klanten.</div>
 
   <table class="fmo-table">
     <thead><tr><th>Dimensie</th><th>Huidige situatie (CMO)</th><th>Gewenste situatie (FMO)</th><th>Impact</th></tr></thead>
     <tbody>
-      <tr><td>CRA Compliance</td><td>{{fmo_cra_cmo}}</td><td>{{fmo_cra_fmo}}</td><td>{{fmo_cra_impact}}</td></tr>
+      <tr><td>OT/ICS Security</td><td>{{fmo_ot_cmo}}</td><td>{{fmo_ot_fmo}}</td><td>{{fmo_ot_impact}}</td></tr>
       <tr><td>Supply Chain</td><td>{{fmo_supply_cmo}}</td><td>{{fmo_supply_fmo}}</td><td>{{fmo_supply_impact}}</td></tr>
-      <tr><td>Cloud Security</td><td>{{fmo_cloud_cmo}}</td><td>{{fmo_cloud_fmo}}</td><td>{{fmo_cloud_impact}}</td></tr>
       <tr><td>Incident Response</td><td>{{fmo_ir_cmo}}</td><td>{{fmo_ir_fmo}}</td><td>{{fmo_ir_impact}}</td></tr>
-      <tr><td>EU-markttoegang</td><td>{{fmo_eu_cmo}}</td><td>{{fmo_eu_fmo}}</td><td>{{fmo_eu_impact}}</td></tr>
       <tr><td>Data Sovereignty</td><td>{{fmo_sov_cmo}}</td><td>{{fmo_sov_fmo}}</td><td>{{fmo_sov_impact}}</td></tr>
     </tbody>
   </table>
@@ -270,39 +272,39 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 <div class="page page-break">
   <div class="section-label">04 · Transformatie-Roadmap</div>
   <div class="section-title">Van CMO naar FMO in vier fases</div>
-  <div class="section-sub">Gefaseerde aanpak met duidelijke deliverables per fase. SECURE subsidie-eligible componenten zijn gemarkeerd.</div>
+  <div class="section-sub">Gefaseerde aanpak voor NIS2+EECC dual-regime compliance en operationele weerbaarheid.</div>
 
   <div class="road-timeline">
   <div class="road-item">
     <div class="road-time">Maand 1-2</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEFINE — CRA & Supply Chain Assessment</div>
-      <div class="road-text">CRA productclassificatie, supply chain dependency mapping, cloud security baseline audit. Resultaat: geprioriteerde compliance roadmap. SECURE subsidie-eligible.</div>
+      <div class="road-title">DEFINE — NIS2/EECC Gap Assessment & OT Baseline</div>
+      <div class="road-text">Dual-regime compliance gap-analyse, OT/ICS asset inventory, 5G Toolbox readiness check, crypto-inventarisatie voor post-quantum migratie. Resultaat: geprioriteerde roadmap met toezichthouder-timeline.</div>
     </div>
   </div>
   <div class="road-item">
-    <div class="road-time">Maand 3-6</div>
+    <div class="road-time">Maand 3-5</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEVELOP — Compliance Framework & SBOM</div>
-      <div class="road-text">SBOM-proces (SPDX/CycloneDX), multi-framework alignment (ISO 27001/SOC 2/CRA), incident response playbooks, CE-markering voorbereiding. SECURE subsidie-eligible.</div>
+      <div class="road-title">DEVELOP — OT Security & Incident Framework</div>
+      <div class="road-text">IEC 62443 implementatie voor OT-omgevingen, IT/OT segmentatie versterken, incident classificatie & 24/72h meldproces Agentschap Telecom, 5G vendor diversificatie strategie.</div>
     </div>
   </div>
   <div class="road-item">
-    <div class="road-time">Maand 6-9</div>
+    <div class="road-time">Maand 5-8</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEPLOY — Conformity Assessment & Monitoring</div>
-      <div class="road-text">Conformity assessment uitvoering, continuous monitoring, supply chain audit trail, CRA-rapportage gereedheid (deadline sept 2026). SECURE subsidie-eligible.</div>
+      <div class="road-title">DEPLOY — Testing, Monitoring & Compliance Bewijs</div>
+      <div class="road-text">OT anomaly detection operationeel, incident response oefeningen (crisis simulatie), supply chain audit trail, NIS2/EECC compliance evidence package voor Agentschap Telecom/RDI.</div>
     </div>
   </div>
   <div class="road-item">
-    <div class="road-time">Maand 9-12</div>
+    <div class="road-time">Maand 8-12</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">OPTIMIZE — EU-markt & Soevereiniteit</div>
-      <div class="road-text">EU Go-to-Market activering via compliance, post-quantum encryptie evaluatie (HCI), Digital Europe Programme subsidiemogelijkheden, lokale partner-structuur opzet.</div>
+      <div class="road-title">OPTIMIZE — Post-Quantum & Continuous Compliance</div>
+      <div class="road-text">Post-quantum cryptografie migratieplan uitvoeren (NIST PQC standaarden), continuous OT monitoring & dashboarding, jaarlijkse NIS2-review, Digital Europe Programme subsidiemogelijkheden evalueren.</div>
     </div>
   </div>
   </div>
@@ -312,23 +314,23 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
     <div class="hci-grid">
       <div class="hci-card">
         <div class="hci-phase">Fase 1 · Define</div>
-        <div class="hci-name">CRA & Supply Chain Assessment</div>
+        <div class="hci-name">NIS2/EECC Gap Assessment & OT Baseline</div>
       </div>
       <div class="hci-card">
         <div class="hci-phase">Fase 2 · Develop</div>
-        <div class="hci-name">Compliance Framework & SBOM Implementatie</div>
+        <div class="hci-name">OT Security & Incident Framework</div>
       </div>
       <div class="hci-card">
         <div class="hci-phase">Fase 3 · Deploy</div>
-        <div class="hci-name">Conformity Assessment & Monitoring</div>
+        <div class="hci-name">Testing & Compliance Evidence</div>
       </div>
       <div class="hci-card">
         <div class="hci-phase">Fase 4 · Optimize</div>
-        <div class="hci-name">EU-markt Activering & Soevereiniteit</div>
+        <div class="hci-name">Post-Quantum & Continuous Compliance</div>
       </div>
     </div>
     <div class="hci-invest">
-      <strong>Indicatieve investering:</strong> {{hci_investment_range}} · <strong>SECURE subsidie:</strong> tot 50% dekking (max €30.000) · <strong>Doorlooptijd:</strong> {{hci_timeline}} · <strong>Digital Europe Programme:</strong> aanvullende EU-financiering mogelijk
+      <strong>Indicatieve investering:</strong> {{hci_investment_range}} · <strong>Doorlooptijd:</strong> {{hci_timeline}} · <strong>NIS2:</strong> van kracht sinds oktober 2024 · <strong>EECC:</strong> aanvullende sectorale verplichtingen
     </div>
   </div>
 </div>

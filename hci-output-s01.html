@@ -6,17 +6,17 @@
 <title>CMO→FMO Analyse — {{org_name}}</title>
 <style>
 /* ═══════════════════════════════════════════════════════════════
-   CMO→FMO OUTPUT TEMPLATE — DEVELOPERS & ENGINEERS (S03)
+   CMO→FMO OUTPUT TEMPLATE — GOVERNMENT & PUBLIC SECTOR (S01)
    HES Consultancy International
    ═══════════════════════════════════════════════════════════════ */
 
 /* --- SECTOR THEME: Government --- */
 :root {
-  --sector-primary: #4c1d95;
-  --sector-dark: #1e0a3c;
-  --sector-accent: #7c3aed;
-  --sector-accent-light: #ede9fe;
-  --sector-glow: rgba(124,58,237,.08);
+  --sector-primary: #1e3a5f;
+  --sector-dark: #0c1b2e;
+  --sector-accent: #2c7a7b;
+  --sector-accent-light: #e6fffa;
+  --sector-glow: rgba(44,122,123,.08);
   --gold: #c8a55a;
   --gold-dim: rgba(136,0,204,.06);
   --bg: #fafaf8;
@@ -323,9 +323,9 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <!-- {{#if demo}}<div class="cover-watermark">DEMO</div>{{/if}} -->
   <div class="cover-brand">HES Consultancy International</div>
   <div class="cover-body">
-    <div class="cover-label">Developers & Engineers — CMO→FMO Analyse</div>
-    <h1 class="cover-title">Van productontwikkeling<br>naar <em>CRA-gecertificeerd portfolio</em></h1>
-    <p class="cover-sub">Een gepersonaliseerde analyse van de CRA product-compliance en delivery-kwaliteit van {{org_name}}, inclusief gap-analyse op CE-markering, SBOM, secure SDLC en een concreet transformatie-pad.</p>
+    <div class="cover-label">Government & Public Sector — CMO→FMO Analyse</div>
+    <h1 class="cover-title">Van huidige situatie<br>naar <em>digitale weerbaarheid</em></h1>
+    <p class="cover-sub">Een gepersonaliseerde analyse van de cyber resilience posture van {{org_name}}, inclusief gap-analyse op basis van CRA, NIS2 en BIO-kader, en een concreet transformatie-pad.</p>
   </div>
   <div class="cover-meta">
     <div class="cover-meta-item"><strong>{{org_name}}</strong>Organisatie</div>
@@ -347,7 +347,7 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <div class="sec-num">01</div>
   <div class="sec-label">Current Mode of Operation</div>
   <div class="sec-title">Uw huidige situatie</div>
-  <div class="sec-intro">Op basis van publiek beschikbare informatie, CRA productclassificatie en de door u verstrekte gegevens schetsen wij het volgende beeld van de huidige CRA-gereedheid en delivery-kwaliteit van {{org_name}}.</div>
+  <div class="sec-intro">Op basis van publiek beschikbare informatie, sectorale benchmarks en de door u verstrekte gegevens schetsen wij het volgende beeld van de huidige cyber resilience posture van {{org_name}}.</div>
 
   <div class="prose">
     {{cmo_intro_paragraph}}
@@ -355,16 +355,16 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
 
   <!-- Sector-specific: sectorale benchmark scores -->
   <div class="callout">
-    <div class="callout-title">CRA Product Compliance Scan</div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Indicatieve beoordeling op basis van productportfolio, ontwikkelproces en huidige security-praktijken. CRA enforcement: dec 2027.</p>
+    <div class="callout-title">sectorale benchmark Benchmark — Digitale Volwassenheid</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Referentie: 118 Nederlandse gemeenten, 5 domeinen, score 1-5. Landelijk gemiddelde: 3,23.</p>
   </div>
 
   <div style="margin:20px 0">
-    <div class="score-row"><div class="score-label">CRA Productclassificatie & CE-markering</div><div class="score-bar"><div class="score-fill {{class_ce}}" style="width:{{score_ce}}%"></div></div><div class="score-val">{{val_ce}}</div></div>
-    <div class="score-row"><div class="score-label">SBOM (eigen producten)</div><div class="score-bar"><div class="score-fill {{class_sbom}}" style="width:{{score_sbom}}%"></div></div><div class="score-val">{{val_sbom}}</div></div>
-    <div class="score-row"><div class="score-label">Secure SDLC / Security-by-Design</div><div class="score-bar"><div class="score-fill {{class_sdlc}}" style="width:{{score_sdlc}}%"></div></div><div class="score-val">{{val_sdlc}}</div></div>
-    <div class="score-row"><div class="score-label">Vulnerability Management & Patching</div><div class="score-bar"><div class="score-fill {{class_vuln}}" style="width:{{score_vuln}}%"></div></div><div class="score-val">{{val_vuln}}</div></div>
-    <div class="score-row"><div class="score-label">Delivery-kwaliteit (sprint predictability)</div><div class="score-bar"><div class="score-fill {{class_delivery}}" style="width:{{score_delivery}}%"></div></div><div class="score-val">{{val_delivery}}</div></div>
+    <div class="score-row"><div class="score-label">Informatiebeveiliging & Privacy</div><div class="score-bar"><div class="score-fill mid" style="width:{{score_infosec}}%"></div></div><div class="score-val">{{val_infosec}}</div></div>
+    <div class="score-row"><div class="score-label">Dienstverlening & Werkplek</div><div class="score-bar"><div class="score-fill mid" style="width:{{score_dienst}}%"></div></div><div class="score-val">{{val_dienst}}</div></div>
+    <div class="score-row"><div class="score-label">Data & Informatiebeheer</div><div class="score-bar"><div class="score-fill mid" style="width:{{score_data}}%"></div></div><div class="score-val">{{val_data}}</div></div>
+    <div class="score-row"><div class="score-label">Strategie & Governance</div><div class="score-bar"><div class="score-fill high" style="width:{{score_governance}}%"></div></div><div class="score-val">{{val_governance}}</div></div>
+    <div class="score-row"><div class="score-label">Innovatie & Veranderkracht</div><div class="score-bar"><div class="score-fill low" style="width:{{score_innovatie}}%"></div></div><div class="score-val">{{val_innovatie}}</div></div>
   </div>
 
   <div class="prose">
@@ -384,43 +384,43 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <div class="sec-num">02</div>
   <div class="sec-label">Gap-analyse</div>
   <div class="sec-title">Waar staat u — waar moet u staan</div>
-  <div class="sec-intro">De volgende analyse toont de belangrijkste compliance gaps ten opzichte van CRA product-eisen (dec 2027). Rood = kritieke gap, oranje = gedeeltelijk, groen = op orde.</div>
+  <div class="sec-intro">De volgende analyse toont de belangrijkste compliance gaps ten opzichte van CRA (dec 2027), NIS2 (actief) en het BIO-kader. Rood = kritieke gap, oranje = gedeeltelijk, groen = op orde.</div>
 
   <div class="assess-grid">
     <div class="assess-card gap">
       <div class="assess-label gap">Kritieke gap</div>
-      <div class="assess-title">CE-markering & CRA Documentatie</div>
-      <div class="assess-text">Eigen producten moeten CE-gemarkeerd worden. Vereist: technische documentatie, conformity assessment, 10 jaar bewaarplicht. Geen EU-markttoegang zonder compliance. {{gap_ce_marking}}</div>
+      <div class="assess-title">CRA Rapportageverplichting</div>
+      <div class="assess-text">Deadline 11 september 2026. Vereist: 24-uur early warning bij actief misbruikte kwetsbaarheden, 72-uur volledige notificatie aan CSIRT + ENISA. {{gap_cra_reporting}}</div>
     </div>
     <div class="assess-card gap">
       <div class="assess-label gap">Kritieke gap</div>
-      <div class="assess-title">SBOM (eigen producten)</div>
-      <div class="assess-text">Geen gestructureerd overzicht van software-componenten, dependencies en versies in eigen producten. CRA vereist continue SBOM-onderhoud. {{gap_sbom_own}}</div>
-    </div>
-    <div class="assess-card {{gap_sdlc_class}}">
-      <div class="assess-label {{gap_sdlc_class}}">{{gap_sdlc_label}}</div>
-      <div class="assess-title">Secure SDLC & Delivery-kwaliteit</div>
-      <div class="assess-text">{{gap_sdlc}}</div>
+      <div class="assess-title">SBOM & Supply Chain</div>
+      <div class="assess-text">Geen gestructureerd overzicht van software-componenten in ingekochte digitale producten. CRA vereist SBOM-verificatie bij inkoop. {{gap_sbom}}</div>
     </div>
     <div class="assess-card partial">
       <div class="assess-label partial">Gedeeltelijk</div>
-      <div class="assess-title">Vulnerability Handling</div>
-      <div class="assess-text">{{gap_vulnerability}}</div>
+      <div class="assess-title">Incident Response</div>
+      <div class="assess-text">{{gap_incident_response}}</div>
     </div>
-    <div class="assess-card {{gap_ir_class}}">
-      <div class="assess-label {{gap_ir_class}}">{{gap_ir_label}}</div>
-      <div class="assess-title">Incident Response (24/72h)</div>
-      <div class="assess-text">{{gap_ir}}</div>
+    <div class="assess-card partial">
+      <div class="assess-label partial">Gedeeltelijk</div>
+      <div class="assess-title">Security-by-Design in inkoop</div>
+      <div class="assess-text">{{gap_security_by_design}}</div>
     </div>
-    <div class="assess-card {{gap_eumarket_class}}">
-      <div class="assess-label {{gap_eumarket_class}}">{{gap_eumarket_label}}</div>
-      <div class="assess-title">EU-markttoegang & Compliance</div>
-      <div class="assess-text">{{gap_eumarket}}</div>
+    <div class="assess-card ok">
+      <div class="assess-label ok">Op orde</div>
+      <div class="assess-title">BIO Baseline</div>
+      <div class="assess-text">{{ok_bio}}</div>
+    </div>
+    <div class="assess-card {{gap_sovereignty_class}}">
+      <div class="assess-label {{gap_sovereignty_class}}">{{gap_sovereignty_label}}</div>
+      <div class="assess-title">Digitale Soevereiniteit</div>
+      <div class="assess-text">{{gap_sovereignty}}</div>
     </div>
   </div>
 
   <div class="callout-gold">
-    <strong>EU SECURE Subsidie:</strong> Tot €30.000 per organisatie (50% van projectkosten) beschikbaar voor CRA-complianceprojecten. Projectduur 6 maanden. CE-markering, SBOM-tooling en secure SDLC zijn subsidiabel.
+    <strong>EU SECURE Subsidie:</strong> Tot €30.000 per organisatie (50% van projectkosten) beschikbaar voor CRA-complianceprojecten. Projectduur 6 maanden. Alle geïdentificeerde gaps zijn subsidiabel.
   </div>
 </div>
 
@@ -436,7 +436,7 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <div class="sec-num">03</div>
   <div class="sec-label">Future Mode of Operation</div>
   <div class="sec-title">Uw gewenste situatie</div>
-  <div class="sec-intro">Het volgende beeld beschrijft waar {{org_name}} over 12-18 maanden kan staan — CRA-gecertificeerd productportfolio, voorspelbare delivery-kwaliteit, en EU-marktklaar.</div>
+  <div class="sec-intro">Het volgende beeld beschrijft waar {{org_name}} over 12-18 maanden kan staan — volledig CRA-compliant, NIS2-ready, en met een proactieve security posture die past bij de publieke verantwoordelijkheid.</div>
 
   <div class="prose">
     {{fmo_vision_paragraph}}
@@ -445,10 +445,10 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <table class="dt">
     <thead><tr><th>Domein</th><th>Huidige score</th><th>Doelscore</th><th>Verschuiving</th></tr></thead>
     <tbody>
-      <tr><td>CE-markering & CRA Documentatie</td><td>Niet gestart</td><td>Volledig CRA-compliant</td><td>Volledig nieuw</td></tr>
-      <tr><td>SBOM eigen producten</td><td>Niet gestart</td><td>Continue SBOM-onderhoud</td><td>Volledig nieuw</td></tr>
-      <tr><td>Secure SDLC / Happy Sprint</td><td>{{val_sdlc_current}}</td><td>100% sprint-levering</td><td>{{shift_sdlc}}</td></tr>
-      <tr><td>Vulnerability & IR (24/72h)</td><td>{{val_ir_current}}</td><td>CRA-compliant</td><td>{{shift_ir}}</td></tr>
+      <tr><td>Informatiebeveiliging & Privacy</td><td>{{val_infosec}}</td><td>4,0+</td><td>{{shift_infosec}}</td></tr>
+      <tr><td>Incident Response gereedheid</td><td>{{val_ir_current}}</td><td>24/72h compliant</td><td>{{shift_ir}}</td></tr>
+      <tr><td>Supply Chain / SBOM</td><td>Niet gestart</td><td>CRA-compliant inkoop</td><td>Volledig nieuw</td></tr>
+      <tr><td>Digitale Soevereiniteit</td><td>{{val_sov_current}}</td><td>Roadmap actief</td><td>{{shift_sov}}</td></tr>
     </tbody>
   </table>
 
@@ -475,32 +475,32 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
     <div class="road-time">Maand 1-2</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEFINE — CRA Product Assessment</div>
-      <div class="road-text">CRA productclassificatie, SBOM gap-analyse, secure SDLC audit, delivery-kwaliteit assessment. Resultaat: per-product compliance roadmap + SECURE subsidie-aanvraag.</div>
+      <div class="road-title">DEFINE — Assessment & Gap Analyse</div>
+      <div class="road-text">CRA Readiness Assessment, NIS2 gap-analyse, BIO-toetsing. Resultaat: geprioriteerde roadmap met quick wins en structurele verbeteringen. SECURE subsidie-eligible.</div>
     </div>
   </div>
   <div class="road-item">
     <div class="road-time">Maand 3-6</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEVELOP — CRA Framework & Happy Sprint</div>
-      <div class="road-text">SBOM-tooling integratie in CI/CD, security-by-design in Definition of Done, Happy Sprint methodiek implementatie, vulnerability scanning automatisering. SECURE subsidie-eligible.</div>
+      <div class="road-title">DEVELOP — Compliance Framework & Tooling</div>
+      <div class="road-text">Incident Response playbooks (24/72h), SBOM-proces voor inkoop, security-by-design criteria in aanbestedingen, M365 security hardening. SECURE subsidie-eligible.</div>
     </div>
   </div>
   <div class="road-item">
     <div class="road-time">Maand 6-9</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEPLOY — CE-markering & Monitoring</div>
-      <div class="road-text">CE-markering eerste producten, technische documentatie, continuous vulnerability monitoring, IR-proces operationeel (24/72h), CRA-rapportage gereedheid sept 2026.</div>
+      <div class="road-title">DEPLOY — Monitoring & Operatie</div>
+      <div class="road-text">Continuous monitoring dashboard, SOC-integratie, tabletop exercises, awareness training. Eerste CRA-rapportage gereedheid (deadline sept 2026). SECURE subsidie-eligible.</div>
     </div>
   </div>
   <div class="road-item">
     <div class="road-time">Maand 9-12</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">OPTIMIZE — EU-markt & Schaalvergroting</div>
-      <div class="road-text">EU-marktexpansie met CRA-compliance als selling point, HCI integratie voor post-quantum dataprotectie, nearshore team opschaling, Happy Sprint certificering.</div>
+      <div class="road-title">OPTIMIZE — Soevereiniteit & Doorontwikkeling</div>
+      <div class="road-text">Sovereignty Readiness Assessment, digitale autonomie-roadmap, post-quantum encryptie evaluatie (HCI), cybersecurity score-verbetering tracking.</div>
     </div>
   </div>
 
@@ -511,23 +511,23 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
     <div class="hci-grid">
       <div class="hci-card">
         <div class="phase">Fase 1 — Define</div>
-        <div class="title">CRA Product Compliance Assessment</div>
-        <div class="desc">Per-product CRA classificatie, SBOM gap-analyse, secure SDLC audit, delivery-kwaliteit scan, SECURE subsidie-aanvraag.</div>
+        <div class="title">CRA & NIS2 Assessment</div>
+        <div class="desc">Volledige compliance gap-analyse, geprioriteerde roadmap, SECURE subsidie-aanvraag begeleiding, bestuurspresentatie.</div>
       </div>
       <div class="hci-card">
         <div class="phase">Fase 2 — Develop</div>
-        <div class="title">CRA Framework & Happy Sprint</div>
-        <div class="desc">SBOM-tooling CI/CD integratie, Happy Sprint methodiek, security-by-design in DoD, vulnerability scanning, team training.</div>
+        <div class="title">Framework & Implementatie</div>
+        <div class="desc">IR playbooks, SBOM-inkoopproces, M365 hardening, security-by-design criteria, training & awareness.</div>
       </div>
       <div class="hci-card">
         <div class="phase">Fase 3 — Deploy</div>
-        <div class="title">CE-markering & Operatie</div>
-        <div class="desc">CE-markering eerste producten, technische documentatie, continuous monitoring, IR 24/72h operationeel, CRA-rapportage.</div>
+        <div class="title">Monitoring & Operatie</div>
+        <div class="desc">Dashboard oplevering, SOC-integratie, tabletop exercises, eerste CRA-rapportage, continue optimalisatie.</div>
       </div>
       <div class="hci-card">
         <div class="phase">Fase 4 — Sovereignty</div>
-        <div class="title">EU-markt & Schaalvergroting</div>
-        <div class="desc">EU GTM strategie, HCI integratie, nearshore team opschaling, Happy Sprint certificering, continue CRA compliance.</div>
+        <div class="title">Digitale Autonomie</div>
+        <div class="desc">Sovereignty Readiness Assessment, HCI post-quantum evaluatie, data-residency roadmap, leverancier-onafhankelijkheid.</div>
       </div>
     </div>
     <div class="hci-invest">
@@ -538,7 +538,7 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
 
   <div class="cta-block">
     <div class="cta-text">Wilt u dit rapport bespreken en de concrete volgende stappen verkennen?</div>
-    <a href="/cdn-cgi/l/email-protection#5e333c363b2d1e363b2d733d31302d2b322a3f303d277337302a3b2c303f2a3731303f32703d3133612d2b3c343b3d2a631d1311bcd8cc1813117b6c6e3c3b2d2e2c3b353730397b6c6e2525312c3901303f333b2323" class="cta-btn">Plan een gesprek met Mike Hes →</a>
+    <a href="/cdn-cgi/l/email-protection#a5c8c7cdc0d6e5cdc0d688c6cacbd6d0c9d1c4cbc6dc88cccbd1c0d7cbc4d1cccacbc4c98bc6cac89ad6d0c7cfc0c6d198e6e8ea472337e3e8ea809795c7c0d6d5d7c0cecccbc2809795dedecad7c2facbc4c8c0d8d8" class="cta-btn">Plan een gesprek met Mike Hes →</a>
   </div>
 </div>
 

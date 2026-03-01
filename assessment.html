@@ -210,7 +210,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
       <div class="result-gaps" id="resultGaps"><h3 id="gapTitle">Key gaps identified</h3></div>
 
       <div class="result-cta-area">
-        <a href="/cdn-cgi/l/email-protection#a0cdc2c8c5d3e0c8c5d38dc3cfced3d5ccd4c1cec3d98dc9ced4c5d2cec1d4c9cfcec1cc8ec3cfcd" class="btn-primary" id="resultCta1">Schedule a conversation →</a>
+        <a href="/cdn-cgi/l/email-protection#c9a4aba1acba89a1acbae4aaa6a7babca5bda8a7aab0e4a0a7bdacbba7a8bda0a6a7a8a5e7aaa6a4" class="btn-primary" id="resultCta1">Schedule a conversation →</a>
         <a href="/" class="btn-ghost" id="resultCta2">Back to overview</a>
       </div>
 
@@ -650,10 +650,59 @@ function sendReport() {
   if (!email || !email.includes('@')) { document.getElementById('emailAddr').style.borderColor = 'var(--red)'; return; }
   document.getElementById('emailRow').style.display = 'none';
   document.getElementById('emailSent').style.display = 'block';
-  // TODO: integrate with FormSubmit / email service
-  console.log('Report requested:', { route, name, email, answers });
+
+  // Collect full assessment data
+  const dimScores = {};
+  config.dimensions.forEach(d => dimScores[d.key] = 0);
+  const gaps = [];
+  config.questions.forEach((q, i) => {
+    if (answers[i] !== null) {
+      const opt = q.options[answers[i]];
+      dimScores[q.dim] += opt.score;
+      if (opt.gap && opt.score === 0) gaps.push(opt.gap);
+    }
+  });
+  const totalScore = Object.values(dimScores).reduce((a, b) => a + b, 0);
+  const pct = Math.round((totalScore / config.maxScore) * 100);
+  const phase = config.phases.find(p => totalScore >= p.min && totalScore <= p.max) || config.phases[0];
+
+  // Submit to Netlify Forms
+  const formData = new URLSearchParams();
+  formData.append('form-name', 'hci-assessment');
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('route', route);
+  formData.append('score', totalScore + '/' + config.maxScore);
+  formData.append('readiness', pct + '% — ' + phase.name);
+  formData.append('gaps', gaps.join(' | ') || 'Geen');
+  formData.append('dimensions', config.dimensions.map(d => d.label + ': ' + dimScores[d.key] + '/' + d.max).join(' | '));
+  formData.append('answers', config.questions.map((q, i) => q.text + ': ' + (answers[i] !== null ? q.options[answers[i]].label : 'skipped')).join(' | '));
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData.toString()
+  }).catch(err => console.warn('Form submission fallback:', err));
 }
 
 function setLang(l) {
   document.querySelectorAll('.lang-btn').forEach(b =>
-   
+    b.classList.toggle('active', b.textContent.trim().toUpperCase() === l.toUpperCase()));
+}
+</script>
+
+<!-- Hidden Netlify Form for bot detection -->
+<form name="hci-assessment" netlify netlify-honeypot="bot-field" hidden>
+  <input name="bot-field">
+  <input name="name">
+  <input name="email">
+  <input name="route">
+  <input name="score">
+  <input name="readiness">
+  <input name="gaps">
+  <input name="dimensions">
+  <input name="answers">
+</form>
+
+</body>
+</html>

@@ -6,17 +6,17 @@
 <title>CMO→FMO Analyse — {{org_name}}</title>
 <style>
 /* ═══════════════════════════════════════════════════════════════
-   CMO→FMO OUTPUT TEMPLATE — GOVERNMENT & PUBLIC SECTOR (S01)
+   CMO→FMO OUTPUT TEMPLATE — HEALTHCARE & LIFE SCIENCES (S02)
    HES Consultancy International
    ═══════════════════════════════════════════════════════════════ */
 
 /* --- SECTOR THEME: Government --- */
 :root {
-  --sector-primary: #1e3a5f;
-  --sector-dark: #0c1b2e;
-  --sector-accent: #2c7a7b;
-  --sector-accent-light: #e6fffa;
-  --sector-glow: rgba(44,122,123,.08);
+  --sector-primary: #0d4f4f;
+  --sector-dark: #061e1e;
+  --sector-accent: #0891b2;
+  --sector-accent-light: #ecfeff;
+  --sector-glow: rgba(8,145,178,.08);
   --gold: #c8a55a;
   --gold-dim: rgba(136,0,204,.06);
   --bg: #fafaf8;
@@ -323,9 +323,9 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <!-- {{#if demo}}<div class="cover-watermark">DEMO</div>{{/if}} -->
   <div class="cover-brand">HES Consultancy International</div>
   <div class="cover-body">
-    <div class="cover-label">Government & Public Sector — CMO→FMO Analyse</div>
-    <h1 class="cover-title">Van huidige situatie<br>naar <em>digitale weerbaarheid</em></h1>
-    <p class="cover-sub">Een gepersonaliseerde analyse van de cyber resilience posture van {{org_name}}, inclusief gap-analyse op basis van CRA, NIS2 en BIO-kader, en een concreet transformatie-pad.</p>
+    <div class="cover-label">Healthcare & Life Sciences — CMO→FMO Analyse</div>
+    <h1 class="cover-title">Van zorgsystemen<br>naar <em>digitale zorgweerbaarheid</em></h1>
+    <p class="cover-sub">Een gepersonaliseerde analyse van de cyber resilience en AI governance posture van {{org_name}}, inclusief gap-analyse op basis van CRA, NIS2, NEN 7510 en EU AI Act, en een concreet transformatie-pad.</p>
   </div>
   <div class="cover-meta">
     <div class="cover-meta-item"><strong>{{org_name}}</strong>Organisatie</div>
@@ -347,7 +347,7 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <div class="sec-num">01</div>
   <div class="sec-label">Current Mode of Operation</div>
   <div class="sec-title">Uw huidige situatie</div>
-  <div class="sec-intro">Op basis van publiek beschikbare informatie, sectorale benchmarks en de door u verstrekte gegevens schetsen wij het volgende beeld van de huidige cyber resilience posture van {{org_name}}.</div>
+  <div class="sec-intro">Op basis van publiek beschikbare informatie, zorgsectorale benchmarks en de door u verstrekte gegevens schetsen wij het volgende beeld van de huidige cyber resilience en AI governance posture van {{org_name}}.</div>
 
   <div class="prose">
     {{cmo_intro_paragraph}}
@@ -355,16 +355,16 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
 
   <!-- Sector-specific: sectorale benchmark scores -->
   <div class="callout">
-    <div class="callout-title">sectorale benchmark Benchmark — Digitale Volwassenheid</div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Referentie: 118 Nederlandse gemeenten, 5 domeinen, score 1-5. Landelijk gemiddelde: 3,23.</p>
+    <div class="callout-title">Healthcare Security Baseline — NEN 7510 / NIS2 / AI Act</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Referentie: NEN 7510 (informatiebeveiliging in de zorg), NIS2 essentiële entiteiten, EU AI Act Art.22 (hoog-risico AI in zorg).</p>
   </div>
 
   <div style="margin:20px 0">
-    <div class="score-row"><div class="score-label">Informatiebeveiliging & Privacy</div><div class="score-bar"><div class="score-fill mid" style="width:{{score_infosec}}%"></div></div><div class="score-val">{{val_infosec}}</div></div>
-    <div class="score-row"><div class="score-label">Dienstverlening & Werkplek</div><div class="score-bar"><div class="score-fill mid" style="width:{{score_dienst}}%"></div></div><div class="score-val">{{val_dienst}}</div></div>
-    <div class="score-row"><div class="score-label">Data & Informatiebeheer</div><div class="score-bar"><div class="score-fill mid" style="width:{{score_data}}%"></div></div><div class="score-val">{{val_data}}</div></div>
-    <div class="score-row"><div class="score-label">Strategie & Governance</div><div class="score-bar"><div class="score-fill high" style="width:{{score_governance}}%"></div></div><div class="score-val">{{val_governance}}</div></div>
-    <div class="score-row"><div class="score-label">Innovatie & Veranderkracht</div><div class="score-bar"><div class="score-fill low" style="width:{{score_innovatie}}%"></div></div><div class="score-val">{{val_innovatie}}</div></div>
+    <div class="score-row"><div class="score-label">NEN 7510 Compliance</div><div class="score-bar"><div class="score-fill {{class_nen7510}}" style="width:{{score_nen7510}}%"></div></div><div class="score-val">{{val_nen7510}}</div></div>
+    <div class="score-row"><div class="score-label">EPD Security (HiX/Epic/Chipsoft)</div><div class="score-bar"><div class="score-fill {{class_epd}}" style="width:{{score_epd}}%"></div></div><div class="score-val">{{val_epd}}</div></div>
+    <div class="score-row"><div class="score-label">AI Governance (EU AI Act)</div><div class="score-bar"><div class="score-fill {{class_ai}}" style="width:{{score_ai}}%"></div></div><div class="score-val">{{val_ai}}</div></div>
+    <div class="score-row"><div class="score-label">Incident Response gereedheid</div><div class="score-bar"><div class="score-fill {{class_ir}}" style="width:{{score_ir}}%"></div></div><div class="score-val">{{val_ir}}</div></div>
+    <div class="score-row"><div class="score-label">Data-uitwisseling (FHIR/interoperabiliteit)</div><div class="score-bar"><div class="score-fill {{class_fhir}}" style="width:{{score_fhir}}%"></div></div><div class="score-val">{{val_fhir}}</div></div>
   </div>
 
   <div class="prose">
@@ -384,43 +384,43 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <div class="sec-num">02</div>
   <div class="sec-label">Gap-analyse</div>
   <div class="sec-title">Waar staat u — waar moet u staan</div>
-  <div class="sec-intro">De volgende analyse toont de belangrijkste compliance gaps ten opzichte van CRA (dec 2027), NIS2 (actief) en het BIO-kader. Rood = kritieke gap, oranje = gedeeltelijk, groen = op orde.</div>
+  <div class="sec-intro">De volgende analyse toont de belangrijkste compliance gaps ten opzichte van CRA (dec 2027), NIS2 (actief), NEN 7510 en de EU AI Act. Rood = kritieke gap, oranje = gedeeltelijk, groen = op orde.</div>
 
   <div class="assess-grid">
     <div class="assess-card gap">
       <div class="assess-label gap">Kritieke gap</div>
-      <div class="assess-title">CRA Rapportageverplichting</div>
-      <div class="assess-text">Deadline 11 september 2026. Vereist: 24-uur early warning bij actief misbruikte kwetsbaarheden, 72-uur volledige notificatie aan CSIRT + ENISA. {{gap_cra_reporting}}</div>
+      <div class="assess-title">AI Governance (EU AI Act)</div>
+      <div class="assess-text">AI in diagnostiek en triage = hoog-risico classificatie. Vereist transparantie, documentatie, menselijk toezicht. Geen governance framework aanwezig. {{gap_ai_governance}}</div>
     </div>
     <div class="assess-card gap">
       <div class="assess-label gap">Kritieke gap</div>
-      <div class="assess-title">SBOM & Supply Chain</div>
-      <div class="assess-text">Geen gestructureerd overzicht van software-componenten in ingekochte digitale producten. CRA vereist SBOM-verificatie bij inkoop. {{gap_sbom}}</div>
+      <div class="assess-title">CRA Meldplicht medische apparatuur</div>
+      <div class="assess-text">Connected medische apparatuur valt onder CRA. Deadline 11 sept 2026: 24-uur early warning. Geen SBOM voor medische devices. {{gap_cra_medical}}</div>
     </div>
     <div class="assess-card partial">
       <div class="assess-label partial">Gedeeltelijk</div>
-      <div class="assess-title">Incident Response</div>
-      <div class="assess-text">{{gap_incident_response}}</div>
+      <div class="assess-title">EPD-beveiliging & vendor lock-in</div>
+      <div class="assess-text">{{gap_epd_security}}</div>
     </div>
     <div class="assess-card partial">
       <div class="assess-label partial">Gedeeltelijk</div>
-      <div class="assess-title">Security-by-Design in inkoop</div>
-      <div class="assess-text">{{gap_security_by_design}}</div>
+      <div class="assess-title">NIS2 Incident Response</div>
+      <div class="assess-text">{{gap_nis2_ir}}</div>
     </div>
-    <div class="assess-card ok">
-      <div class="assess-label ok">Op orde</div>
-      <div class="assess-title">BIO Baseline</div>
-      <div class="assess-text">{{ok_bio}}</div>
+    <div class="assess-card {{gap_nen7510_class}}">
+      <div class="assess-label {{gap_nen7510_class}}">{{gap_nen7510_label}}</div>
+      <div class="assess-title">NEN 7510 Compliance</div>
+      <div class="assess-text">{{gap_nen7510}}</div>
     </div>
-    <div class="assess-card {{gap_sovereignty_class}}">
-      <div class="assess-label {{gap_sovereignty_class}}">{{gap_sovereignty_label}}</div>
-      <div class="assess-title">Digitale Soevereiniteit</div>
-      <div class="assess-text">{{gap_sovereignty}}</div>
+    <div class="assess-card {{gap_fhir_class}}">
+      <div class="assess-label {{gap_fhir_class}}">{{gap_fhir_label}}</div>
+      <div class="assess-title">Data-uitwisseling & Interoperabiliteit</div>
+      <div class="assess-text">{{gap_fhir}}</div>
     </div>
   </div>
 
   <div class="callout-gold">
-    <strong>EU SECURE Subsidie:</strong> Tot €30.000 per organisatie (50% van projectkosten) beschikbaar voor CRA-complianceprojecten. Projectduur 6 maanden. Alle geïdentificeerde gaps zijn subsidiabel.
+    <strong>EU SECURE Subsidie:</strong> Tot €30.000 per organisatie (50% van projectkosten) beschikbaar voor CRA-complianceprojecten. Projectduur 6 maanden. CRA medical device compliance en AI governance zijn subsidiabel.
   </div>
 </div>
 
@@ -436,7 +436,7 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <div class="sec-num">03</div>
   <div class="sec-label">Future Mode of Operation</div>
   <div class="sec-title">Uw gewenste situatie</div>
-  <div class="sec-intro">Het volgende beeld beschrijft waar {{org_name}} over 12-18 maanden kan staan — volledig CRA-compliant, NIS2-ready, en met een proactieve security posture die past bij de publieke verantwoordelijkheid.</div>
+  <div class="sec-intro">Het volgende beeld beschrijft waar {{org_name}} over 12-18 maanden kan staan — NIS2-compliant, AI-governance ingericht, en met een security posture die patiëntveiligheid en datakwaliteit centraal stelt.</div>
 
   <div class="prose">
     {{fmo_vision_paragraph}}
@@ -445,10 +445,10 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
   <table class="dt">
     <thead><tr><th>Domein</th><th>Huidige score</th><th>Doelscore</th><th>Verschuiving</th></tr></thead>
     <tbody>
-      <tr><td>Informatiebeveiliging & Privacy</td><td>{{val_infosec}}</td><td>4,0+</td><td>{{shift_infosec}}</td></tr>
-      <tr><td>Incident Response gereedheid</td><td>{{val_ir_current}}</td><td>24/72h compliant</td><td>{{shift_ir}}</td></tr>
-      <tr><td>Supply Chain / SBOM</td><td>Niet gestart</td><td>CRA-compliant inkoop</td><td>Volledig nieuw</td></tr>
-      <tr><td>Digitale Soevereiniteit</td><td>{{val_sov_current}}</td><td>Roadmap actief</td><td>{{shift_sov}}</td></tr>
+      <tr><td>NEN 7510 Compliance</td><td>{{val_nen7510}}</td><td>Volledig</td><td>{{shift_nen7510}}</td></tr>
+      <tr><td>AI Governance (EU AI Act)</td><td>Niet gestart</td><td>Framework operationeel</td><td>Volledig nieuw</td></tr>
+      <tr><td>CRA Medische Devices</td><td>Niet gestart</td><td>SBOM + 24h meldplicht</td><td>Volledig nieuw</td></tr>
+      <tr><td>EPD Security & Interoperabiliteit</td><td>{{val_epd_current}}</td><td>FHIR-ready, vendor-neutraal</td><td>{{shift_epd}}</td></tr>
     </tbody>
   </table>
 
@@ -475,32 +475,32 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
     <div class="road-time">Maand 1-2</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEFINE — Assessment & Gap Analyse</div>
-      <div class="road-text">CRA Readiness Assessment, NIS2 gap-analyse, BIO-toetsing. Resultaat: geprioriteerde roadmap met quick wins en structurele verbeteringen. SECURE subsidie-eligible.</div>
+      <div class="road-title">DEFINE — Zorg-specifieke Assessment</div>
+      <div class="road-text">NEN 7510 gap-analyse, NIS2 zorg-assessment, CRA medical device scan, AI governance audit. Resultaat: geprioriteerde roadmap met focus op patiëntveiligheid. SECURE subsidie-eligible.</div>
     </div>
   </div>
   <div class="road-item">
     <div class="road-time">Maand 3-6</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEVELOP — Compliance Framework & Tooling</div>
-      <div class="road-text">Incident Response playbooks (24/72h), SBOM-proces voor inkoop, security-by-design criteria in aanbestedingen, M365 security hardening. SECURE subsidie-eligible.</div>
+      <div class="road-title">DEVELOP — Zorg Compliance Framework</div>
+      <div class="road-text">AI governance framework, IR playbooks (zorgspecifiek), SBOM voor medische devices, EPD security hardening, FHIR-implementatie roadmap. SECURE subsidie-eligible.</div>
     </div>
   </div>
   <div class="road-item">
     <div class="road-time">Maand 6-9</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">DEPLOY — Monitoring & Operatie</div>
-      <div class="road-text">Continuous monitoring dashboard, SOC-integratie, tabletop exercises, awareness training. Eerste CRA-rapportage gereedheid (deadline sept 2026). SECURE subsidie-eligible.</div>
+      <div class="road-title">DEPLOY — Zorgcontinuïteit & Monitoring</div>
+      <div class="road-text">Monitoring dashboard (EPD, medische devices, netwerk), SOC-integratie, zorgspecifieke tabletop exercises, awareness training medisch personeel. CRA-rapportage gereedheid sept 2026.</div>
     </div>
   </div>
   <div class="road-item">
     <div class="road-time">Maand 9-12</div>
     <div class="road-dot"></div>
     <div class="road-content">
-      <div class="road-title">OPTIMIZE — Soevereiniteit & Doorontwikkeling</div>
-      <div class="road-text">Sovereignty Readiness Assessment, digitale autonomie-roadmap, post-quantum encryptie evaluatie (HCI), cybersecurity score-verbetering tracking.</div>
+      <div class="road-title">OPTIMIZE — Innovatie & Data-soevereiniteit</div>
+      <div class="road-text">Patiëntdata soevereiniteit, HCI post-quantum evaluatie voor zorgsystemen, admin-lastreductie tracking, FHIR interoperabiliteit optimalisatie, continue AI governance.</div>
     </div>
   </div>
 
@@ -511,23 +511,23 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
     <div class="hci-grid">
       <div class="hci-card">
         <div class="phase">Fase 1 — Define</div>
-        <div class="title">CRA & NIS2 Assessment</div>
-        <div class="desc">Volledige compliance gap-analyse, geprioriteerde roadmap, SECURE subsidie-aanvraag begeleiding, bestuurspresentatie.</div>
+        <div class="title">Zorg Security & AI Governance Assessment</div>
+        <div class="desc">NEN 7510 + NIS2 gap-analyse, AI governance audit, CRA medical device scan, bestuurspresentatie voor Raad van Bestuur.</div>
       </div>
       <div class="hci-card">
         <div class="phase">Fase 2 — Develop</div>
-        <div class="title">Framework & Implementatie</div>
-        <div class="desc">IR playbooks, SBOM-inkoopproces, M365 hardening, security-by-design criteria, training & awareness.</div>
+        <div class="title">Zorg Framework & Implementatie</div>
+        <div class="desc">AI governance framework, zorgspecifieke IR playbooks, EPD security hardening, SBOM medische devices, awareness training.</div>
       </div>
       <div class="hci-card">
         <div class="phase">Fase 3 — Deploy</div>
-        <div class="title">Monitoring & Operatie</div>
-        <div class="desc">Dashboard oplevering, SOC-integratie, tabletop exercises, eerste CRA-rapportage, continue optimalisatie.</div>
+        <div class="title">Zorgcontinuïteit & Operatie</div>
+        <div class="desc">Zorg monitoring dashboard, SOC-integratie, tabletop exercises (zorgscenario's), CRA-rapportage, admin-lastreductie.</div>
       </div>
       <div class="hci-card">
         <div class="phase">Fase 4 — Sovereignty</div>
-        <div class="title">Digitale Autonomie</div>
-        <div class="desc">Sovereignty Readiness Assessment, HCI post-quantum evaluatie, data-residency roadmap, leverancier-onafhankelijkheid.</div>
+        <div class="title">Patiëntdata Soevereiniteit</div>
+        <div class="desc">Patiëntdata soevereiniteit assessment, HCI post-quantum voor zorgsystemen, EPD vendor-onafhankelijkheid, FHIR optimalisatie.</div>
       </div>
     </div>
     <div class="hci-invest">
@@ -538,7 +538,7 @@ table.dt tr:nth-child(even) td { background: #fafaf8; }
 
   <div class="cta-block">
     <div class="cta-text">Wilt u dit rapport bespreken en de concrete volgende stappen verkennen?</div>
-    <a href="/cdn-cgi/l/email-protection#a5c8c7cdc0d6e5cdc0d688c6cacbd6d0c9d1c4cbc6dc88cccbd1c0d7cbc4d1cccacbc4c98bc6cac89ad6d0c7cfc0c6d198e6e8ea472337e3e8ea809795c7c0d6d5d7c0cecccbc2809795dedecad7c2facbc4c8c0d8d8" class="cta-btn">Plan een gesprek met Mike Hes →</a>
+    <a href="/cdn-cgi/l/email-protection#670a050f0214270f02144a04080914120b130609041e4a0e091302150906130e0809060b4904080a581412050d0204135a242a2885e1f5212a284255570502141715020c0e09004255571c1c0815003809060a021a1a" class="cta-btn">Plan een gesprek met Mike Hes →</a>
   </div>
 </div>
 
