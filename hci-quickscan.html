@@ -1369,11 +1369,12 @@ Generate the complete JSON object with all template variables for this sector.`;
   userContent.push({ type: 'text', text: userText });
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/.netlify/functions/claude-proxy', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        action: 'claude',
+        model: 'claude-sonnet-4-5-20250929',
         max_tokens: 4000,
         system: MASTER_PROMPT + '\n\n' + SECTOR_PROMPTS[currentSector.id],
         messages: [{ role: 'user', content: userContent }]

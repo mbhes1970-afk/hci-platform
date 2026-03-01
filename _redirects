@@ -26,3 +26,5 @@
 /analysis/nis2    /layer2-nis2.html          200
 /analysis/dora    /layer2-dora.html          200
 /analysis/aiact   /layer2-aiact.html         200
+/api/claude       /.netlify/functions/claude-proxy  200
+/api/slack        /.netlify/functions/claude-proxy  200

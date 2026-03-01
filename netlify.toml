@@ -145,3 +145,14 @@
   from = "/analysis/aiact"
   to = "/layer2-aiact.html"
   status = 200
+
+# API proxy (friendly URLs for hci-api-client.js)
+[[redirects]]
+  from = "/api/claude"
+  to = "/.netlify/functions/claude-proxy"
+  status = 200
+
+[[redirects]]
+  from = "/api/slack"
+  to = "/.netlify/functions/claude-proxy"
+  status = 200
