@@ -9,7 +9,7 @@
 
 [[redirects]]
   from = "/quickscan"
-  to = "/hci-quickscan.html"
+  to = "/hci-cmofmo.html"
   status = 200
 
 [[redirects]]
@@ -177,3 +177,14 @@
   from = "/hci-aiact-brief"
   to = "/insights/aiact"
   status = 301
+
+# CMO-FMO Generator
+[[redirects]]
+  from = "/cmofmo"
+  to = "/hci-cmofmo.html"
+  status = 200
+
+[[redirects]]
+  from = "/cmofmo/*"
+  to = "/hci-cmofmo.html"
+  status = 200

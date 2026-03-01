@@ -1,5 +1,4 @@
 /modules          /hci-modules.html          200
-/quickscan        /hci-quickscan.html        200
 /pmc              /hci-pmc.html              200
 /gtm              /hci-gtm.html              200
 /outreach         /hci-outreach.html         200
@@ -32,3 +31,5 @@
 /hci-nis2-brief     /insights/nis2    301
 /hci-dora-brief     /insights/dora    301
 /hci-aiact-brief    /insights/aiact   301
+/cmofmo  /hci-cmofmo.html    200
+/quickscan  /hci-cmofmo.html    200
