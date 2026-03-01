@@ -1,722 +1,511 @@
-/**
- * HCI Module Export Engine — Step 3: DOCX Generation
- * ====================================================
- * Generates professional HCI-branded DOCX from module data.
- * Requires: interactive.js loaded first (provides hciGetStepData)
- * 
- * Dependencies (loaded dynamically from CDN):
- *   - docx@8.5.0 (DOCX generation)
- *   - FileSaver@2.0.5 (download trigger)
- * 
- * Usage: Add <script src="/export.js"></script> after interactive.js
- */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMC Creatie Module + AI — HES Consultancy International</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hci-gold:#c8a55a;--hci-gold-light:#e0c882;--hci-gold-dim:rgba(200,165,90,.15);--hci-gold-border:rgba(200,165,90,.25);
+  --bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-card-alt:#181a22;--bg-elevated:#1c1e28;
+  --border:rgba(255,255,255,.06);--text:#c8c6d4;--text-dim:#6e6d7a;--text-bright:#f0eef5;--white:#fff;
+  --success:#4ade80;--warning:#fbbf24;--info:#60a5fa;--error:#f87171;
+  --phase-pmc:#c8a55a;--phase-gtm:#60a5fa;--phase-outreach:#4ade80;--phase-execute:#f472b6;
+  --active-accent:var(--phase-pmc);--active-dim:rgba(200,165,90,.12);--active-border:rgba(200,165,90,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;transition:margin-right .3s ease}
+body.ai-open{margin-right:420px}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 800px 600px at 10% 20%,rgba(200,165,90,.04) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 90% 80%,rgba(200,165,90,.03) 0%,transparent 70%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.015;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-(function() {
-  'use strict';
+header{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:10;background:rgba(13,15,20,.8);backdrop-filter:blur(12px)}
+.hci-logo{display:flex;align-items:center;gap:14px}
+.hci-logo-img{height:48px;width:auto;filter:drop-shadow(0 0 8px rgba(200,165,90,.4));transition:filter .3s}.hci-logo-img:hover{filter:drop-shadow(0 0 14px rgba(200,165,90,.6))}
+.hci-name{font-size:14px;font-weight:500;color:var(--text-bright)}
+.hci-badge{font-family:'Geist Mono',monospace;font-size:10px;padding:5px 12px;border-radius:4px;background:var(--hci-gold-dim);color:var(--hci-gold);border:1px solid var(--hci-gold-border);letter-spacing:.5px}
+.lang-toggle{display:flex;gap:2px;background:rgba(0,0,0,.3);padding:3px;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+.lang-btn{padding:5px 12px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;background:transparent;color:var(--text-dim)}
+.lang-btn.active{background:var(--hci-gold);color:var(--bg-deep)}
+.lang-btn:hover:not(.active){color:var(--text)}
 
-  // ═══════════════════════════════════════════
-  // CDN LOADER
-  // ═══════════════════════════════════════════
+.container{max-width:960px;margin:0 auto;padding:40px;position:relative;z-index:5}
+.page-hero{margin-bottom:36px}
+.back-link{display:inline-block;font-size:12px;color:var(--text-dim);text-decoration:none;margin-bottom:12px;font-family:'Geist Mono',monospace;transition:color .2s}
+.back-link:hover{color:var(--hci-gold)}
+.kicker{font-family:'Geist Mono',monospace;font-size:11px;color:var(--active-accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.page-hero h1{font-family:'Instrument Serif',serif;font-size:42px;font-weight:400;color:var(--white);line-height:1.15;margin-bottom:12px}
+.page-hero h1 em{font-style:italic;color:var(--hci-gold-light)}
+.subtitle{font-size:15px;color:var(--text-dim);line-height:1.6;max-width:640px}
 
-  function loadScript(url) {
-    return new Promise(function(ok, fail) {
-      var s = document.createElement('script');
-      s.src = url;
-      s.onload = ok;
-      s.onerror = function() { fail(new Error('Failed: ' + url)); };
-      document.head.appendChild(s);
-    });
-  }
+.journey-rail{display:flex;align-items:center;gap:0;margin-bottom:28px;padding:16px 20px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);flex-wrap:wrap}
+.journey-phase{display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:8px;cursor:default;white-space:nowrap;text-decoration:none;color:inherit}
+.journey-phase .jp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:2px solid}
+.journey-phase .jp-text{font-size:12px;font-weight:500}
+.journey-phase .jp-sub{font-size:10px;color:var(--text-dim)}
+.journey-connector{width:32px;height:1px;background:repeating-linear-gradient(90deg,var(--text-dim) 0 4px,transparent 4px 8px);flex-shrink:0}
+.journey-phase.current{background:var(--active-dim)}
+.journey-phase.current .jp-dot{background:var(--active-accent);border-color:var(--active-accent);box-shadow:0 0 8px var(--active-accent)}
+.journey-phase.current .jp-text{color:var(--active-accent)}
+.journey-phase.future .jp-dot{border-color:var(--text-dim);background:transparent}
 
-  var libsLoaded = false;
-  async function ensureLibs() {
-    if (libsLoaded) return;
-    if (!window.saveAs) await loadScript('https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js');
-    if (!window.docx) await loadScript('https://unpkg.com/docx@8.5.0/build/index.umd.js');
-    libsLoaded = true;
-  }
+.progress-bar{margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.progress-track{flex:1;height:4px;background:var(--bg-card);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--active-accent);border-radius:4px;transition:width .5s ease;width:0}
+.progress-label{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim);white-space:nowrap}
 
-  // ═══════════════════════════════════════════
-  // BRAND CONSTANTS
-  // ═══════════════════════════════════════════
+.steps-nav{display:flex;gap:4px;margin-bottom:28px}
+.step-tab{flex:1;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px}
+.step-tab:hover{border-color:rgba(255,255,255,.1);background:var(--bg-card-alt)}
+.step-tab.active{border-color:var(--active-border);background:var(--active-dim)}
+.step-tab.completed{border-color:rgba(74,222,128,.2)}
+.step-tab .st-num{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;background:rgba(255,255,255,.04);color:var(--text-dim);flex-shrink:0;transition:all .2s}
+.step-tab.active .st-num{background:var(--active-accent);color:var(--bg-deep)}
+.step-tab.completed .st-num{background:var(--success);color:var(--bg-deep)}
+.step-tab .st-label{font-size:11px;font-weight:500;color:var(--text-dim);line-height:1.3}
+.step-tab.active .st-label{color:var(--text-bright)}
 
-  var B = {
-    navy: '1E3A5F', gold: 'B8860B', goldLight: 'D4A84B',
-    ink: '1A1A2E', muted: '6B7280', border: 'E5E5E0',
-    success: '059669', white: 'FFFFFF',
-    greenBg: 'ECFDF5', goldBg: 'FFFBEB', navyBg: 'EFF6FF'
-  };
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step-panel{display:none;animation:fadeUp .3s ease}
+.step-panel.active{display:block}
+.step-header-block{display:flex;gap:20px;align-items:flex-start;margin-bottom:24px}
+.step-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--active-dim);border:1px solid var(--active-border);flex-shrink:0}
+.step-header-text h2{font-size:22px;font-weight:600;color:var(--text-bright);margin-bottom:4px}
+.step-desc{font-size:14px;color:var(--text-dim);line-height:1.6}
 
-  // ═══════════════════════════════════════════
-  // DETECT MODULE
-  // ═══════════════════════════════════════════
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.content-grid.full{grid-template-columns:1fr}
+.content-grid.triple{grid-template-columns:1fr 1fr 1fr}
+.block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px}
+.block-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-bright);margin-bottom:16px}
+.bt-dot{width:8px;height:8px;border-radius:3px;background:var(--active-accent)}
 
-  function getModule() {
-    var p = window.location.pathname.toLowerCase();
-    if (p.includes('pmc')) return 'pmc';
-    if (p.includes('gtm')) return 'gtm';
-    if (p.includes('outreach')) return 'outreach';
-    if (p.includes('sales')) return 'sales';
-    return 'module';
-  }
+.canvas-field{padding:12px 0;border-bottom:1px solid var(--border)}
+.canvas-field:last-child{border-bottom:none}
+.canvas-label{font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;color:var(--active-accent);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.canvas-value{font-size:13px;color:var(--text);line-height:1.6;min-height:20px}
+.canvas-value.placeholder{color:var(--text-dim);font-style:italic}
 
-  function getLang() {
-    if (typeof window.pageLang !== 'undefined') return window.pageLang;
-    if (typeof window.aiLang !== 'undefined') return window.aiLang;
-    return 'en';
-  }
+.action-list{list-style:none;padding:0}
+.action-list li{position:relative;padding:8px 0 8px 20px;font-size:13px;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.03)}
+.action-list li::before{content:'';position:absolute;left:0;top:12px;width:8px;height:8px;border-radius:2px;border:1.5px solid var(--active-accent);background:transparent}
+.action-list li:last-child{border-bottom:none}
 
-  // ═══════════════════════════════════════════
-  // MODULE METADATA
-  // ═══════════════════════════════════════════
+.tip-box{display:flex;gap:12px;padding:16px;background:var(--active-dim);border:1px solid var(--active-border);border-radius:10px;margin-top:16px}
+.tip-icon{font-size:18px;flex-shrink:0}
+.tip-text{font-size:13px;color:var(--text);line-height:1.6}
 
-  var META = {
-    pmc: {
-      en: { title: 'PMC Creation Framework', sub: 'Product-Market Combinations for EU Market Entry' },
-      nl: { title: 'PMC Creatie Framework', sub: 'Product-Markt Combinaties voor EU Marktintroductie' },
-      filename: 'HCI_PMC_Framework'
-    },
-    gtm: {
-      en: { title: 'GTM Preparation Kit', sub: 'Go-to-Market Sales Enablement Toolkit' },
-      nl: { title: 'GTM Voorbereiding Kit', sub: 'Go-to-Market Sales Enablement Toolkit' },
-      filename: 'HCI_GTM_Preparation'
-    },
-    outreach: {
-      en: { title: 'Outreach & Engagement Playbook', sub: 'Multi-Channel EU Outreach Sequences' },
-      nl: { title: 'Outreach & Engagement Playbook', sub: 'Multi-Channel EU Outreach Sequences' },
-      filename: 'HCI_Outreach_Playbook'
-    },
-    sales: {
-      en: { title: 'Sales Execution Framework', sub: 'CMO→FMO Deal Qualification & Close' },
-      nl: { title: 'Sales Executie Framework', sub: 'CMO→FMO Deal Kwalificatie & Close' },
-      filename: 'HCI_Sales_Execution'
+.tools-row{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.tool-pill{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim)}
+
+.step-nav-buttons{display:flex;justify-content:space-between;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
+.nav-btn{padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none;font-family:'Outfit',sans-serif}
+.nav-btn.primary{background:var(--active-accent);color:var(--bg-deep)}
+.nav-btn.primary:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.nav-btn.secondary{background:transparent;color:var(--text-dim);border:1px solid var(--border)}
+.nav-btn.secondary:hover{border-color:var(--text-dim)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+
+/* AI FAB & Panel */
+.ai-fab{position:fixed;bottom:28px;right:28px;z-index:1000;width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,var(--active-accent) 0%,#d4a84b 100%);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(200,165,90,.35);transition:all .3s;font-size:24px}
+.ai-fab:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 12px 40px rgba(200,165,90,.45)}
+.ai-fab.hidden{transform:translateX(100px);opacity:0;pointer-events:none}
+.ai-fab .fab-pulse{position:absolute;inset:-4px;border-radius:20px;border:2px solid var(--active-accent);opacity:0;animation:fabPulse 2.5s ease-out infinite}
+@keyframes fabPulse{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(1.3)}}
+
+.ai-panel{position:fixed;top:0;right:-440px;bottom:0;width:420px;z-index:1001;display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--border);box-shadow:-8px 0 40px rgba(0,0,0,.5);transition:right .3s cubic-bezier(.4,0,.2,1)}
+.ai-panel.open{right:0}
+.ai-header{border-bottom:1px solid var(--border);background:var(--bg-card)}
+.ai-header-inner{padding:16px 20px}
+.ai-header-top{display:flex;justify-content:space-between;align-items:center}
+.ai-header-left{display:flex;align-items:center;gap:12px}
+.ai-logo-icon{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--active-accent) 0%,#d4a84b 100%);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;color:var(--white)}
+.ai-header-title{font-size:14px;font-weight:600;color:var(--text-bright)}
+.ai-header-sub{font-size:11px;color:var(--text-dim)}
+.ai-header-actions{display:flex;align-items:center;gap:8px}
+.ai-lang-toggle{display:flex;gap:2px;background:rgba(0,0,0,.3);padding:3px;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+.ai-lang-btn{padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;background:transparent;color:var(--text-dim)}
+.ai-lang-btn.active{background:var(--active-accent);color:var(--white)}
+.ai-lang-btn:hover:not(.active){color:var(--text)}
+.ai-close-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.ai-context{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11px;color:var(--text-dim);font-family:'Geist Mono',monospace}
+.ai-context-dot{width:6px;height:6px;border-radius:50%;background:var(--active-accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.ai-chat{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:16px}
+.ai-msg{border-radius:12px;padding:12px 16px}
+.ai-msg.user{background:var(--bg-card);border:1px solid var(--border);margin-left:32px}
+.ai-msg.assistant{background:var(--active-dim);border:1px solid var(--active-border);margin-right:16px}
+.ai-msg-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--text-dim);margin-bottom:8px}
+.ai-msg-avatar{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600}
+.ai-msg.user .ai-msg-avatar{background:rgba(255,255,255,.08);color:var(--text)}
+.ai-msg.assistant .ai-msg-avatar{background:var(--active-accent);color:var(--bg-deep)}
+.ai-msg-body{font-size:13px;line-height:1.7;color:var(--text)}
+.ai-msg-body p{margin:0}
+.ai-msg-body strong{color:var(--text-bright)}
+
+.ai-typing{display:none;padding:8px 20px;gap:6px;align-items:center}
+.ai-typing.active{display:flex}
+.ai-typing-dot{width:6px;height:6px;border-radius:50%;background:var(--text-dim);animation:typingDot 1.2s ease-in-out infinite}
+.ai-typing-dot:nth-child(2){animation-delay:.15s}
+.ai-typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes typingDot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+.ai-input-area{border-top:1px solid var(--border);padding:12px 16px;background:var(--bg-card)}
+.ai-quick-actions{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.ai-quick-btn{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:500;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.ai-quick-btn:hover{border-color:var(--active-border);color:var(--active-accent)}
+.ai-input-row{display:flex;gap:8px;align-items:flex-end}
+.ai-textarea{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);resize:none;font-family:'Outfit',sans-serif;line-height:1.5;min-height:42px;max-height:100px}
+.ai-textarea:focus{outline:none;border-color:var(--active-border)}
+.ai-voice-btn{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:var(--text-dim);transition:all .2s}
+.ai-voice-btn.recording{background:var(--error);border-color:var(--error);color:var(--white)}
+.ai-send-btn{height:42px;padding:0 20px;border-radius:8px;background:var(--active-accent);border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--bg-deep);font-family:'Outfit',sans-serif;flex-shrink:0;transition:all .2s}
+.ai-send-btn:hover{filter:brightness(1.1)}
+.ai-send-btn:disabled{opacity:.5}
+.ai-footer{padding:8px 16px;text-align:center;font-size:10px;color:var(--text-dim);border-top:1px solid var(--border)}
+.ai-footer a{color:var(--hci-gold);text-decoration:none}
+
+footer{text-align:center;padding:32px 40px;font-size:11px;color:var(--text-dim);border-top:1px solid var(--border);margin-top:40px;position:relative;z-index:5}
+footer a{color:var(--hci-gold);text-decoration:none}
+
+@media(max-width:900px){.container{padding:20px}header{padding:16px 20px}.content-grid{grid-template-columns:1fr}.steps-nav{flex-wrap:wrap}.step-tab{min-width:calc(50% - 4px)}.page-hero h1{font-size:30px}body.ai-open{margin-right:0}.ai-panel{width:100%;right:-100%}}
+</style>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+<div class="ambient"></div><div class="grain"></div>
+
+<header>
+  <div class="hci-logo"><a href="/modules"><img src="/assets/Color_logo_-_no_background.png" alt="HCI" class="hci-logo-img"></a><div class="hci-name">HES Consultancy International</div></div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="lang-toggle"><button class="lang-btn" id="mainLangNL" onclick="setPageLang('nl')">NL</button><button class="lang-btn active" id="mainLangEN" onclick="setPageLang('en')">EN</button></div>
+    <div class="hci-badge">FROM STRATEGY TO FIRST CUSTOMER</div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-hero">
+    <a href="/modules" class="back-link">← Back to overview</a>
+    <div class="kicker">Phase 1 — Onboarding</div>
+    <h1>PMC <em>Creation</em></h1>
+    <p class="subtitle">Define your Product-Market Combination. Five building blocks that transform your technology into a focused EU market proposition.</p>
+  </div>
+
+  <div class="journey-rail">
+    <div class="journey-phase current"><div class="jp-dot" style="border-color:var(--phase-pmc);background:var(--phase-pmc);box-shadow:0 0 8px var(--phase-pmc)"></div><div><div class="jp-text" style="color:var(--phase-pmc)">PMC Creation</div><div class="jp-sub">5 building blocks</div></div></div>
+    <div class="journey-connector"></div>
+    <a href="/gtm" class="journey-phase future"><div class="jp-dot" style="border-color:var(--text-dim)"></div><div><div class="jp-text">GTM Preparation</div><div class="jp-sub">5 deliverables</div></div></a>
+    <div class="journey-connector"></div>
+    <div class="journey-phase future"><div class="jp-dot" style="border-color:var(--text-dim)"></div><div><div class="jp-text">Outreach & Engagement</div><div class="jp-sub">Multi-channel</div></div></div>
+    <div class="journey-connector"></div>
+    <div class="journey-phase future"><div class="jp-dot" style="border-color:var(--text-dim)"></div><div><div class="jp-text">Sales Execution</div><div class="jp-sub">CMO→FMO</div></div></div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel">0 / 5 completed</div></div>
+
+  <div class="steps-nav">
+    <div class="step-tab active" onclick="goStep(0)"><div class="st-num">1</div><div class="st-label">Target<br>Market</div></div>
+    <div class="step-tab" onclick="goStep(1)"><div class="st-num">2</div><div class="st-label">Core<br>Problem</div></div>
+    <div class="step-tab" onclick="goStep(2)"><div class="st-num">3</div><div class="st-label">Value<br>Proposition</div></div>
+    <div class="step-tab" onclick="goStep(3)"><div class="st-num">4</div><div class="st-label">Offer<br>Packaging</div></div>
+    <div class="step-tab" onclick="goStep(4)"><div class="st-num">5</div><div class="st-label">Partnership<br>Alignment</div></div>
+  </div>
+
+  <!-- ═══ STEP 1: TARGET MARKET ═══ -->
+  <div class="step-panel active" id="step0">
+    <div class="step-header-block"><div class="step-icon">🎯</div><div class="step-header-text"><h2>Target Market Definition</h2><p class="step-desc">Define exactly where you will compete. Geography, verticals, company size, and regulatory drivers. No broad strokes — surgical precision.</p></div></div>
+    <div class="content-grid">
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Market Canvas</div>
+        <div class="canvas-field"><div class="canvas-label">Primary Geography</div><div class="canvas-value placeholder">Which EU countries first? E.g. DACH, Benelux, Nordics. Consider language, regulation maturity, existing contacts.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Target Verticals</div><div class="canvas-value placeholder">Max 3 verticals. E.g. Healthcare, Financial Services, Critical Infrastructure. Based on product fit + regulatory urgency.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Company Size & Profile</div><div class="canvas-value placeholder">Enterprise (1000+ FTE), Mid-market (250-1000), or SMB? Revenue range, IT maturity level, decision structure.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Regulatory Drivers</div><div class="canvas-value placeholder">Which regulations create urgency? CRA, NIS2, DORA, AI Act. Map regulation → vertical → timeline.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Market Size Estimate</div><div class="canvas-value placeholder">TAM/SAM/SOM for your defined segment. How many target accounts exist in this intersection?</div></div>
+      </div>
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> ICP Scoring Criteria</div>
+        <ul class="action-list">
+          <li><strong>Firmographic Match (40%)</strong> — Right geography, vertical, size, and IT maturity. Score A/B/C based on exact overlap with your ideal profile.</li>
+          <li><strong>Regulatory Pressure (25%)</strong> — Active compliance deadline within 12 months. Board-level awareness. Budget allocated or allocatable.</li>
+          <li><strong>Accessible Decision Maker (20%)</strong> — Can you reach the CISO, CTO, or compliance officer? Existing network, LinkedIn connection, event overlap?</li>
+          <li><strong>Technology Fit (15%)</strong> — Compatible tech stack, no incumbent lock-in, integration complexity manageable within Sprint A timeframe.</li>
+        </ul>
+        <div class="tip-box"><div class="tip-icon">💡</div><div class="tip-text"><strong>HCI Tip:</strong> Start with 50 accounts maximum in your ICP-A tier. Depth beats breadth. You need 3-5 real conversations, not 500 cold emails. The HCI database covers 6,339 contacts across 12 EU industries.</div></div>
+      </div>
+    </div>
+    <div class="tools-row"><span class="tool-pill">HCI Database</span><span class="tool-pill">ICP Scorecard</span><span class="tool-pill">Market Sizing Template</span><span class="tool-pill">Regulation Timeline</span></div>
+    <div class="step-nav-buttons"><button class="nav-btn secondary" disabled>← Previous</button><button class="nav-btn primary" onclick="goStep(1)">Next: Core Problem →</button></div>
+  </div>
+
+  <!-- ═══ STEP 2: CORE PROBLEM ═══ -->
+  <div class="step-panel" id="step1">
+    <div class="step-header-block"><div class="step-icon">🔍</div><div class="step-header-text"><h2>Core Problem Identification</h2><p class="step-desc">What pain does your target market feel today? Not your feature list — their sleepless nights. Quantified, urgent, and recognizable in their language.</p></div></div>
+    <div class="content-grid">
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Problem Statement Canvas</div>
+        <div class="canvas-field"><div class="canvas-label">Primary Pain Point</div><div class="canvas-value placeholder">The #1 problem in their words. Not your solution description — their frustration. E.g. "We have no visibility into our NIS2 compliance gaps."</div></div>
+        <div class="canvas-field"><div class="canvas-label">Business Impact</div><div class="canvas-value placeholder">Quantify the cost of inaction. Hours lost, fines risked, revenue at stake, competitive disadvantage. Use their KPIs.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Current Alternative</div><div class="canvas-value placeholder">What do they do today? Excel sheets, manual audits, consulting firms, ignore it? Why is that inadequate?</div></div>
+        <div class="canvas-field"><div class="canvas-label">Urgency Trigger</div><div class="canvas-value placeholder">What forces action NOW? Regulatory deadline, board pressure, incident, competitor move, audit finding?</div></div>
+      </div>
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Problem Validation Checklist</div>
+        <ul class="action-list">
+          <li><strong>Real conversations (min 5)</strong> — Have you spoken to actual prospects? Not assumed pain — validated pain from discovery calls or assessment responses.</li>
+          <li><strong>Quantified impact</strong> — Can you put a € number on the problem? Cost of breach, hours per week, FTE equivalent, regulatory fine potential.</li>
+          <li><strong>Budget exists or is creatable</strong> — Is there a line item, or can you help them build the business case? Compliance budgets are often easier to unlock.</li>
+          <li><strong>Decision maker cares</strong> — Does the C-level recognize this problem? Board reports, strategic priorities, public statements that confirm relevance.</li>
+          <li><strong>Timing is right</strong> — Is the regulatory deadline approaching? Has there been a recent incident in their sector? Market window validation.</li>
+        </ul>
+        <div class="tip-box"><div class="tip-icon">💡</div><div class="tip-text"><strong>HCI Tip:</strong> The Revynu benchmark is your fastest validation tool. 62% response rate on benchmark invitations. If prospects engage with the benchmark, you've validated both interest and urgency in one touch.</div></div>
+      </div>
+    </div>
+    <div class="tools-row"><span class="tool-pill">Revynu Benchmark</span><span class="tool-pill">Problem Interview Script</span><span class="tool-pill">Impact Calculator</span><span class="tool-pill">Regulation Fines Database</span></div>
+    <div class="step-nav-buttons"><button class="nav-btn secondary" onclick="goStep(0)">← Target Market</button><button class="nav-btn primary" onclick="goStep(2)">Next: Value Proposition →</button></div>
+  </div>
+
+  <!-- ═══ STEP 3: VALUE PROPOSITION ═══ -->
+  <div class="step-panel" id="step2">
+    <div class="step-header-block"><div class="step-icon">💎</div><div class="step-header-text"><h2>Value Proposition Formulation</h2><p class="step-desc">Your PMC value formula: who you help, what problem you solve, how you're different, and why they should act now. One sentence that opens doors.</p></div></div>
+    <div class="content-grid">
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Value Proposition Formula</div>
+        <div class="canvas-field"><div class="canvas-label">For [Target Customer]</div><div class="canvas-value placeholder">Specific role + organization type. E.g. "For CISOs at mid-market healthcare organizations in DACH"</div></div>
+        <div class="canvas-field"><div class="canvas-label">Who [Have This Problem]</div><div class="canvas-value placeholder">The validated pain from Step 2. In their language, not yours.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Our [Solution] Provides</div><div class="canvas-value placeholder">What you deliver — outcome-focused, not feature-focused. "Continuous NIS2 compliance monitoring" not "dashboard with 47 features"</div></div>
+        <div class="canvas-field"><div class="canvas-label">Unlike [Alternative]</div><div class="canvas-value placeholder">What they use today (from Step 2). Why your approach is fundamentally better, not incrementally better.</div></div>
+        <div class="canvas-field"><div class="canvas-label">We [Unique Differentiator]</div><div class="canvas-value placeholder">Your unfair advantage. EU-sovereign, AI-powered, 10x faster, proven in sector, specific integration. One thing they can't get elsewhere.</div></div>
+      </div>
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Elevator Pitch Variants</div>
+        <div class="canvas-field"><div class="canvas-label">10-Second Version (Networking)</div><div class="canvas-value placeholder">One sentence. "We help [who] solve [problem] through [approach]." No jargon.</div></div>
+        <div class="canvas-field"><div class="canvas-label">30-Second Version (Cold Call)</div><div class="canvas-value placeholder">Problem → solution → proof → CTA. "Organizations like [reference] faced [problem]. We helped them [result]. Could we explore if this applies to you?"</div></div>
+        <div class="canvas-field"><div class="canvas-label">2-Minute Version (Meeting Opener)</div><div class="canvas-value placeholder">Context → problem → approach → differentiator → ask. Structured but conversational. End with a question, not a pitch.</div></div>
+        <div class="tip-box"><div class="tip-icon">💡</div><div class="tip-text"><strong>HCI Tip:</strong> Test your value proposition with the "So What?" test. After every statement, ask "So what?" from the prospect's perspective. If you can't answer in business impact terms, rewrite it.</div></div>
+      </div>
+    </div>
+    <div class="tools-row"><span class="tool-pill">VP Formula Template</span><span class="tool-pill">Competitor Matrix</span><span class="tool-pill">Message Testing Framework</span></div>
+    <div class="step-nav-buttons"><button class="nav-btn secondary" onclick="goStep(1)">← Core Problem</button><button class="nav-btn primary" onclick="goStep(3)">Next: Offer Packaging →</button></div>
+  </div>
+
+  <!-- ═══ STEP 4: OFFER PACKAGING ═══ -->
+  <div class="step-panel" id="step3">
+    <div class="step-header-block"><div class="step-icon">📦</div><div class="step-header-text"><h2>Offer Packaging</h2><p class="step-desc">Package your solution into Sprint A-B-C tiers. Low barrier entry, clear deliverables, predictable investment. Make it easy to say yes.</p></div></div>
+    <div class="content-grid">
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Sprint A-B-C Model</div>
+        <div class="canvas-field"><div class="canvas-label">Sprint A — Quick Win (4-6 weeks)</div><div class="canvas-value placeholder">Low investment entry point. Assessment, proof-of-concept, or pilot. What can you deliver in 30 days that proves value? €5K-15K range.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Sprint B — Implementation (3-6 months)</div><div class="canvas-value placeholder">Full deployment based on Sprint A findings. Measurable outcomes, defined scope, clear milestones. €25K-75K range.</div></div>
+        <div class="canvas-field"><div class="canvas-label">Sprint C — Scale & Optimize (ongoing)</div><div class="canvas-value placeholder">Expansion, optimization, managed service. Recurring revenue model. Annual contract with quarterly reviews. €50K-150K/year range.</div></div>
+      </div>
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Offer Design Principles</div>
+        <ul class="action-list">
+          <li><strong>Sprint A must stand alone</strong> — Deliver real value even if they never buy Sprint B. An assessment report, compliance gap analysis, or architecture review has standalone worth.</li>
+          <li><strong>Clear deliverables per sprint</strong> — No ambiguity. List exactly what they receive: reports, dashboards, configurations, training sessions, documentation.</li>
+          <li><strong>Risk reversal</strong> — Money-back on Sprint A if no value delivered? Shared risk model? The lower the barrier, the faster the decision.</li>
+          <li><strong>Pricing anchored to impact</strong> — Price against the cost of the problem, not against your costs. A €10K assessment that prevents a €500K fine is cheap.</li>
+          <li><strong>Upsell path is natural</strong> — Sprint A naturally reveals the need for Sprint B. Design it that way. The assessment uncovers gaps → implementation fills them.</li>
+        </ul>
+        <div class="tip-box"><div class="tip-icon">💡</div><div class="tip-text"><strong>HCI Tip:</strong> Sprint A is your trojan horse. The HCI assessment model (€3,500-€14,500/month) creates a natural upgrade path. Every assessment generates a roadmap that becomes the Sprint B proposal.</div></div>
+      </div>
+    </div>
+    <div class="tools-row"><span class="tool-pill">Sprint Templates</span><span class="tool-pill">Pricing Calculator</span><span class="tool-pill">Proposal Builder</span><span class="tool-pill">ROI Model</span></div>
+    <div class="step-nav-buttons"><button class="nav-btn secondary" onclick="goStep(2)">← Value Proposition</button><button class="nav-btn primary" onclick="goStep(4)">Next: Partnership Alignment →</button></div>
+  </div>
+
+  <!-- ═══ STEP 5: PARTNERSHIP ALIGNMENT ═══ -->
+  <div class="step-panel" id="step4">
+    <div class="step-header-block"><div class="step-icon">🤝</div><div class="step-header-text"><h2>Partnership Alignment</h2><p class="step-desc">Align your go-to-market with local partners, channel strategy, and HCI's network. You don't enter Europe alone — you enter with leverage.</p></div></div>
+    <div class="content-grid">
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> Partnership Canvas</div>
+        <div class="canvas-field"><div class="canvas-label">Local Channel Partners</div><div class="canvas-value placeholder">Which resellers, integrators, or consultancies can you partner with? Per geography and vertical. Existing relationships?</div></div>
+        <div class="canvas-field"><div class="canvas-label">Technology Partners</div><div class="canvas-value placeholder">Microsoft, AWS, or other platform partnerships? Marketplace listings, co-sell programs, technology alliances?</div></div>
+        <div class="canvas-field"><div class="canvas-label">HCI Network Activation</div><div class="canvas-value placeholder">Which HCI contacts and relationships are relevant? C-level introductions, industry events, advisory board connections?</div></div>
+        <div class="canvas-field"><div class="canvas-label">Go-to-Market Model</div><div class="canvas-value placeholder">Direct sales, partner-led, or hybrid? Commission structure, deal registration, territory assignments?</div></div>
+        <div class="canvas-field"><div class="canvas-label">Revenue Share & Terms</div><div class="canvas-value placeholder">How do you split revenue with partners? Referral fee, reseller margin, co-sell commission? Contractual framework.</div></div>
+      </div>
+      <div class="block"><div class="block-title"><span class="bt-dot"></span> PMC Readiness Checklist</div>
+        <ul class="action-list">
+          <li><strong>Target market defined</strong> — Geography, verticals, company profile, and ICP scoring criteria documented. Top-50 accounts identified.</li>
+          <li><strong>Core problem validated</strong> — Quantified pain point confirmed through real conversations or benchmark data. Business impact in € terms.</li>
+          <li><strong>Value proposition sharp</strong> — One-sentence formula tested. Elevator pitch variants ready for networking, cold call, and meeting contexts.</li>
+          <li><strong>Offer packaged in sprints</strong> — Sprint A/B/C defined with clear deliverables, timelines, and pricing. Sprint A has standalone value.</li>
+          <li><strong>Partnerships mapped</strong> — Local channel, technology partners, and HCI network activation plan ready. Revenue model agreed.</li>
+          <li><strong>PMC document created</strong> — All five building blocks combined into a single reference document for the GTM phase.</li>
+          <li><strong>Ready for <strong>GTM Preparation</strong> (Phase 2)</strong> — All inputs available for pitch deck, CRM setup, and campaign creation.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tools-row"><span class="tool-pill">Partner Scorecard</span><span class="tool-pill">Channel Strategy Template</span><span class="tool-pill">Revenue Model Calculator</span><span class="tool-pill">PMC Summary Doc</span></div>
+    <div class="step-nav-buttons"><button class="nav-btn secondary" onclick="goStep(3)">← Offer Packaging</button><button class="nav-btn primary" onclick="completePMC()">✓ Complete PMC → Start GTM</button></div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 <a href="https://hes-consultancy-international.com" target="_blank">HES Consultancy International</a> · 30+ years experience in European market entry</p>
+</footer>
+
+<!-- AI FAB -->
+<button class="ai-fab" id="aiFab" onclick="toggleAI()"><span>🤖</span><div class="fab-pulse"></div></button>
+
+<!-- AI PANEL -->
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-header"><div class="ai-header-inner">
+    <div class="ai-header-top">
+      <div class="ai-header-left"><div class="ai-logo-icon">AI</div><div><div class="ai-header-title">HCI AI Assistant</div><div class="ai-header-sub">Powered by Claude · PMC Module</div></div></div>
+      <div class="ai-header-actions">
+        <div class="ai-lang-toggle"><button class="ai-lang-btn active" id="aiLangNL" onclick="setAILang('nl')">NL</button><button class="ai-lang-btn" id="aiLangEN" onclick="setAILang('en')">EN</button></div>
+        <button class="ai-close-btn" onclick="toggleAI()">✕</button>
+      </div>
+    </div>
+    <div class="ai-context"><div class="ai-context-dot"></div><span id="aiCtxText">Step 1 — Target Market</span></div>
+  </div></div>
+  <div class="ai-chat" id="aiChat">
+    <div class="ai-msg assistant"><div class="ai-msg-head"><div class="ai-msg-avatar">AI</div><span>HCI Assistant</span></div>
+      <div class="ai-msg-body"><p>Welcome to the PMC module! 🎯</p><p style="margin-top:8px">I'll guide you through building your Product-Market Combination:</p><p style="margin-top:8px">🎯 Target Market &nbsp; 🔍 Core Problem &nbsp; 💎 Value Proposition<br>📦 Offer Packaging &nbsp; 🤝 Partnership Alignment</p><p style="margin-top:8px">Ask your question or use the quick buttons.</p></div></div>
+  </div>
+  <div class="ai-typing" id="aiTyping"><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div></div>
+  <div class="ai-input-area">
+    <div class="ai-quick-actions" id="aiQA">
+      <button class="ai-quick-btn" onclick="aiQuick('help')">💡 Help with step</button>
+      <button class="ai-quick-btn" onclick="aiQuick('example')">📝 Show example</button>
+      <button class="ai-quick-btn" onclick="aiQuick('review')">✅ Review checklist</button>
+    </div>
+    <div class="ai-input-row">
+      <textarea class="ai-textarea" id="aiInput" placeholder="Ask about PMC..." rows="1" onkeypress="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();aiSend()}"></textarea>
+      <button class="ai-voice-btn" id="aiVoiceBtn" onclick="aiToggleVoice()"><span id="aiVoiceIcon">🎤</span></button>
+      <button class="ai-send-btn" id="aiSendBtn" onclick="aiSend()">Send</button>
+    </div>
+  </div>
+  <div class="ai-footer"><span id="aiFooter">PMC Module · <a href="https://hes-consultancy-international.com" target="_blank">HES Consultancy International</a> · Claude API</span></div>
+</div>
+
+<script>
+/* ═══ PMC LOGIC ═══ */
+let currentStep=0;const totalSteps=5;const completedSteps=new Set();
+const stepNames={nl:['Doelmarkt','Kernprobleem','Waardepropositie','Offer Packaging','Partnership Alignment'],en:['Target Market','Core Problem','Value Proposition','Offer Packaging','Partnership Alignment']};
+
+function goStep(i){if(currentStep!==i)completedSteps.add(currentStep);currentStep=i;
+document.querySelectorAll('.step-panel').forEach((p,j)=>p.classList.toggle('active',j===i));
+document.querySelectorAll('.step-tab').forEach((t,j)=>{t.classList.remove('active','completed');if(j===i)t.classList.add('active');else if(completedSteps.has(j))t.classList.add('completed')});
+const pct=(completedSteps.size/totalSteps)*100;document.getElementById('progressFill').style.width=pct+'%';
+document.getElementById('progressLabel').textContent=completedSteps.size+' / '+totalSteps+(pageLang==='en'?' completed':' afgerond');
+document.querySelector('.container').scrollIntoView({behavior:'smooth',block:'start'});updateCtx()}
+
+function completePMC(){completedSteps.add(4);document.getElementById('progressFill').style.width='100%';
+document.getElementById('progressLabel').textContent=pageLang==='en'?'5 / 5 completed — PMC Complete!':'5 / 5 afgerond — PMC Compleet!';document.getElementById('progressLabel').style.color='var(--success)';
+document.querySelectorAll('.step-tab').forEach(t=>{t.classList.remove('active');t.classList.add('completed')});
+if(confirm(pageLang==='en'?'PMC Creation complete! ✓\n\nProceed to Phase 2: GTM Preparation?':'PMC Creatie afgerond! ✓\n\nDoorschakelen naar Fase 2: GTM Voorbereiding?')){window.location.href='/gtm'}}
+
+/* ═══ AI ASSISTANT ═══ */
+let aiLang='en',aiHistory=[],aiOpen=false;
+const aiTxt={nl:{ph:'Stel je vraag over PMC...',send:'Verstuur',ctxPre:'Stap',qa:[{l:'💡 Help bij deze stap',k:'help'},{l:'📝 Geef voorbeeld',k:'example'},{l:'✅ Review checklist',k:'review'}],
+qm:{help:'Leg uit wat ik moet doen in deze PMC stap en geef praktische tips.',example:'Geef een concreet voorbeeld voor deze stap, voor een B2B tech bedrijf dat de EU markt betreedt.',review:'Wat zijn de meest voorkomende fouten bij deze stap? Waar moet ik op letten?'},
+err:'⚠️ Kon geen verbinding maken met Claude. Probeer opnieuw.',u:'Jij',a:'HCI Assistant',sl:'nl-NL',vd:'Microfoon geweigerd.',vu:'Spraak niet ondersteund.'},
+en:{ph:'Ask about PMC...',send:'Send',ctxPre:'Step',qa:[{l:'💡 Help with step',k:'help'},{l:'📝 Show example',k:'example'},{l:'✅ Review checklist',k:'review'}],
+qm:{help:'Explain what I need to do in this PMC step with practical tips.',example:'Give a concrete example for this step, for a B2B tech company entering the EU market.',review:'What are common mistakes in this step?'},
+err:'⚠️ Could not connect to Claude. Try again.',u:'You',a:'HCI Assistant',sl:'en-GB',vd:'Microphone denied.',vu:'Speech not supported.'}};
+
+const API_ENDPOINT='/api/chat';
+
+function getSysPrompt(){const s=currentStep+1,sn=stepNames[aiLang][currentStep],l=aiLang==='nl'?'Dutch':'English';
+return `You are the HCI AI Assistant in the PMC Creation Module (Phase 1) of HES Consultancy International.
+
+CONTEXT: User is on Step ${s}/5: "${sn}". Respond in ${l}. The user is building their Product-Market Combination before starting GTM preparation.
+
+PMC FRAMEWORK (5 building blocks):
+1) Target Market Definition — Geography (EU focus), verticals (max 3), company size/profile, regulatory drivers (CRA/NIS2/DORA/AI Act), ICP scoring (Firmographic 40%, Regulatory 25%, Accessible DM 20%, Tech Fit 15%). Start with Top-50 ICP-A accounts.
+2) Core Problem Identification — Pain in customer words (not feature descriptions), quantified business impact (€), current alternatives, urgency triggers (regulation deadlines, incidents, board pressure). Validate through 5+ real conversations or Revynu benchmark (62% response rate).
+3) Value Proposition Formulation — Formula: For [target] who [problem], our [solution] provides [outcome], unlike [alternative], we [differentiator]. Test with "So What?" method. Create 10s/30s/2min elevator variants.
+4) Offer Packaging — Sprint A-B-C model: A=Quick win (4-6 weeks, €5-15K, standalone value), B=Implementation (3-6 months, €25-75K), C=Scale (ongoing, €50-150K/year). Sprint A must deliver value independently. Price against problem cost, not your costs.
+5) Partnership Alignment — Local channel partners per geography, technology partnerships (Microsoft/AWS), HCI network activation (C-level introductions), GTM model (direct/partner/hybrid), revenue share structure.
+
+HCI METHODOLOGY: Assessment-driven engagement (€3,500-€14,500/month), Revynu benchmarks (62% response), CMO→FMO conversion, 30+ years European market entry experience. HCI database has 6,339 contacts across 12 industries.
+
+RULES: Be practical, give concrete examples relevant to EU market entry. Keep responses concise but actionable. Reference HCI tools and methodology where relevant.`}
+
+function toggleAI(){aiOpen=!aiOpen;document.getElementById('aiPanel').classList.toggle('open',aiOpen);document.getElementById('aiFab').classList.toggle('hidden',aiOpen);document.body.classList.toggle('ai-open',aiOpen);if(aiOpen){updateCtx();setTimeout(()=>document.getElementById('aiInput').focus(),300)}}
+function updateCtx(){document.getElementById('aiCtxText').textContent=`${aiTxt[aiLang].ctxPre} ${currentStep+1} — ${stepNames[aiLang][currentStep]}`}
+function setAILang(l){aiLang=l;const t=aiTxt[l];document.getElementById('aiLangNL').classList.toggle('active',l==='nl');document.getElementById('aiLangEN').classList.toggle('active',l==='en');
+document.getElementById('aiInput').placeholder=t.ph;document.getElementById('aiSendBtn').textContent=t.send;
+document.getElementById('aiQA').innerHTML=t.qa.map(a=>`<button class="ai-quick-btn" onclick="aiQuick('${a.k}')">${a.l}</button>`).join('');updateCtx();if(aiRec)aiRec.lang=t.sl}
+function setPageLang(l){pageLang=l;document.getElementById('mainLangNL').classList.toggle('active',l==='nl');document.getElementById('mainLangEN').classList.toggle('active',l==='en');setAILang(l);applyPmcLang(l)}
+
+let aiRec=null,aiRecording=false;
+if('webkitSpeechRecognition' in window||'SpeechRecognition' in window){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;aiRec=new SR();aiRec.lang='en-GB';aiRec.continuous=false;aiRec.interimResults=false;
+aiRec.onstart=()=>{aiRecording=true;document.getElementById('aiVoiceBtn').classList.add('recording');document.getElementById('aiVoiceIcon').textContent='🔴'};
+aiRec.onresult=e=>{document.getElementById('aiInput').value=e.results[0][0].transcript;setTimeout(()=>aiSend(),400)};
+aiRec.onerror=e=>{aiResetV();if(e.error==='not-allowed')alert(aiTxt[aiLang].vd)};aiRec.onend=aiResetV}
+function aiToggleVoice(){if(!aiRec){alert(aiTxt[aiLang].vu);return}aiRecording?aiRec.stop():aiRec.start()}
+function aiResetV(){aiRecording=false;document.getElementById('aiVoiceBtn').classList.remove('recording');document.getElementById('aiVoiceIcon').textContent='🎤'}
+function aiQuick(k){document.getElementById('aiInput').value=aiTxt[aiLang].qm[k];aiSend()}
+function aiAddMsg(c,type){const el=document.getElementById('aiChat'),t=aiTxt[aiLang],d=document.createElement('div');d.className=`ai-msg ${type}`;
+d.innerHTML=`<div class="ai-msg-head"><div class="ai-msg-avatar">${type==='user'?'U':'AI'}</div><span>${type==='user'?t.u:t.a}</span></div><div class="ai-msg-body">${c}</div>`;
+el.appendChild(d);el.scrollTop=el.scrollHeight}
+
+async function aiSend(){const inp=document.getElementById('aiInput'),msg=inp.value.trim();if(!msg)return;
+aiAddMsg(msg,'user');inp.value='';inp.style.height='auto';aiHistory.push({role:'user',content:msg});
+const typ=document.getElementById('aiTyping');typ.classList.add('active');document.getElementById('aiSendBtn').disabled=true;document.getElementById('aiVoiceBtn').disabled=true;
+try{const res=await fetch(API_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+body:JSON.stringify({system:getSysPrompt(),messages:aiHistory.slice(-10),language:aiLang})});
+const data=await res.json();if(!res.ok||data.error)throw new Error(data.error||'API error');
+aiHistory.push({role:'assistant',content:data.reply});typ.classList.remove('active');aiAddMsg(fmtReply(data.reply),'assistant')}
+catch(e){console.error('AI:',e);typ.classList.remove('active');aiAddMsg(aiTxt[aiLang].err,'assistant')}
+finally{document.getElementById('aiSendBtn').disabled=false;document.getElementById('aiVoiceBtn').disabled=false}}
+
+function fmtReply(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/\n\n/g,'</p><p style="margin-top:8px">').replace(/\n/g,'<br>').replace(/^/,'<p>').replace(/$/,'</p>')}
+document.getElementById('aiInput').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'});
+
+var pageLang='en';
+var pmcI18n={
+nl:{back:'← Terug naar overzicht',kicker:'Fase 1 — Onboarding',title:'PMC <em>Creatie</em>',
+  subtitle:'Definieer je Product-Markt Combinatie. Vijf bouwstenen die je technologie omzetten in een gefocuste EU-markt propositie.',
+  journey:[['PMC Creatie','5 bouwstenen'],['GTM Voorbereiding','5 deliverables'],['Outreach & Engagement','Multi-channel'],['Sales Executie','CMO→FMO']],
+  tabs:[['Doel','markt'],['Kern','probleem'],['Waarde','propositie'],['Offer','Packaging'],['Partnership','Alignment']],
+  prev:'← Vorige',completBtn:'✓ PMC Afronden → Start GTM',
+  navNext:['Volgende: Kernprobleem →','Volgende: Waardepropositie →','Volgende: Offer Packaging →','Volgende: Partnership →',''],
+  navPrev:['','← Doelmarkt','← Kernprobleem','← Waardepropositie','← Offer Packaging'],
+  descs:['Definieer precies waar je gaat concurreren. Geografie, verticalen, bedrijfsomvang en regelgevingsdruk. Geen brede streken — chirurgische precisie.',
+    'Welke pijn voelt je doelmarkt vandaag? Niet je featurelijst — hun slapeloze nachten. Gekwantificeerd, urgent en herkenbaar in hun taal.',
+    'Je PMC waardepropositie formule: wie je helpt, welk probleem je oplost, hoe je anders bent, en waarom ze nu moeten handelen.',
+    'Verpak je oplossing in Sprint A-B-C tiers. Lage instapdrempel, duidelijke deliverables, voorspelbare investering.',
+    'Stem je go-to-market af met lokale partners, kanaalstrategie en het HCI-netwerk. Je betreedt Europa niet alleen — je betreedt het met hefboom.']},
+en:{back:'← Back to overview',kicker:'Phase 1 — Onboarding',title:'PMC <em>Creation</em>',
+  subtitle:'Define your Product-Market Combination. Five building blocks that transform your technology into a focused EU market proposition.',
+  journey:[['PMC Creation','5 building blocks'],['GTM Preparation','5 deliverables'],['Outreach & Engagement','Multi-channel'],['Sales Execution','CMO→FMO']],
+  tabs:[['Target','Market'],['Core','Problem'],['Value','Proposition'],['Offer','Packaging'],['Partnership','Alignment']],
+  prev:'← Previous',completBtn:'✓ Complete PMC → Start GTM',
+  navNext:['Next: Core Problem →','Next: Value Proposition →','Next: Offer Packaging →','Next: Partnership →',''],
+  navPrev:['','← Target Market','← Core Problem','← Value Proposition','← Offer Packaging'],
+  descs:['Define exactly where you will compete. Geography, verticals, company size, and regulatory drivers. No broad strokes — surgical precision.',
+    'What pain does your target market feel today? Not your feature list — their sleepless nights. Quantified, urgent, and recognizable in their language.',
+    'Your PMC value formula: who you help, what problem you solve, how you\'re different, and why they should act now. One sentence that opens doors.',
+    'Package your solution into Sprint A-B-C tiers. Low barrier entry, clear deliverables, predictable investment. Make it easy to say yes.',
+    'Align your go-to-market with local partners, channel strategy, and HCI\'s network. You don\'t enter Europe alone — you enter with leverage.']}
+};
+function applyPmcLang(l){
+  var t=pmcI18n[l];if(!t)return;
+  var el;
+  el=document.querySelector('.back-link');if(el)el.textContent=t.back;
+  el=document.querySelector('.kicker');if(el)el.textContent=t.kicker;
+  el=document.querySelector('.page-hero h1');if(el)el.innerHTML=t.title;
+  el=document.querySelector('.subtitle');if(el)el.textContent=t.subtitle;
+  document.querySelectorAll('.step-tab').forEach(function(tab,i){if(t.tabs[i]){var lbl=tab.querySelector('.st-label');if(lbl)lbl.innerHTML=t.tabs[i][0]+'<br>'+t.tabs[i][1];}});
+  document.querySelectorAll('.journey-phase').forEach(function(p,i){if(t.journey[i]){var txt=p.querySelector('.jp-text');if(txt)txt.textContent=t.journey[i][0];var sub=p.querySelector('.jp-sub');if(sub)sub.textContent=t.journey[i][1];}});
+  var sn=stepNames[l];
+  document.querySelectorAll('.step-panel').forEach(function(panel,si){
+    var h2=panel.querySelector('h2');if(h2&&sn&&sn[si])h2.textContent=sn[si];
+    var desc=panel.querySelector('.step-desc');if(desc&&t.descs&&t.descs[si])desc.textContent=t.descs[si];
+    var btns=panel.querySelectorAll('.nav-btn');
+    if(btns.length>=2){
+      if(si===0){btns[0].textContent=t.prev;btns[1].textContent=t.navNext[si];}
+      else if(si===4){btns[0].textContent=t.navPrev[si];btns[1].textContent=t.completBtn;}
+      else{btns[0].textContent=t.navPrev[si];btns[1].textContent=t.navNext[si];}
     }
-  };
-
-  // ═══════════════════════════════════════════
-  // DOCX HELPERS (use window.docx after load)
-  // ═══════════════════════════════════════════
-
-  function D() { return window.docx; }
-
-  function bdr() {
-    return { style: D().BorderStyle.SINGLE, size: 1, color: B.border };
-  }
-  function borders() {
-    var b = bdr();
-    return { top: b, bottom: b, left: b, right: b };
-  }
-  var cm = { top: 60, bottom: 60, left: 100, right: 100 };
-
-  // --- Text helpers ---
-
-  function h1(text) {
-    return new (D().Paragraph)({
-      heading: D().HeadingLevel.HEADING_1,
-      spacing: { before: 360, after: 160 },
-      children: [new (D().TextRun)({ text: text, font: 'Georgia', bold: true, size: 32, color: B.navy })]
-    });
-  }
-
-  function h2(text) {
-    return new (D().Paragraph)({
-      heading: D().HeadingLevel.HEADING_2,
-      spacing: { before: 240, after: 120 },
-      children: [new (D().TextRun)({ text: text, font: 'Georgia', bold: true, size: 26, color: B.navy })]
-    });
-  }
-
-  function h3(text) {
-    return new (D().Paragraph)({
-      spacing: { before: 200, after: 80 },
-      children: [new (D().TextRun)({ text: text, font: 'Georgia', bold: true, size: 22, color: B.gold })]
-    });
-  }
-
-  function para(text, opts) {
-    opts = opts || {};
-    return new (D().Paragraph)({
-      spacing: { after: opts.after || 120 },
-      alignment: opts.align,
-      children: [new (D().TextRun)({
-        text: text,
-        font: 'Segoe UI', size: opts.size || 21,
-        color: opts.color || B.ink,
-        bold: opts.bold, italics: opts.italic
-      })]
-    });
-  }
-
-  function spacer(n) {
-    return new (D().Paragraph)({ spacing: { after: n || 80 }, children: [] });
-  }
-
-  // --- Table helpers ---
-
-  function headerRow(cells, widths) {
-    return new (D().TableRow)({
-      children: cells.map(function(text, i) {
-        return new (D().TableCell)({
-          borders: borders(),
-          width: { size: widths[i], type: D().WidthType.DXA },
-          shading: { fill: B.navy, type: D().ShadingType.CLEAR },
-          margins: cm,
-          children: [new (D().Paragraph)({
-            children: [new (D().TextRun)({ text: text, font: 'Segoe UI', size: 18, bold: true, color: B.white })]
-          })]
-        });
-      })
-    });
-  }
-
-  function dataRow(cells, widths, opts) {
-    opts = opts || {};
-    return new (D().TableRow)({
-      children: cells.map(function(text, i) {
-        var shading = opts.shade && opts.shade[i]
-          ? { fill: opts.shade[i], type: D().ShadingType.CLEAR }
-          : undefined;
-        return new (D().TableCell)({
-          borders: borders(),
-          width: { size: widths[i], type: D().WidthType.DXA },
-          shading: shading,
-          margins: cm,
-          children: [new (D().Paragraph)({
-            alignment: opts.center && opts.center[i] ? D().AlignmentType.CENTER : undefined,
-            children: [new (D().TextRun)({
-              text: String(text || '—'),
-              font: 'Segoe UI', size: 18,
-              color: text ? B.ink : B.muted,
-              bold: opts.boldCols && opts.boldCols[i],
-              italics: !text
-            })]
-          })]
-        });
-      })
-    });
-  }
-
-  function table(headers, rows, widths) {
-    var totalW = widths.reduce(function(a, b) { return a + b; }, 0);
-    var tRows = [headerRow(headers, widths)];
-    rows.forEach(function(r) { tRows.push(dataRow(r.cells, widths, r.opts)); });
-    return new (D().Table)({
-      width: { size: totalW, type: D().WidthType.DXA },
-      columnWidths: widths,
-      rows: tRows
-    });
-  }
-
-  // --- Field table (label → value) ---
-
-  function fieldTable(fields) {
-    var w = [2800, 6226];
-    var rows = [headerRow([getLang() === 'nl' ? 'Veld' : 'Field', getLang() === 'nl' ? 'Invulling' : 'Input'], w)];
-    fields.forEach(function(f) {
-      rows.push(dataRow([f.label, f.value || ''], w, {
-        boldCols: [true, false],
-        shade: [, f.value ? B.greenBg : undefined]
-      }));
-    });
-    return new (D().Table)({
-      width: { size: 9026, type: D().WidthType.DXA },
-      columnWidths: w,
-      rows: rows
-    });
-  }
-
-  // --- Score table ---
-
-  function scoreTable(scores) {
-    var w = [3800, 1800, 1600, 1826];
-    var rows = [headerRow([
-      getLang() === 'nl' ? 'Criterium' : 'Criterion',
-      'Score',
-      getLang() === 'nl' ? 'Weging' : 'Weight',
-      'Status'
-    ], w)];
-
-    var total = 0, count = 0;
-    scores.forEach(function(s) {
-      var val = s.value ? parseInt(s.value) : 0;
-      if (s.value) { total += val; count++; }
-      var status = val >= 4 ? '● Strong' : val >= 3 ? '◐ Adequate' : val > 0 ? '○ Gap' : '—';
-      var statusColor = val >= 4 ? B.greenBg : val >= 3 ? B.goldBg : val > 0 ? 'FEF2F2' : undefined;
-      rows.push(dataRow(
-        [s.label, s.value ? s.value + ' /5' : '—', s.weight, status], w,
-        { center: [false, true, true, true], shade: [,,, statusColor] }
-      ));
-    });
-
-    // Total row
-    rows.push(new (D().TableRow)({
-      children: [
-        new (D().TableCell)({
-          borders: borders(), width: { size: w[0], type: D().WidthType.DXA },
-          shading: { fill: B.navy, type: D().ShadingType.CLEAR }, margins: cm,
-          children: [new (D().Paragraph)({ children: [new (D().TextRun)({ text: 'TOTAAL', font: 'Segoe UI', size: 18, bold: true, color: B.white })] })]
-        }),
-        new (D().TableCell)({
-          borders: borders(), width: { size: w[1], type: D().WidthType.DXA },
-          shading: { fill: total >= 20 ? B.greenBg : total >= 15 ? B.goldBg : 'FEF2F2', type: D().ShadingType.CLEAR }, margins: cm,
-          children: [new (D().Paragraph)({ alignment: D().AlignmentType.CENTER, children: [new (D().TextRun)({ text: (count > 0 ? total : '—') + ' /25', font: 'Geist Mono', size: 20, bold: true, color: total >= 20 ? B.success : total >= 15 ? B.gold : 'DC2626' })] })]
-        }),
-        new (D().TableCell)({
-          borders: borders(), width: { size: w[2], type: D().WidthType.DXA },
-          shading: { fill: B.navy, type: D().ShadingType.CLEAR }, margins: cm,
-          children: [new (D().Paragraph)({ alignment: D().AlignmentType.CENTER, children: [new (D().TextRun)({ text: '100%', font: 'Segoe UI', size: 18, color: B.white })] })]
-        }),
-        new (D().TableCell)({
-          borders: borders(), width: { size: w[3], type: D().WidthType.DXA },
-          shading: { fill: B.navy, type: D().ShadingType.CLEAR }, margins: cm,
-          children: [new (D().Paragraph)({ alignment: D().AlignmentType.CENTER, children: [new (D().TextRun)({ text: total >= 20 ? 'EU Ready' : total >= 15 ? 'Almost Ready' : count > 0 ? 'Foundation' : '—', font: 'Segoe UI', size: 18, bold: true, color: B.white })] })]
-        })
-      ]
-    }));
-
-    return new (D().Table)({
-      width: { size: 9026, type: D().WidthType.DXA },
-      columnWidths: w,
-      rows: rows
-    });
-  }
-
-  // --- Title page ---
-
-  function titlePage(meta, lang) {
-    var m = meta[lang] || meta.en;
-    var date = new Date().toLocaleDateString('nl-NL', { year: 'numeric', month: 'long', day: 'numeric' });
-    return [
-      spacer(2400),
-      new (D().Paragraph)({
-        alignment: D().AlignmentType.CENTER, spacing: { after: 120 },
-        children: [new (D().TextRun)({ text: 'HES CONSULTANCY INTERNATIONAL', font: 'Segoe UI', size: 18, color: B.gold, bold: true, characterSpacing: 180 })]
-      }),
-      new (D().Paragraph)({
-        alignment: D().AlignmentType.CENTER, spacing: { after: 80 },
-        children: [new (D().TextRun)({ text: m.title, font: 'Georgia', size: 48, color: B.navy })]
-      }),
-      new (D().Paragraph)({
-        alignment: D().AlignmentType.CENTER, spacing: { after: 200 },
-        children: [new (D().TextRun)({ text: m.sub, font: 'Georgia', size: 24, color: B.muted, italics: true })]
-      }),
-      new (D().Paragraph)({
-        alignment: D().AlignmentType.CENTER, spacing: { after: 60 },
-        children: [new (D().TextRun)({ text: 'From Strategy to First Customer', font: 'Georgia', size: 22, color: B.gold, italics: true })]
-      }),
-      new (D().Paragraph)({
-        alignment: D().AlignmentType.CENTER, spacing: { after: 400 },
-        children: [new (D().TextRun)({ text: date + '  ·  Confidential', font: 'Segoe UI', size: 18, color: B.muted })]
-      }),
-      new (D().Paragraph)({
-        alignment: D().AlignmentType.CENTER,
-        border: { top: { style: D().BorderStyle.SINGLE, size: 2, color: B.gold, space: 8 } },
-        spacing: { before: 200 },
-        children: [new (D().TextRun)({ text: 'Generated by HCI Enablement Platform', font: 'Segoe UI', size: 16, color: B.muted })]
-      }),
-      new (D().Paragraph)({ children: [new (D().PageBreak)()] })
-    ];
-  }
-
-  // ═══════════════════════════════════════════
-  // MODULE-SPECIFIC BUILDERS
-  // ═══════════════════════════════════════════
-
-  // Each builder returns an array of Paragraph/Table elements
-  // for the body content (after title page)
-
-  function buildPMC(steps) {
-    var lang = getLang();
-    var c = [];
-
-    // Step 0: Doelmarkt Definitie
-    var s0 = steps[0] || { fields: [], scores: [] };
-    c.push(h1('1. ' + s0.title));
-    c.push(para(s0.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s0.fields.length) { c.push(h3(lang === 'nl' ? 'Doelmarkt Canvas' : 'Target Market Canvas')); c.push(fieldTable(s0.fields)); c.push(spacer()); }
-    if (s0.scores.length) { c.push(h3(lang === 'nl' ? 'Prioriterings Score' : 'Prioritization Score')); c.push(scoreTable(s0.scores)); c.push(spacer()); }
-
-    // Step 1: Kernprobleem
-    var s1 = steps[1] || { fields: [], scores: [] };
-    c.push(h1('2. ' + s1.title));
-    c.push(para(s1.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s1.fields.length) { c.push(h3(lang === 'nl' ? 'Besluitvormers Map' : 'Decision Makers Map')); c.push(fieldTable(s1.fields)); c.push(spacer()); }
-
-    // Step 2: Waardepropositie
-    var s2 = steps[2] || { fields: [], scores: [] };
-    c.push(h1('3. ' + s2.title));
-    c.push(para(s2.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s2.fields.length) { c.push(h3(lang === 'nl' ? 'Messaging Framework' : 'Messaging Framework')); c.push(fieldTable(s2.fields)); c.push(spacer()); }
-
-    // Step 3: Offer Packaging
-    var s3 = steps[3] || { fields: [], scores: [] };
-    c.push(h1('4. ' + s3.title));
-    c.push(para(s3.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s3.fields.length) { c.push(h3('A-B-C Sprint Model')); c.push(fieldTable(s3.fields)); c.push(spacer()); }
-
-    // Step 4: Partnerships
-    var s4 = steps[4] || { fields: [], scores: [] };
-    c.push(h1('5. ' + s4.title));
-    c.push(para(s4.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s4.fields.length) { c.push(h3(lang === 'nl' ? 'Vendor & Partner Strategie' : 'Vendor & Partner Strategy')); c.push(fieldTable(s4.fields)); }
-
-    return c;
-  }
-
-  function buildGTM(steps) {
-    var lang = getLang();
-    var c = [];
-
-    // Step 0: Pitch Deck
-    var s0 = steps[0] || { fields: [] };
-    c.push(h1('1. ' + s0.title));
-    c.push(para(s0.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s0.fields.length) { c.push(h3(lang === 'nl' ? 'Pitch Deck Structuur' : 'Pitch Deck Structure')); c.push(fieldTable(s0.fields)); c.push(spacer()); }
-
-    // Step 1: CRM Pipeline
-    var s1 = steps[1] || { fields: [] };
-    c.push(h1('2. ' + s1.title));
-    c.push(para(s1.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s1.fields.length) {
-      c.push(h3(lang === 'nl' ? 'Pipeline Stadia' : 'Pipeline Stages'));
-      // Custom table for pipeline stages
-      var w = [2400, 6626];
-      var pRows = [headerRow(['Stadium', lang === 'nl' ? 'Definitie & Criteria' : 'Definition & Criteria'], w)];
-      s1.fields.forEach(function(f) {
-        pRows.push(dataRow([f.label, f.value || ''], w, { boldCols: [true, false] }));
-      });
-      c.push(new (D().Table)({ width: { size: 9026, type: D().WidthType.DXA }, columnWidths: w, rows: pRows }));
-      c.push(spacer());
-    }
-
-    // Step 2: Campaign in a Box
-    var s2 = steps[2] || { fields: [] };
-    c.push(h1('3. ' + s2.title));
-    c.push(para(s2.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s2.fields.length) {
-      // Split into email and linkedin sections
-      var emailFields = s2.fields.filter(function(f) { return f.label.toLowerCase().includes('email'); });
-      var linkedinFields = s2.fields.filter(function(f) { return f.label.toLowerCase().includes('stap') || f.label.toLowerCase().includes('linkedin'); });
-      if (emailFields.length) { c.push(h3(lang === 'nl' ? 'Email Sequence' : 'Email Sequence')); c.push(fieldTable(emailFields)); c.push(spacer()); }
-      if (linkedinFields.length) { c.push(h3('LinkedIn Sequence')); c.push(fieldTable(linkedinFields)); c.push(spacer()); }
-      // Any remaining
-      var rest = s2.fields.filter(function(f) { return emailFields.indexOf(f) === -1 && linkedinFields.indexOf(f) === -1; });
-      if (rest.length) { c.push(fieldTable(rest)); c.push(spacer()); }
-    }
-
-    // Step 3: Database
-    var s3 = steps[3] || { fields: [] };
-    c.push(h1('4. ' + s3.title));
-    c.push(para(s3.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s3.fields.length) { c.push(h3(lang === 'nl' ? 'Database Metrics' : 'Database Metrics')); c.push(fieldTable(s3.fields)); c.push(spacer()); }
-
-    // Step 4: Sales Enablement
-    var s4 = steps[4] || { fields: [] };
-    c.push(h1('5. ' + s4.title));
-    c.push(para(s4.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s4.fields.length) { c.push(h3(lang === 'nl' ? 'Sales Materialen' : 'Sales Materials')); c.push(fieldTable(s4.fields)); }
-
-    return c;
-  }
-
-  function buildOutreach(steps) {
-    var lang = getLang();
-    var c = [];
-
-    // Step 0: Revynu Benchmark
-    var s0 = steps[0] || { fields: [] };
-    c.push(h1('1. ' + s0.title));
-    c.push(para(s0.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s0.fields.length) { c.push(h3(lang === 'nl' ? 'Benchmark Configuratie' : 'Benchmark Configuration')); c.push(fieldTable(s0.fields)); c.push(spacer()); }
-
-    // Step 1: Email Campagnes
-    var s1 = steps[1] || { fields: [] };
-    c.push(h1('2. ' + s1.title));
-    c.push(para(s1.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s1.fields.length) { c.push(h3(lang === 'nl' ? 'Email Setup' : 'Email Setup')); c.push(fieldTable(s1.fields)); c.push(spacer()); }
-
-    // Step 2: LinkedIn
-    var s2 = steps[2] || { fields: [] };
-    c.push(h1('3. ' + s2.title));
-    c.push(para(s2.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s2.fields.length) { c.push(h3('LinkedIn Setup')); c.push(fieldTable(s2.fields)); c.push(spacer()); }
-
-    // Step 3: Telefoon & Netwerk
-    var s3 = steps[3] || { fields: [] };
-    c.push(h1('4. ' + s3.title));
-    c.push(para(s3.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s3.fields.length) {
-      var scriptFields = s3.fields.filter(function(f) { return f.label.toLowerCase().includes('script') || f.label.toLowerCase().includes('objection'); });
-      var networkFields = s3.fields.filter(function(f) { return f.label.toLowerCase().includes('intro') || f.label.toLowerCase().includes('event'); });
-      if (scriptFields.length) { c.push(h3(lang === 'nl' ? 'Telefoonscripts' : 'Phone Scripts')); c.push(fieldTable(scriptFields)); c.push(spacer()); }
-      if (networkFields.length) { c.push(h3(lang === 'nl' ? 'Netwerk Activatie' : 'Network Activation')); c.push(fieldTable(networkFields)); c.push(spacer()); }
-      var rest = s3.fields.filter(function(f) { return scriptFields.indexOf(f) === -1 && networkFields.indexOf(f) === -1; });
-      if (rest.length) { c.push(fieldTable(rest)); c.push(spacer()); }
-    }
-
-    // Step 4: Nurturing
-    var s4 = steps[4] || { fields: [] };
-    c.push(h1('5. ' + s4.title));
-    c.push(para(s4.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s4.fields.length) { c.push(h3(lang === 'nl' ? 'KPI Dashboard' : 'KPI Dashboard')); c.push(fieldTable(s4.fields)); }
-
-    return c;
-  }
-
-  function buildSales(steps) {
-    var lang = getLang();
-    var c = [];
-
-    // Step 0: CMO→FMO Kwalificatie
-    var s0 = steps[0] || { fields: [], scores: [] };
-    c.push(h1('1. ' + s0.title));
-    c.push(para(s0.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s0.fields.length) { c.push(h3(lang === 'nl' ? 'Deal Kwalificatie' : 'Deal Qualification')); c.push(fieldTable(s0.fields)); c.push(spacer()); }
-    if (s0.scores.length) { c.push(h3('MEDDIC+ Score')); c.push(scoreTable(s0.scores)); c.push(spacer()); }
-
-    // Step 1: Proposal & Pricing
-    var s1 = steps[1] || { fields: [] };
-    c.push(h1('2. ' + s1.title));
-    c.push(para(s1.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s1.fields.length) { c.push(h3(lang === 'nl' ? 'Commercieel Voorstel' : 'Commercial Proposal')); c.push(fieldTable(s1.fields)); c.push(spacer()); }
-
-    // Step 2: Negotiation & Objections
-    var s2 = steps[2] || { fields: [] };
-    c.push(h1('3. ' + s2.title));
-    c.push(para(s2.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s2.fields.length) {
-      var compFields = s2.fields.filter(function(f) { return f.label.toLowerCase().includes('concurrent') || f.label.toLowerCase().includes('status quo'); });
-      var stakeholders = s2.fields.filter(function(f) { return f.label.toLowerCase().includes('cio') || f.label.toLowerCase().includes('cfo') || f.label.toLowerCase().includes('ciso') || f.label.toLowerCase().includes('end user'); });
-      if (compFields.length) { c.push(h3(lang === 'nl' ? 'Concurrentie Analyse' : 'Competitive Analysis')); c.push(fieldTable(compFields)); c.push(spacer()); }
-      if (stakeholders.length) { c.push(h3(lang === 'nl' ? 'Stakeholder Aanpak' : 'Stakeholder Approach')); c.push(fieldTable(stakeholders)); c.push(spacer()); }
-      var rest = s2.fields.filter(function(f) { return compFields.indexOf(f) === -1 && stakeholders.indexOf(f) === -1; });
-      if (rest.length) { c.push(fieldTable(rest)); c.push(spacer()); }
-    }
-
-    // Step 3: Co-Sell & Partners
-    var s3 = steps[3] || { fields: [] };
-    c.push(h1('4. ' + s3.title));
-    c.push(para(s3.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s3.fields.length) { c.push(h3(lang === 'nl' ? 'Partner & Vendor Strategie' : 'Partner & Vendor Strategy')); c.push(fieldTable(s3.fields)); c.push(spacer()); }
-
-    // Step 4: Deal Close & Handover
-    var s4 = steps[4] || { fields: [] };
-    c.push(h1('5. ' + s4.title));
-    c.push(para(s4.description, { italic: true, color: B.muted }));
-    c.push(spacer());
-    if (s4.fields.length) { c.push(h3(lang === 'nl' ? 'Deal Close Checklist' : 'Deal Close Checklist')); c.push(fieldTable(s4.fields)); }
-
-    return c;
-  }
-
-  // ═══════════════════════════════════════════
-  // SUMMARY PAGE
-  // ═══════════════════════════════════════════
-
-  function summaryPage(steps) {
-    var lang = getLang();
-    var c = [];
-    c.push(h1(lang === 'nl' ? 'Samenvatting' : 'Summary'));
-    c.push(para(lang === 'nl'
-      ? 'Overzicht van alle ingevulde data per module stap.'
-      : 'Overview of all completed data per module step.',
-      { italic: true, color: B.muted }
-    ));
-    c.push(spacer());
-
-    // Completion table
-    var w = [3800, 1200, 1800, 2226];
-    var rows = [headerRow([
-      lang === 'nl' ? 'Stap' : 'Step',
-      lang === 'nl' ? 'Velden' : 'Fields',
-      lang === 'nl' ? 'Ingevuld' : 'Completed',
-      'Status'
-    ], w)];
-
-    var totalFields = 0, totalFilled = 0;
-    steps.forEach(function(s, i) {
-      var filled = s.fields.filter(function(f) { return f.value; }).length;
-      var total = s.fields.length;
-      totalFields += total;
-      totalFilled += filled;
-      var pct = total > 0 ? Math.round((filled / total) * 100) : 0;
-      var status = pct === 100 ? '● Complete' : pct >= 50 ? '◐ In Progress' : pct > 0 ? '○ Started' : '— Empty';
-      var statusColor = pct === 100 ? B.greenBg : pct >= 50 ? B.goldBg : pct > 0 ? 'FEF2F2' : undefined;
-      rows.push(dataRow(
-        [(i + 1) + '. ' + s.title, String(total), filled + '/' + total + ' (' + pct + '%)', status], w,
-        { center: [false, true, true, true], shade: [,,, statusColor], boldCols: [true] }
-      ));
-    });
-
-    // Total row
-    var totalPct = totalFields > 0 ? Math.round((totalFilled / totalFields) * 100) : 0;
-    rows.push(dataRow(
-      ['TOTAAL', String(totalFields), totalFilled + '/' + totalFields + ' (' + totalPct + '%)', totalPct === 100 ? '● Complete' : totalPct + '%'], w,
-      { center: [false, true, true, true], boldCols: [true, false, true, true], shade: [B.navyBg, B.navyBg, B.navyBg, totalPct === 100 ? B.greenBg : B.goldBg] }
-    ));
-
-    c.push(new (D().Table)({ width: { size: 9026, type: D().WidthType.DXA }, columnWidths: w, rows: rows }));
-
-    return c;
-  }
-
-  // ═══════════════════════════════════════════
-  // MAIN EXPORT FUNCTION
-  // ═══════════════════════════════════════════
-
-  async function exportDOCX() {
-    var lang = getLang();
-    var mod = getModule();
-    var meta = META[mod] || META.pmc;
-
-    // Get step data from interactive.js
-    if (typeof window.hciGetStepData !== 'function') {
-      alert('Error: interactive.js not loaded');
-      return;
-    }
-
-    var steps = window.hciGetStepData();
-    if (!steps || steps.length === 0) {
-      alert(lang === 'nl' ? 'Geen data gevonden om te exporteren.' : 'No data found to export.');
-      return;
-    }
-
-    // Update button
-    var btn = document.getElementById('hciExportBtn');
-    if (btn) { btn.disabled = true; btn.textContent = '⏳ ...'; }
-
-    try {
-      await ensureLibs();
-
-      // Build module-specific content
-      var bodyContent;
-      switch(mod) {
-        case 'pmc': bodyContent = buildPMC(steps); break;
-        case 'gtm': bodyContent = buildGTM(steps); break;
-        case 'outreach': bodyContent = buildOutreach(steps); break;
-        case 'sales': bodyContent = buildSales(steps); break;
-        default: bodyContent = buildPMC(steps);
-      }
-
-      // Combine: title page + summary + body + footer
-      var children = [];
-      children = children.concat(titlePage(meta, lang));
-      children = children.concat(summaryPage(steps));
-      children.push(new (D().Paragraph)({ children: [new (D().PageBreak)()] }));
-      children = children.concat(bodyContent);
-
-      // Closing
-      children.push(spacer(400));
-      children.push(new (D().Paragraph)({
-        border: { top: { style: D().BorderStyle.SINGLE, size: 2, color: B.gold, space: 8 } },
-        alignment: D().AlignmentType.CENTER,
-        children: [new (D().TextRun)({
-          text: 'Generated by HCI Enablement Platform · hes-consultancy-international.com',
-          font: 'Segoe UI', size: 16, color: B.muted
-        })]
-      }));
-
-      // Create document
-      var doc = new (D().Document)({
-        styles: {
-          default: { document: { run: { font: 'Segoe UI', size: 21 } } },
-          paragraphStyles: [
-            { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true,
-              run: { size: 32, bold: true, font: 'Georgia', color: B.navy },
-              paragraph: { spacing: { before: 360, after: 160 }, outlineLevel: 0 } },
-            { id: 'Heading2', name: 'Heading 2', basedOn: 'Normal', next: 'Normal', quickFormat: true,
-              run: { size: 26, bold: true, font: 'Georgia', color: B.navy },
-              paragraph: { spacing: { before: 240, after: 120 }, outlineLevel: 1 } },
-          ]
-        },
-        sections: [{
-          properties: {
-            page: {
-              size: { width: 11906, height: 16838 },
-              margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 }
-            }
-          },
-          headers: {
-            default: new (D().Header)({
-              children: [new (D().Paragraph)({
-                alignment: D().AlignmentType.RIGHT,
-                children: [
-                  new (D().TextRun)({ text: 'HES CONSULTANCY INTERNATIONAL', font: 'Segoe UI', size: 14, color: B.gold, bold: true }),
-                  new (D().TextRun)({ text: '  |  ' + (meta[lang] || meta.en).title, font: 'Segoe UI', size: 14, color: B.muted })
-                ]
-              })]
-            })
-          },
-          footers: {
-            default: new (D().Footer)({
-              children: [new (D().Paragraph)({
-                alignment: D().AlignmentType.CENTER,
-                children: [
-                  new (D().TextRun)({ text: 'Confidential · hes-consultancy-international.com · Page ', font: 'Segoe UI', size: 14, color: B.muted }),
-                  new (D().TextRun)({ children: [D().PageNumber.CURRENT], font: 'Segoe UI', size: 14, color: B.muted })
-                ]
-              })]
-            })
-          },
-          children: children
-        }]
-      });
-
-      // Generate and download
-      var blob = await D().Packer.toBlob(doc);
-      var filename = meta.filename + '_' + new Date().toISOString().slice(0, 10) + '.docx';
-      window.saveAs(blob, filename);
-
-    } catch(err) {
-      console.error('HCI Export Error:', err);
-      alert((lang === 'nl' ? 'Export mislukt: ' : 'Export failed: ') + err.message);
-    } finally {
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = '📄 Export';
-      }
-    }
-  }
-
-  // ═══════════════════════════════════════════
-  // HOOK INTO INTERACTIVE.JS
-  // ═══════════════════════════════════════════
-
-  function init() {
-    // Expose the export function for interactive.js's export button
-    window.hciExportDOCX = exportDOCX;
-
-    // Enable the export button if it exists
-    var btn = document.getElementById('hciExportBtn');
-    if (btn) {
-      btn.disabled = false;
-      btn.classList.add('hci-prog-export');
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    setTimeout(init, 300);
-  }
-
-})();
+  });
+  document.getElementById('progressLabel').textContent=completedSteps.size+' / '+totalSteps+(l==='en'?' completed':' afgerond');
+}
+applyPmcLang(pageLang);
+</script>
+<script src="/interactive.js"></script>
+<script src="/export.js"></script>
+<script src="/softlock.js"></script>
+</body>
+</html>

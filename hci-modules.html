@@ -13,7 +13,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text)
 .ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 800px 600px at 10% 20%,rgba(200,165,90,.04) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 90% 80%,rgba(200,165,90,.03) 0%,transparent 70%)}
 header{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:10;background:rgba(13,15,20,.8);backdrop-filter:blur(12px)}
 .hci-logo{display:flex;align-items:center;gap:14px}
-.hci-mark{width:38px;height:38px;border:2px solid var(--hci-gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;font-weight:500;color:var(--hci-gold)}
+.hci-logo-img{height:48px;width:auto;filter:drop-shadow(0 0 8px rgba(200,165,90,.4));transition:filter .3s}.hci-logo-img:hover{filter:drop-shadow(0 0 14px rgba(200,165,90,.6))}
 .hci-name{font-size:14px;font-weight:500;color:var(--text-bright)}
 .hci-badge{font-family:'Geist Mono',monospace;font-size:10px;padding:5px 12px;border-radius:4px;background:var(--hci-gold-dim);color:var(--hci-gold);border:1px solid var(--hci-gold-border);letter-spacing:.5px}
 .container{max-width:960px;margin:0 auto;padding:60px 40px;position:relative;z-index:10}
@@ -73,7 +73,7 @@ footer a{color:var(--hci-gold);text-decoration:none}
 <div class="ambient"></div>
 
 <header>
-  <div class="hci-logo"><div class="hci-mark">HCI</div><div class="hci-name">HES Consultancy International</div></div>
+  <div class="hci-logo"><a href="/modules"><img src="/assets/Color_logo_-_no_background.png" alt="HCI" class="hci-logo-img"></a><div class="hci-name">HES Consultancy International</div></div>
   <div style="display:flex;align-items:center;gap:14px"><div class="lang-toggle"><button class="lang-btn active" id="langNL" onclick="setLang('nl')">NL</button><button class="lang-btn" id="langEN" onclick="setLang('en')">EN</button></div><div class="hci-badge">FROM STRATEGY TO FIRST CUSTOMER</div></div>
 </header>
 

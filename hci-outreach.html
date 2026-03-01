@@ -22,7 +22,7 @@ body.ai-open{margin-right:420px}
 
 header{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:10;background:rgba(13,15,20,.8);backdrop-filter:blur(12px)}
 .hci-logo{display:flex;align-items:center;gap:14px}
-.hci-mark{width:38px;height:38px;border:2px solid var(--hci-gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;font-weight:500;color:var(--hci-gold)}
+.hci-logo-img{height:48px;width:auto;filter:drop-shadow(0 0 8px rgba(200,165,90,.4));transition:filter .3s}.hci-logo-img:hover{filter:drop-shadow(0 0 14px rgba(200,165,90,.6))}
 .hci-name{font-size:14px;font-weight:500;color:var(--text-bright)}
 .lang-toggle{display:flex;gap:2px;background:rgba(0,0,0,.3);padding:3px;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
 .lang-btn{padding:5px 12px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;background:transparent;color:var(--text-dim)}
@@ -180,7 +180,7 @@ header{padding:20px 40px;display:flex;align-items:center;justify-content:space-b
 <div class="ambient"></div><div class="grain"></div>
 
 <header>
-  <div class="hci-logo"><a href="/modules"><img src="White_logo_-_no_background.png" alt="HCI" style="height:34px"></a><div class="hci-name">HES Consultancy International</div></div>
+  <div class="hci-logo"><a href="/modules"><img src="/assets/Color_logo_-_no_background.png" alt="HCI" class="hci-logo-img"></a><div class="hci-name">HES Consultancy International</div></div>
   <div style="display:flex;align-items:center;gap:14px">
     <div class="lang-toggle"><button class="lang-btn active" id="langNL" onclick="setLang('nl')">NL</button><button class="lang-btn" id="langEN" onclick="setLang('en')">EN</button></div>
     <div class="hci-badge">FROM STRATEGY TO FIRST CUSTOMER</div>
@@ -383,7 +383,40 @@ let aiOpen=false;
 function toggleAI(){aiOpen=!aiOpen;document.getElementById('aiPanel').classList.toggle('open',aiOpen);document.getElementById('aiFab').classList.toggle('hidden',aiOpen);document.body.classList.toggle('ai-open',aiOpen)}
 function quickAI(msg){document.getElementById('aiInput').value=msg;sendAI()}
 async function sendAI(){const input=document.getElementById('aiInput');const msg=input.value.trim();if(!msg)return;input.value='';const chat=document.getElementById('aiChat');chat.innerHTML+=`<div class="ai-msg user"><div class="ai-msg-head"><div class="ai-msg-avatar">U</div>Jij</div><div class="ai-msg-body">${msg}</div></div>`;document.getElementById('aiTyping').classList.add('active');chat.scrollTop=chat.scrollHeight;try{const res=await fetch('/.netlify/functions/claude-proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:`Je bent de HCI Outreach Coach — expert in multi-channel B2B outreach voor cybersecurity compliance diensten (CRA, NIS2, DORA, AI Act). Concreet, actiegericht, Nederlands.`,message:msg})});const data=await res.json();const reply=data.content?.[0]?.text||data.reply||'Geen antwoord.';document.getElementById('aiTyping').classList.remove('active');chat.innerHTML+=`<div class="ai-msg assistant"><div class="ai-msg-head"><div class="ai-msg-avatar">AI</div>Outreach Coach</div><div class="ai-msg-body">${reply.replace(/\n/g,'<br>')}</div></div>`;chat.scrollTop=chat.scrollHeight}catch(e){document.getElementById('aiTyping').classList.remove('active');chat.innerHTML+=`<div class="ai-msg assistant"><div class="ai-msg-head"><div class="ai-msg-avatar">AI</div>Coach</div><div class="ai-msg-body" style="color:var(--error)">Verbindingsfout.</div></div>`}}
-let currentLang='nl';function setLang(l){currentLang=l;document.getElementById('langNL').classList.toggle('active',l==='nl');document.getElementById('langEN').classList.toggle('active',l==='en')}
+let currentLang='nl';
+var outreachI18n={
+nl:{back:'← Terug naar modules',kicker:'FASE 3 · OUTREACH & ENGAGEMENT',title:'Multi-channel <em>Outreach</em>',
+  subtitle:'Bouw en voer multi-channel outreach sequences uit die jouw ICP\'s bereiken via email, LinkedIn, telefoon en events. Met AI-coaching voor elk touchpoint.',
+  journey:[['PMC','6 deliverables'],['GTM','5 deliverables'],['Outreach','4 kanalen'],['Sales','Close & expand']],
+  tabs:['Sequence Design','Channel Playbooks','Campaign Tracker','A/B & Optimize'],
+  titles:['Outreach Sequence Design','Channel Playbooks','Campaign Tracker','A/B Testing & Optimalisatie'],
+  descs:['Ontwerp een multi-channel sequence van 14-21 dagen die jouw ICP\'s bereikt via 4+ touchpoints. De AI helpt je bij timing, boodschap en follow-up logic.',
+    'Gedetailleerde playbooks voor elk kanaal: email templates, LinkedIn scripts, telefoon scripts en event-strategieën.',
+    'Monitor en beheer je actieve campagnes. Track opens, clicks, replies en meeting conversies per kanaal en per sequence.',
+    'Test systematisch je messaging, timing en kanaal-mix. Optimaliseer op basis van data, niet op gevoel.'],
+  progress:'Stap',completBtn:'✓ Outreach Afronden → Start Sales'},
+en:{back:'← Back to modules',kicker:'PHASE 3 · OUTREACH & ENGAGEMENT',title:'Multi-channel <em>Outreach</em>',
+  subtitle:'Build and execute multi-channel outreach sequences that reach your ICPs via email, LinkedIn, phone and events. With AI coaching for every touchpoint.',
+  journey:[['PMC','6 deliverables'],['GTM','5 deliverables'],['Outreach','4 channels'],['Sales','Close & expand']],
+  tabs:['Sequence Design','Channel Playbooks','Campaign Tracker','A/B & Optimize'],
+  titles:['Outreach Sequence Design','Channel Playbooks','Campaign Tracker','A/B Testing & Optimization'],
+  descs:['Design a multi-channel sequence of 14-21 days that reaches your ICPs via 4+ touchpoints. AI helps with timing, messaging and follow-up logic.',
+    'Detailed playbooks per channel: email templates, LinkedIn scripts, phone scripts and event strategies.',
+    'Monitor and manage your active campaigns. Track opens, clicks, replies and meeting conversions per channel and per sequence.',
+    'Systematically test your messaging, timing and channel mix. Optimize based on data, not gut feeling.'],
+  progress:'Step',completBtn:'✓ Complete Outreach → Start Sales'}
+};
+function setLang(l){currentLang=l;document.getElementById('langNL').classList.toggle('active',l==='nl');document.getElementById('langEN').classList.toggle('active',l==='en');
+var t=outreachI18n[l];if(!t)return;
+var el;
+el=document.querySelector('.back-link');if(el)el.textContent=t.back;
+el=document.querySelector('.kicker');if(el)el.textContent=t.kicker;
+el=document.querySelector('.page-hero h1');if(el)el.innerHTML=t.title;
+el=document.querySelector('.subtitle');if(el)el.textContent=t.subtitle;
+document.querySelectorAll('.journey-phase').forEach(function(p,i){if(t.journey[i]){var txt=p.querySelector('.jp-text');if(txt)txt.textContent=t.journey[i][0];var sub=p.querySelector('.jp-sub');if(sub)sub.textContent=t.journey[i][1]}});
+document.querySelectorAll('.step-tab').forEach(function(tab,i){if(t.tabs[i]){var lbl=tab.querySelector('.st-label');if(lbl)lbl.textContent=t.tabs[i]}});
+document.querySelectorAll('.step-panel').forEach(function(panel,i){var h2=panel.querySelector('h2');if(h2&&t.titles[i])h2.textContent=t.titles[i];var desc=panel.querySelector('.step-desc');if(desc&&t.descs[i])desc.textContent=t.descs[i]});
+document.getElementById('progressLabel').textContent=t.progress+' '+(currentStep+1)+' / '+totalSteps}
 </script>
 </body>
 </html>
