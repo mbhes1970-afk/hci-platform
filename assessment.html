@@ -228,7 +228,7 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}
   </div>
 </div>
 
-<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a></div></div></footer>
+<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/privacy">Privacybeleid</a> · <a href="/terms">Voorwaarden</a></div></div></footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══════════════════════════════════════════════════════════════
@@ -688,6 +688,54 @@ function sendReport() {
 function setLang(l) {
   document.querySelectorAll('.lang-btn').forEach(b =>
     b.classList.toggle('active', b.textContent.trim().toUpperCase() === l.toUpperCase()));
+  document.documentElement.lang = l;
+
+  const t = {
+    en: {
+      startBtn: 'Start Assessment →',
+      qBack: '← Back',
+      qNext: 'Next →',
+      emailTitle: 'Get your full report',
+      emailDesc: 'Receive a detailed PDF with your scores, gap analysis, and recommended next steps.',
+      emailSubmit: 'Send report →',
+      emailSent: '✓ Report will be sent to your inbox shortly.',
+      resultCta1: 'Schedule a conversation →',
+      resultCta2: 'Back to overview',
+      gapTitle: 'Key gaps identified',
+      namePlaceholder: 'Your name',
+      emailPlaceholder: 'your@company.com'
+    },
+    nl: {
+      startBtn: 'Start Assessment →',
+      qBack: '← Terug',
+      qNext: 'Volgende →',
+      emailTitle: 'Ontvang uw volledige rapport',
+      emailDesc: 'Ontvang een gedetailleerde PDF met uw scores, gap-analyse en aanbevolen vervolgstappen.',
+      emailSubmit: 'Verstuur rapport →',
+      emailSent: '✓ Rapport wordt naar uw inbox gestuurd.',
+      resultCta1: 'Plan een gesprek →',
+      resultCta2: 'Terug naar overzicht',
+      gapTitle: 'Geïdentificeerde gaps',
+      namePlaceholder: 'Uw naam',
+      emailPlaceholder: 'uw@bedrijf.nl'
+    }
+  };
+  if (!t[l]) return;
+  var tr = t[l];
+  var el;
+  el = document.getElementById('startBtn'); if (el) el.textContent = tr.startBtn;
+  el = document.getElementById('qBack'); if (el) el.textContent = tr.qBack;
+  el = document.getElementById('qNext'); if (el) el.textContent = tr.qNext;
+  el = document.getElementById('emailTitle'); if (el) el.textContent = tr.emailTitle;
+  el = document.getElementById('emailDesc'); if (el) el.textContent = tr.emailDesc;
+  el = document.querySelector('.email-submit'); if (el) el.textContent = tr.emailSubmit;
+  el = document.getElementById('emailSent'); if (el) el.textContent = tr.emailSent;
+  el = document.getElementById('resultCta1'); if (el) el.textContent = tr.resultCta1;
+  el = document.getElementById('resultCta2'); if (el) el.textContent = tr.resultCta2;
+  el = document.getElementById('emailName'); if (el) el.placeholder = tr.namePlaceholder;
+  el = document.getElementById('emailAddr'); if (el) el.placeholder = tr.emailPlaceholder;
+  // Update gap title if results are shown
+  var gt = document.querySelector('#resultGaps h3'); if (gt) gt.textContent = tr.gapTitle;
 }
 </script>
 
