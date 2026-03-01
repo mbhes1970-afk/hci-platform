@@ -4,10 +4,16 @@
 /gtm              /hci-gtm.html              200
 /outreach         /hci-outreach.html         200
 /sales-execute    /hci-sales-execute.html    200
+/sales            /hci-sales-execute.html    200
 /icp-wizard       /hci-icp-wizard.html       200
 /ai-analyse       /hci-ai-analyse.html       200
 /account-hub      /hci-account-hub.html      200
 /output-engine    /hci-output-engine-v2.html 200
+/insights/cra     /insights-cra.html         200
+/insights/nis2    /insights-nis2.html        200
+/insights/dora    /insights-dora.html        200
+/insights/aiact   /insights-aiact.html       200
+/templates/s01.html  /hci-output-s01.html    200
 /templates/s02.html  /hci-output-s02.html    200
 /templates/s03.html  /hci-output-s03.html    200
 /templates/s04.html  /hci-output-s04.html    200

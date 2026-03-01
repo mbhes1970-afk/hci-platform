@@ -175,6 +175,7 @@ header{padding:20px 40px;display:flex;align-items:center;justify-content:space-b
 @media(max-width:900px){header{padding:14px 20px}.container{padding:24px 20px}.content-grid,.content-grid.triple,.content-grid.quad,.channel-grid{grid-template-columns:1fr}.steps-nav{overflow-x:auto;flex-wrap:nowrap}.step-tab{min-width:120px}.ai-panel{width:100%}}
 @media(max-width:600px){.page-hero h1{font-size:28px}.journey-rail{flex-direction:column;align-items:flex-start;gap:4px}.journey-connector{width:1px;height:12px;margin-left:5px;background:linear-gradient(180deg,var(--text-dim) 50%,transparent 50%);background-size:1px 4px}}
 </style>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 <div class="ambient"></div><div class="grain"></div>
@@ -418,5 +419,6 @@ document.querySelectorAll('.step-tab').forEach(function(tab,i){if(t.tabs[i]){var
 document.querySelectorAll('.step-panel').forEach(function(panel,i){var h2=panel.querySelector('h2');if(h2&&t.titles[i])h2.textContent=t.titles[i];var desc=panel.querySelector('.step-desc');if(desc&&t.descs[i])desc.textContent=t.descs[i]});
 document.getElementById('progressLabel').textContent=t.progress+' '+(currentStep+1)+' / '+totalSteps}
 </script>
+<script src="/softlock.js"></script>
 </body>
 </html>

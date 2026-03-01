@@ -33,6 +33,11 @@
   status = 200
 
 [[redirects]]
+  from = "/sales"
+  to = "/hci-sales-execute.html"
+  status = 200
+
+[[redirects]]
   from = "/icp-wizard"
   to = "/hci-icp-wizard.html"
   status = 200
@@ -53,6 +58,11 @@
   status = 200
 
 # Sector output templates (called by quickscan)
+[[redirects]]
+  from = "/templates/s01.html"
+  to = "/hci-output-s01.html"
+  status = 200
+
 [[redirects]]
   from = "/templates/s02.html"
   to = "/hci-output-s02.html"
@@ -76,6 +86,27 @@
 [[redirects]]
   from = "/templates/s06.html"
   to = "/hci-output-s06.html"
+  status = 200
+
+# Layer 1 Insights briefs (clean URLs)
+[[redirects]]
+  from = "/insights/cra"
+  to = "/insights-cra.html"
+  status = 200
+
+[[redirects]]
+  from = "/insights/nis2"
+  to = "/insights-nis2.html"
+  status = 200
+
+[[redirects]]
+  from = "/insights/dora"
+  to = "/insights-dora.html"
+  status = 200
+
+[[redirects]]
+  from = "/insights/aiact"
+  to = "/insights-aiact.html"
   status = 200
 
 # Security headers
