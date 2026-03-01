@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Email — HES Consultancy International</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>
+:root{--bg:#08090c;--card:#13151c;--gold:#c8a55a;--text:#c8c6d4;--text-dim:#6e6d7a;--white:#fff;--border:rgba(255,255,255,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px;max-width:440px;width:90%;text-align:center}
+.mark{width:56px;height:56px;border:2px solid var(--gold);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--gold);margin-bottom:20px}
+h1{font-size:24px;color:var(--white);margin-bottom:8px}
+p{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:20px}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:20px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="mark">HCI</div>
+  <h1>Confirming your email...</h1>
+  <p>Please wait while we verify your account.</p>
+  <div class="spinner"></div>
+  <p style="font-size:12px">If nothing happens, <a href="/modules">return to the platform</a>.</p>
+</div>
+<script>
+if(window.netlifyIdentity){
+  window.netlifyIdentity.on('init',function(user){
+    if(!user){window.netlifyIdentity.open('signup');}
+  });
+  window.netlifyIdentity.on('login',function(){
+    window.location.href='/modules';
+  });
+}
+</script>
+</body>
+</html>

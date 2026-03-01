@@ -489,4 +489,16 @@ function copyOutput() {
     // Fallback
     var ta = document.createElement('textarea');
     ta.value = _lastOutput;
-    document.body.appendChild(ta
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var btn = event.target;
+    var orig = btn.textContent;
+    btn.textContent = _ui.copy_ok;
+    setTimeout(function(){ btn.textContent = orig; }, 2000);
+  });
+}
+</script>
+</body>
+</html>

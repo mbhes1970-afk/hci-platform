@@ -176,13 +176,13 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 <div class="final-cta">
   <h2>Klaar om deze cijfers werkelijkheid te maken?<br><em>Van calculator naar concrete propositie.</em></h2>
   <p>HCI helpt IT-partners de regulatory practice ontwerpen, de sales enablement opzetten, en de eerste pipeline genereren.</p>
-  <a href="/cdn-cgi/l/email-protection#e28f808a8791a28a8791cf818d8c91978e96838c819bcf8b8c9687908c83968b8d8c838ecc818d8fdd91978088878196dfa5b6afc7d0d2a1838e81978e83968d90c7d0d2cfc7d0d2a5879192908789" class="btn-primary">Plan een gesprek →</a>
+  <a href="mailto:mbhes@hes-consultancy-international.com?subject=GTM%20Calculator%20-%20Gesprek" class="btn-primary">Plan een gesprek →</a>
 </div>
 </div>
 
 <footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const REG_DATA = {
   cra:   { name: 'CRA',    color: '#0891b2', projectAvg: 31500, recMonth: 2500, priority: 2 },
   nis2:  { name: 'NIS2',   color: '#2dd4bf', projectAvg: 38000, recMonth: 3000, priority: 2 },
@@ -255,4 +255,12 @@ function calculate() {
     const projW = (proj / maxVal * 100).toFixed(1);
     const recW = (rec / maxVal * 100).toFixed(1);
     bars += `<div class="bar-row"><span class="bar-label">${REG_DATA[r].name}</span><div class="bar-track"><div class="bar-fill project" style="width:${projW}%;background:${REG_DATA[r].color}">${fmt(proj)}</div></div></div>`;
-    bars += `<div class="bar-row"><span class="bar-label" style="font-size:10px;color:var(--text-dim)">↳ recurring</span><div class="bar-
+    bars += `<div class="bar-row"><span class="bar-label" style="font-size:10px;color:var(--text-dim)">↳ recurring</span><div class="bar-track"><div class="bar-fill recurring" style="width:${recW}%;opacity:.6">${fmt(rec)}</div></div></div>`;
+  });
+  document.getElementById('barChart').innerHTML = bars;
+}
+
+calculate();
+</script>
+</body>
+</html>
