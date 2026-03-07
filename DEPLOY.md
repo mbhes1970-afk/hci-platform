@@ -3,14 +3,17 @@
 ## Architectuur
 
 ```
-signalmesh.config.js      ← Configuratie (sectoren, ICP's, scoring, Quickscan vragen)
-signalmesh-engine.js      ← Scoring logica, URL-param parsing, hero injectie
-signalmesh-quickscan.js   ← Quickscan modal (5 vragen → score → CTA)
-signalmesh-ai-agent.js    ← Claude AI agent voor gepersonaliseerd advies
-signalmesh-cmo-bridge.js  ← Brug naar DealFlow (PocketBase deals)
+signalmesh.config.js              ← Configuratie (sectoren, ICP's, scoring, Quickscan vragen)
+signalmesh-engine.js              ← Scoring + IP intel + dwell + scroll + consent
+signalmesh-quickscan.js           ← Quickscan modal (5 vragen → score → CTA)
+signalmesh-ai-agent.js            ← Claude AI agent voor gepersonaliseerd advies
+signalmesh-cmo-bridge.js          ← Brug naar DealFlow (PocketBase deals)
+optout.html                       ← Privacy opt-out pagina (GDPR Art. 21)
+netlify/edge-functions/
+  ip-intelligence.js              ← IPInfo B2B org detectie (Edge Function)
 netlify/functions/
-  signalmesh-alert.js     ← Slack alerts voor warm+ bezoekers
-  claude-proxy.js         ← AI proxy (reeds aanwezig)
+  signalmesh-alert.js             ← Slack alerts voor warm+ bezoekers
+  claude-proxy.js                 ← AI proxy (reeds aanwezig)
 ```
 
 ## Stap 1 — Netlify env vars instellen
@@ -20,6 +23,7 @@ Ga naar: **Netlify → Site settings → Environment variables**
 Voeg toe:
 - `ANTHROPIC_API_KEY` = [reeds aanwezig]
 - `SLACK_WEBHOOK_URL` = [Mike vult in na Slack webhook aanmaken]
+- `IPINFO_TOKEN` = [Gratis op https://ipinfo.io/signup — 50K calls/mnd]
 
 ### Slack Webhook aanmaken:
 1. Ga naar https://api.slack.com/apps

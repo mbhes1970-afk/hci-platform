@@ -1,6 +1,11 @@
 [build]
   publish = "."
 
+# Edge Functions
+[[edge_functions]]
+  path = "/*"
+  function = "ip-intelligence"
+
 # Platform tools (behind auth)
 [[redirects]]
   from = "/modules"
@@ -123,6 +128,11 @@
 [[redirects]]
   from = "/terms"
   to = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/optout"
+  to = "/optout.html"
   status = 200
 
 # Layer 2 Opportunity Analyses (clean URLs)

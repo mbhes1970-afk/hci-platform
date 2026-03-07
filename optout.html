@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignalMesh Opt-out — HCI</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 0 20px;
+      color: #333;
+      line-height: 1.7;
+    }
+    h1 { color: #6C5CE7; font-size: 24px; }
+    p { margin-bottom: 16px; }
+    button {
+      background: #6C5CE7; color: white; border: none;
+      padding: 12px 24px; border-radius: 8px; cursor: pointer;
+      font-size: 16px; font-weight: 600;
+    }
+    button:hover { background: #5b4bd4; }
+    .status {
+      margin-top: 20px; padding: 16px; border-radius: 8px;
+      display: none; font-weight: 500;
+    }
+    .success { background: #d4edda; color: #155724; }
+    a { color: #6C5CE7; }
+    .legal { font-size: 13px; color: #666; margin-top: 32px; border-top: 1px solid #eee; padding-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Opt-out HCI Bezoekersherkenning</h1>
+
+  <p>HES Consultancy International gebruikt IP-gebaseerde bedrijfsherkenning om relevante
+  content te tonen aan websitebezoekers. Wij identificeren uitsluitend het
+  <strong>bedrijf</strong> achter een bezoek — nooit individuele personen.</p>
+
+  <p><strong>Wat wij wel doen:</strong></p>
+  <ul>
+    <li>Het bedrijf achter uw IP-adres identificeren (bijv. "KPN" of "Gemeente Amsterdam")</li>
+    <li>De website-inhoud aanpassen aan uw sector</li>
+    <li>Sessiegegevens opslaan (niet persoonlijk, alleen in uw browser)</li>
+  </ul>
+
+  <p><strong>Wat wij niet doen:</strong></p>
+  <ul>
+    <li>Individuele personen identificeren</li>
+    <li>Persoonsgegevens opslaan op onze servers</li>
+    <li>Data delen met derden</li>
+    <li>Cross-site tracking uitvoeren</li>
+  </ul>
+
+  <p>Rechtsgrond: <strong>Gerechtvaardigd belang (Art. 6(1)(f) AVG/GDPR)</strong></p>
+
+  <p>Als u bezwaar maakt tegen deze verwerking, kunt u zich hieronder afmelden.
+  Uw bezoeken worden dan niet meer gebruikt voor personalisatie.</p>
+
+  <button onclick="optOut()">Afmelden voor bedrijfsherkenning</button>
+
+  <div class="status success" id="status">
+    &#10003; Uw opt-out is geregistreerd. SignalMesh is uitgeschakeld voor deze browser.
+    Alle sessiegegevens zijn verwijderd.
+  </div>
+
+  <div class="legal">
+    <p>Voor vragen over privacy: <a href="mailto:mbhes@hes-consultancy-international.com">mbhes@hes-consultancy-international.com</a></p>
+    <p><a href="/privacy">Volledig privacybeleid</a> &middot; <a href="/">Terug naar website</a></p>
+  </div>
+
+  <script>
+    function optOut() {
+      try {
+        localStorage.setItem('sm_optout', '1');
+        localStorage.removeItem('sm_session');
+        localStorage.removeItem('sm_consent');
+        sessionStorage.removeItem('hci_qs_session');
+      } catch(e) {}
+      document.getElementById('status').style.display = 'block';
+    }
+    // Check bestaande opt-out
+    try {
+      if (localStorage.getItem('sm_optout') === '1') {
+        document.getElementById('status').style.display = 'block';
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>
