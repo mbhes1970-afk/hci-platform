@@ -1,0 +1,13 @@
+[Unit]
+Description=HCI Slack Proxy
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/hci-slack-proxy/proxy.py
+Restart=always
+RestartSec=5
+User=www-data
+WorkingDirectory=/opt/hci-slack-proxy
+
+[Install]
+WantedBy=multi-user.target

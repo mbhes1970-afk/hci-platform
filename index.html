@@ -1023,5 +1023,20 @@ function toggleMobile() {
   links.style.borderBottom = '1px solid var(--border)';
 }
 </script>
+
+<!-- HCI Intelligence Core -->
+<script>
+  window.HCI_SLACK_PROXY_URL = 'https://hes-consultancy.nl/api/slack';
+  window.HCI_PB_URL = 'https://api.hes-consultancy-international.com';
+  window.HCI_DEBUG = false;
+</script>
+<script src="/hci-intelligence-core.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.HCIIntelligence) {
+      HCIIntelligence.init();
+    }
+  });
+</script>
 </body>
 </html>

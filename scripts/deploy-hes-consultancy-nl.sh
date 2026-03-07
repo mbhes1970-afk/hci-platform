@@ -61,7 +61,8 @@ hes-consultancy.nl, www.hes-consultancy.nl {
     try_files {path} {path}.html {path}/index.html
 
     # Route mapping (gelijk aan netlify.toml redirects)
-    rewrite /quickscan        /hci-quickscan.html
+    rewrite /compliance       /compliance.html
+    rewrite /quickscan        /hci-cmofmo.html
     rewrite /cmofmo           /hci-cmofmo.html
     rewrite /cmofmo/*         /hci-cmofmo.html
     rewrite /pmc              /hci-pmc.html
@@ -99,9 +100,10 @@ hes-consultancy.nl, www.hes-consultancy.nl {
     rewrite /templates/s05.html /hci-output-s05.html
     rewrite /templates/s06.html /hci-output-s06.html
 
-    # API proxy → Netlify functions (of lokale functies)
-    reverse_proxy /api/claude localhost:8787
-    reverse_proxy /api/slack  localhost:8787
+    # API proxy → local Slack handler (port 8765)
+    handle /api/* {
+        reverse_proxy 127.0.0.1:8765
+    }
 
     # Statische bestanden serveren
     file_server
@@ -118,6 +120,25 @@ hes-consultancy.nl, www.hes-consultancy.nl {
 }
 CADDY_EOF
     echo "✅ Caddy blok toegevoegd voor hes-consultancy.nl"
+fi
+
+echo ""
+echo "═══ TAAK 2B — Slack proxy installeren ═══"
+
+SLACK_DIR="/opt/hci-slack-proxy"
+if [ ! -f "$SLACK_DIR/proxy.py" ]; then
+    mkdir -p "$SLACK_DIR"
+    cp "$WEBROOT/scripts/slack-proxy/proxy.py" "$SLACK_DIR/proxy.py"
+    cp "$WEBROOT/scripts/slack-proxy/hci-slack-proxy.service" /etc/systemd/system/
+    systemctl daemon-reload
+    systemctl enable hci-slack-proxy
+    systemctl start hci-slack-proxy
+    echo "✅ Slack proxy geïnstalleerd en gestart op :8765"
+else
+    echo "⚠  Slack proxy bestaat al — restarting..."
+    cp "$WEBROOT/scripts/slack-proxy/proxy.py" "$SLACK_DIR/proxy.py"
+    systemctl restart hci-slack-proxy
+    echo "✅ Slack proxy herstart"
 fi
 
 echo ""
@@ -175,9 +196,18 @@ for url in "https://api.hes-consultancy-international.com/api/health" \
 done
 
 echo ""
+echo "═══ TAAK 5 — Sync script installeren ═══"
+
+cp "$WEBROOT/scripts/hci-sync.sh" /opt/hci-sync.sh
+chmod +x /opt/hci-sync.sh
+echo "✅ /opt/hci-sync.sh geïnstalleerd"
+
+echo ""
 echo "═══ KLAAR ═══"
 echo "Webroot: $WEBROOT"
 echo "Caddyfile backup: ${CADDYFILE}.bak.*"
+echo "Slack proxy: systemctl status hci-slack-proxy"
+echo "Sync: bash /opt/hci-sync.sh"
 echo ""
 echo "⏭  Volgende stap: n8n workflows deployen"
 echo "   cd $WEBROOT/scripts/n8n"
