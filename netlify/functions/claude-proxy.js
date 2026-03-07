@@ -43,6 +43,8 @@ const ALLOWED_ORIGINS = [
   'https://hci-platform.netlify.app',
   'https://hes-consultancy-international.com',
   'https://www.hes-consultancy-international.com',
+  'https://nxterasolutions.eu',
+  'https://www.nxterasolutions.eu',
   'http://localhost:3000',
   'http://127.0.0.1:5500',
   'http://localhost:8888',
@@ -265,6 +267,7 @@ function getCORSHeaders(origin) {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age':       '86400',
+    'Vary':                         'Origin',
     'Content-Type':                 'application/json'
   };
 }

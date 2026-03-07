@@ -959,7 +959,7 @@ let currentLang = 'nl';
 function setLang(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
-  try{localStorage.setItem('hci-lang',lang);}catch(e){}
+  try{localStorage.setItem('hci_lang',lang);}catch(e){}
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent.trim().toUpperCase() === lang.toUpperCase());
   });
@@ -994,7 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Detect language: localStorage > URL param > browser
   var storedLang = null;
-  try{storedLang = localStorage.getItem('hci-lang');}catch(e){}
+  try{storedLang = localStorage.getItem('hci_lang');}catch(e){}
   const urlLang = new URLSearchParams(window.location.search).get('lang');
   if (urlLang && I18N[urlLang]) {
     setLang(urlLang);
