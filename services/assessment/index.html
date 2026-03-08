@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU Readiness Scan — HES Consultancy International</title>
+<meta name="description" content="Seven minutes. Six dimensions. One honest score. Know exactly where you stand before investing in European market entry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.1); --gold-border: rgba(201,168,76,0.22);
+  --ink: #0D0D0D; --ink-2: #131313; --ink-3: #1A1A1A;
+  --paper: #F7F4EE;
+  --muted: #888880; --muted-2: rgba(247,244,238,0.45); --muted-3: rgba(247,244,238,0.65);
+  --border: rgba(247,244,238,0.07);
+  --green: #4ADE80; --green-d: rgba(74,222,128,0.08); --green-b: rgba(74,222,128,0.25);
+  --amber: #FCD34D; --amber-d: rgba(252,211,77,0.08); --amber-b: rgba(252,211,77,0.25);
+  --red: #F87171; --red-d: rgba(248,113,113,0.08); --red-b: rgba(248,113,113,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--paper); overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 56px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,13,13,0.97); border-bottom: 1px solid var(--border); }
+.nav-logo { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--paper); }
+.nav-logo-sub { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
+.nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-back { font-size: 12px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; font-weight: 300; }
+.nav-back:hover { color: var(--gold); }
+.hero {
+  min-height: 100vh;
+  padding: 140px 56px 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 40%, rgba(201,168,76,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(201,168,76,0.03) 0%, transparent 45%);
+}
+.hero-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(rgba(201,168,76,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px); background-size: 60px 60px; }
+.hero-left { position: relative; z-index: 2; padding-bottom: 100px; }
+.hero-right { position: relative; z-index: 2; padding-bottom: 100px; }
+.kicker { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
+.kicker::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5vw, 70px); font-weight: 600; line-height: 1.0; color: var(--paper); margin-bottom: 24px; }
+.hero-h1 em { font-style: italic; color: var(--gold); }
+.hero-body { font-size: 15px; line-height: 1.8; color: var(--muted-3); font-weight: 300; margin-bottom: 40px; max-width: 460px; }
+.scan-meta { display: flex; gap: 32px; margin-bottom: 48px; }
+.scan-meta-item { display: flex; flex-direction: column; gap: 4px; }
+.scan-meta-val { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--gold); line-height: 1; }
+.scan-meta-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 300; }
+.btn-primary { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--ink); padding: 18px 36px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; border: none; cursor: pointer; }
+.btn-primary:hover { background: var(--gold-light); transform: translateX(4px); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 10px; color: var(--muted-2); font-size: 13px; text-decoration: none; transition: color 0.2s; font-weight: 300; margin-top: 14px; }
+.btn-secondary:hover { color: var(--gold); }
+.btn-secondary::before { content: ''; width: 20px; height: 1px; background: currentColor; transition: width 0.25s; }
+.btn-secondary:hover::before { width: 32px; }
+.score-card { background: var(--gold-dim); border: 1px solid var(--gold-border); padding: 40px; }
+.score-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--paper); margin-bottom: 6px; }
+.score-card-sub { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; font-weight: 300; }
+.dims { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+.dim { display: grid; grid-template-columns: 1fr 80px 36px; gap: 12px; align-items: center; }
+.dim-name { font-size: 13px; color: var(--muted-3); font-weight: 300; }
+.dim-bar { height: 2px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; border-radius: 2px; }
+.dim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gold); border-radius: 2px; }
+.dim-score { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); text-align: right; }
+.score-total { display: flex; align-items: flex-end; justify-content: space-between; border-top: 1px solid var(--gold-border); padding-top: 24px; }
+.score-big { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: var(--gold); line-height: 1; }
+.score-big span { font-size: 24px; color: var(--muted); }
+.score-verdict { text-align: right; }
+.score-verdict-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; font-weight: 300; }
+.score-verdict-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--green); }
+.bands-section { background: var(--ink-3); padding: 100px 56px; }
+.bands-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; align-items: end; }
+.bands-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.band-card { padding: 36px 32px; border-top: 3px solid; }
+.band-card.green { border-color: var(--green); background: var(--green-d); }
+.band-card.amber { border-color: var(--amber); background: var(--amber-d); }
+.band-card.red { border-color: var(--red); background: var(--red-d); }
+.band-range { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+.band-card.green .band-range { color: var(--green); }
+.band-card.amber .band-range { color: var(--amber); }
+.band-card.red .band-range { color: var(--red); }
+.band-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; font-weight: 400; }
+.band-card.green .band-label { color: var(--green); }
+.band-card.amber .band-label { color: var(--amber); }
+.band-card.red .band-label { color: var(--red); }
+.band-desc { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; margin-bottom: 16px; }
+.band-action { font-size: 12px; color: var(--paper); font-weight: 400; }
+.band-price { margin-top: 12px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+.dims-section { background: #0A0A0A; padding: 100px 56px; }
+.dims-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; align-items: end; }
+.dims-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.dim-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border: 1px solid transparent; transition: all 0.3s; }
+.dim-card:hover { border-color: var(--gold-border); background: var(--gold-dim); }
+.dim-card-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 16px; }
+.dim-card-name { font-size: 15px; font-weight: 500; color: var(--paper); margin-bottom: 10px; }
+.dim-card-body { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; margin-bottom: 14px; }
+.dim-card-questions { font-size: 11px; color: var(--muted); font-weight: 300; font-style: italic; }
+.scan-section { background: var(--ink-3); padding: 100px 56px; }
+.scan-wrap { max-width: 760px; margin: 48px auto 0; }
+.scan-progress { margin-bottom: 40px; }
+.scan-progress-bar { height: 2px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; margin-bottom: 10px; }
+.scan-progress-fill { height: 100%; background: var(--gold); transition: width 0.4s ease; }
+.scan-progress-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.1em; }
+.question-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 48px; display: none; }
+.question-card.active { display: block; }
+.q-dim { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-family: 'DM Mono', monospace; }
+.q-text { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; line-height: 1.25; color: var(--paper); margin-bottom: 32px; }
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-option {
+  padding: 16px 20px; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: flex-start; gap: 14px;
+  text-align: left; font-family: 'DM Sans', sans-serif;
+  color: var(--paper); font-size: 14px; line-height: 1.5; font-weight: 300;
+}
+.q-option:hover { border-color: var(--gold-border); background: var(--gold-dim); }
+.q-option.selected { border-color: var(--gold); background: var(--gold-dim); }
+.q-option-letter { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); flex-shrink: 0; padding-top: 2px; min-width: 16px; }
+.scan-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; }
+.scan-btn-prev { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 10px 20px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.scan-btn-prev:hover { border-color: var(--gold-border); color: var(--paper); }
+.scan-btn-next { background: var(--gold); border: none; color: var(--ink); padding: 12px 28px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.25s; }
+.scan-btn-next:hover { background: var(--gold-light); }
+.scan-btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+.q-counter { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+.results-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 48px; display: none; }
+.results-card.active { display: block; }
+.results-headline { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--paper); margin-bottom: 6px; }
+.results-score-display { display: flex; align-items: center; gap: 32px; margin: 28px 0; padding: 24px; background: var(--gold-dim); border: 1px solid var(--gold-border); }
+.results-score-num { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300; color: var(--gold); line-height: 1; }
+.results-score-info {}
+.results-score-band { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.results-score-desc { font-size: 13px; color: var(--muted-3); font-weight: 300; line-height: 1.6; }
+.results-dims { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.results-dim { display: grid; grid-template-columns: 1fr 100px 40px; gap: 12px; align-items: center; }
+.results-dim-name { font-size: 13px; color: var(--muted-3); font-weight: 300; }
+.results-dim-bar { height: 3px; background: rgba(255,255,255,0.08); position: relative; border-radius: 2px; overflow: hidden; }
+.results-dim-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; transition: width 0.8s ease; }
+.results-dim-score { font-family: 'DM Mono', monospace; font-size: 11px; text-align: right; }
+.results-cta { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+.results-cta-text { font-size: 14px; color: var(--muted-3); font-weight: 300; line-height: 1.6; margin-bottom: 8px; }
+.results-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.help-section { background: #0A0A0A; padding: 100px 56px; }
+.help-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+.help-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border-left: 2px solid var(--border); transition: border-color 0.3s; }
+.help-card:hover { border-left-color: var(--gold); }
+.help-icon { font-size: 24px; margin-bottom: 16px; }
+.help-title { font-size: 14px; font-weight: 500; color: var(--paper); margin-bottom: 10px; }
+.help-body { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; }
+footer { border-top: 1px solid var(--border); padding: 28px 56px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: rgba(247,244,238,0.35); }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: var(--muted); }
+section { padding: 100px 56px; }
+.section-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.section-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 600; line-height: 1.1; color: var(--paper); margin-bottom: 16px; }
+.section-body { font-size: 15px; line-height: 1.8; color: var(--muted-3); font-weight: 300; max-width: 560px; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hero-left > * { animation: fadeUp 0.6s ease both; }
+.kicker { animation-delay: 0s; } .hero-h1 { animation-delay: 0.1s; } .hero-body { animation-delay: 0.2s; }
+@media (max-width: 1024px) {
+  nav { padding: 16px 24px; }
+  .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; min-height: auto; }
+  .hero-left, .hero-right { padding-bottom: 0; }
+  .bands-section, .dims-section, .help-section, .scan-section { padding: 72px 24px; }
+  .bands-intro, .dims-intro { grid-template-columns: 1fr; gap: 32px; }
+  .bands-grid, .dims-grid, .help-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  .scan-wrap { margin-top: 32px; }
+  .question-card, .results-card { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-main">HES Consultancy International</div>
+    <div class="nav-logo-sub">From Strategy to First Customer</div>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-back">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-left">
+    <div class="kicker">EU Readiness Scan</div>
+    <h1 class="hero-h1">
+      Seven minutes.<br>
+      Six dimensions.<br>
+      One <em>honest</em> score.
+    </h1>
+    <p class="hero-body">
+      Before you invest time and money in European market entry,
+      know exactly where you stand. The EU Readiness Scan assesses
+      your real position across six critical dimensions &mdash; and tells you
+      what needs to be in place before the first customer conversation.
+    </p>
+    <div class="scan-meta">
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">7</div>
+        <div class="scan-meta-label">Minutes</div>
+      </div>
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">6</div>
+        <div class="scan-meta-label">Dimensions</div>
+      </div>
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">18</div>
+        <div class="scan-meta-label">Questions</div>
+      </div>
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">Free</div>
+        <div class="scan-meta-label">No signup</div>
+      </div>
+    </div>
+    <a href="#scan" class="btn-primary">
+      Start the Scan Now
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">Or book a call with Mike instead</a>
+  </div>
+  <div class="hero-right">
+    <div class="score-card">
+      <div class="score-card-title">Sample Score Output</div>
+      <div class="score-card-sub">Anonymous &middot; EU Compliance SaaS &middot; Inbound</div>
+      <div class="dims">
+        <div class="dim">
+          <div class="dim-name">ICP Clarity</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:75%"></div></div>
+          <div class="dim-score">75</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Regulatory Compliance</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:40%"></div></div>
+          <div class="dim-score">40</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Product-Market Fit EU</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:62%"></div></div>
+          <div class="dim-score">62</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">GTM Model</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:55%"></div></div>
+          <div class="dim-score">55</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Team Readiness</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:80%"></div></div>
+          <div class="dim-score">80</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Financial Runway</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:65%"></div></div>
+          <div class="dim-score">65</div>
+        </div>
+      </div>
+      <div class="score-total">
+        <div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-weight:300">Overall Score</div>
+          <div class="score-big">63<span>/100</span></div>
+        </div>
+        <div class="score-verdict">
+          <div class="score-verdict-label">Verdict</div>
+          <div class="score-verdict-val">Market Ready</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">&euro;2,000 onboarding</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bands-section">
+  <div class="bands-intro">
+    <div>
+      <div class="section-tag">Score Bands</div>
+      <h2 class="section-title">What your score means</h2>
+    </div>
+    <div>
+      <p class="section-body" style="padding-top:12px">Your score is not a judgment &mdash; it is a starting point. Every company begins somewhere. The score tells you what work needs to happen before European market entry makes commercial sense.</p>
+    </div>
+  </div>
+  <div class="bands-grid">
+    <div class="band-card green">
+      <div class="band-range">55&ndash;100</div>
+      <div class="band-label">Market Ready</div>
+      <div class="band-desc">Your fundamentals are in place. You have a clear ICP, a credible regulatory position and a GTM model that works for EU buyers. We can start building pipeline now.</div>
+      <div class="band-action">&rarr; HCI Exploration programme &middot; immediate start</div>
+      <div class="band-price">Onboarding from &euro;2,000</div>
+    </div>
+    <div class="band-card amber">
+      <div class="band-range">30&ndash;54</div>
+      <div class="band-label">Needs Preparation</div>
+      <div class="band-desc">Solid potential, specific gaps. Typically: regulatory position unclear, ICP too broad or value proposition not reframed for EU buyers yet. Fixable &mdash; in 4-8 weeks.</div>
+      <div class="band-action">&rarr; GTM Design + 90-day foundation phase</div>
+      <div class="band-price">Onboarding from &euro;4,500</div>
+    </div>
+    <div class="band-card red">
+      <div class="band-range">0&ndash;29</div>
+      <div class="band-label">Foundation First</div>
+      <div class="band-desc">Significant work needed before any customer conversations make sense. This is not a rejection &mdash; it is the honest assessment that protects your investment. We can build from here.</div>
+      <div class="band-action">&rarr; Full Commitment programme &middot; onboarding waived</div>
+      <div class="band-price">From &euro;14,500/month</div>
+    </div>
+  </div>
+</div>
+<div class="dims-section">
+  <div class="dims-intro">
+    <div>
+      <div class="section-tag">Six Dimensions</div>
+      <h2 class="section-title">What we're actually measuring</h2>
+    </div>
+    <div>
+      <p class="section-body" style="padding-top:12px">Each dimension has three questions. Each question has four answer options weighted 0-25. Together they give a composite score that reflects real EU market readiness &mdash; not surface-level optimism.</p>
+    </div>
+  </div>
+  <div class="dims-grid">
+    <div class="dim-card">
+      <div class="dim-card-num">01</div>
+      <div class="dim-card-name">ICP Clarity</div>
+      <div class="dim-card-body">Can you describe your ideal European customer in one sentence &mdash; sector, company size, job title, specific pain? EU enterprise buyers require precision. A vague ICP means no introductions.</div>
+      <div class="dim-card-questions">Questions: Target definition &middot; EU buyer profile &middot; Decision-maker mapping</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">02</div>
+      <div class="dim-card-name">Regulatory Compliance</div>
+      <div class="dim-card-body">Which EU regulations apply to your product, and what is your current compliance status? GDPR, NIS2, AI Act, CRA, DORA, NEN 7510 &mdash; each has commercial implications before the first meeting.</div>
+      <div class="dim-card-questions">Questions: Applicable regulations &middot; Current status &middot; Roadmap</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">03</div>
+      <div class="dim-card-name">Product-Market Fit EU</div>
+      <div class="dim-card-body">Does your product solve a problem that EU buyers recognise &mdash; in language they use? US metrics like HCAHPS or FTE savings may need reframing around compliance, sovereignty or workforce efficiency.</div>
+      <div class="dim-card-questions">Questions: Problem recognition &middot; EU value drivers &middot; Local references</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">04</div>
+      <div class="dim-card-name">GTM Model</div>
+      <div class="dim-card-body">Direct, indirect or hybrid? Your channel model depends on product type, price point, sector and market maturity. The wrong model doesn't just slow you down &mdash; it burns introductions.</div>
+      <div class="dim-card-questions">Questions: Channel strategy &middot; Partner model &middot; Sales cycle design</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">05</div>
+      <div class="dim-card-name">Team Readiness</div>
+      <div class="dim-card-body">Who manages the EU relationship on your side? EU buyers expect continuity, local language capability and someone with decision-making authority accessible in their timezone.</div>
+      <div class="dim-card-questions">Questions: EU point of contact &middot; Language &middot; Decision authority</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">06</div>
+      <div class="dim-card-name">Financial Runway</div>
+      <div class="dim-card-body">EU enterprise sales cycles run 6-18 months. Do you have the runway to sustain a 24-month engagement? Budget clarity protects both sides from starting something that can't be completed.</div>
+      <div class="dim-card-questions">Questions: Runway duration &middot; Budget allocated &middot; Board commitment</div>
+    </div>
+  </div>
+</div>
+<div class="scan-section" id="scan">
+  <div class="section-tag">EU Readiness Scan</div>
+  <h2 class="section-title">Start here. Takes 7 minutes.</h2>
+  <p class="section-body">Answer honestly. This is not a sales qualification &mdash; it is a diagnostic. The more accurate your answers, the more useful your score.</p>
+  <div class="scan-wrap">
+    <div class="scan-progress">
+      <div class="scan-progress-bar">
+        <div class="scan-progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="scan-progress-label" id="progressLabel">Question 1 of 18 &middot; ICP Clarity</div>
+    </div>
+    <div id="scanQuestions"></div>
+    <div id="scanResults" class="results-card"></div>
+  </div>
+</div>
+<div class="help-section">
+  <div class="section-tag">Why This Matters</div>
+  <h2 class="section-title">Three things the scan tells you</h2>
+  <div class="help-grid">
+    <div class="help-card">
+      <div class="help-icon">&#127919;</div>
+      <div class="help-title">Where the real gaps are</div>
+      <div class="help-body">Not a general readiness feeling &mdash; specific scores per dimension. A score of 80 on team readiness and 20 on regulatory compliance tells you exactly where to focus your next 60 days.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-icon">&#128182;</div>
+      <div class="help-title">What it will cost to get market-ready</div>
+      <div class="help-body">Your score maps directly to HCI's onboarding tiers. Score 55+: &euro;2,000 onboarding. Score 30-54: &euro;4,500. Score 0-29: onboarding waived. No surprises, no hidden fees.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-icon">&#128197;</div>
+      <div class="help-title">How long until first customer conversations</div>
+      <div class="help-body">Score 55+: active pipeline in weeks. Score 30-54: first conversations in 3-4 months after GTM prep. Score 0-29: 6-8 months foundation work first. Honest timelines protect your budget.</div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/about/">About Mike</a>
+    <a href="/icp/healthcare/">Healthcare</a>
+    <a href="/icp/government/">Government</a>
+    <a href="mailto:mbhes@hes-consultancy-international.com">Contact</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International</div>
+</footer>
+<script>
+var questions = [
+  {dim:"ICP Clarity",q:"How precisely can you define your ideal European customer?",opts:[
+    {l:"A",t:"We know the exact sector, company size, job title and specific pain point.",s:25},
+    {l:"B",t:"We have a general idea \u2014 sector and size, but not specific roles or pain.",s:15},
+    {l:"C",t:"We\u2019re targeting \u2018mid-market enterprise\u2019 or similar broad categories.",s:8},
+    {l:"D",t:"We haven\u2019t defined a specific ICP for Europe yet.",s:0}
+  ]},
+  {dim:"ICP Clarity",q:"Do you know how your target European buyer makes purchasing decisions?",opts:[
+    {l:"A",t:"Yes \u2014 we know the buying committee, decision timeline and procurement process.",s:25},
+    {l:"B",t:"We know the main decision maker but not the full process.",s:15},
+    {l:"C",t:"We assume it\u2019s similar to our home market.",s:5},
+    {l:"D",t:"We haven\u2019t mapped the EU buying process yet.",s:0}
+  ]},
+  {dim:"ICP Clarity",q:"How many qualified EU prospects have you spoken with in the past 12 months?",opts:[
+    {l:"A",t:"5 or more \u2014 with documented feedback on our value proposition.",s:25},
+    {l:"B",t:"1\u20134 prospects \u2014 early stage conversations.",s:15},
+    {l:"C",t:"None yet \u2014 we\u2019re preparing to start.",s:5},
+    {l:"D",t:"None \u2014 we haven\u2019t started EU outreach.",s:0}
+  ]},
+  {dim:"Regulatory Compliance",q:"Which EU regulations apply to your product \u2014 and do you know your current status?",opts:[
+    {l:"A",t:"We\u2019ve mapped all applicable regulations and have documented compliance status.",s:25},
+    {l:"B",t:"We know GDPR applies and are working through others.",s:14},
+    {l:"C",t:"We assume GDPR applies but haven\u2019t mapped sector-specific requirements.",s:6},
+    {l:"D",t:"We haven\u2019t assessed EU regulatory requirements yet.",s:0}
+  ]},
+  {dim:"Regulatory Compliance",q:"Is your product\u2019s data architecture EU-compatible?",opts:[
+    {l:"A",t:"Yes \u2014 EU hosting, GDPR DPA template ready, processing register documented.",s:25},
+    {l:"B",t:"EU hosting in place but GDPR documentation incomplete.",s:14},
+    {l:"C",t:"We use US cloud providers with EU regions \u2014 assuming that\u2019s sufficient.",s:5},
+    {l:"D",t:"All data is processed in the US \u2014 no EU architecture yet.",s:0}
+  ]},
+  {dim:"Regulatory Compliance",q:"Do you have a clear answer to \u2018Are you NIS2 / AI Act / CRA compliant?\u2019 from a procurement team?",opts:[
+    {l:"A",t:"Yes \u2014 we have a documented compliance statement and supporting evidence.",s:25},
+    {l:"B",t:"We have a general answer but no formal documentation.",s:14},
+    {l:"C",t:"We\u2019re not sure which apply to us.",s:5},
+    {l:"D",t:"We haven\u2019t considered these regulations.",s:0}
+  ]},
+  {dim:"Product-Market Fit EU",q:"How does your value proposition resonate with EU buyers specifically?",opts:[
+    {l:"A",t:"We\u2019ve reframed it around EU-specific drivers: compliance, sovereignty, workforce, regulation.",s:25},
+    {l:"B",t:"We use our US/global pitch with minor adjustments.",s:12},
+    {l:"C",t:"We use our US pitch \u2014 it should translate.",s:5},
+    {l:"D",t:"We haven\u2019t adapted our pitch for European markets.",s:0}
+  ]},
+  {dim:"Product-Market Fit EU",q:"Do you have EU customer references \u2014 or a strategy to build them?",opts:[
+    {l:"A",t:"We have 1+ EU reference customers in our target sector.",s:25},
+    {l:"B",t:"No EU references yet but we have a deliberate reference customer strategy.",s:15},
+    {l:"C",t:"We plan to use US references initially.",s:5},
+    {l:"D",t:"References haven\u2019t been part of our planning yet.",s:0}
+  ]},
+  {dim:"Product-Market Fit EU",q:"How does your product compare to established EU competitors?",opts:[
+    {l:"A",t:"We\u2019ve done a full competitive analysis \u2014 EU competitors mapped, differentiation documented.",s:25},
+    {l:"B",t:"We know the main players but haven\u2019t done formal analysis.",s:14},
+    {l:"C",t:"We\u2019re aware of US competitors but not specifically EU ones.",s:5},
+    {l:"D",t:"We haven\u2019t mapped the EU competitive landscape.",s:0}
+  ]},
+  {dim:"GTM Model",q:"Have you defined your EU go-to-market route?",opts:[
+    {l:"A",t:"Yes \u2014 direct, indirect or hybrid decided with rationale documented.",s:25},
+    {l:"B",t:"We have a preference but haven\u2019t formally evaluated the options.",s:14},
+    {l:"C",t:"We\u2019ll use whatever works \u2014 direct first, partners later.",s:6},
+    {l:"D",t:"We haven\u2019t decided on a GTM model for Europe.",s:0}
+  ]},
+  {dim:"GTM Model",q:"How long is your expected EU sales cycle?",opts:[
+    {l:"A",t:"Researched \u2014 we know typical cycle length for our segment and have planned accordingly.",s:25},
+    {l:"B",t:"We estimate 6\u201312 months based on our home market experience.",s:14},
+    {l:"C",t:"We assume similar to our home market.",s:6},
+    {l:"D",t:"We haven\u2019t estimated the EU sales cycle.",s:0}
+  ]},
+  {dim:"GTM Model",q:"Do you have a clear first-customer strategy \u2014 not just a target market?",opts:[
+    {l:"A",t:"Yes \u2014 specific named accounts, entry strategy and reference customer plan.",s:25},
+    {l:"B",t:"We have target segments but not specific named accounts.",s:14},
+    {l:"C",t:"We plan to start outreach and see who responds.",s:5},
+    {l:"D",t:"We haven\u2019t developed a first-customer strategy.",s:0}
+  ]},
+  {dim:"Team Readiness",q:"Who manages the EU relationship from your side?",opts:[
+    {l:"A",t:"Dedicated EU point of contact \u2014 decision-making authority, available in CET timezone.",s:25},
+    {l:"B",t:"Part-time EU ownership \u2014 existing team member with other responsibilities.",s:14},
+    {l:"C",t:"US-based team managing EU alongside home market.",s:5},
+    {l:"D",t:"No dedicated EU ownership yet.",s:0}
+  ]},
+  {dim:"Team Readiness",q:"What is your EU language capability?",opts:[
+    {l:"A",t:"Native or business-fluent in at least one target country language.",s:25},
+    {l:"B",t:"English-only \u2014 targeting English-comfortable segments.",s:16},
+    {l:"C",t:"English-only \u2014 assuming buyers will manage in English.",s:8},
+    {l:"D",t:"No consideration given to language requirements.",s:0}
+  ]},
+  {dim:"Team Readiness",q:"Does your board/leadership support a 24-month EU commitment?",opts:[
+    {l:"A",t:"Yes \u2014 board-level sign-off, budget allocated, KPIs defined.",s:25},
+    {l:"B",t:"Leadership is supportive but no formal commitment yet.",s:14},
+    {l:"C",t:"We\u2019re testing the market first before committing.",s:6},
+    {l:"D",t:"EU entry is not yet a board-level priority.",s:0}
+  ]},
+  {dim:"Financial Runway",q:"What is your current funding runway?",opts:[
+    {l:"A",t:"24+ months \u2014 fully funded through a complete EU engagement cycle.",s:25},
+    {l:"B",t:"12\u201324 months \u2014 sufficient to start and show early results.",s:16},
+    {l:"C",t:"6\u201312 months \u2014 tight but possible if early deals close.",s:6},
+    {l:"D",t:"Under 6 months \u2014 EU entry would depend on early revenue.",s:0}
+  ]},
+  {dim:"Financial Runway",q:"Have you allocated a specific EU market entry budget?",opts:[
+    {l:"A",t:"Yes \u2014 EU budget allocated, approved, separate from product development.",s:25},
+    {l:"B",t:"Rough allocation in mind but not formally approved.",s:14},
+    {l:"C",t:"No specific EU budget \u2014 will come from general funds.",s:6},
+    {l:"D",t:"No EU budget allocated or discussed.",s:0}
+  ]},
+  {dim:"Financial Runway",q:"Can your business sustain 6\u201318 months without EU revenue?",opts:[
+    {l:"A",t:"Yes \u2014 other markets generate sufficient revenue to sustain EU investment.",s:25},
+    {l:"B",t:"Likely \u2014 but EU results are expected to contribute within 12 months.",s:15},
+    {l:"C",t:"Difficult \u2014 we need early EU revenue to justify continued investment.",s:5},
+    {l:"D",t:"No \u2014 we need EU revenue within 6 months.",s:0}
+  ]}
+];
+var dimNames=["ICP Clarity","Regulatory Compliance","Product-Market Fit EU","GTM Model","Team Readiness","Financial Runway"];
+var current=0;
+var answers=new Array(18).fill(null);
+function renderQuestion(idx){
+  var c=document.getElementById('scanQuestions');
+  c.innerHTML='';
+  var q=questions[idx];
+  var card=document.createElement('div');
+  card.className='question-card active';
+  var optsHtml='';
+  for(var i=0;i<q.opts.length;i++){
+    optsHtml+='<button class="q-option'+(answers[idx]===i?' selected':'')+'" onclick="selectAnswer('+idx+','+i+')"><span class="q-option-letter">'+q.opts[i].l+'</span><span>'+q.opts[i].t+'</span></button>';
+  }
+  card.innerHTML='<div class="q-dim">'+q.dim+' \u00b7 Question '+((idx%3)+1)+' of 3</div><div class="q-text">'+q.q+'</div><div class="q-options">'+optsHtml+'</div><div class="scan-nav"><button class="scan-btn-prev" onclick="prevQ()" '+(idx===0?'style="visibility:hidden"':'')+'>← Back</button><span class="q-counter">'+(idx+1)+' / 18</span><button class="scan-btn-next" id="nextBtn" onclick="nextQ()" '+(answers[idx]===null?'disabled':'')+'>'+(idx===17?'See My Score →':'Next →')+'</button></div>';
+  c.appendChild(card);
+  updateProgress(idx);
+}
+function selectAnswer(qIdx,aIdx){
+  answers[qIdx]=aIdx;
+  var opts=document.querySelectorAll('.q-option');
+  for(var i=0;i<opts.length;i++){opts[i].classList.toggle('selected',i===aIdx);}
+  document.getElementById('nextBtn').disabled=false;
+}
+function nextQ(){
+  if(answers[current]===null)return;
+  if(current===17){showResults();return;}
+  current++;
+  renderQuestion(current);
+}
+function prevQ(){
+  if(current===0)return;
+  current--;
+  renderQuestion(current);
+}
+function updateProgress(idx){
+  var pct=Math.round((idx/18)*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent='Question '+(idx+1)+' of 18 \u00b7 '+questions[idx].dim;
+}
+function showResults(){
+  document.getElementById('scanQuestions').innerHTML='';
+  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('progressLabel').textContent='Complete \u2014 your results below';
+  var dimScores=[];
+  for(var di=0;di<dimNames.length;di++){
+    var total=0;
+    for(var qi=di*3;qi<di*3+3;qi++){
+      var ans=answers[qi];
+      if(ans!==null)total+=questions[qi].opts[ans].s;
+    }
+    dimScores.push(Math.round(total/75*100));
+  }
+  var overall=Math.round(dimScores.reduce(function(a,b){return a+b;},0)/6);
+  var band,bandColor,bandDesc,bandAction,onboarding;
+  if(overall>=55){band="Market Ready";bandColor="#4ADE80";bandDesc="Your fundamentals are in place. We can start building pipeline now.";bandAction="HCI Exploration programme \u2014 active pipeline within weeks.";onboarding="Onboarding: \u20ac2,000";}
+  else if(overall>=30){band="Needs Preparation";bandColor="#FCD34D";bandDesc="Solid potential with specific gaps. 4\u20138 weeks of preparation before we start outreach.";bandAction="GTM Design + Foundation phase \u2014 first conversations in 3\u20134 months.";onboarding="Onboarding: \u20ac4,500";}
+  else{band="Foundation First";bandColor="#F87171";bandDesc="Significant work needed before customer conversations make sense. Fully buildable from here.";bandAction="Full Commitment programme \u2014 onboarding fee waived at this tier.";onboarding="Onboarding waived";}
+  var dimsHtml='';
+  for(var i=0;i<dimNames.length;i++){
+    var c=dimScores[i]>=55?'#4ADE80':dimScores[i]>=30?'#FCD34D':'#F87171';
+    dimsHtml+='<div class="results-dim"><div class="results-dim-name">'+dimNames[i]+'</div><div class="results-dim-bar"><div class="results-dim-fill" style="width:'+dimScores[i]+'%;background:'+c+'"></div></div><div class="results-dim-score" style="color:'+c+'">'+dimScores[i]+'</div></div>';
+  }
+  var el=document.getElementById('scanResults');
+  el.className='results-card active';
+  el.innerHTML='<div class="results-headline">Your EU Readiness Score</div><div class="results-score-display"><div class="results-score-num">'+overall+'</div><div class="results-score-info"><div class="results-score-band" style="color:'+bandColor+'">'+band+'</div><div class="results-score-desc">'+bandDesc+'</div></div></div><div class="results-dims">'+dimsHtml+'</div><div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:300;">'+bandAction+' \u00b7 '+onboarding+'</div><div class="results-cta"><div class="results-cta-text">Book a 30-minute call with Mike to walk through your score. No pitch \u2014 just an honest conversation about what the results mean and what the right next step is for your specific situation.</div><div class="results-actions"><a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">Book a call with Mike \u2192</a><a href="/" class="btn-secondary">Back to home</a></div></div>';
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+renderQuestion(0);
+</script>
+</body>
+</html>
