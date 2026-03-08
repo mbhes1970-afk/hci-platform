@@ -360,7 +360,7 @@ var TRANSLATIONS = {
   }
 };
 function setLang(l){
-  try{localStorage.setItem('hci-lang',l);}catch(e){}
+  try{localStorage.setItem('hci_lang',l);}catch(e){}
   var t=TRANSLATIONS[l];if(!t)return;
   document.getElementById('lnl').style.background=l==='nl'?'var(--accent)':'transparent';
   document.getElementById('lnl').style.color=l==='nl'?'#fff':'var(--text-dim)';
@@ -423,7 +423,7 @@ function setLang(l){
 </script>
 <form name="hci-insights-gate" netlify netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="email"><input name="regulation"><input name="page"></form>
 <script>
-(function(){try{var l=localStorage.getItem('hci-lang');if(l==='en'){
+(function(){try{var l=localStorage.getItem('hci_lang');if(l==='en'){
   var fn=window.setLang;if(fn)fn('en');
 }}catch(e){}})();
 </script>

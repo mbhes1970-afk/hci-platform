@@ -32,4 +32,23 @@
 /hci-dora-brief     /insights/dora    301
 /hci-aiact-brief    /insights/aiact   301
 /cmofmo  /hci-cmofmo.html    200
-/quickscan  /hci-cmofmo.html    200
+/quickscan  /hci-quickscan.html    200
+
+# ── hes-consultancy.nl ICP routes ──
+/eu-entry          /icp1-eu-entry.html     200
+/icp1              /icp1-eu-entry.html     200
+/growth            /icp2-growth.html       200
+/partners          /icp2-growth.html       200
+/icp2              /icp2-growth.html       200
+/compliance        /icp3-compliance.html   200
+/icp3              /icp3-compliance.html   200
+/scan              /hci-quickscan.html     200
+/assessment        /hci-quickscan.html     200
+/calculator        /calculator.html        200
+/report/s01        /hci-output-s01.html    200
+/report/s02        /hci-output-s02.html    200
+/report/s03        /hci-output-s03.html    200
+/report/s04        /hci-output-s04.html    200
+/report/s05        /hci-output-s05.html    200
+/report/s06        /hci-output-s06.html    200
+/optout            /optout.html            200

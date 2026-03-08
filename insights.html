@@ -289,7 +289,7 @@ var I18N_HUB = {
   }
 };
 function setLang(l) {
-  try{localStorage.setItem('hci-lang',l);}catch(e){}
+  try{localStorage.setItem('hci_lang',l);}catch(e){}
   document.getElementById('lnl').style.background=l==='nl'?'var(--gold)':'transparent';
   document.getElementById('lnl').style.color=l==='nl'?'var(--bg-deep)':'var(--text-dim)';
   document.getElementById('len').style.background=l==='en'?'var(--gold)':'transparent';
@@ -315,7 +315,7 @@ function setLang(l) {
 }
 // Auto-detect stored language
 (function(){
-  try{var l=localStorage.getItem('hci-lang');if(l==='en')setLang('en');}catch(e){}
+  try{var l=localStorage.getItem('hci_lang');if(l==='en')setLang('en');}catch(e){}
 })();
 </script>
 </body>

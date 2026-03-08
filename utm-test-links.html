@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>HCI UTM Test Links — Pre-Launch</title>
+<style>
+:root { --bg: #0d1117; --bg-card: #161b22; --border: #30363d; --text: #c9d1d9; --text-dim: #8b949e; --white: #e6edf3; --purple: #6C5CE7; --blue: #58a6ff; --green: #3fb950; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 24px; max-width: 900px; margin: 0 auto; }
+h1 { color: var(--purple); font-size: 1.3rem; margin-bottom: 4px; }
+.meta { color: var(--text-dim); font-size: .78rem; margin-bottom: 24px; }
+h2 { color: #c8a55a; font-size: .9rem; margin-top: 28px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .05em; border-left: 3px solid #c8a55a; padding-left: 10px; }
+.link-row { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; }
+.link-label { color: var(--white); font-weight: 500; font-size: .85rem; margin-bottom: 4px; }
+.link-url { font-family: monospace; font-size: .75rem; color: var(--blue); word-break: break-all; display: block; margin-bottom: 8px; }
+.link-actions { display: flex; gap: 8px; }
+.link-btn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--blue); font-size: .75rem; cursor: pointer; text-decoration: none; }
+.link-btn:hover { border-color: var(--blue); }
+.link-btn.copied { color: var(--green); border-color: var(--green); }
+.note { background: rgba(200,165,90,.08); border: 1px solid rgba(200,165,90,.2); border-radius: 8px; padding: 12px 16px; font-size: .82rem; color: #c8a55a; margin-top: 24px; }
+</style>
+</head>
+<body>
+<h1>HCI UTM Test Links — Pre-Launch Verificatie</h1>
+<p class="meta">Test elke link voordat de LinkedIn campagne wordt geactiveerd. | Kopieer de exacte URLs voor LinkedIn posts.</p>
+
+<div id="links"></div>
+
+<div class="note">
+  Elke link bevat UTM parameters die door SignalMesh worden opgepikt voor lead scoring.
+  Controleer na het openen in de browser console of [HCI Intelligence] de juiste ICP en bron detecteert.
+</div>
+
+<script>
+var BASE = 'https://hes-consultancy.nl';
+var links = [
+  { section: 'ICP1 — EU Market Entry', items: [
+    { label: 'ICP1 Direct', url: BASE + '/icp1-eu-entry.html' },
+    { label: 'ICP1 LinkedIn', url: BASE + '/icp1-eu-entry.html?utm_source=linkedin&utm_campaign=eu-entry-2026&utm_medium=social&icp=icp1' },
+    { label: 'ICP1 Email', url: BASE + '/icp1-eu-entry.html?utm_source=email&utm_campaign=eu-entry-2026&utm_medium=email&icp=icp1' },
+    { label: 'ICP1 Partner referral', url: BASE + '/icp1-eu-entry.html?utm_source=partner&utm_campaign=eu-entry-2026&utm_medium=referral&icp=icp1' },
+  ]},
+  { section: 'ICP2 — Partner Growth', items: [
+    { label: 'ICP2 Direct', url: BASE + '/icp2-growth.html' },
+    { label: 'ICP2 LinkedIn', url: BASE + '/icp2-growth.html?utm_source=linkedin&utm_campaign=partner-2026&utm_medium=social&icp=icp2' },
+  ]},
+  { section: 'ICP3 — Compliance (per sector)', items: [
+    { label: 's01 Overheid (LinkedIn)', url: BASE + '/icp3-compliance.html?utm_source=linkedin&utm_campaign=compliance-overheid-2026&utm_medium=social&sector=s01&icp=icp3' },
+    { label: 's02 Zorg (LinkedIn)', url: BASE + '/icp3-compliance.html?utm_source=linkedin&utm_campaign=compliance-zorg-2026&utm_medium=social&sector=s02&icp=icp3' },
+    { label: 's03 Software (LinkedIn)', url: BASE + '/icp3-compliance.html?utm_source=linkedin&utm_campaign=compliance-software-2026&utm_medium=social&sector=s03&icp=icp3' },
+    { label: 's04 Finance (LinkedIn)', url: BASE + '/icp3-compliance.html?utm_source=linkedin&utm_campaign=compliance-finance-2026&utm_medium=social&sector=s04&icp=icp3' },
+    { label: 's05 Energie (LinkedIn)', url: BASE + '/icp3-compliance.html?utm_source=linkedin&utm_campaign=compliance-energie-2026&utm_medium=social&sector=s05&icp=icp3' },
+    { label: 's06 Telecom (LinkedIn)', url: BASE + '/icp3-compliance.html?utm_source=linkedin&utm_campaign=compliance-telecom-2026&utm_medium=social&sector=s06&icp=icp3' },
+  ]},
+  { section: 'Tools — Direct links', items: [
+    { label: 'Quickscan (publiek)', url: BASE + '/quickscan' },
+    { label: 'Calculator (publiek)', url: BASE + '/calculator' },
+    { label: 'Insights hub (publiek)', url: BASE + '/insights' },
+    { label: 'Modules hub (softlock)', url: BASE + '/modules' },
+  ]},
+];
+
+function render() {
+  var html = '';
+  links.forEach(function(group) {
+    html += '<h2>' + group.section + '</h2>';
+    group.items.forEach(function(link, i) {
+      var uid = group.section.replace(/\W/g,'') + '_' + i;
+      html += '<div class="link-row">' +
+        '<div class="link-label">' + link.label + '</div>' +
+        '<code class="link-url">' + link.url + '</code>' +
+        '<div class="link-actions">' +
+          '<a class="link-btn" href="' + link.url + '" target="_blank" rel="noopener">Open</a>' +
+          '<button class="link-btn" id="btn-' + uid + '" onclick="copyUrl(\'' + uid + '\',\'' + encodeURIComponent(link.url) + '\')">Kopieer URL</button>' +
+        '</div></div>';
+    });
+  });
+  document.getElementById('links').innerHTML = html;
+}
+
+function copyUrl(uid, encodedUrl) {
+  var url = decodeURIComponent(encodedUrl);
+  navigator.clipboard.writeText(url).then(function() {
+    var btn = document.getElementById('btn-' + uid);
+    btn.textContent = 'Gekopieerd!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Kopieer URL'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+render();
+</script>
+</body>
+</html>

@@ -6,12 +6,15 @@
  *
  * Usage: Add <script src="/softlock.js"></script> at end of protected pages.
  *
- * Pages that should include this:
- *   /pmc, /gtm, /outreach, /sales-execute,
- *   /icp-wizard, /ai-analyse, /account-hub, /quickscan
+ * Pages that should include this (LOCKED — require login):
+ *   /pmc, /gtm, /outreach, /sales-execute, /cmofmo,
+ *   /icp-wizard, /ai-analyse, /account-hub, /output-engine
  *
- * Pages that should NOT include this:
+ * Pages that should NOT include this (FREE — public access):
  *   /modules (landing page with login widget)
+ *   /, /icp1*, /icp2*, /icp3*, /eu-entry, /growth, /compliance,
+ *   /quickscan, /scan, /calculator, /assessment,
+ *   /insights*, /privacy, /terms, /optout
  */
 
 (function() {

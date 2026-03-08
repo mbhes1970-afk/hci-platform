@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignalMesh v2 — Test Page</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:#0a0e1a; color:#e2e8f0; min-height:100vh; }
+
+    /* ── HERO ─────────────────────────────────── */
+    .hero {
+      padding:60px 24px 40px;
+      text-align:center;
+      border-bottom:1px solid #1e293b;
+      transition:all 0.4s ease;
+    }
+    .hero-kicker {
+      font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      color:#6C5CE7; margin-bottom:12px; display:none;
+    }
+    .hero h1 { font-size:clamp(24px,4vw,40px); font-weight:700; line-height:1.2; margin-bottom:16px; }
+    .hero h1 em { font-style:normal; color:#6C5CE7; }
+    .hero-sub { font-size:16px; color:#94a3b8; max-width:640px; margin:0 auto 20px; line-height:1.6; }
+
+    .regulation-pills { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; min-height:28px; }
+    .pain-chips { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px; max-width:640px; margin:0 auto 24px; }
+
+    .cta-row { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
+    .cta-primary {
+      padding:14px 28px; border:none; border-radius:10px; font-size:15px; font-weight:600;
+      color:#fff; background:#6C5CE7; cursor:pointer; transition:all 0.2s;
+    }
+    .cta-primary:hover { opacity:0.9; transform:translateY(-1px); }
+    .cta-secondary { color:#6C5CE7; font-size:13px; cursor:pointer; background:none; border:none; }
+    .cta-secondary:hover { text-decoration:underline; }
+
+    /* ── WIDGET ───────────────────────────────── */
+    .sm-widget {
+      position:fixed; bottom:24px; right:24px; background:#1e293b; border:1px solid #334155;
+      border-radius:14px; padding:16px 20px; max-width:320px; box-shadow:0 12px 40px rgba(0,0,0,0.4);
+      transform:translateY(120%); transition:transform 0.4s ease; z-index:9000;
+    }
+    .sm-widget.sm-visible { transform:translateY(0); }
+    .sm-widget h4 { font-size:14px; margin-bottom:6px; }
+    .sm-widget p { font-size:12px; color:#94a3b8; margin-bottom:10px; }
+    .sm-widget button {
+      padding:8px 16px; background:#6C5CE7; color:#fff; border:none; border-radius:6px;
+      font-size:12px; font-weight:600; cursor:pointer;
+    }
+    .sm-widget-close {
+      position:absolute; top:8px; right:12px; background:none; border:none;
+      color:#64748b; font-size:16px; cursor:pointer;
+    }
+
+    /* ── TEST PANEL ───────────────────────────── */
+    .test-panel {
+      max-width:800px; margin:40px auto; padding:0 24px;
+    }
+    .test-panel h2 { font-size:20px; margin-bottom:16px; color:#6C5CE7; }
+    .test-section { margin-bottom:32px; }
+    .test-section h3 { font-size:14px; color:#94a3b8; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; }
+
+    .test-links { display:flex; flex-direction:column; gap:6px; }
+    .test-link {
+      display:block; padding:10px 14px; background:#1e293b; border:1px solid #334155;
+      border-radius:8px; color:#60a5fa; text-decoration:none; font-size:13px; font-family:monospace;
+      transition:border-color 0.2s;
+    }
+    .test-link:hover { border-color:#6C5CE7; }
+    .test-link .label { color:#94a3b8; font-size:11px; display:block; margin-bottom:2px; font-family:sans-serif; }
+
+    .debug-box {
+      background:#1e293b; border:1px solid #334155; border-radius:10px; padding:16px;
+      font-family:monospace; font-size:12px; white-space:pre-wrap; color:#cbd5e1;
+      max-height:300px; overflow-y:auto;
+    }
+
+    .btn-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+    .btn {
+      padding:8px 14px; background:#334155; border:1px solid #475569; border-radius:6px;
+      color:#e2e8f0; font-size:12px; cursor:pointer; font-family:monospace;
+    }
+    .btn:hover { background:#475569; }
+  </style>
+
+  <!-- SignalMesh Scripts (in order) -->
+  <script src="signalmesh.config.js"></script>
+  <script src="signalmesh-engine.js"></script>
+</head>
+<body>
+
+  <!-- ── HERO SECTION ──────────────────────────── -->
+  <section class="hero" data-sm="hero">
+    <div class="hero-kicker" data-sm="hero-kicker"></div>
+    <h1 data-sm="hero-h1">HES Consultancy International — <em>Compliance & AI Advisory</em></h1>
+    <p class="hero-sub" data-sm="hero-sub">
+      Van strategie naar implementatie. NIS2, BIO, DORA, AI Act — wij begeleiden uw organisatie.
+    </p>
+    <div class="regulation-pills" data-sm="regulation-pills"></div>
+    <div class="pain-chips" data-sm="pain-chips"></div>
+    <div class="cta-row">
+      <button class="cta-primary" data-sm="cta-primary">Doe de gratis Quickscan</button>
+      <button class="cta-secondary" data-sm="cta-secondary"></button>
+    </div>
+  </section>
+
+  <!-- ── QUICKSCAN MODAL ───────────────────────── -->
+  <div id="sm-quickscan"></div>
+
+  <!-- ── WIDGET ────────────────────────────────── -->
+  <div class="sm-widget" id="sm-widget">
+    <button class="sm-widget-close" onclick="this.parentElement.classList.remove('sm-visible')">&times;</button>
+    <h4>Compliance check nodig?</h4>
+    <p>Doe de gratis Quickscan en ontdek waar uw organisatie staat.</p>
+    <button onclick="document.getElementById('sm-quickscan').classList.add('sm-open')">Start Quickscan</button>
+  </div>
+
+  <!-- ── TEST PANEL ────────────────────────────── -->
+  <div class="test-panel">
+    <h2>SignalMesh v2 — Test Panel</h2>
+
+    <!-- Test URLs -->
+    <div class="test-section">
+      <h3>Test URL's</h3>
+      <div class="test-links">
+        <a class="test-link" href="signalmesh-test.html?icp=icp1">
+          <span class="label">ICP1 — Tech/ISV (cold, score ~20)</span>
+          ?icp=icp1
+        </a>
+        <a class="test-link" href="signalmesh-test.html?icp=icp3&sector=s01">
+          <span class="label">ICP3 + Overheid (warm, score ~35)</span>
+          ?icp=icp3&amp;sector=s01
+        </a>
+        <a class="test-link" href="signalmesh-test.html?icp=icp3&sector=s02&utm_source=email&vid=TEST-CIO-GEMEENTE">
+          <span class="label">ICP3 + Zorg + Email + VID (hot, score ~75)</span>
+          ?icp=icp3&amp;sector=s02&amp;utm_source=email&amp;vid=TEST-CIO-GEMEENTE
+        </a>
+        <a class="test-link" href="signalmesh-test.html?icp=icp2&utm_source=partner&vid=CHUNK-WORKS-001">
+          <span class="label">ICP2 + Partner + VID (tier1, score ~65)</span>
+          ?icp=icp2&amp;utm_source=partner&amp;vid=CHUNK-WORKS-001
+        </a>
+        <a class="test-link" href="signalmesh-test.html?icp=icp3&sector=s04&utm_source=linkedin&vid=CFO-RABOBANK&utm_campaign=dora-finance">
+          <span class="label">ICP3 + Finance + LinkedIn + VID + Campaign (tier1, score ~70)</span>
+          ?icp=icp3&amp;sector=s04&amp;utm_source=linkedin&amp;vid=CFO-RABOBANK&amp;utm_campaign=dora-finance
+        </a>
+        <a class="test-link" href="signalmesh-test.html?icp=icp3&sector=s03&lang=en">
+          <span class="label">ICP3 + Software — English</span>
+          ?icp=icp3&amp;sector=s03&amp;lang=en
+        </a>
+        <a class="test-link" href="signalmesh-test.html">
+          <span class="label">Geen params (cold, default hero)</span>
+          (geen parameters)
+        </a>
+      </div>
+    </div>
+
+    <!-- Debug Controls -->
+    <div class="test-section">
+      <h3>Debug Controls</h3>
+      <div class="btn-row">
+        <button class="btn" onclick="updateDebug()">Refresh State</button>
+        <button class="btn" onclick="window.__sm && window.__sm.debug()">Console Table</button>
+        <button class="btn" onclick="window.__sm && window.__sm.forceShow()">Force Widget</button>
+        <button class="btn" onclick="document.getElementById('sm-quickscan').classList.add('sm-open')">Open Quickscan</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn" onclick="window.__sm && window.__sm.selectICP('icp1'); updateDebug()">Set ICP1</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectICP('icp2'); updateDebug()">Set ICP2</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectICP('icp3'); updateDebug()">Set ICP3</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn" onclick="window.__sm && window.__sm.selectSector('s01'); updateDebug()">Sector: Overheid</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectSector('s02'); updateDebug()">Sector: Zorg</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectSector('s03'); updateDebug()">Sector: Software</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectSector('s04'); updateDebug()">Sector: Finance</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectSector('s05'); updateDebug()">Sector: Telecom</button>
+        <button class="btn" onclick="window.__sm && window.__sm.selectSector('s06'); updateDebug()">Sector: Energie</button>
+      </div>
+      <div id="debug-output" class="debug-box">Loading...</div>
+    </div>
+
+    <!-- Bridge Status -->
+    <div class="test-section">
+      <h3>CMO Bridge Status</h3>
+      <div class="btn-row">
+        <button class="btn" onclick="testBridge()">Force Sync to DealFlow</button>
+        <button class="btn" onclick="checkBridge()">Check Sync Status</button>
+      </div>
+      <div id="bridge-output" class="debug-box">Not synced yet</div>
+    </div>
+  </div>
+
+  <!-- SignalMesh Scripts (after body) -->
+  <script src="signalmesh-quickscan.js"></script>
+  <script src="signalmesh-ai-agent.js"></script>
+  <script src="signalmesh-cmo-bridge.js"></script>
+
+  <script>
+    function updateDebug() {
+      var el = document.getElementById('debug-output');
+      if (window.__sm) {
+        var state = window.__sm.getState();
+        el.textContent = JSON.stringify(state, null, 2);
+      } else {
+        el.textContent = 'SignalMesh not loaded';
+      }
+    }
+
+    function testBridge() {
+      if (window.__smBridge) {
+        window.__smBridge.syncToDealFlow({ _force: true });
+        document.getElementById('bridge-output').textContent = 'Sync triggered (check Network tab)';
+      }
+    }
+
+    function checkBridge() {
+      if (window.__smBridge) {
+        document.getElementById('bridge-output').textContent =
+          'Synced: ' + window.__smBridge.isSynced();
+      }
+    }
+
+    // Auto-update debug on load
+    setTimeout(updateDebug, 500);
+  </script>
+
+</body>
+</html>

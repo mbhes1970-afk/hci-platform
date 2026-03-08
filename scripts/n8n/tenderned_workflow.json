@@ -1,0 +1,23 @@
+{
+  "_note": "This is a reference file. The actual TenderNed workflow (ID: 4B4zpwYnmLcAF7u3) lives on the n8n server with 28 nodes. Use deploy_workflows.py to update it (adds Slack alerts + daily 07:00 schedule). The server workflow includes: TenderNed API fetch, XML/JSON parsing, CPV filtering, field splitting, and data table storage.",
+  "id": "4B4zpwYnmLcAF7u3",
+  "name": "HCI TenderNed Dagelijkse Scan + Slack Alert",
+  "modifications": {
+    "schedule": "daily 07:00 (cron: 0 7 * * *)",
+    "slack_node": "Slack TenderNed Alert — posts to HCI Slack channel after CPV/keyword filter",
+    "slack_webhook": "{{SLACK_WEBHOOK_URL}}",
+    "slack_message_fields": ["json_aanbestedingNaam", "json_opdrachtgeverNaam", "cpv_all_text", "json_sluitingsDatum", "xml_platform", "tenderNedUrl"]
+  },
+  "cpv_filter_codes": [
+    "72000000", "72200000", "72210000", "72212000",
+    "72220000", "72221000", "72222000", "72222100",
+    "72222200", "72222300", "72224000", "72224100",
+    "72300000", "72310000", "72316000", "72317000",
+    "72500000", "72600000", "72610000", "72611000",
+    "72700000", "72710000", "72720000", "72800000",
+    "79400000", "79410000", "79411000", "79412000",
+    "48000000", "48100000", "48200000", "48600000",
+    "48730000", "48732000", "79131000"
+  ],
+  "keyword_filter": "NIS2|DORA|BIO|CRA|AVG|GDPR|NEN7510|informatiebeveiliging|cybersecurity|compliance|risicoanalyse|audit|pentest|advies|implementatie|strategie|interim|cloud|SIEM|SOC|software|SaaS|soevereiniteit|weerbaarheid|assessment|zero trust|encryptie|quantum"
+}

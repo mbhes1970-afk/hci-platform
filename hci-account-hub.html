@@ -957,10 +957,11 @@ IMPLICATIE: [1 zin, gevolg van niet-handelen, gebruik €-impact of compliance d
 NEED-PAYOFF: [1 zin, waarde ${company} levert voor dit specifieke bedrijf]`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/.netlify/functions/claude-proxy', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        action: 'claude',
         model: 'claude-sonnet-4-20250514',
         max_tokens: 400,
         system: `Je bent een B2B sales strateeg. Antwoord altijd in het ${LANG === 'NL' ? 'Nederlands' : 'Engels'}. Wees bondig en concreet.`,

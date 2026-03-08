@@ -1,0 +1,134 @@
+{
+  "name": "HCI DealFlow → Slack",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "minutes", "minutesInterval": 15 }]
+        }
+      },
+      "name": "Elke 15 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.hes-consultancy-international.com/api/admins/auth-with-password",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"identity\":\"{{PB_ADMIN_EMAIL}}\",\"password\":\"{{PB_ADMIN_PASSWORD}}\"}",
+        "options": {}
+      },
+      "name": "PB Auth",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.hes-consultancy-international.com/api/collections/deals/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "filter", "value": "status='new'" },
+            { "name": "sort", "value": "-created" },
+            { "name": "perPage", "value": "50" }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $json.token }}" }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Haal nieuwe deals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.totalItems }}",
+              "rightValue": "0",
+              "operator": { "type": "number", "operation": "gt" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "name": "Nieuwe deals?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract items and prepare for Slack + status update\nconst input = $input.first().json;\nconst items = input.items || [];\nconst token = $('PB Auth').first().json.token;\n\nconst results = items.map(deal => ({\n  id: deal.id,\n  org_name: deal.org_name || deal.company || 'Onbekend',\n  sector: deal.sector || '-',\n  role: deal.role || '-',\n  overall_score: deal.overall_score || 0,\n  sm_tier: deal.sm_tier || '-',\n  source: deal.source || '-',\n  token: token\n}));\n\nreturn results;"
+      },
+      "name": "Prepare deals",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.hes-consultancy-international.com/api/collections/deals/records/{{ $json.id }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"status\":\"contacted\"}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{ $json.token }}" }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Update status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1340, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "{{SLACK_WEBHOOK_URL}}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"text\":\"🎯 *Nieuwe DealFlow Lead*\\nOrganisatie: {{ $json.org_name }}\\nSector: {{ $json.sector }} | Rol: {{ $json.role }}\\nScore: {{ $json.overall_score }}/10 | Tier: {{ $json.sm_tier }}\\nBron: {{ $json.source }}\\n→ https://api.hes-consultancy-international.com/_/#/collections/deals\"}",
+        "options": {}
+      },
+      "name": "Slack notificatie",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1560, 200]
+    }
+  ],
+  "connections": {
+    "Elke 15 min": { "main": [[{ "node": "PB Auth", "type": "main", "index": 0 }]] },
+    "PB Auth": { "main": [[{ "node": "Haal nieuwe deals", "type": "main", "index": 0 }]] },
+    "Haal nieuwe deals": { "main": [[{ "node": "Nieuwe deals?", "type": "main", "index": 0 }]] },
+    "Nieuwe deals?": {
+      "main": [
+        [{ "node": "Prepare deals", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "Prepare deals": { "main": [[{ "node": "Update status", "type": "main", "index": 0 }]] },
+    "Update status": { "main": [[{ "node": "Slack notificatie", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

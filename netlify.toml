@@ -1,5 +1,17 @@
 [build]
   publish = "."
+  command = ""
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  directory = "netlify/functions"
+
+# Edge Functions
+[[edge_functions]]
+  path = "/*"
+  function = "ip-intelligence"
 
 # Platform tools (behind auth)
 [[redirects]]
@@ -9,7 +21,7 @@
 
 [[redirects]]
   from = "/quickscan"
-  to = "/hci-cmofmo.html"
+  to = "/hci-quickscan.html"
   status = 200
 
 [[redirects]]
@@ -125,6 +137,11 @@
   to = "/terms.html"
   status = 200
 
+[[redirects]]
+  from = "/optout"
+  to = "/optout.html"
+  status = 200
+
 # Layer 2 Opportunity Analyses (clean URLs)
 [[redirects]]
   from = "/analysis/cra"
@@ -154,7 +171,7 @@
 
 [[redirects]]
   from = "/api/slack"
-  to = "/.netlify/functions/claude-proxy"
+  to = "/.netlify/functions/signalmesh-alert"
   status = 200
 
 # Legacy brief redirects (→ insights pages)
