@@ -3,766 +3,687 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assessment — HES Consultancy International</title>
-<meta name="description" content="EU Readiness, Growth of PMC Validatie Assessment. Ontdek waar u staat en wat u moet verbeteren.">
-<meta property="og:title" content="Assessment — HES Consultancy International">
-<meta property="og:description" content="Four dimensions. Instant classification. Discover your readiness level.">
-<meta property="og:image" content="/Color_logo_-_no_background.png">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="nl_NL">
-<meta name="twitter:card" content="summary">
-<link rel="icon" type="image/png" href="/Color_logo_-_no_background.png">
+<title>EU Readiness Scan — HES Consultancy International</title>
+<meta name="description" content="Seven minutes. Six dimensions. One honest score. Know exactly where you stand before investing in European market entry.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="/site.config.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   HCI ASSESSMENT ENGINE — WP5
-   Config-driven: ?route=entry|growth|validate
-   Each route loads different questions, weights, scoring, output
-   ═══════════════════════════════════════════════════════════════ */
 :root {
-  --gold:#c8a55a;--gold-light:#e0c882;--gold-dim:rgba(200,165,90,.12);--gold-border:rgba(200,165,90,.25);
-  --bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;
-  --border:rgba(255,255,255,.06);--border-hover:rgba(255,255,255,.12);
-  --text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;
-  --red:#f87171;--green:#4ade80;--amber:#fbbf24;
-  /* Route accent — set by JS */
-  --accent:#6C5CE7;--accent-light:#a29bfe;--accent-dim:rgba(108,92,231,.12);--accent-border:rgba(108,92,231,.3);
+  --gold: #C9A84C; --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.1); --gold-border: rgba(201,168,76,0.22);
+  --ink: #0D0D0D; --ink-2: #131313; --ink-3: #1A1A1A;
+  --paper: #F7F4EE;
+  --muted: #888880; --muted-2: rgba(247,244,238,0.45); --muted-3: rgba(247,244,238,0.65);
+  --border: rgba(247,244,238,0.07);
+  --green: #4ADE80; --green-d: rgba(74,222,128,0.08); --green-b: rgba(74,222,128,0.25);
+  --amber: #FCD34D; --amber-d: rgba(252,211,77,0.08); --amber-b: rgba(252,211,77,0.25);
+  --red: #F87171; --red-d: rgba(248,113,113,0.08); --red-b: rgba(248,113,113,0.25);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
-.ambient{position:fixed;inset:0;pointer-events:none;z-index:0}
-.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--paper); overflow-x: hidden; }
 
-/* NAV — handled by _nav.js */
-.nav-route-badge{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--accent-dim);color:var(--accent);letter-spacing:1px;text-transform:uppercase}
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 56px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,13,13,0.97); border-bottom: 1px solid var(--border); }
+.nav-logo { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--paper); }
+.nav-logo-sub { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
+.nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-back { font-size: 12px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; font-weight: 300; }
+.nav-back:hover { color: var(--gold); }
 
-.container{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:10}
+/* HERO */
+.hero {
+  min-height: 100vh; padding: 140px 56px 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 40%, rgba(201,168,76,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(201,168,76,0.03) 0%, transparent 45%);
+}
+.hero-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(rgba(201,168,76,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px); background-size: 60px 60px; }
+.hero-left { position: relative; z-index: 2; padding-bottom: 100px; }
+.hero-right { position: relative; z-index: 2; padding-bottom: 100px; }
+.kicker { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
+.kicker::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5vw, 70px); font-weight: 600; line-height: 1.0; color: var(--paper); margin-bottom: 24px; }
+.hero-h1 em { font-style: italic; color: var(--gold); }
+.hero-body { font-size: 15px; line-height: 1.8; color: var(--muted-3); font-weight: 300; margin-bottom: 40px; max-width: 460px; }
+.scan-meta { display: flex; gap: 32px; margin-bottom: 48px; }
+.scan-meta-item { display: flex; flex-direction: column; gap: 4px; }
+.scan-meta-val { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--gold); line-height: 1; }
+.scan-meta-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 300; }
+.btn-primary { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--ink); padding: 18px 36px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; border: none; cursor: pointer; }
+.btn-primary:hover { background: var(--gold-light); transform: translateX(4px); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 10px; color: var(--muted-2); font-size: 13px; text-decoration: none; transition: color 0.2s; font-weight: 300; margin-top: 14px; }
+.btn-secondary:hover { color: var(--gold); }
+.btn-secondary::before { content: ''; width: 20px; height: 1px; background: currentColor; transition: width 0.25s; }
+.btn-secondary:hover::before { width: 32px; }
 
-/* PROGRESS */
-.progress-wrap{padding:80px 0 24px}
-.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.progress-title{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase}
-.progress-count{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim)}
-.progress-track{height:4px;background:var(--bg-elevated);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-light));border-radius:2px;transition:width .4s ease;width:0%}
+/* SAMPLE SCORE CARD */
+.score-card { background: var(--gold-dim); border: 1px solid var(--gold-border); padding: 40px; }
+.score-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--paper); margin-bottom: 6px; }
+.score-card-sub { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; font-weight: 300; }
+.dims { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+.dim { display: grid; grid-template-columns: 1fr 80px 36px; gap: 12px; align-items: center; }
+.dim-name { font-size: 13px; color: var(--muted-3); font-weight: 300; }
+.dim-bar { height: 2px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; border-radius: 2px; }
+.dim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gold); border-radius: 2px; }
+.dim-score { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); text-align: right; }
+.score-total { display: flex; align-items: flex-end; justify-content: space-between; border-top: 1px solid var(--gold-border); padding-top: 24px; }
+.score-big { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: var(--gold); line-height: 1; }
+.score-big span { font-size: 24px; color: var(--muted); }
+.score-verdict { text-align: right; }
+.score-verdict-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; font-weight: 300; }
+.score-verdict-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--green); }
 
-/* SCREENS */
-.screen{display:none;animation:fadeUp .4s ease}
-.screen.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* BANDS SECTION */
+.bands-section { background: var(--ink-3); padding: 100px 56px; }
+.bands-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; align-items: end; }
+.bands-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.band-card { padding: 36px 32px; border-top: 3px solid; }
+.band-card.green { border-color: var(--green); background: var(--green-d); }
+.band-card.amber { border-color: var(--amber); background: var(--amber-d); }
+.band-card.red { border-color: var(--red); background: var(--red-d); }
+.band-range { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1; margin-bottom: 8px; }
+.band-card.green .band-range { color: var(--green); }
+.band-card.amber .band-range { color: var(--amber); }
+.band-card.red .band-range { color: var(--red); }
+.band-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; font-weight: 400; }
+.band-card.green .band-label { color: var(--green); }
+.band-card.amber .band-label { color: var(--amber); }
+.band-card.red .band-label { color: var(--red); }
+.band-desc { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; margin-bottom: 16px; }
+.band-action { font-size: 12px; color: var(--paper); font-weight: 400; }
+.band-price { margin-top: 12px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
 
-/* INTRO SCREEN */
-.intro{padding:120px 0 80px;text-align:center}
-.intro h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,42px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:16px}
-.intro h1 em{font-style:italic;color:var(--accent-light)}
-.intro-sub{font-size:16px;color:var(--text);max-width:520px;margin:0 auto 40px;line-height:1.7}
-.intro-dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:40px}
-.intro-dim{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px 16px}
-.intro-dim-label{font-family:'Geist Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:6px}
-.intro-dim-pts{font-family:'Instrument Serif',serif;font-size:28px;color:var(--accent-light)}
-.intro-time{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:32px}
-.btn-start{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;background:var(--accent);color:var(--white);border:none;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,92,231,.3)}
+/* DIMENSIONS SECTION */
+.dims-section { background: #0A0A0A; padding: 100px 56px; }
+.dims-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; align-items: end; }
+.dims-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.dim-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border: 1px solid transparent; transition: all 0.3s; }
+.dim-card:hover { border-color: var(--gold-border); background: var(--gold-dim); }
+.dim-card-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 16px; }
+.dim-card-name { font-size: 15px; font-weight: 500; color: var(--paper); margin-bottom: 10px; }
+.dim-card-body { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; margin-bottom: 14px; }
+.dim-card-questions { font-size: 11px; color: var(--muted); font-weight: 300; font-style: italic; }
 
-/* QUESTION SCREEN */
-.question-wrap{padding:40px 0 80px}
-.q-dimension{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
-.q-number{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:16px}
-.q-text{font-family:'Instrument Serif',serif;font-size:clamp(22px,3vw,30px);font-weight:400;color:var(--white);line-height:1.3;margin-bottom:32px}
+/* SCAN SECTION */
+.scan-section { background: var(--ink-3); padding: 100px 56px; }
+.scan-wrap { max-width: 760px; margin: 48px auto 0; }
+.scan-progress { margin-bottom: 40px; }
+.scan-progress-bar { height: 2px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; margin-bottom: 10px; }
+.scan-progress-fill { height: 100%; background: var(--gold); transition: width 0.4s ease; }
+.scan-progress-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.1em; }
+.question-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 48px; display: none; }
+.question-card.active { display: block; }
+.q-dim { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-family: 'DM Mono', monospace; }
+.q-text { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; line-height: 1.25; color: var(--paper); margin-bottom: 12px; }
+.q-hint { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.6; margin-bottom: 32px; }
 
-.options{display:flex;flex-direction:column;gap:10px}
-.option{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .25s;text-align:left}
-.option:hover{border-color:var(--accent-border);background:var(--bg-elevated)}
-.option.selected{border-color:var(--accent);background:var(--accent-dim)}
-.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--text-dim);flex-shrink:0;margin-top:2px;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.option.selected .option-dot{border-color:var(--accent);background:var(--accent)}
-.option.selected .option-dot::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--white)}
-.option-content{}
-.option-label{font-size:14px;font-weight:500;color:var(--text-bright);margin-bottom:2px}
-.option-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
-.option-score{font-family:'Geist Mono',monospace;font-size:10px;color:var(--accent);margin-top:4px}
+/* 0-10 SCALE */
+.q-scale { display: flex; flex-direction: column; gap: 12px; }
+.q-scale-row { display: flex; gap: 6px; justify-content: space-between; }
+.q-scale-btn {
+  flex: 1; height: 48px; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02); cursor: pointer;
+  transition: all 0.2s; font-family: 'DM Mono', monospace;
+  font-size: 14px; color: var(--muted-3);
+}
+.q-scale-btn:hover { border-color: var(--gold-border); background: var(--gold-dim); color: var(--paper); }
+.q-scale-btn.selected { border-color: var(--gold); background: var(--gold); color: var(--ink); font-weight: 500; }
+.q-scale-labels { display: flex; justify-content: space-between; }
+.q-scale-anchor { font-size: 10px; letter-spacing: 0.08em; color: var(--muted); font-weight: 300; }
 
-.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
-.q-back{font-size:13px;color:var(--text-dim);text-decoration:none;cursor:pointer;transition:color .2s;background:none;border:none;font-family:'Outfit',sans-serif}
-.q-back:hover{color:var(--text)}
-.q-next{padding:12px 28px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:var(--white);border:none;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;opacity:.4;pointer-events:none}
-.q-next.enabled{opacity:1;pointer-events:auto}
-.q-next:hover{background:var(--accent-light)}
+/* NAV BUTTONS */
+.scan-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; }
+.scan-btn-prev { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 10px 20px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.scan-btn-prev:hover { border-color: var(--gold-border); color: var(--paper); }
+.scan-btn-next { background: var(--gold); border: none; color: var(--ink); padding: 12px 28px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.25s; }
+.scan-btn-next:hover { background: var(--gold-light); }
+.scan-btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+.q-counter { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
 
-/* RESULT SCREEN */
-.result-wrap{padding:100px 0 80px;text-align:center}
-.result-score-ring{width:180px;height:180px;margin:0 auto 24px;position:relative}
-.result-score-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.result-score-ring .bg{fill:none;stroke:var(--bg-elevated);stroke-width:8}
-.result-score-ring .fill{fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1.5s ease}
-.result-score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.result-score-num{font-family:'Instrument Serif',serif;font-size:48px;color:var(--white)}
-.result-score-max{font-family:'Geist Mono',monospace;font-size:12px;color:var(--text-dim)}
-.result-phase{display:inline-block;padding:8px 20px;border-radius:6px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:1px;margin-bottom:24px}
-.result-phase.low{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
-.result-phase.mid{background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.2)}
-.result-phase.high{background:rgba(74,222,128,.1);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+/* RESULTS */
+.results-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 48px; display: none; }
+.results-card.active { display: block; }
+.results-headline { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--paper); margin-bottom: 6px; }
+.results-score-display { display: flex; align-items: center; gap: 32px; margin: 28px 0; padding: 24px; background: var(--gold-dim); border: 1px solid var(--gold-border); }
+.results-score-num { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300; color: var(--gold); line-height: 1; }
+.results-score-band { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.results-score-desc { font-size: 13px; color: var(--muted-3); font-weight: 300; line-height: 1.6; }
+.results-dims { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.results-dim { display: grid; grid-template-columns: 1fr 100px 40px; gap: 12px; align-items: center; }
+.results-dim-name { font-size: 13px; color: var(--muted-3); font-weight: 300; }
+.results-dim-bar { height: 3px; background: rgba(255,255,255,0.08); position: relative; border-radius: 2px; overflow: hidden; }
+.results-dim-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; transition: width 0.8s ease; }
+.results-dim-score { font-family: 'DM Mono', monospace; font-size: 11px; text-align: right; }
+.results-cta { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+.results-cta-text { font-size: 14px; color: var(--muted-3); font-weight: 300; line-height: 1.6; margin-bottom: 8px; }
+.results-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.btn-email { display: inline-flex; align-items: center; gap: 10px; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 16px 28px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+.btn-email:hover { background: var(--gold-dim); }
 
-.result-title{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.2}
-.result-sub{font-size:15px;color:var(--text);max-width:500px;margin:0 auto 40px;line-height:1.7}
+/* HELP SECTION */
+.help-section { background: #0A0A0A; padding: 100px 56px; }
+.help-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+.help-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border-left: 2px solid var(--border); transition: border-color 0.3s; }
+.help-card:hover { border-left-color: var(--gold); }
+.help-icon { font-size: 24px; margin-bottom: 16px; }
+.help-title { font-size: 14px; font-weight: 500; color: var(--paper); margin-bottom: 10px; }
+.help-body { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; }
 
-.dimension-breakdown{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:40px;text-align:left}
-.dim-row{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--bg-card);border-radius:10px;border:1px solid var(--border)}
-.dim-label{font-size:13px;font-weight:500;color:var(--text-bright);min-width:160px}
-.dim-bar-wrap{flex:1;height:6px;background:var(--bg-elevated);border-radius:3px;overflow:hidden}
-.dim-bar{height:100%;border-radius:3px;transition:width 1s ease .3s}
-.dim-bar.low{background:var(--red)}.dim-bar.mid{background:var(--amber)}.dim-bar.high{background:var(--green)}
-.dim-score{font-family:'Geist Mono',monospace;font-size:12px;color:var(--text-dim);min-width:50px;text-align:right}
+/* FOOTER */
+footer { border-top: 1px solid var(--border); padding: 28px 56px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: rgba(247,244,238,0.35); }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: var(--muted); }
 
-.result-gaps{margin-bottom:40px;text-align:left}
-.result-gaps h3{font-size:16px;font-weight:600;color:var(--white);margin-bottom:16px}
-.gap-item{padding:14px 18px;background:var(--bg-card);border-left:3px solid var(--red);border-radius:0 8px 8px 0;margin-bottom:8px;font-size:13px;color:var(--text);line-height:1.6}
+/* SECTION HELPERS */
+section { padding: 100px 56px; }
+.section-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.section-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 600; line-height: 1.1; color: var(--paper); margin-bottom: 16px; }
+.section-body { font-size: 15px; line-height: 1.8; color: var(--muted-3); font-weight: 300; max-width: 560px; }
 
-.result-cta-area{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--accent);color:var(--white);transition:all .3s;border:none;cursor:pointer;font-family:'Outfit',sans-serif}
-.btn-primary:hover{transform:translateY(-2px)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;color:var(--text);border:1px solid var(--border);transition:all .2s}
-.btn-ghost:hover{border-color:var(--accent-border);color:var(--accent-light)}
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hero-left > * { animation: fadeUp 0.6s ease both; }
+.kicker { animation-delay: 0s; } .hero-h1 { animation-delay: 0.1s; } .hero-body { animation-delay: 0.2s; }
 
-/* EMAIL CAPTURE */
-.email-capture{background:var(--bg-card);border:1px solid var(--accent-border);border-radius:12px;padding:32px;margin-top:32px}
-.email-capture h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
-.email-capture p{font-size:13px;color:var(--text-dim);margin-bottom:16px}
-.email-row{display:flex;gap:8px}
-.email-input{flex:1;padding:12px 16px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
-.email-input:focus{border-color:var(--accent)}
-.email-input::placeholder{color:var(--text-dim)}
-.email-submit{padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:var(--white);border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
-.email-submit:hover{background:var(--accent-light)}
-.email-sent{display:none;padding:12px;text-align:center;font-size:13px;color:var(--green)}
-
-/* Footer — handled by _footer.js */
-
-@media(max-width:600px){nav{padding:12px 16px}.container{padding:0 16px}.intro-dims{grid-template-columns:1fr 1fr}.dim-label{min-width:100px;font-size:12px}.email-row{flex-direction:column}}
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 16px 24px; }
+  .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; min-height: auto; }
+  .hero-left, .hero-right { padding-bottom: 0; }
+  .bands-section, .dims-section, .help-section, .scan-section { padding: 72px 24px; }
+  .bands-intro, .dims-intro { grid-template-columns: 1fr; gap: 32px; }
+  .bands-grid, .dims-grid, .help-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  .scan-wrap { margin-top: 32px; }
+  .question-card, .results-card { padding: 28px 24px; }
+  .q-scale-btn { height: 42px; font-size: 12px; }
+  .results-score-display { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
 </style>
 </head>
 <body>
-<div class="ambient"></div><div class="grain"></div>
-
-<div id="hci-nav"></div>
-<script src="/_nav.js"></script>
-
-<div class="container">
-  <!-- PROGRESS BAR -->
-  <div class="progress-wrap" id="progressWrap" style="display:none">
-    <div class="progress-top">
-      <div class="progress-title" id="progressTitle"></div>
-      <div class="progress-count" id="progressCount"></div>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-main">HES Consultancy International</div>
+    <div class="nav-logo-sub">From Strategy to First Customer</div>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-back">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to home
+    </a>
   </div>
+</nav>
 
-  <!-- SCREEN: INTRO -->
-  <div class="screen active" id="screenIntro">
-    <div class="intro">
-      <h1 id="introTitle"></h1>
-      <p class="intro-sub" id="introSub"></p>
-      <div class="intro-dims" id="introDims"></div>
-      <p class="intro-time" id="introTime"></p>
-      <button class="btn-start" onclick="startAssessment()" id="startBtn">Start Assessment →</button>
-    </div>
-  </div>
-
-  <!-- SCREEN: QUESTIONS -->
-  <div class="screen" id="screenQuestion">
-    <div class="question-wrap">
-      <div class="q-dimension" id="qDimension"></div>
-      <div class="q-number" id="qNumber"></div>
-      <div class="q-text" id="qText"></div>
-      <div class="options" id="optionsWrap"></div>
-      <div class="q-nav">
-        <button class="q-back" id="qBack" onclick="prevQuestion()">← Back</button>
-        <button class="q-next" id="qNext" onclick="nextQuestion()">Next →</button>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-left">
+    <div class="kicker">EU Readiness Scan</div>
+    <h1 class="hero-h1">
+      Seven minutes.<br>
+      Six dimensions.<br>
+      One <em>honest</em> score.
+    </h1>
+    <p class="hero-body">
+      Before you invest time and money in European market entry,
+      know exactly where you stand. The EU Readiness Scan assesses
+      your real position across six critical dimensions &mdash; and tells you
+      what needs to be in place before the first customer conversation.
+    </p>
+    <div class="scan-meta">
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">7</div>
+        <div class="scan-meta-label">Minutes</div>
+      </div>
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">6</div>
+        <div class="scan-meta-label">Dimensions</div>
+      </div>
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">20</div>
+        <div class="scan-meta-label">Questions</div>
+      </div>
+      <div class="scan-meta-item">
+        <div class="scan-meta-val">Free</div>
+        <div class="scan-meta-label">No signup</div>
       </div>
     </div>
+    <a href="#scan" class="btn-primary">
+      Start the Scan Now
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">Or book a call with Mike instead</a>
   </div>
-
-  <!-- SCREEN: RESULT -->
-  <div class="screen" id="screenResult">
-    <div class="result-wrap">
-      <div class="result-score-ring">
-        <svg viewBox="0 0 120 120">
-          <circle class="bg" cx="60" cy="60" r="52"/>
-          <circle class="fill" id="scoreCircle" cx="60" cy="60" r="52" stroke-dasharray="327" stroke-dashoffset="327"/>
-        </svg>
-        <div class="result-score-center">
-          <div class="result-score-num" id="resultScoreNum">0</div>
-          <div class="result-score-max" id="resultScoreMax"></div>
+  <div class="hero-right">
+    <div class="score-card">
+      <div class="score-card-title">Sample Score Output</div>
+      <div class="score-card-sub">Anonymous &middot; EU Compliance SaaS &middot; Inbound</div>
+      <div class="dims">
+        <div class="dim">
+          <div class="dim-name">ICP Clarity</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:75%"></div></div>
+          <div class="dim-score">75</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Regulatory Compliance</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:40%"></div></div>
+          <div class="dim-score">40</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Product-Market Fit EU</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:62%"></div></div>
+          <div class="dim-score">62</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">GTM Model</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:55%"></div></div>
+          <div class="dim-score">55</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Team Readiness</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:80%"></div></div>
+          <div class="dim-score">80</div>
+        </div>
+        <div class="dim">
+          <div class="dim-name">Financial Runway</div>
+          <div class="dim-bar"><div class="dim-fill" style="width:65%"></div></div>
+          <div class="dim-score">65</div>
         </div>
       </div>
-      <div class="result-phase" id="resultPhase"></div>
-      <h2 class="result-title" id="resultTitle"></h2>
-      <p class="result-sub" id="resultSub"></p>
-
-      <div class="dimension-breakdown" id="dimBreakdown"></div>
-      <div class="result-gaps" id="resultGaps"><h3 id="gapTitle">Key gaps identified</h3></div>
-
-      <div class="result-cta-area">
-        <a href="https://calendly.com/mbhes1970/30min" target="_blank" rel="noopener" class="btn-primary" id="resultCta1">Schedule a conversation →</a>
-        <a href="/" class="btn-ghost" id="resultCta2">Back to overview</a>
-      </div>
-
-      <div class="email-capture">
-        <h4 id="emailTitle">Get your full report</h4>
-        <p id="emailDesc">Receive a detailed PDF with your scores, gap analysis, and recommended next steps.</p>
-        <div class="email-row" id="emailRow">
-          <input type="text" class="email-input" id="emailName" placeholder="Your name">
-          <input type="email" class="email-input" id="emailAddr" placeholder="your@company.com">
-          <button class="email-submit" onclick="sendReport()">Send report →</button>
+      <div class="score-total">
+        <div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-weight:300">Overall Score</div>
+          <div class="score-big">63<span>/100</span></div>
         </div>
-        <div class="email-sent" id="emailSent">✓ Report will be sent to your inbox shortly.</div>
+        <div class="score-verdict">
+          <div class="score-verdict-label">Verdict</div>
+          <div class="score-verdict-val">Market Ready</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">&euro;2,000 onboarding</div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div id="hci-footer"></div>
-<script src="/_footer.js"></script>
+<!-- SCORE BANDS -->
+<div class="bands-section">
+  <div class="bands-intro">
+    <div>
+      <div class="section-tag">Score Bands</div>
+      <h2 class="section-title">What your score means</h2>
+    </div>
+    <div>
+      <p class="section-body" style="padding-top:12px">Your score is not a judgment &mdash; it is a starting point. Every company begins somewhere. The score tells you what work needs to happen before European market entry makes commercial sense.</p>
+    </div>
+  </div>
+  <div class="bands-grid">
+    <div class="band-card green">
+      <div class="band-range">55&ndash;100</div>
+      <div class="band-label">Market Ready</div>
+      <div class="band-desc">Your fundamentals are in place. You have a clear ICP, a credible regulatory position and a GTM model that works for EU buyers. We can start building pipeline now.</div>
+      <div class="band-action">&rarr; HCI Exploration programme &middot; immediate start</div>
+      <div class="band-price">Onboarding from &euro;2,000</div>
+    </div>
+    <div class="band-card amber">
+      <div class="band-range">30&ndash;54</div>
+      <div class="band-label">Needs Preparation</div>
+      <div class="band-desc">Solid potential, specific gaps. Typically: regulatory position unclear, ICP too broad or value proposition not reframed for EU buyers yet. Fixable &mdash; in 4-8 weeks.</div>
+      <div class="band-action">&rarr; GTM Design + 90-day foundation phase</div>
+      <div class="band-price">Onboarding from &euro;4,500</div>
+    </div>
+    <div class="band-card red">
+      <div class="band-range">0&ndash;29</div>
+      <div class="band-label">Foundation First</div>
+      <div class="band-desc">Significant work needed before any customer conversations make sense. This is not a rejection &mdash; it is the honest assessment that protects your investment. We can build from here.</div>
+      <div class="band-action">&rarr; Full Commitment programme &middot; onboarding waived</div>
+      <div class="band-price">Onboarding waived at this tier</div>
+    </div>
+  </div>
+</div>
+
+<!-- SIX DIMENSIONS -->
+<div class="dims-section">
+  <div class="dims-intro">
+    <div>
+      <div class="section-tag">Six Dimensions</div>
+      <h2 class="section-title">What we're actually measuring</h2>
+    </div>
+    <div>
+      <p class="section-body" style="padding-top:12px">Each dimension has 3&ndash;4 questions. Rate yourself 0&ndash;10 on each. Together they give a composite score that reflects real EU market readiness &mdash; not surface-level optimism.</p>
+    </div>
+  </div>
+  <div class="dims-grid">
+    <div class="dim-card">
+      <div class="dim-card-num">01</div>
+      <div class="dim-card-name">ICP Clarity</div>
+      <div class="dim-card-body">Can you describe your ideal European customer in one sentence &mdash; sector, company size, job title, specific pain? EU enterprise buyers require precision.</div>
+      <div class="dim-card-questions">3 questions &middot; Target definition &middot; EU buyer profile &middot; Decision-maker mapping</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">02</div>
+      <div class="dim-card-name">Regulatory Compliance</div>
+      <div class="dim-card-body">Which EU regulations apply to your product, and what is your current compliance status? GDPR, NIS2, AI Act, CRA, DORA &mdash; each has commercial implications.</div>
+      <div class="dim-card-questions">4 questions &middot; Applicable regulations &middot; Data architecture &middot; Certification &middot; Roadmap</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">03</div>
+      <div class="dim-card-name">Product-Market Fit EU</div>
+      <div class="dim-card-body">Does your product solve a problem that EU buyers recognise &mdash; in language they use? US metrics may need reframing around compliance, sovereignty or workforce efficiency.</div>
+      <div class="dim-card-questions">3 questions &middot; Problem recognition &middot; EU value drivers &middot; Competitive landscape</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">04</div>
+      <div class="dim-card-name">GTM Model</div>
+      <div class="dim-card-body">Direct, indirect or hybrid? Your channel model depends on product type, price point, sector and market maturity. The wrong model burns introductions.</div>
+      <div class="dim-card-questions">3 questions &middot; Channel strategy &middot; Sales cycle &middot; First-customer plan</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">05</div>
+      <div class="dim-card-name">Team Readiness</div>
+      <div class="dim-card-body">Who manages the EU relationship on your side? EU buyers expect continuity, local language capability and someone with decision-making authority in their timezone.</div>
+      <div class="dim-card-questions">3 questions &middot; EU point of contact &middot; Language &middot; Leadership commitment</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-card-num">06</div>
+      <div class="dim-card-name">Financial Runway</div>
+      <div class="dim-card-body">EU enterprise sales cycles run 6&ndash;18 months. Do you have the runway to sustain a 24-month engagement? Budget clarity protects both sides.</div>
+      <div class="dim-card-questions">4 questions &middot; Runway duration &middot; Budget allocation &middot; Revenue independence &middot; Board sign-off</div>
+    </div>
+  </div>
+</div>
+
+<!-- THE SCAN -->
+<div class="scan-section" id="scan">
+  <div class="section-tag">EU Readiness Scan</div>
+  <h2 class="section-title">Start here. Takes 7 minutes.</h2>
+  <p class="section-body">Rate yourself honestly on each question. 0 means &ldquo;not at all&rdquo; and 10 means &ldquo;fully in place.&rdquo; The more accurate your answers, the more useful your score.</p>
+  <div class="scan-wrap">
+    <div class="scan-progress">
+      <div class="scan-progress-bar">
+        <div class="scan-progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="scan-progress-label" id="progressLabel">Question 1 of 20 &middot; ICP Clarity</div>
+    </div>
+    <div id="scanQuestions"></div>
+    <div id="scanResults" class="results-card"></div>
+  </div>
+</div>
+
+<!-- WHY THIS MATTERS -->
+<div class="help-section">
+  <div class="section-tag">Why This Matters</div>
+  <h2 class="section-title">Three things the scan tells you</h2>
+  <div class="help-grid">
+    <div class="help-card">
+      <div class="help-icon">&#127919;</div>
+      <div class="help-title">Where the real gaps are</div>
+      <div class="help-body">Not a general readiness feeling &mdash; specific scores per dimension. A score of 80 on team readiness and 20 on regulatory compliance tells you exactly where to focus your next 60 days.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-icon">&#128182;</div>
+      <div class="help-title">What it will cost to get market-ready</div>
+      <div class="help-body">Your score maps directly to HCI's onboarding tiers. Score 55+: &euro;2,000 onboarding. Score 30-54: &euro;4,500. Score 0-29: onboarding waived. No surprises, no hidden fees.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-icon">&#128197;</div>
+      <div class="help-title">How long until first customer conversations</div>
+      <div class="help-body">Score 55+: active pipeline in weeks. Score 30-54: first conversations in 3-4 months after GTM prep. Score 0-29: 6-8 months foundation work first. Honest timelines protect your budget.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/about/">About Mike</a>
+    <a href="/icp/healthcare/">Healthcare</a>
+    <a href="/icp/government/">Government</a>
+    <a href="mailto:mbhes@hes-consultancy-international.com">Contact</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International</div>
+</footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   ASSESSMENT ENGINE — Config-driven, multi-route
-   ═══════════════════════════════════════════════════════════════ */
+/* ── QUESTIONS: 6 dimensions, 20 questions total, score 0-10 each ── */
+var questions = [
+  /* ─── 1. ICP CLARITY (3 questions) ─── */
+  { dim: "ICP Clarity", q: "How precisely can you define your ideal European customer?",
+    hint: "Think: sector, company size, job title, specific pain point. Can you write it in one sentence?" },
+  { dim: "ICP Clarity", q: "Do you understand how your target EU buyer makes purchasing decisions?",
+    hint: "Buying committees, procurement processes, decision timelines, budget cycles." },
+  { dim: "ICP Clarity", q: "How many qualified EU prospects have you engaged in the past 12 months?",
+    hint: "0 = none, 5 = several with documented feedback, 10 = established EU pipeline." },
 
-// ═══ ROUTE CONFIGURATIONS ═══
-const ROUTES = {
-  entry: {
-    accent: '#6C5CE7', accentLight: '#a29bfe',
-    accentDim: 'rgba(108,92,231,.12)', accentBorder: 'rgba(108,92,231,.3)',
-    ambientColor: 'rgba(108,92,231,.05)',
-    badge: 'EU Readiness Assessment',
-    title: 'EU Readiness<br>Assessment.<br><em>Where do you stand?</em>',
-    sub: 'Four dimensions. Score out of 85. Instant classification into Foundation, Almost Ready, or Market Ready.',
-    time: '≈ 3 minutes · 12 questions',
-    maxScore: 85,
-    phases: [
-      { name: 'Foundation', min: 0, max: 29, class: 'low', msg: 'Significant groundwork needed before EU market entry. Multiple critical gaps identified.' },
-      { name: 'Almost Ready', min: 30, max: 54, class: 'mid', msg: 'Good foundation in place. Targeted improvements in key areas will unlock EU market access.' },
-      { name: 'Market Ready', min: 55, max: 85, class: 'high', msg: 'Strong EU readiness. Fine-tuning specific elements will accelerate your go-to-market.' }
-    ],
-    dimensions: [
-      { key: 'presence', label: 'Presence', max: 20, desc: 'EU entity · Office · Team' },
-      { key: 'compliance', label: 'Compliance', max: 30, desc: 'GDPR · NIS2 · CRA' },
-      { key: 'gtm', label: 'GTM', max: 25, desc: 'Proposition · Channel · Network' },
-      { key: 'commercial', label: 'Commercial', max: 10, desc: 'Pipeline · Revenue · Refs' }
-    ],
-    questions: [
-      { dim: 'presence', text: 'Do you have a legal entity registered in the EU?', options: [
-        { label: 'No EU entity', score: 0, gap: 'No EU legal entity — invisible to European procurement' },
-        { label: 'In progress / planned', score: 3 },
-        { label: 'Entity exists, not yet operational', score: 5 },
-        { label: 'Fully operational EU entity', score: 7 }
-      ]},
-      { dim: 'presence', text: 'Do you have team members or partners based in the EU?', options: [
-        { label: 'No EU-based team', score: 0, gap: 'No local team presence — critical for EU buyer trust' },
-        { label: 'Remote contractors', score: 3 },
-        { label: 'Partner with local presence', score: 5 },
-        { label: 'Own team in EU', score: 7 }
-      ]},
-      { dim: 'presence', text: 'Do you have EU-based hosting / data residency?', options: [
-        { label: 'All data outside EU', score: 0, gap: 'No EU data residency — GDPR blocker for enterprise buyers' },
-        { label: 'Partial EU hosting', score: 3 },
-        { label: 'EU hosting available as option', score: 5 },
-        { label: 'EU-first data architecture', score: 6 }
-      ]},
-      { dim: 'compliance', text: 'What is your current GDPR compliance status?', options: [
-        { label: 'Not addressed', score: 0, gap: 'GDPR non-compliance — cannot process EU personal data' },
-        { label: 'Basic privacy policy', score: 3 },
-        { label: 'DPA + processing records', score: 6 },
-        { label: 'Full GDPR program with DPO', score: 10 }
-      ]},
-      { dim: 'compliance', text: 'Are you familiar with NIS2 requirements for your sector?', options: [
-        { label: 'Not aware of NIS2', score: 0, gap: 'NIS2 awareness gap — may affect EU customers in critical sectors' },
-        { label: 'Aware but no action', score: 2 },
-        { label: 'Gap analysis done', score: 5 },
-        { label: 'NIS2 measures implemented', score: 10 }
-      ]},
-      { dim: 'compliance', text: 'Is your product designed with CRA (Cyber Resilience Act) in mind?', options: [
-        { label: 'Not aware of CRA', score: 0, gap: 'CRA gap — products with digital elements need CE marking by 2027' },
-        { label: 'Aware, no action yet', score: 2 },
-        { label: 'Security-by-design partially implemented', score: 5 },
-        { label: 'CRA-ready: SBOM, vulnerability mgmt, CE path', score: 10 }
-      ]},
-      { dim: 'gtm', text: 'Have you validated your product proposition for EU buyers?', options: [
-        { label: 'Same proposition as home market', score: 0, gap: 'Proposition not validated for EU — different buying criteria apply' },
-        { label: 'Minor adjustments planned', score: 3 },
-        { label: 'EU-specific proposition drafted', score: 5 },
-        { label: 'Validated with EU buyer feedback', score: 8 }
-      ]},
-      { dim: 'gtm', text: 'Do you have a channel / partner strategy for EU?', options: [
-        { label: 'No EU channel strategy', score: 0, gap: 'No EU channel strategy — direct sales alone rarely works in EU enterprise' },
-        { label: 'Exploring options', score: 2 },
-        { label: 'Partners identified', score: 5 },
-        { label: 'Active partner agreements', score: 8 }
-      ]},
-      { dim: 'gtm', text: 'Do you have C-level network access in Benelux / DACH?', options: [
-        { label: 'No EU network', score: 0, gap: 'No local C-level network — cold outreach has <2% conversion in EU enterprise' },
-        { label: 'LinkedIn connections only', score: 2 },
-        { label: 'Some warm contacts', score: 5 },
-        { label: 'Active relationships with buyers', score: 9 }
-      ]},
-      { dim: 'commercial', text: 'Do you have EU revenue or pipeline?', options: [
-        { label: 'Zero EU revenue/pipeline', score: 0 },
-        { label: 'Some inbound interest', score: 2 },
-        { label: 'Active pipeline < €100K', score: 4 },
-        { label: 'Revenue-generating EU customers', score: 5 }
-      ]},
-      { dim: 'commercial', text: 'Do you have EU customer references?', options: [
-        { label: 'No EU references', score: 0, gap: 'No EU references — EU buyers heavily rely on local proof points' },
-        { label: 'Pilot / POC in progress', score: 2 },
-        { label: '1-2 references', score: 3 },
-        { label: '3+ referenceable customers', score: 5 }
-      ]},
-    ]
-  },
+  /* ─── 2. REGULATORY COMPLIANCE (4 questions) ─── */
+  { dim: "Regulatory Compliance", q: "Have you mapped which EU regulations apply to your product?",
+    hint: "GDPR, NIS2, AI Act, CRA, DORA, sector-specific (NEN 7510, WGBO, BIO)." },
+  { dim: "Regulatory Compliance", q: "Is your data architecture EU-compatible?",
+    hint: "EU hosting, GDPR DPA templates, processing register, data residency." },
+  { dim: "Regulatory Compliance", q: "Can you answer \u2018Are you NIS2 / AI Act / CRA compliant?\u2019 from a procurement team?",
+    hint: "Documented compliance statements, supporting evidence, third-party audits." },
+  { dim: "Regulatory Compliance", q: "Do you have a regulatory compliance roadmap with clear milestones?",
+    hint: "Timeline for certifications, gap analysis completed, budget allocated for compliance." },
 
-  growth: {
-    accent: '#0891b2', accentLight: '#22d3ee',
-    accentDim: 'rgba(8,145,178,.12)', accentBorder: 'rgba(8,145,178,.3)',
-    ambientColor: 'rgba(8,145,178,.05)',
-    badge: 'Growth Assessment',
-    title: 'Growth<br>Assessment.<br><em>Waar blokkeert uw pipeline?</em>',
-    sub: 'Vijf dimensies. Score uit 85. Directe classificatie: Bodyshop, Differentiating, of Market Leader.',
-    time: '≈ 5 minuten · 10 vragen',
-    maxScore: 85,
-    phases: [
-      { name: 'Bodyshop', min: 0, max: 29, class: 'low', msg: 'Uw organisatie verkoopt uren, geen oplossingen. De pipeline is afhankelijk van netwerk en toeval. Structurele verandering nodig.' },
-      { name: 'Differentiating', min: 30, max: 54, class: 'mid', msg: 'Er is een basis. Met scherpe PMC\'s en vendor alignment kan de pipeline structureel gevuld worden.' },
-      { name: 'Market Leader', min: 55, max: 85, class: 'high', msg: 'Sterke propositie en pipeline. Fine-tuning op packaging en vendor co-sell kan de groei versnellen.' }
-    ],
-    dimensions: [
-      { key: 'pmc', label: 'PMC & Positionering', max: 20, desc: 'Scherpe proposities per verticaal' },
-      { key: 'regulatory', label: 'Regulatoire Marktcreatie', max: 20, desc: 'CRA · NIS2 · DORA · AI Act' },
-      { key: 'vendor', label: 'Vendor Alignment', max: 20, desc: 'Co-sell · Funding · AE relaties' },
-      { key: 'pipeline', label: 'Pipeline & Outreach', max: 15, desc: 'Gestructureerd proces' },
-      { key: 'sales', label: 'Sales & Packaging', max: 10, desc: 'Modulair aanbod · Pricing' }
-    ],
-    questions: [
-      { dim: 'pmc', text: 'Hoe specifiek zijn uw proposities per sector of verticaal?', options: [
-        { label: 'Wij doen alles voor iedereen', score: 0, gap: 'Geen scherpe PMC — u bent inwisselbaar met 500 andere partijen' },
-        { label: 'Enige focus maar niet formeel', score: 4 },
-        { label: '1-2 uitgewerkte verticale proposities', score: 8 },
-        { label: '3+ PMC\'s met pricing en pitch deck', score: 12 }
-      ]},
-      { dim: 'pmc', text: 'Heeft u gepackaged aanbiedingen (A-B-C) met vaste pricing?', options: [
-        { label: 'Nee, wij werken op uurtarief', score: 0, gap: 'Uurtarief-model — commodity pricing, geen waarde-differentiatie' },
-        { label: 'Sommige projecten zijn fixed-price', score: 3 },
-        { label: 'Modulair aanbod in ontwikkeling', score: 5 },
-        { label: 'A-B-C packaging met waarde-gebaseerde pricing', score: 8 }
-      ]},
-      { dim: 'regulatory', text: 'Heeft u proposities gebouwd rondom EU-regelgeving (CRA, NIS2, DORA, AI Act)?', options: [
-        { label: 'Nee, regelgeving is het probleem van de klant', score: 0, gap: 'Regulatoire kansen gemist — CRA/NIS2/DORA creëren markten van tienduizenden bedrijven' },
-        { label: 'We zijn ons bewust maar geen actie', score: 3 },
-        { label: 'Eén regulatoire propositie in ontwikkeling', score: 8 },
-        { label: 'Actieve regulatoire diensten met omzet', score: 14 }
-      ]},
-      { dim: 'regulatory', text: 'Kent u de CRA-deadline (september 2026) en de impact op uw klanten?', options: [
-        { label: 'Niet bekend met CRA', score: 0 },
-        { label: 'Bekend maar geen concrete stappen', score: 2 },
-        { label: 'CRA-impact geanalyseerd voor onze klanten', score: 4 },
-        { label: 'CRA-dienstverlening live', score: 6 }
-      ]},
-      { dim: 'vendor', text: 'Bent u co-sell ready met uw technology vendor (Microsoft/AWS/Google)?', options: [
-        { label: 'Geen actieve vendor relatie', score: 0, gap: 'Geen vendor alignment — mist warme introductions en funding' },
-        { label: 'Partner status maar geen co-sell', score: 4 },
-        { label: 'Co-sell geregistreerd, sporadisch contact met AE', score: 8 },
-        { label: 'Actieve co-sell met deals via AE', score: 14 }
-      ]},
-      { dim: 'vendor', text: 'Maakt u gebruik van vendor funding programma\'s?', options: [
-        { label: 'Niet bekend mee', score: 0 },
-        { label: 'Bewust maar nooit aangevraagd', score: 2 },
-        { label: 'Incidenteel gebruik', score: 4 },
-        { label: 'Structureel onderdeel van onze GTM', score: 6 }
-      ]},
-      { dim: 'pipeline', text: 'Hoe genereert u momenteel nieuwe leads?', options: [
-        { label: 'Netwerk bellen en hopen', score: 0, gap: 'Geen gestructureerd lead generation proces' },
-        { label: 'Cold outreach (LinkedIn/email)', score: 3 },
-        { label: 'Combinatie van inbound + outbound', score: 6 },
-        { label: 'Gestructureerd multi-channel met tracking', score: 10 }
-      ]},
-      { dim: 'pipeline', text: 'Heeft u een CRM met gekwalificeerde pipeline?', options: [
-        { label: 'Geen CRM / spreadsheet', score: 0 },
-        { label: 'CRM aanwezig maar niet actief gebruikt', score: 2 },
-        { label: 'CRM met pipeline stages', score: 3 },
-        { label: 'CRM met MEDDIC+ qualification', score: 5 }
-      ]},
-      { dim: 'sales', text: 'Heeft u standaard proposal templates per propositie?', options: [
-        { label: 'Elke offerte is maatwerk', score: 0 },
-        { label: 'Basis template aanwezig', score: 2 },
-        { label: 'Templates per propositie', score: 4 },
-        { label: 'Geautomatiseerd met configurator', score: 6 }
-      ]},
-      { dim: 'sales', text: 'Biedt u recurring revenue diensten (managed services, SLA\'s)?', options: [
-        { label: 'Alleen projectwerk', score: 0, gap: 'Geen recurring revenue — volledig afhankelijk van nieuwe projecten' },
-        { label: 'Incidentele support contracten', score: 1 },
-        { label: 'Managed services als optie', score: 3 },
-        { label: 'Recurring > 30% van omzet', score: 4 }
-      ]}
-    ]
-  },
+  /* ─── 3. PRODUCT-MARKET FIT EU (3 questions) ─── */
+  { dim: "Product-Market Fit EU", q: "How well does your value proposition resonate with EU buyers specifically?",
+    hint: "Reframed around EU drivers: compliance, digital sovereignty, workforce, regulation." },
+  { dim: "Product-Market Fit EU", q: "Do you have EU customer references or a strategy to build them?",
+    hint: "Existing EU references, reference customer strategy, case study plan." },
+  { dim: "Product-Market Fit EU", q: "How thoroughly have you mapped EU-specific competitors?",
+    hint: "Competitive analysis, differentiation documented, pricing comparison." },
 
-  validate: {
-    accent: '#d97706', accentLight: '#fbbf24',
-    accentDim: 'rgba(217,119,6,.12)', accentBorder: 'rgba(217,119,6,.3)',
-    ambientColor: 'rgba(217,119,6,.05)',
-    badge: 'PMC Validation',
-    title: 'PMC Validatie.<br><em>Goud of lood?</em>',
-    sub: 'Vier dimensies. Score uit 85. Eerlijk resultaat: Idee, Potential, of Validated.',
-    time: '≈ 2 minuten · 8 vragen',
-    maxScore: 85,
-    phases: [
-      { name: 'Idee', min: 0, max: 29, class: 'low', msg: 'Uw product is nog een idee, geen verkoopbaar product. Dat is niet erg — maar schalen is nu prematuur. Bespaar het budget.' },
-      { name: 'Potential', min: 30, max: 54, class: 'mid', msg: 'Er is potentie. Maar er zijn nog cruciale elementen die gevalideerd moeten worden voordat u investeert.' },
-      { name: 'Validated', min: 55, max: 85, class: 'high', msg: 'Sterk fundament. Uw product is verkoopbaar. Tijd om te bouwen — EU Entry of Growth route.' }
-    ],
-    dimensions: [
-      { key: 'pmf', label: 'Product-Markt Fit', max: 25, desc: 'Echt probleem? Bewijs?' },
-      { key: 'competition', label: 'Concurrentiepositie', max: 20, desc: 'Uniek? Alternatief?' },
-      { key: 'sellability', label: 'Verkoopbaarheid', max: 20, desc: 'Prijs · Beslisser · Cycle' },
-      { key: 'team', label: 'Team & Resources', max: 20, desc: 'Capaciteit · Runway' }
-    ],
-    questions: [
-      { dim: 'pmf', text: 'Lost uw product een specifiek, meetbaar probleem op?', options: [
-        { label: 'Het is meer een nice-to-have', score: 0, gap: 'Geen duidelijk meetbaar probleem — moeilijk om urgentie te creëren bij kopers' },
-        { label: 'Het lost een probleem op maar moeilijk te kwantificeren', score: 4 },
-        { label: 'Ja, meetbaar probleem bij specifieke doelgroep', score: 8 },
-        { label: 'Ja, met concrete data / case studies', score: 13 }
-      ]},
-      { dim: 'pmf', text: 'Heeft u betalende klanten of betaalde pilots?', options: [
-        { label: 'Nog geen betalende klanten', score: 0, gap: 'Geen betalende klanten — product-markt fit niet bewezen' },
-        { label: 'Gratis pilots / beta users', score: 3 },
-        { label: '1-3 betalende klanten', score: 7 },
-        { label: '4+ betalende klanten met renewals', score: 12 }
-      ]},
-      { dim: 'competition', text: 'Wat maakt uw product uniek ten opzichte van alternatieven?', options: [
-        { label: 'Moeilijk te benoemen', score: 0, gap: 'Geen duidelijke differentiatie — kopers zien geen reden om te switchen' },
-        { label: 'Betere features / UX', score: 4 },
-        { label: 'Unieke technologie of aanpak', score: 8 },
-        { label: 'Bewezen superieur met data', score: 12 }
-      ]},
-      { dim: 'competition', text: 'Kunt u in 30 seconden uitleggen waarom niet het alternatief?', options: [
-        { label: 'Niet overtuigend', score: 0 },
-        { label: 'Technisch verhaal maar geen elevator pitch', score: 3 },
-        { label: 'Heldere pitch met concrete voordelen', score: 5 },
-        { label: 'Pitch getest en verfijnd met kopers', score: 8 }
-      ]},
-      { dim: 'sellability', text: 'Wie is de beslisser en hoe lang is de typische sales cycle?', options: [
-        { label: 'Onduidelijk wie beslist', score: 0, gap: 'Beslisser niet geïdentificeerd — kan niet targetten zonder dit' },
-        { label: 'Weten wie, maar lang/onvoorspelbaar cycle', score: 3 },
-        { label: 'Duidelijke beslisser, 1-3 maanden cycle', score: 7 },
-        { label: 'Gevalideerd: beslisser + korte cycle + herhalbaar', score: 12 }
-      ]},
-      { dim: 'sellability', text: 'Heeft u een prijsmodel dat de markt accepteert?', options: [
-        { label: 'Nog geen pricing bepaald', score: 0 },
-        { label: 'Pricing gebaseerd op kosten', score: 3 },
-        { label: 'Waarde-gebaseerde pricing getest', score: 5 },
-        { label: 'Pricing gevalideerd met betalende klanten', score: 8 }
-      ]},
-      { dim: 'team', text: 'Heeft u het team om te leveren wat u verkoopt?', options: [
-        { label: 'Solo founder / minimaal team', score: 0, gap: 'Team te klein om te leveren — schaalbaarheid is onbewezen' },
-        { label: 'Klein team, beperkte capaciteit', score: 4 },
-        { label: 'Team op sterkte voor huidige fase', score: 8 },
-        { label: 'Team + buffer voor groei', score: 12 }
-      ]},
-      { dim: 'team', text: 'Hoeveel maanden runway heeft u?', options: [
-        { label: '< 3 maanden', score: 0, gap: 'Beperkte runway — onvoldoende tijd om PMC te valideren' },
-        { label: '3-6 maanden', score: 3 },
-        { label: '6-12 maanden', score: 5 },
-        { label: '12+ maanden of winstgevend', score: 8 }
-      ]}
-    ]
+  /* ─── 4. GTM MODEL (3 questions) ─── */
+  { dim: "GTM Model", q: "Have you defined your EU go-to-market route with documented rationale?",
+    hint: "Direct, indirect or hybrid. Channel partners identified. Entry market selected." },
+  { dim: "GTM Model", q: "Do you have a realistic estimate of your EU sales cycle length?",
+    hint: "Researched typical cycles for your segment. Planned pipeline accordingly." },
+  { dim: "GTM Model", q: "Do you have a specific first-customer strategy with named target accounts?",
+    hint: "Not just segments \u2014 specific companies, entry strategy, reference plan." },
+
+  /* ─── 5. TEAM READINESS (3 questions) ─── */
+  { dim: "Team Readiness", q: "Do you have a dedicated EU point of contact with decision-making authority?",
+    hint: "Available in CET timezone, empowered to make commercial decisions." },
+  { dim: "Team Readiness", q: "What is your EU language capability?",
+    hint: "Native/business-fluent in target country language, or English-only with clear segment strategy." },
+  { dim: "Team Readiness", q: "Does your board or leadership fully support a 24-month EU commitment?",
+    hint: "Board-level sign-off, budget allocated, KPIs defined, not just exploratory." },
+
+  /* ─── 6. FINANCIAL RUNWAY (4 questions) ─── */
+  { dim: "Financial Runway", q: "What is your current funding runway relative to EU entry timelines?",
+    hint: "24+ months ideal. 12\u201324 months workable. Under 12 months = risk." },
+  { dim: "Financial Runway", q: "Have you allocated a specific, approved EU market entry budget?",
+    hint: "Separate from product development. Formally approved. Clear spending plan." },
+  { dim: "Financial Runway", q: "Can your business sustain 12\u201318 months without EU revenue?",
+    hint: "Other markets generating enough revenue to fund EU investment independently." },
+  { dim: "Financial Runway", q: "Is there board-level financial commitment specifically for EU expansion?",
+    hint: "Not just verbal support \u2014 budget line item, quarterly review, performance milestones." }
+];
+
+var dimNames = ["ICP Clarity", "Regulatory Compliance", "Product-Market Fit EU", "GTM Model", "Team Readiness", "Financial Runway"];
+var dimQCounts = [3, 4, 3, 3, 3, 4]; /* questions per dimension */
+var totalQ = 20;
+var current = 0;
+var answers = new Array(totalQ).fill(null);
+
+function getDimIndex(qIdx) {
+  var c = 0;
+  for (var i = 0; i < dimQCounts.length; i++) {
+    c += dimQCounts[i];
+    if (qIdx < c) return i;
   }
-};
-
-// ═══ STATE ═══
-let route = null;
-let config = null;
-let currentQ = 0;
-let answers = [];
-
-// ═══ INIT ═══
-function init() {
-  const params = new URLSearchParams(window.location.search);
-  const r = params.get('route') || 'entry';
-  route = ROUTES[r] ? r : 'entry';
-  config = ROUTES[route];
-
-  // Apply accent
-  const root = document.documentElement.style;
-  root.setProperty('--accent', config.accent);
-  root.setProperty('--accent-light', config.accentLight);
-  root.setProperty('--accent-dim', config.accentDim);
-  root.setProperty('--accent-border', config.accentBorder);
-  document.querySelector('.ambient').style.background =
-    `radial-gradient(ellipse 800px 600px at 20% 20%, ${config.ambientColor} 0%, transparent 70%)`;
-
-  // Populate intro
-  document.getElementById('navBadge').textContent = config.badge;
-  document.getElementById('introTitle').innerHTML = config.title;
-  document.getElementById('introSub').textContent = config.sub;
-  document.getElementById('introTime').textContent = config.time;
-
-  const dimsWrap = document.getElementById('introDims');
-  dimsWrap.innerHTML = config.dimensions.map(d =>
-    `<div class="intro-dim"><div class="intro-dim-label">${d.label.toUpperCase()}</div><div class="intro-dim-pts">${d.max}</div></div>`
-  ).join('');
-
-  answers = new Array(config.questions.length).fill(null);
+  return 5;
 }
 
-function startAssessment() {
-  showScreen('screenQuestion');
-  document.getElementById('progressWrap').style.display = 'block';
-  renderQuestion();
-}
-
-function renderQuestion() {
-  const q = config.questions[currentQ];
-  const dim = config.dimensions.find(d => d.key === q.dim);
-
-  document.getElementById('qDimension').textContent = dim.label;
-  document.getElementById('qNumber').textContent = `Question ${currentQ + 1} of ${config.questions.length}`;
-  document.getElementById('qText').textContent = q.text;
-  document.getElementById('progressTitle').textContent = dim.label;
-  document.getElementById('progressCount').textContent = `${currentQ + 1} / ${config.questions.length}`;
-  document.getElementById('progressFill').style.width = `${((currentQ + 1) / config.questions.length) * 100}%`;
-
-  const wrap = document.getElementById('optionsWrap');
-  wrap.innerHTML = q.options.map((o, i) =>
-    `<div class="option ${answers[currentQ] === i ? 'selected' : ''}" onclick="selectOption(${i})">
-      <div class="option-dot"></div>
-      <div class="option-content">
-        <div class="option-label">${o.label}</div>
-        ${o.score > 0 ? '' : ''}
-      </div>
-    </div>`
-  ).join('');
-
-  document.getElementById('qBack').style.visibility = currentQ > 0 ? 'visible' : 'hidden';
-  const nextBtn = document.getElementById('qNext');
-  nextBtn.textContent = currentQ === config.questions.length - 1 ? 'See results →' : 'Next →';
-  nextBtn.classList.toggle('enabled', answers[currentQ] !== null);
-}
-
-function selectOption(idx) {
-  answers[currentQ] = idx;
-  document.querySelectorAll('.option').forEach((el, i) => el.classList.toggle('selected', i === idx));
-  document.getElementById('qNext').classList.add('enabled');
-}
-
-function nextQuestion() {
-  if (answers[currentQ] === null) return;
-  if (currentQ < config.questions.length - 1) {
-    currentQ++;
-    renderQuestion();
-  } else {
-    showResults();
+function getDimQNum(qIdx) {
+  var c = 0;
+  for (var i = 0; i < dimQCounts.length; i++) {
+    if (qIdx < c + dimQCounts[i]) return (qIdx - c + 1);
+    c += dimQCounts[i];
   }
+  return 1;
 }
 
-function prevQuestion() {
-  if (currentQ > 0) { currentQ--; renderQuestion(); }
+function renderQuestion(idx) {
+  var container = document.getElementById('scanQuestions');
+  container.innerHTML = '';
+  var q = questions[idx];
+  var di = getDimIndex(idx);
+  var dqn = getDimQNum(idx);
+  var dqt = dimQCounts[di];
+
+  var card = document.createElement('div');
+  card.className = 'question-card active';
+
+  var scaleHtml = '<div class="q-scale"><div class="q-scale-row">';
+  for (var s = 0; s <= 10; s++) {
+    scaleHtml += '<button class="q-scale-btn' + (answers[idx] === s ? ' selected' : '') + '" onclick="selectScore(' + idx + ',' + s + ')">' + s + '</button>';
+  }
+  scaleHtml += '</div><div class="q-scale-labels"><span class="q-scale-anchor">0 \u2014 Not at all</span><span class="q-scale-anchor">10 \u2014 Fully in place</span></div></div>';
+
+  card.innerHTML =
+    '<div class="q-dim">' + q.dim + ' \u00b7 Question ' + dqn + ' of ' + dqt + '</div>' +
+    '<div class="q-text">' + q.q + '</div>' +
+    '<div class="q-hint">' + q.hint + '</div>' +
+    scaleHtml +
+    '<div class="scan-nav">' +
+      '<button class="scan-btn-prev" onclick="prevQ()" ' + (idx === 0 ? 'style="visibility:hidden"' : '') + '>\u2190 Back</button>' +
+      '<span class="q-counter">' + (idx + 1) + ' / ' + totalQ + '</span>' +
+      '<button class="scan-btn-next" id="nextBtn" onclick="nextQ()" ' + (answers[idx] === null ? 'disabled' : '') + '>' + (idx === totalQ - 1 ? 'See My Score \u2192' : 'Next \u2192') + '</button>' +
+    '</div>';
+  container.appendChild(card);
+  updateProgress(idx);
+}
+
+function selectScore(qIdx, score) {
+  answers[qIdx] = score;
+  var btns = document.querySelectorAll('.q-scale-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('selected', i === score);
+  }
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current === totalQ - 1) { showResults(); return; }
+  current++;
+  renderQuestion(current);
+}
+
+function prevQ() {
+  if (current === 0) return;
+  current--;
+  renderQuestion(current);
+}
+
+function updateProgress(idx) {
+  var pct = Math.round((idx / totalQ) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = 'Question ' + (idx + 1) + ' of ' + totalQ + ' \u00b7 ' + questions[idx].dim;
 }
 
 function showResults() {
-  showScreen('screenResult');
-  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('scanQuestions').innerHTML = '';
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = 'Complete \u2014 your results below';
 
-  // Calculate scores per dimension
-  const dimScores = {};
-  config.dimensions.forEach(d => dimScores[d.key] = 0);
-  const gaps = [];
-
-  config.questions.forEach((q, i) => {
-    if (answers[i] !== null) {
-      const opt = q.options[answers[i]];
-      dimScores[q.dim] += opt.score;
-      if (opt.gap && opt.score === 0) gaps.push(opt.gap);
+  /* Calculate per-dimension scores (normalized to 0-100) */
+  var dimScores = [];
+  var qStart = 0;
+  for (var di = 0; di < dimNames.length; di++) {
+    var total = 0;
+    var maxPossible = dimQCounts[di] * 10;
+    for (var qi = qStart; qi < qStart + dimQCounts[di]; qi++) {
+      if (answers[qi] !== null) total += answers[qi];
     }
-  });
-
-  const totalScore = Object.values(dimScores).reduce((a, b) => a + b, 0);
-  const phase = config.phases.find(p => totalScore >= p.min && totalScore <= p.max) || config.phases[0];
-  const pct = totalScore / config.maxScore;
-
-  // Animate score ring
-  const circle = document.getElementById('scoreCircle');
-  const circumference = 2 * Math.PI * 52;
-  circle.style.strokeDasharray = circumference;
-  setTimeout(() => {
-    circle.style.strokeDashoffset = circumference * (1 - pct);
-  }, 100);
-
-  document.getElementById('resultScoreNum').textContent = totalScore;
-  document.getElementById('resultScoreMax').textContent = `/ ${config.maxScore}`;
-
-  const phaseEl = document.getElementById('resultPhase');
-  phaseEl.textContent = phase.name;
-  phaseEl.className = `result-phase ${phase.class}`;
-
-  document.getElementById('resultTitle').textContent = `${phase.name} — ${Math.round(pct * 100)}% readiness`;
-  document.getElementById('resultSub').textContent = phase.msg;
-
-  // Dimension breakdown
-  const bkd = document.getElementById('dimBreakdown');
-  bkd.innerHTML = config.dimensions.map(d => {
-    const score = dimScores[d.key];
-    const dimPct = score / d.max;
-    const cls = dimPct < .4 ? 'low' : dimPct < .7 ? 'mid' : 'high';
-    return `<div class="dim-row">
-      <div class="dim-label">${d.label}</div>
-      <div class="dim-bar-wrap"><div class="dim-bar ${cls}" style="width:${dimPct * 100}%"></div></div>
-      <div class="dim-score">${score} / ${d.max}</div>
-    </div>`;
-  }).join('');
-
-  // Gaps
-  const gapsEl = document.getElementById('resultGaps');
-  if (gaps.length > 0) {
-    gapsEl.innerHTML = `<h3 id="gapTitle">Key gaps identified</h3>` +
-      gaps.map(g => `<div class="gap-item">${g}</div>`).join('');
-    gapsEl.style.display = 'block';
-  } else {
-    gapsEl.style.display = 'none';
+    dimScores.push(Math.round(total / maxPossible * 100));
+    qStart += dimQCounts[di];
   }
+
+  var overall = Math.round(dimScores.reduce(function(a, b) { return a + b; }, 0) / 6);
+
+  var band, bandColor, bandDesc, bandAction, onboarding;
+  if (overall >= 55) {
+    band = "Market Ready"; bandColor = "#4ADE80";
+    bandDesc = "Your fundamentals are in place. We can start building pipeline now.";
+    bandAction = "HCI Exploration programme \u2014 active pipeline within weeks.";
+    onboarding = "Onboarding: \u20ac2,000";
+  } else if (overall >= 30) {
+    band = "Needs Preparation"; bandColor = "#FCD34D";
+    bandDesc = "Solid potential with specific gaps. 4\u20138 weeks of preparation before we start outreach.";
+    bandAction = "GTM Design + Foundation phase \u2014 first conversations in 3\u20134 months.";
+    onboarding = "Onboarding: \u20ac4,500";
+  } else {
+    band = "Foundation First"; bandColor = "#F87171";
+    bandDesc = "Significant work needed before customer conversations make sense. Fully buildable from here.";
+    bandAction = "Full Commitment programme \u2014 onboarding fee waived at this tier.";
+    onboarding = "Onboarding waived";
+  }
+
+  /* Build dimension bars */
+  var dimsHtml = '';
+  for (var i = 0; i < dimNames.length; i++) {
+    var c = dimScores[i] >= 55 ? '#4ADE80' : dimScores[i] >= 30 ? '#FCD34D' : '#F87171';
+    dimsHtml += '<div class="results-dim"><div class="results-dim-name">' + dimNames[i] + '</div><div class="results-dim-bar"><div class="results-dim-fill" style="width:' + dimScores[i] + '%;background:' + c + '"></div></div><div class="results-dim-score" style="color:' + c + '">' + dimScores[i] + '</div></div>';
+  }
+
+  /* Build mailto body with full results */
+  var mailBody = 'EU Readiness Scan Results%0A%0A';
+  mailBody += 'Overall Score: ' + overall + '/100 \u2014 ' + band + '%0A';
+  mailBody += onboarding + '%0A%0A';
+  mailBody += 'Dimension Scores:%0A';
+  for (var j = 0; j < dimNames.length; j++) {
+    mailBody += '  ' + dimNames[j] + ': ' + dimScores[j] + '/100%0A';
+  }
+  mailBody += '%0A' + bandAction + '%0A%0A';
+  mailBody += 'Completed: ' + new Date().toLocaleDateString('en-GB') + '%0A';
+  mailBody += '%0AI would like to discuss my results.';
+
+  var mailSubject = 'EU%20Readiness%20Scan%20%E2%80%94%20Score%20' + overall + '%20(' + encodeURIComponent(band) + ')';
+  var mailtoLink = 'mailto:mbhes@hes-consultancy-international.com?subject=' + mailSubject + '&body=' + mailBody;
+
+  var el = document.getElementById('scanResults');
+  el.className = 'results-card active';
+  el.innerHTML =
+    '<div class="results-headline">Your EU Readiness Score</div>' +
+    '<div class="results-score-display">' +
+      '<div class="results-score-num">' + overall + '</div>' +
+      '<div>' +
+        '<div class="results-score-band" style="color:' + bandColor + '">' + band + '</div>' +
+        '<div class="results-score-desc">' + bandDesc + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="results-dims">' + dimsHtml + '</div>' +
+    '<div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:300;">' + bandAction + ' \u00b7 ' + onboarding + '</div>' +
+    '<div class="results-cta">' +
+      '<div class="results-cta-text">Book a 30-minute call with Mike to walk through your score. No pitch \u2014 just an honest conversation about what the results mean and what the right next step is.</div>' +
+      '<div class="results-actions">' +
+        '<a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">Book a call with Mike \u2192</a>' +
+        '<a href="' + mailtoLink + '" class="btn-email">Email my results \u2192</a>' +
+        '<a href="/" class="btn-secondary">Back to home</a>' +
+      '</div>' +
+    '</div>';
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function sendReport() {
-  const name = document.getElementById('emailName').value;
-  const email = document.getElementById('emailAddr').value;
-  if (!email || !email.includes('@')) { document.getElementById('emailAddr').style.borderColor = 'var(--red)'; return; }
-  document.getElementById('emailRow').style.display = 'none';
-  document.getElementById('emailSent').style.display = 'block';
-
-  // Collect full assessment data
-  const dimScores = {};
-  config.dimensions.forEach(d => dimScores[d.key] = 0);
-  const gaps = [];
-  config.questions.forEach((q, i) => {
-    if (answers[i] !== null) {
-      const opt = q.options[answers[i]];
-      dimScores[q.dim] += opt.score;
-      if (opt.gap && opt.score === 0) gaps.push(opt.gap);
-    }
-  });
-  const totalScore = Object.values(dimScores).reduce((a, b) => a + b, 0);
-  const pct = Math.round((totalScore / config.maxScore) * 100);
-  const phase = config.phases.find(p => totalScore >= p.min && totalScore <= p.max) || config.phases[0];
-
-  // Submit to Netlify Forms
-  const formData = new URLSearchParams();
-  formData.append('form-name', 'hci-assessment');
-  formData.append('name', name);
-  formData.append('email', email);
-  formData.append('route', route);
-  formData.append('score', totalScore + '/' + config.maxScore);
-  formData.append('readiness', pct + '% — ' + phase.name);
-  formData.append('gaps', gaps.join(' | ') || 'Geen');
-  formData.append('dimensions', config.dimensions.map(d => d.label + ': ' + dimScores[d.key] + '/' + d.max).join(' | '));
-  formData.append('answers', config.questions.map((q, i) => q.text + ': ' + (answers[i] !== null ? q.options[answers[i]].label : 'skipped')).join(' | '));
-
-  fetch('/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: formData.toString()
-  }).catch(err => console.warn('Form submission fallback:', err));
-}
-
-function setLang(l) {
-  document.querySelectorAll('.lang-btn').forEach(b =>
-    b.classList.toggle('active', b.textContent.trim().toUpperCase() === l.toUpperCase()));
-  document.documentElement.lang = l;
-
-  const t = {
-    en: {
-      startBtn: 'Start Assessment →',
-      qBack: '← Back',
-      qNext: 'Next →',
-      emailTitle: 'Get your full report',
-      emailDesc: 'Receive a detailed PDF with your scores, gap analysis, and recommended next steps.',
-      emailSubmit: 'Send report →',
-      emailSent: '✓ Report will be sent to your inbox shortly.',
-      resultCta1: 'Schedule a conversation →',
-      resultCta2: 'Back to overview',
-      gapTitle: 'Key gaps identified',
-      namePlaceholder: 'Your name',
-      emailPlaceholder: 'your@company.com'
-    },
-    nl: {
-      startBtn: 'Start Assessment →',
-      qBack: '← Terug',
-      qNext: 'Volgende →',
-      emailTitle: 'Ontvang uw volledige rapport',
-      emailDesc: 'Ontvang een gedetailleerde PDF met uw scores, gap-analyse en aanbevolen vervolgstappen.',
-      emailSubmit: 'Verstuur rapport →',
-      emailSent: '✓ Rapport wordt naar uw inbox gestuurd.',
-      resultCta1: 'Plan een gesprek →',
-      resultCta2: 'Terug naar overzicht',
-      gapTitle: 'Geïdentificeerde gaps',
-      namePlaceholder: 'Uw naam',
-      emailPlaceholder: 'uw@bedrijf.nl'
-    }
-  };
-  if (!t[l]) return;
-  var tr = t[l];
-  var el;
-  el = document.getElementById('startBtn'); if (el) el.textContent = tr.startBtn;
-  el = document.getElementById('qBack'); if (el) el.textContent = tr.qBack;
-  el = document.getElementById('qNext'); if (el) el.textContent = tr.qNext;
-  el = document.getElementById('emailTitle'); if (el) el.textContent = tr.emailTitle;
-  el = document.getElementById('emailDesc'); if (el) el.textContent = tr.emailDesc;
-  el = document.querySelector('.email-submit'); if (el) el.textContent = tr.emailSubmit;
-  el = document.getElementById('emailSent'); if (el) el.textContent = tr.emailSent;
-  el = document.getElementById('resultCta1'); if (el) el.textContent = tr.resultCta1;
-  el = document.getElementById('resultCta2'); if (el) el.textContent = tr.resultCta2;
-  el = document.getElementById('emailName'); if (el) el.placeholder = tr.namePlaceholder;
-  el = document.getElementById('emailAddr'); if (el) el.placeholder = tr.emailPlaceholder;
-  // Update gap title if results are shown
-  var gt = document.querySelector('#resultGaps h3'); if (gt) gt.textContent = tr.gapTitle;
-}
-
-// ═══ BOOT ═══
-init();
-
-// Hook into shared nav language toggle
-var _prevLangChange = window.onLangChange;
-window.onLangChange = function() {
-  var l = localStorage.getItem('hci_lang') || 'nl';
-  setLang(l);
-  if (typeof _prevLangChange === 'function') _prevLangChange();
-};
-// Apply stored language on load
-(function() {
-  var l = localStorage.getItem('hci_lang') || 'nl';
-  if (l !== 'en') setLang(l);
-})();
+renderQuestion(0);
 </script>
-
-<!-- Hidden Netlify Form for bot detection -->
-<form name="hci-assessment" netlify netlify-honeypot="bot-field" hidden>
-  <input name="bot-field">
-  <input name="name">
-  <input name="email">
-  <input name="route">
-  <input name="score">
-  <input name="readiness">
-  <input name="gaps">
-  <input name="dimensions">
-  <input name="answers">
-</form>
-
 </body>
 </html>
