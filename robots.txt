@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Public pages
+Allow: /icp1-eu-entry.html
+Allow: /icp2-growth.html
+Allow: /icp3-compliance.html
+Allow: /hci-quickscan.html
+Allow: /calculator.html
+Allow: /insights.html
+
+# Protected pages — no index
+Disallow: /hci-pmc.html
+Disallow: /hci-gtm.html
+Disallow: /hci-outreach.html
+Disallow: /hci-sales-execute.html
+Disallow: /hci-cmofmo.html
+Disallow: /hci-modules.html
+
+# Internal tools
+Disallow: /test-journey.html
+Disallow: /utm-test-links.html
+
+# API endpoints
+Disallow: /.netlify/
+
+Sitemap: https://hes-consultancy.nl/sitemap.xml

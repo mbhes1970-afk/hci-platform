@@ -607,6 +607,14 @@ body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(-
     </div>
   </div>
   <div class="report-content" id="reportContent"></div>
+
+  <!-- Post-report CTA -->
+  <div id="post-report-cta" style="max-width:800px;margin:48px auto 0;padding:40px 36px;background:rgba(200,165,90,.06);border:1px solid rgba(200,165,90,.2);border-radius:16px;text-align:center;">
+    <h3 style="font-family:'Instrument Serif',serif;font-size:clamp(22px,3vw,32px);font-weight:400;color:#fff;margin-bottom:12px;" id="postCta-title"></h3>
+    <p style="font-size:14px;color:#a8a6b4;max-width:560px;margin:0 auto 28px;line-height:1.7;" id="postCta-desc"></p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;" id="postCta-actions"></div>
+    <div style="display:flex;gap:16px;justify-content:center;margin-top:24px;flex-wrap:wrap;" id="postCta-steps"></div>
+  </div>
 </div>
 
 <script>
@@ -1688,7 +1696,49 @@ function renderReport(orgName, contactName, contactRole) {
     <!-- JSON Debug -->
     <div class="json-debug" id="jsonDebug">${JSON.stringify(d, null, 2)}</div>
   `;
+
+  // ── Post-report CTA ──
+  renderPostReportCTA();
 }
+
+function renderPostReportCTA() {
+  var lang = currentLang || 'en';
+  var S = window.SITE;
+  var calendly = S && S.brand ? S.brand.calendly : 'https://calendly.com/hci-mike';
+
+  var titleEl = document.getElementById('postCta-title');
+  var descEl = document.getElementById('postCta-desc');
+  var actionsEl = document.getElementById('postCta-actions');
+  var stepsEl = document.getElementById('postCta-steps');
+
+  if (titleEl) titleEl.innerHTML = lang === 'nl'
+    ? 'Uw compliance roadmap <em style="font-style:italic;background:linear-gradient(135deg,#c8a55a,#e0c882);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">begint hier.</em>'
+    : 'Your compliance roadmap <em style="font-style:italic;background:linear-gradient(135deg,#c8a55a,#e0c882);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">starts here.</em>';
+
+  if (descEl) descEl.textContent = lang === 'nl'
+    ? 'Dit rapport is uw nulmeting. De volgende stap: een persoonlijk gesprek met Mike Hes om uw roadmap concreet te maken.'
+    : 'This report is your baseline. Next step: a personal conversation with Mike Hes to make your roadmap concrete.';
+
+  if (actionsEl) {
+    actionsEl.innerHTML =
+      '<a href="' + calendly + '" target="_blank" rel="noopener" class="btn-primary" style="font-size:14px;">' +
+        (lang === 'nl' ? 'Plan uw roadmap sessie \u2192' : 'Schedule your roadmap session \u2192') +
+      '</a>' +
+      '<button class="btn-secondary" onclick="downloadBrandedReport()" style="font-size:14px;">' +
+        (lang === 'nl' ? '\u2B07 Download rapport' : '\u2B07 Download report') +
+      '</button>';
+  }
+
+  if (stepsEl) {
+    var steps = lang === 'nl'
+      ? ['Rapport downloaden', 'Roadmap sessie plannen', 'Implementatie starten']
+      : ['Download report', 'Schedule roadmap session', 'Start implementation'];
+    stepsEl.innerHTML = steps.map(function(s, i) {
+      return '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#a8a6b4;">' +
+        '<span style="width:22px;height:22px;border-radius:50%;background:rgba(200,165,90,.15);color:#c8a55a;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;">' + (i + 1) + '</span>' +
+        '<span>' + s + '</span></div>';
+    }).join('');
+  }
 
 // ═══════════════════════════════════════════════════════════════
 // UTILITIES

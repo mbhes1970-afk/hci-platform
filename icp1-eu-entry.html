@@ -204,6 +204,90 @@ section { padding: 120px 0; position: relative; }
 }
 .step-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
 
+/* ═══ STORYTELLING SECTIONS ═══ */
+.story-section { padding: 100px 0; }
+.story-section .container { max-width: 800px; }
+.story-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.story-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(24px, 3.5vw, 38px); font-weight: 400;
+  color: var(--white); line-height: 1.2; margin-bottom: 20px;
+}
+.story-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.story-body { font-size: 15px; color: var(--text); line-height: 1.85; max-width: 680px; }
+.story-body strong { color: var(--text-bright); font-weight: 600; }
+
+.story-quote {
+  margin: 28px 0; padding: 20px 24px;
+  border-left: 3px solid var(--accent); background: var(--accent-dim);
+  border-radius: 0 10px 10px 0; font-size: 14px; font-style: italic;
+  color: var(--text-bright); line-height: 1.7;
+}
+
+/* Quick Qualifier */
+.qualifier-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 28px;
+}
+.qualifier-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 20px; font-size: 14px;
+  color: var(--text); line-height: 1.6; display: flex; gap: 10px; align-items: flex-start;
+  transition: border-color .2s;
+}
+.qualifier-item:hover { border-color: var(--accent-border); }
+.qualifier-check { color: var(--accent); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+.qualifier-note {
+  margin-top: 20px; font-size: 13px; color: var(--text-dim);
+  font-family: 'Geist Mono', monospace; letter-spacing: .3px;
+}
+
+/* Tool-keuze menu */
+.toolmenu-section { padding: 100px 0; }
+.toolmenu-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 40px;
+}
+.toolmenu-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px 24px; text-decoration: none;
+  transition: all .3s; display: block; position: relative; overflow: hidden;
+}
+.toolmenu-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--accent); opacity: 0; transition: opacity .3s;
+}
+.toolmenu-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
+.toolmenu-card:hover::before { opacity: 1; }
+.toolmenu-icon {
+  font-size: 24px; margin-bottom: 14px;
+}
+.toolmenu-label {
+  font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px;
+}
+.toolmenu-desc {
+  font-size: 12px; color: var(--text-dim); line-height: 1.6;
+}
+.toolmenu-badge {
+  display: inline-block; margin-top: 10px; font-size: 10px; font-family: 'Geist Mono', monospace;
+  padding: 3px 8px; border-radius: 4px; letter-spacing: .5px;
+}
+.toolmenu-badge.free { background: rgba(74,222,128,.1); color: var(--success); border: 1px solid rgba(74,222,128,.2); }
+.toolmenu-badge.locked { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
+
+@media (max-width: 900px) {
+  .qualifier-grid { grid-template-columns: 1fr; }
+  .toolmenu-grid { grid-template-columns: 1fr; }
+}
+
 /* ═══ S04: ASSESSMENT CTA ═══ */
 .assessment-cta-wrap {
   background: var(--bg-card); border: 1px solid var(--accent-border);
@@ -390,6 +474,63 @@ section { padding: 120px 0; position: relative; }
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
+     STORYTELLING: 5 blokken — Herkenning → Probleem → Verschuiving → Oplossing → Qualifier
+     ════════════════════════════════════════════════════════════ -->
+<section class="story-section section-border" id="story-herkenning">
+  <div class="container">
+    <div class="story-num fade-up" id="story1-num"></div>
+    <h2 class="story-title fade-up" id="story1-title"></h2>
+    <div class="story-body fade-up" id="story1-body"></div>
+  </div>
+</section>
+
+<section class="story-section section-border" id="story-probleem">
+  <div class="container">
+    <div class="story-num fade-up" id="story2-num"></div>
+    <h2 class="story-title fade-up" id="story2-title"></h2>
+    <div class="story-body fade-up" id="story2-body"></div>
+  </div>
+</section>
+
+<section class="story-section section-border" id="story-verschuiving">
+  <div class="container">
+    <div class="story-num fade-up" id="story3-num"></div>
+    <h2 class="story-title fade-up" id="story3-title"></h2>
+    <div class="story-body fade-up" id="story3-body"></div>
+  </div>
+</section>
+
+<section class="story-section section-border" id="story-oplossing">
+  <div class="container">
+    <div class="story-num fade-up" id="story4-num"></div>
+    <h2 class="story-title fade-up" id="story4-title"></h2>
+    <div class="story-body fade-up" id="story4-body"></div>
+  </div>
+</section>
+
+<section class="story-section section-border" id="story-qualifier">
+  <div class="container">
+    <div class="story-num fade-up" id="story5-num"></div>
+    <h2 class="story-title fade-up" id="story5-title"></h2>
+    <div class="story-body fade-up" id="story5-body"></div>
+    <div class="qualifier-grid fade-up" id="qualifier-grid"></div>
+    <div class="qualifier-note fade-up" id="qualifier-note"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     TOOL-KEUZE MENU — 6 tools
+     ════════════════════════════════════════════════════════════ -->
+<section class="toolmenu-section section-border" id="toolmenu">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="toolmenu-eyebrow"></div>
+    <h2 class="section-title fade-up" id="toolmenu-title"></h2>
+    <p class="section-sub fade-up" id="toolmenu-sub"></p>
+    <div class="toolmenu-grid" id="toolmenu-grid"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
      S04: ASSESSMENT CTA
      ════════════════════════════════════════════════════════════ -->
 <section class="section-border" id="assessment">
@@ -521,6 +662,134 @@ section { padding: 120px 0; position: relative; }
           '<div class="step-num">' + num + '</div>' +
           '<h4>' + s.title + '</h4>' +
           '<p>' + s.desc + '</p></div>';
+      }).join('');
+    }
+
+    // ── STORYTELLING SECTIONS ──
+    var stories = [
+      {
+        num_nl: '03 — Herkenning', num_en: '03 — Recognition',
+        title_nl: 'U herkent dit <em>vast wel.</em>', title_en: 'This probably <em>sounds familiar.</em>',
+        body_nl: '<p>U heeft een product dat werkt. Klanten in uw thuismarkt zijn tevreden. De volgende stap is logisch: <strong>Europa</strong>.</p>' +
+          '<p>Maar ergens voelt het niet goed. Het verkoopgesprek dat thuis in 15 minuten klaar was, duurt hier 3 maanden. De compliance-vragen stapelen zich op. En uw eerste "partner" belt al weken niet terug.</p>' +
+          '<div class="story-quote">"We hadden alles klaar — behalve een plan dat rekening hield met hoe Europa echt werkt."</div>',
+        body_en: '<p>You have a product that works. Customers in your home market are happy. The next step is logical: <strong>Europe</strong>.</p>' +
+          '<p>But something feels off. The sales pitch that took 15 minutes at home now takes 3 months here. Compliance questions keep piling up. And your first "partner" hasn\'t called back in weeks.</p>' +
+          '<div class="story-quote">"We had everything ready — except a plan that accounted for how Europe really works."</div>',
+      },
+      {
+        num_nl: '04 — Het Echte Probleem', num_en: '04 — The Real Problem',
+        title_nl: 'Het is niet uw product.<br><em>Het is de volgorde.</em>', title_en: 'It\'s not your product.<br><em>It\'s the sequence.</em>',
+        body_nl: '<p>De meeste tech-bedrijven die de Europese markt betreden, maken dezelfde fout: ze beginnen met verkopen. Maar Europa werkt anders.</p>' +
+          '<p><strong>Compliance eerst</strong> — zonder NIS2/CRA/GDPR readiness komt u niet door procurement. <strong>Positioning eerst</strong> — uw value proposition moet lokaal resoneren. <strong>Partners eerst</strong> — enterprise sales zonder lokale referenties is onmogelijk.</p>' +
+          '<p>Drie stappen in de verkeerde volgorde — en u verbrandt 6-12 maanden en tonnen budget.</p>',
+        body_en: '<p>Most tech companies entering Europe make the same mistake: they start selling. But Europe works differently.</p>' +
+          '<p><strong>Compliance first</strong> — without NIS2/CRA/GDPR readiness, you won\'t pass procurement. <strong>Positioning first</strong> — your value proposition must resonate locally. <strong>Partners first</strong> — enterprise sales without local references is impossible.</p>' +
+          '<p>Three steps in the wrong order — and you burn 6-12 months and a mountain of budget.</p>',
+      },
+      {
+        num_nl: '05 — De Verschuiving', num_en: '05 — The Shift',
+        title_nl: 'Wat als u <em>het in één keer goed doet?</em>', title_en: 'What if you <em>got it right the first time?</em>',
+        body_nl: '<p>Stel u voor: u start niet met een pitch deck, maar met een <strong>PMC Assessment</strong> — Product-Market-Compliance. In 7 minuten weet u exact waar u staat.</p>' +
+          '<p>Daarna geen maanden strategie-sessies, maar een <strong>concreet GTM-plan</strong> met pricing, positioning en een partner shortlist. En vervolgens niet hopen op inbound, maar <strong>gerichte outreach</strong> naar de juiste beslissers.</p>' +
+          '<div class="story-quote">"Van assessment tot getekende deal in 12 weken. Dat is wat de juiste volgorde oplevert."</div>',
+        body_en: '<p>Imagine starting not with a pitch deck, but with a <strong>PMC Assessment</strong> — Product-Market-Compliance. In 7 minutes you know exactly where you stand.</p>' +
+          '<p>Then no months of strategy sessions, but a <strong>concrete GTM plan</strong> with pricing, positioning and a partner shortlist. And then not hoping for inbound, but <strong>targeted outreach</strong> to the right decision makers.</p>' +
+          '<div class="story-quote">"From assessment to signed deal in 12 weeks. That\'s what the right sequence delivers."</div>',
+      },
+      {
+        num_nl: '06 — De Oplossing', num_en: '06 — The Solution',
+        title_nl: 'HCI — van strategie naar <em>eerste klant.</em>', title_en: 'HCI — from strategy to <em>first customer.</em>',
+        body_nl: '<p>HES Consultancy International combineert <strong>30 jaar C-level ervaring</strong> in de Europese tech-markt met AI-gestuurde tools die het proces versnellen.</p>' +
+          '<p>Geen generiek advies. Geen PowerPoints die in een la verdwijnen. Maar een <strong>hands-on traject</strong> van PMC Assessment → GTM Strategie → Partner Netwerk → Eerste Deal.</p>' +
+          '<p>Mike Hes begeleidt persoonlijk. Eén aanspreekpunt. Eén methodiek. Bewezen resultaat.</p>',
+        body_en: '<p>HES Consultancy International combines <strong>30 years of C-level experience</strong> in the European tech market with AI-powered tools that accelerate the process.</p>' +
+          '<p>No generic advice. No PowerPoints gathering dust. Instead, a <strong>hands-on journey</strong> from PMC Assessment → GTM Strategy → Partner Network → First Deal.</p>' +
+          '<p>Mike Hes guides you personally. One point of contact. One methodology. Proven results.</p>',
+      },
+      {
+        num_nl: '07 — Quick Qualifier', num_en: '07 — Quick Qualifier',
+        title_nl: 'Is HCI de juiste match <em>voor u?</em>', title_en: 'Is HCI the right match <em>for you?</em>',
+        body_nl: '<p>HCI werkt met tech-bedrijven die serieus de Europese markt willen betreden. Herken u zich in minstens 3 van deze 6 punten?</p>',
+        body_en: '<p>HCI works with tech companies serious about entering the European market. Do you recognize yourself in at least 3 of these 6 points?</p>',
+      },
+    ];
+
+    stories.forEach(function(s, i) {
+      var idx = i + 1;
+      var numEl = document.getElementById('story' + idx + '-num');
+      var titleEl = document.getElementById('story' + idx + '-title');
+      var bodyEl = document.getElementById('story' + idx + '-body');
+      if (numEl) numEl.textContent = lang === 'en' ? s.num_en : s.num_nl;
+      if (titleEl) titleEl.innerHTML = lang === 'en' ? s.title_en : s.title_nl;
+      if (bodyEl) bodyEl.innerHTML = lang === 'en' ? s.body_en : s.body_nl;
+    });
+
+    // Qualifier grid
+    var qualifiers_nl = [
+      'U heeft een werkend product met betalende klanten',
+      'U wilt de Benelux, DACH of Nordic markt betreden',
+      'Compliance (NIS2, CRA, GDPR) is een open vraag',
+      'U mist lokale partners of referenties',
+      'Uw sales cycle in Europa is langer dan verwacht',
+      'U zoekt geen advies, maar uitvoering'
+    ];
+    var qualifiers_en = [
+      'You have a working product with paying customers',
+      'You want to enter the Benelux, DACH or Nordic market',
+      'Compliance (NIS2, CRA, GDPR) is an open question',
+      'You lack local partners or references',
+      'Your sales cycle in Europe is longer than expected',
+      'You\'re looking for execution, not just advice'
+    ];
+    var quals = lang === 'en' ? qualifiers_en : qualifiers_nl;
+    var qualGrid = document.getElementById('qualifier-grid');
+    if (qualGrid) {
+      qualGrid.innerHTML = quals.map(function(q) {
+        return '<div class="qualifier-item"><span class="qualifier-check">&#10003;</span><span>' + q + '</span></div>';
+      }).join('');
+    }
+    var qualNote = document.getElementById('qualifier-note');
+    if (qualNote) qualNote.textContent = lang === 'en'
+      ? '→ 3+ matches? Start with the free EU Readiness Assessment below.'
+      : '→ 3+ matches? Start met de gratis EU Readiness Assessment hieronder.';
+
+    // ── TOOL-KEUZE MENU ──
+    var tmEyebrow = document.getElementById('toolmenu-eyebrow');
+    if (tmEyebrow) tmEyebrow.textContent = lang === 'en' ? 'Your toolkit' : 'Uw toolkit';
+
+    var tmTitle = document.getElementById('toolmenu-title');
+    if (tmTitle) tmTitle.innerHTML = lang === 'en'
+      ? 'Choose your <em>starting point.</em>'
+      : 'Kies uw <em>startpunt.</em>';
+
+    var tmSub = document.getElementById('toolmenu-sub');
+    if (tmSub) tmSub.textContent = lang === 'en'
+      ? 'Free tools to get started. Premium modules available after onboarding.'
+      : 'Gratis tools om te starten. Premium modules beschikbaar na onboarding.';
+
+    var S = window.SITE;
+    var toolItems = [
+      { icon: '📊', label_nl: 'EU Readiness Quickscan', label_en: 'EU Readiness Quickscan', desc_nl: 'Gratis assessment in 7 min. Direct inzicht.', desc_en: 'Free assessment in 7 min. Instant insight.', href: S.tools.quickscan + '?icp=icp1', free: true },
+      { icon: '🧮', label_nl: 'ROI Calculator', label_en: 'ROI Calculator', desc_nl: 'Bereken uw EU market entry potentieel.', desc_en: 'Calculate your EU market entry potential.', href: S.tools.calculator, free: true },
+      { icon: '📖', label_nl: 'Insights Hub', label_en: 'Insights Hub', desc_nl: 'Artikelen, frameworks en best practices.', desc_en: 'Articles, frameworks and best practices.', href: S.tools.insights, free: true },
+      { icon: '🔍', label_nl: 'PMC Module', label_en: 'PMC Module', desc_nl: 'Product-Market-Compliance deep dive.', desc_en: 'Product-Market-Compliance deep dive.', href: S.tools.pmc, free: false },
+      { icon: '🚀', label_nl: 'GTM Strategie', label_en: 'GTM Strategy', desc_nl: 'Go-to-market plan generator.', desc_en: 'Go-to-market plan generator.', href: S.tools.gtm, free: false },
+      { icon: '📧', label_nl: 'Outreach Engine', label_en: 'Outreach Engine', desc_nl: 'Gerichte prospect communicatie.', desc_en: 'Targeted prospect communication.', href: S.tools.outreach, free: false },
+    ];
+    var tmGrid = document.getElementById('toolmenu-grid');
+    if (tmGrid) {
+      tmGrid.innerHTML = toolItems.map(function(tool) {
+        var lbl = lang === 'en' ? tool.label_en : tool.label_nl;
+        var desc = lang === 'en' ? tool.desc_en : tool.desc_nl;
+        var badge = tool.free
+          ? '<span class="toolmenu-badge free">' + (lang === 'en' ? 'FREE' : 'GRATIS') + '</span>'
+          : '<span class="toolmenu-badge locked">' + (lang === 'en' ? 'PREMIUM' : 'PREMIUM') + '</span>';
+        return '<a href="' + tool.href + '" class="toolmenu-card fade-up">' +
+          '<div class="toolmenu-icon">' + tool.icon + '</div>' +
+          '<div class="toolmenu-label">' + lbl + '</div>' +
+          '<div class="toolmenu-desc">' + desc + '</div>' +
+          badge + '</a>';
       }).join('');
     }
 

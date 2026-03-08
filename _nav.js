@@ -85,4 +85,36 @@
     render();
     if (typeof window.onLangChange === 'function') window.onLangChange();
   };
+
+  // ── Plausible Analytics ──
+  var plausibleDomain = S.brand.domain;
+  if (plausibleDomain && !document.querySelector('script[data-domain="' + plausibleDomain + '"]')) {
+    var ps = document.createElement('script');
+    ps.defer = true;
+    ps.setAttribute('data-domain', plausibleDomain);
+    ps.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(ps);
+  }
+
+  /**
+   * hciTrack — Custom event tracking via Plausible
+   * Usage: hciTrack('CTA Click', { page: '/icp1', tier: 'warm' })
+   */
+  window.hciTrack = function(eventName, props) {
+    if (window.plausible) {
+      window.plausible(eventName, { props: props || {} });
+    }
+  };
+
+  // Auto-track CTA clicks
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a.btn-primary, a.btn-ghost, a.nav-cta');
+    if (link) {
+      window.hciTrack('CTA Click', {
+        text: link.textContent.trim().substring(0, 50),
+        href: link.getAttribute('href'),
+        page: window.location.pathname,
+      });
+    }
+  });
 })();
