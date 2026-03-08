@@ -7,8 +7,8 @@
  * <div data-signalmesh-cta="icp1"
  *      data-cold="Ontdek de EU markt kansen" data-cold-href="/hci-quickscan.html?icp=icp1"
  *      data-warm="Start uw EU Readiness Scan" data-warm-href="/hci-quickscan.html?icp=icp1"
- *      data-hot="Plan uw EU Market Entry sessie" data-hot-href="https://calendly.com/hci-mike"
- *      data-tier1="Mike neemt vandaag contact op" data-tier1-href="https://calendly.com/hci-mike">
+ *      data-hot="Plan uw EU Market Entry sessie" data-hot-href="https://calendly.com/mbhes1970/30min"
+ *      data-tier1="Mike neemt vandaag contact op" data-tier1-href="https://calendly.com/mbhes1970/30min">
  * </div>
  */
 (function() {
@@ -26,20 +26,20 @@
     icp1: {
       cold:  { text_nl: 'Ontdek de EU markt kansen \u2192', text_en: 'Discover EU market opportunities \u2192', href: '/hci-quickscan.html?icp=icp1' },
       warm:  { text_nl: 'Start uw EU Readiness Scan \u2192', text_en: 'Start your EU Readiness Scan \u2192', href: '/hci-quickscan.html?icp=icp1' },
-      hot:   { text_nl: 'Plan uw EU Market Entry sessie \u2192', text_en: 'Schedule your EU Market Entry session \u2192', href: 'https://calendly.com/hci-mike' },
-      tier1: { text_nl: 'Mike neemt vandaag contact op', text_en: 'Mike will contact you today', href: 'https://calendly.com/hci-mike' },
+      hot:   { text_nl: 'Plan uw EU Market Entry sessie \u2192', text_en: 'Schedule your EU Market Entry session \u2192', href: 'https://calendly.com/mbhes1970/30min' },
+      tier1: { text_nl: 'Mike neemt vandaag contact op', text_en: 'Mike will contact you today', href: 'https://calendly.com/mbhes1970/30min' },
     },
     icp2: {
       cold:  { text_nl: 'Bekijk het partner programma \u2192', text_en: 'View the partner program \u2192', href: '/icp2-growth.html' },
       warm:  { text_nl: 'Bereken uw partner potentieel \u2192', text_en: 'Calculate your partner potential \u2192', href: '/calculator.html' },
-      hot:   { text_nl: 'Boek een partner onboarding \u2192', text_en: 'Book a partner onboarding \u2192', href: 'https://calendly.com/hci-mike' },
-      tier1: { text_nl: 'Mike neemt vandaag contact op', text_en: 'Mike will contact you today', href: 'https://calendly.com/hci-mike' },
+      hot:   { text_nl: 'Boek een partner onboarding \u2192', text_en: 'Book a partner onboarding \u2192', href: 'https://calendly.com/mbhes1970/30min' },
+      tier1: { text_nl: 'Mike neemt vandaag contact op', text_en: 'Mike will contact you today', href: 'https://calendly.com/mbhes1970/30min' },
     },
     icp3: {
       cold:  { text_nl: 'Check uw compliance status \u2192', text_en: 'Check your compliance status \u2192', href: '/hci-quickscan.html' },
       warm:  { text_nl: 'Doe de sector quickscan \u2192', text_en: 'Take the sector quickscan \u2192', href: '/hci-quickscan.html' },
-      hot:   { text_nl: 'Bespreek uw compliance roadmap \u2192', text_en: 'Discuss your compliance roadmap \u2192', href: 'https://calendly.com/hci-mike' },
-      tier1: { text_nl: 'Mike neemt vandaag contact op', text_en: 'Mike will contact you today', href: 'https://calendly.com/hci-mike' },
+      hot:   { text_nl: 'Bespreek uw compliance roadmap \u2192', text_en: 'Discuss your compliance roadmap \u2192', href: 'https://calendly.com/mbhes1970/30min' },
+      tier1: { text_nl: 'Mike neemt vandaag contact op', text_en: 'Mike will contact you today', href: 'https://calendly.com/mbhes1970/30min' },
     },
   };
 
@@ -90,7 +90,7 @@
     var lang = getLang();
     var S = window.SITE;
     var phone = S && S.brand ? S.brand.phoneDisplay : '';
-    var calendly = S && S.brand ? S.brand.calendly : 'https://calendly.com/hci-mike';
+    var calendly = S && S.brand ? S.brand.calendly : 'https://calendly.com/mbhes1970/30min';
 
     var banner = document.createElement('div');
     banner.id = 'sm-tier1-banner';
