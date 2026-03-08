@@ -1,0 +1,125 @@
+{
+  "project": "HCI Platform",
+  "client": "HES Consultancy International — Mike Hes",
+  "last_updated": "2026-03-08",
+  "sprint": "WP1 — Inhoud Review",
+
+  "infrastructure": {
+    "server": "root@46.225.61.78 (Hetzner CPX22)",
+    "webroot": "/var/www/hes-consultancy-nl",
+    "cmofmo_root": "/var/www/cmofmo",
+    "pocketbase": "https://api.hes-consultancy-international.com",
+    "n8n": "https://n8n.hes-consultancy-international.com",
+    "caddy_config": "/etc/caddy/Caddyfile"
+  },
+
+  "live_urls": {
+    "main_site": "https://hes-consultancy.nl",
+    "cmofmo_app": "https://cmofmo.hes-consultancy-international.com",
+    "pocketbase_admin": "https://api.hes-consultancy-international.com/_/",
+    "n8n_dashboard": "https://n8n.hes-consultancy-international.com",
+    "calendly": "https://calendly.com/mbhes1970/30min"
+  },
+
+  "repos": {
+    "primary": "mbhes1970-afk/hci-platform",
+    "active_branch": "claude/analyze-hci-signalmesh-M2NV2",
+    "server_branch": "claude/analyze-hci-signalmesh-M2NV2",
+    "cmofmo_subdir": "cmofmo/"
+  },
+
+  "icp_model": {
+    "icp1": "Tech / ISV / Startup — EU Market Entry",
+    "icp2": "Partner / Reseller — Pipeline Growth",
+    "icp3": "Compliance Eindklant — 8 sectoren (s01-s08)",
+    "sectors": [
+      "s01 Gemeente/Overheid (BIO+NIS2)",
+      "s02 Ziekenhuis/Zorg (NEN7510:2+AVG)",
+      "s03 Software/SaaS (CRA+AI Act)",
+      "s04 Enterprise/Industrie (NIS2+CER)",
+      "s05 Financieel/Bank (DORA+PSD2)",
+      "s06 Telecom/Kritieke Infra (NIS2+EECC)",
+      "s07 Logistiek/Supply Chain (NIS2+eFTI+AVG)",
+      "s08 Legal/LegalTech (AI Act+NIS2+DORA)"
+    ]
+  },
+
+  "werkpakketten": {
+    "WP1": {
+      "naam": "Inhoud & Teksten goedkeuren",
+      "status": "ACTIEF",
+      "eigenaar": "Mike + Claude",
+      "blokkeer_voor": "WP2",
+      "sessies_voltooid": [],
+      "sessies_open": [
+        "Homepage hero tekst",
+        "Mike Hes pagina exacte bio",
+        "ICP3 compliance teksten per sector",
+        "SignalMesh tier CTA teksten",
+        "Engels vs Nederlands default beslissing"
+      ]
+    },
+    "WP2": {
+      "naam": "Site Rebuild op goedgekeurde inhoud",
+      "status": "WACHT OP WP1",
+      "eigenaar": "Code"
+    },
+    "WP3": {
+      "naam": "SignalMesh twee-assig model activeren",
+      "status": "WACHT OP WP2",
+      "eigenaar": "Code + Review",
+      "blokkade": "IPInfo token niet geconfigureerd"
+    },
+    "WP4": {
+      "naam": "DealFlow outreach ready",
+      "status": "WACHT OP WP3",
+      "eigenaar": "Code"
+    },
+    "WP5": {
+      "naam": "LinkedIn Activatie",
+      "status": "GEBLOKKEERD — wacht op WP1-4",
+      "eigenaar": "Mike"
+    }
+  },
+
+  "open_besluiten": [
+    "Taaldefault: Engels of Nederlands?",
+    "Homepage: voor iedereen of direct ICP-gericht?",
+    "IPInfo token aanmaken op ipinfo.io",
+    "Anthropic API key roteren na blootstelling in chat",
+    "Google Search Console activeren + sitemap indienen",
+    "Plausible Analytics account aanmaken"
+  ],
+
+  "voltooid": [
+    "hes-consultancy.nl live op Hetzner (52 HTML bestanden)",
+    "cmofmo.hes-consultancy-international.com live",
+    "CMO-FMO React app: s01-s08 alle sectoren gebouwd",
+    "CMO-FMO: NEN7510 → NEN7510:2 gecorrigeerd",
+    "CMO-FMO: unicode bugs gefixed",
+    "CMO-FMO: PDF download gebouwd (jsPDF)",
+    "Quickscan links gekoppeld aan CMO-FMO app",
+    "Dubbele pijl bug gefixed op homepage",
+    "PocketBase: 6336 contacten geimporteerd",
+    "HCI gold theme + navigatie + animaties",
+    "Mike.html + methodologie.html gebouwd",
+    "SignalMesh + ICP journeys gebouwd",
+    "SEO: sitemap + robots.txt + OG images",
+    "Levend projectdocument systeem opgezet (project-status.json + .html)"
+  ],
+
+  "bekende_issues": [
+    "Homepage inhoud niet goedgekeurd door Mike",
+    "ICP3 compliance teksten onvoldoende",
+    "ElanWave + FLS + Vorro niet zichtbaar in cases",
+    "Mike.html bio tekst klopt niet",
+    "icp3-compliance.html nav CSS stuk",
+    "6 sectoren tekst moet 8 sectoren zijn",
+    "Gewerkt voor moet zijn: Gewerkt met",
+    "SignalMesh actief maar IPInfo token ontbreekt",
+    "n8n DealFlow workflow geeft 400 error",
+    "CMO-FMO niet gekoppeld aan PocketBase leads collectie"
+  ],
+
+  "update_instructie": "Na elke sprint: update last_updated, verplaats voltooide taken naar voltooid[], update WP statussen, voeg nieuwe issues toe aan bekende_issues[]"
+}
