@@ -170,6 +170,7 @@ window.SITE = {
       hero_sub_nl:  'HCI helpt organisaties navigeren door complexe Europese regelgeving. Van nulmeting tot implementatie — sector-specifiek.',
       hero_sub_en:  'HCI helps organisations navigate complex European regulations. From baseline assessment to implementation — sector-specific.',
       hero_stats:   [
+        { num: '8', label_nl: 'Sectoren', label_en: 'Sectors' },
         { num: '6+', label_nl: 'EU frameworks', label_en: 'EU frameworks' },
         { num: '7 min', label_nl: 'Gratis quickscan', label_en: 'Free quickscan' },
       ],
@@ -265,6 +266,30 @@ window.SITE = {
       pain_nl:  ['NIS2+EECC dubbel regime verplicht', 'OT/SCADA legacy beveiliging', '5G Toolbox niet geïmplementeerd', 'Post-quantum migratie deadline 2030'],
       pain_en:  ['NIS2+EECC dual regime mandatory', 'OT/SCADA legacy security', '5G Toolbox not implemented', 'Post-quantum migration deadline 2030'],
       cta_href: '/hci-quickscan.html?sector=s06',
+    },
+    {
+      id: 's07', icon: '🚛',
+      color: '#1d4ed8', accent: '#3b82f6',
+      label_nl: 'Logistiek & Supply Chain',
+      label_en: 'Logistics & Supply Chain',
+      sub_nl:   'Transport · Warehousing · Douane · Distributie',
+      sub_en:   'Transport · Warehousing · Customs · Distribution',
+      frameworks: ['NIS2', 'eFTI', 'AVG'],
+      pain_nl:  ['NIS2 kritieke infrastructuur classificatie', 'eFTI elektronische vrachtdocumentatie verplicht', 'Cybersecurity in supply chain kwetsbaar', 'AI-adoptie in warehouse zonder governance'],
+      pain_en:  ['NIS2 critical infrastructure classification', 'eFTI electronic freight documentation mandatory', 'Cybersecurity in supply chain vulnerable', 'AI adoption in warehouse without governance'],
+      cta_href: '/hci-quickscan.html?sector=s07',
+    },
+    {
+      id: 's08', icon: '\u2696\uFE0F',
+      color: '#047857', accent: '#10b981',
+      label_nl: 'Legal & LegalTech',
+      label_en: 'Legal & LegalTech',
+      sub_nl:   'Advocatuur · Notariaat · Legal Ops · Contract Automation',
+      sub_en:   'Law Firms · Notaries · Legal Ops · Contract Automation',
+      frameworks: ['AI Act', 'NIS2', 'DORA', 'AVG'],
+      pain_nl:  ['AI Act Article 6: juridisch advies-AI = hoog risico', 'NIS2 indirect in scope via kritieke sector klanten', 'DORA voor legal teams in financiële sector', 'AVG en beroepsgeheim spanning bij AI-tools'],
+      pain_en:  ['AI Act Article 6: legal advice AI = high risk', 'NIS2 indirectly in scope via critical sector clients', 'DORA for legal teams in financial sector', 'GDPR and professional secrecy tension with AI tools'],
+      cta_href: '/hci-quickscan.html?sector=s08',
     },
     // TEMPLATE: Nieuwe sector toevoegen — kopieer dit blok:
     // {
