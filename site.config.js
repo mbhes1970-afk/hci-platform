@@ -27,15 +27,14 @@ window.SITE = {
   // ── NAVIGATIE ────────────────────────────────────────────────────
   nav: {
     links: [
-      { label_nl: 'ICP Routes',   label_en: 'ICP Routes',    href: '/#routes' },
-      { label_nl: 'Methodiek',    label_en: 'Methodology',   href: '/#method' },
-      { label_nl: 'Resultaten',   label_en: 'Results',       href: '/#proof'  },
-      { label_nl: 'Mike Hes',     label_en: 'Mike Hes',      href: '/#mike'   },
+      { label_nl: 'Home',         label_en: 'Home',          href: '/' },
+      { label_nl: 'Methodiek',    label_en: 'Methodology',   href: '/methodologie' },
+      { label_nl: 'Mike Hes',     label_en: 'Mike Hes',      href: '/mike' },
       { label_nl: 'Insights',     label_en: 'Insights',      href: '/insights.html' },
     ],
-    cta_nl: 'Start assessment →',
-    cta_en: 'Start assessment →',
-    cta_href: '/#routes',
+    cta_nl: 'Gesprek plannen',
+    cta_en: 'Schedule a call',
+    cta_href: 'https://calendly.com/mbhes1970/30min',
   },
   // ── HOMEPAGE ─────────────────────────────────────────────────────
   home: {
@@ -284,15 +283,38 @@ window.SITE = {
   // ── MIKE HES ─────────────────────────────────────────────────────
   mike: {
     name:       'Mike Hes',
-    title_nl:   'Oprichter — HES Consultancy International',
-    title_en:   'Founder — HES Consultancy International',
+    title_nl:   'Trusted Advisor CxO\'s',
+    title_en:   'Trusted Advisor CxO\'s',
+    phone:      '+31 6 14756834',
+    linkedin:   'https://linkedin.com/in/mihes/',
+    calendly:   'https://calendly.com/mbhes1970/30min',
     years:      '30+',
     years_label_nl: 'Jaar C-level\nervaring EU',
     years_label_en: 'Years C-level\nexperience EU',
-    bio_nl:     'Ik ben Mike Hes. 30 jaar C-level ervaring in EU tech & compliance. Ik heb gezien wat werkt — en wat niet. De meeste bedrijven maken dezelfde fouten. De juiste volgorde afdwingen maakt het verschil tussen maanden aanmodderen en binnen 12 weken de eerste klant.',
-    bio_en:     'I am Mike Hes. 30 years C-level experience in EU tech & compliance. I\'ve seen what works — and what doesn\'t. Most companies make the same mistakes. Enforcing the right order makes the difference between months of struggle and the first customer within 12 weeks.',
+    bio_nl: [
+      '30 jaar geleden begon ik als een van de eerste Europese medewerkers bij Citrix. Daarna Huawei, DXC/Dedalus, Login Consultants, Telindus. Ik heb gezien wat werkt in enterprise sales, en wat niet meer werkt.',
+      'Koude acquisitie heeft een conversieratio van 2%. Mensen lezen geen mails, pakken de telefoon niet op. Dat is geen tijdelijk probleem, het is structureel.',
+      'HCI is mijn antwoord. Een methodologie gebaseerd op 30 jaar praktijk, met AI-tools die de klant zichzelf laten kwalificeren voordat er een gesprek plaatsvindt.',
+    ],
+    bio_en: [
+      '30 years ago I joined Citrix as one of the first European employees. Then Huawei, DXC/Dedalus, Login Consultants, Telindus. I have seen what works in enterprise sales, and what no longer does.',
+      'Cold outreach has a 2% conversion rate. People don\'t read emails, don\'t answer the phone. That is not a temporary problem, it is structural.',
+      'HCI is my answer. A methodology built on 30 years of practice, with AI tools that let the customer qualify themselves before a single conversation takes place.',
+    ],
+    bio_short_nl: 'Ik ben Mike Hes. 30 jaar C-level ervaring in EU tech & compliance. Ik heb gezien wat werkt — en wat niet. De meeste bedrijven maken dezelfde fouten. De juiste volgorde afdwingen maakt het verschil tussen maanden aanmodderen en binnen 12 weken de eerste klant.',
+    bio_short_en: 'I am Mike Hes. 30 years C-level experience in EU tech & compliance. I\'ve seen what works — and what doesn\'t. Most companies make the same mistakes. Enforcing the right order makes the difference between months of struggle and the first customer within 12 weeks.',
     cta_nl:     'Plan een gesprek →',
     cta_en:     'Schedule a call →',
+    stats: [
+      { value: '30+', label_nl: 'jaar ICT ervaring', label_en: 'years ICT experience' },
+      { value: '300%', label_nl: 'groei YoY (Huawei)', label_en: 'growth YoY (Huawei)' },
+      { value: '\u20AC80M+', label_nl: 'omzet aangestuurd', label_en: 'revenue managed' },
+      { value: '6', label_nl: 'sectoren, 1 methodologie', label_en: 'sectors, 1 methodology' },
+    ],
+    enterprise_track: [
+      'Philips', 'KPMG', 'Deutsche Bank', 'ABN AMRO',
+      'Rabobank', 'PostNL', 'ASML', 'KPN', 'Medtronic', 'DSM',
+    ],
   },
   // ── RESULTATEN / PROOF ───────────────────────────────────────────
   proof: [
@@ -315,6 +337,99 @@ window.SITE = {
       result_en: 'NIS2 gap analysis completed. 4-month implementation plan delivered.',
     },
   ],
+  // ── CASES ───────────────────────────────────────────────────────
+  cases: [
+    {
+      id: 'chunkworks',
+      company: 'Chunk Works',
+      tag: 'Post-quantum security \u00B7 TNO spin-off',
+      status: 'active',
+      text_nl: 'ChunkWorks, een TNO spin-off met post-quantum encryptie technologie, had een sterk product maar geen Europese go-to-market strategie. Mike Hes stapte in als Global VP Sales en implementeerde de volledige HCI Methodologie: van Partner Enablement (Convince, Onboard, Certify) tot CMO-FMO rapporten en sector-specifieke playbooks. Resultaat: een actief partner netwerk met Protinus IT, IT2Growth, BlueNap, Idaita en Datasur, gepositioneerd voor NIS2 en NEN7510 compliance markten.',
+      text_en: 'ChunkWorks, a TNO spin-off with post-quantum encryption technology, had a strong product but no European go-to-market strategy. Mike Hes joined as Global VP Sales and implemented the full HCI Methodology: from Partner Enablement (Convince, Onboard, Certify) to CMO-FMO reports and sector-specific playbooks. Result: an active partner network with Protinus IT, IT2Growth, BlueNap, Idaita and Datasur, positioned for NIS2 and NEN7510 compliance markets.',
+      results: ['5 actieve partners', 'NIS2 + NEN7510 positionering', 'Convince-Onboard-Certify'],
+      icp: 'icp1',
+    },
+    {
+      id: 'openhealthhub',
+      company: 'Open Health Hub',
+      tag: 'Healthcare \u00B7 FHIR \u00B7 Product strategie',
+      status: 'previous',
+      text_nl: 'Open Health Hub had een platform dat al bestond in een competitieve markt. Intern werd het als baanbrekend gezien, maar de markt was al volwassen. Na een assessment zag Mike een product dat de CTO had ontworpen maar nooit had geprioriteerd: een FHIR viewer en builder die wel onderscheidend was. Advies: stop met het commodityproduct, zet alles op het nieuwe product. De FHIR viewer is sindsdien naar de markt gebracht en vormt nu de kern van de oplossing.',
+      text_en: 'Open Health Hub had a platform that already existed in a competitive market. Internally it was seen as groundbreaking, but the market was already mature. After an assessment Mike identified a product the CTO had designed but never prioritized: a FHIR viewer and builder that was genuinely distinctive. Advice: stop with the commodity product, focus everything on the new one. The FHIR viewer has since been brought to market and now forms the core of the solution.',
+      results: ['FHIR viewer naar markt', 'Product focus shift', 'HCI Assessment toegepast'],
+      icp: 'icp1',
+    },
+    {
+      id: 'elanwave',
+      company: 'ElanWave',
+      tag: 'Software engineering \u00B7 Microsoft Partner \u00B7 Transformatie',
+      status: 'active',
+      text_nl: 'ElanWave is een Microsoft-gecertificeerd software engineering bedrijf dat de overstap wil maken van projectgedreven staffing naar een structureel dienstenaanbod. Mike Hes begeleidt dat verandertraject: GTM strategie, outreach model en commerci\u00EBle positionering opgebouwd vanuit de HCI Methodologie.',
+      text_en: 'ElanWave is a Microsoft-certified software engineering company making the transition from project-driven staffing to a structural service offering. Mike Hes guides that change process: GTM strategy, outreach model and commercial positioning built on the HCI Methodology.',
+      results: ['GTM strategie', 'HCI Methodologie', 'Verandertraject'],
+      icp: 'icp1',
+    },
+    {
+      id: 'atomic',
+      company: 'Atomic Group (Uniserver)',
+      tag: 'Hybrid Cloud \u00B7 Enterprise \u00B7 Sovereign AI',
+      status: 'previous',
+      text_nl: 'Bij Atomic/Uniserver bouwde Mike Hes een nieuwe Business Unit op rond Hybrid Cloud en AI/Data Analytics. Nieuwe enterprise klanten waaronder KNAB Bank en SHV/KIWA werden onboarded. Sovereign cloud gepositioneerd voor NIS2, DORA, EUCS en AI Act.',
+      text_en: 'At Atomic/Uniserver Mike Hes built a new Business Unit around Hybrid Cloud and AI/Data Analytics. New enterprise clients including KNAB Bank and SHV/KIWA were onboarded. Sovereign cloud positioned for NIS2, DORA, EUCS and AI Act.',
+      results: ['KNAB Bank onboarded', 'SHV/KIWA onboarded', 'NIS2 + DORA + EUCS'],
+      icp: 'icp3',
+    },
+  ],
+  // ── METHODOLOGIE ────────────────────────────────────────────────
+  methodology: {
+    title_nl: 'De HCI Methodologie',
+    title_en: 'The HCI Methodology',
+    intro_nl: 'Vier fasen, bewezen bij tech-bedrijven in Benelux en DACH. Van product-markt combinatie tot eerste klant.',
+    intro_en: 'Four phases, proven with tech companies in Benelux and DACH. From product-market fit to first customer.',
+    phases: [
+      {
+        num: '01',
+        title: 'PMC',
+        subtitle_nl: 'Product Market Combination',
+        subtitle_en: 'Product Market Combination',
+        desc_nl: 'Is uw product klaar voor de Europese markt? We valideren de product-markt fit, identificeren de juiste sectoren en bouwen de business case.',
+        desc_en: 'Is your product ready for the European market? We validate product-market fit, identify the right sectors and build the business case.',
+      },
+      {
+        num: '02',
+        title: 'GTM',
+        subtitle_nl: 'Go-to-Market Strategie',
+        subtitle_en: 'Go-to-Market Strategy',
+        desc_nl: 'Welk kanaal, welke partners, welke prijsstrategie. De GTM Calculator brengt uw investering en verwacht rendement in kaart.',
+        desc_en: 'Which channel, which partners, which pricing strategy. The GTM Calculator maps your investment and expected return.',
+      },
+      {
+        num: '03',
+        title: 'Outreach',
+        subtitle_nl: 'Data-driven Pipeline',
+        subtitle_en: 'Data-driven Pipeline',
+        desc_nl: 'Geen koude acquisitie. SignalMesh kwalificeert bezoekers automatisch. DealFlow beheert uw pipeline. Alleen warme leads komen door.',
+        desc_en: 'No cold outreach. SignalMesh qualifies visitors automatically. DealFlow manages your pipeline. Only warm leads get through.',
+      },
+      {
+        num: '04',
+        title: 'Sales Execute',
+        subtitle_nl: 'Van prospect naar klant',
+        subtitle_en: 'From prospect to customer',
+        desc_nl: 'De playbooks, de scripts, de objection handling. Bewezen in de praktijk bij Chunk Works, ElanWave en andere HCI klanten.',
+        desc_en: 'The playbooks, the scripts, the objection handling. Proven in practice at Chunk Works, ElanWave and other HCI clients.',
+      },
+    ],
+    partner_modules: {
+      title_nl: 'Partner Enablement Platform',
+      title_en: 'Partner Enablement Platform',
+      modules: [
+        { name: 'Convince', desc_nl: 'Business case voor partners', desc_en: 'Business case for partners' },
+        { name: 'Onboard', desc_nl: 'Partner activatie en training', desc_en: 'Partner activation and training' },
+        { name: 'Certify', desc_nl: 'Partner kwalificatie en certificering', desc_en: 'Partner qualification and certification' },
+      ],
+    },
+  },
   // ── FOOTER ───────────────────────────────────────────────────────
   footer: {
     copyright: '© 2026 HES Consultancy International · hes-consultancy.nl',
