@@ -278,14 +278,14 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 <!-- S1 HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-grid fade-up" id="mike-hero"></div>
+    <div class="hero-grid fade-up" id="mike-hero" data-animate="fade"></div>
   </div>
 </section>
 
 <!-- S2 STATS -->
 <section class="stats-section">
   <div class="container">
-    <div class="stats-grid" id="mike-stats"></div>
+    <div class="stats-grid hci-stagger" id="mike-stats"></div>
   </div>
 </section>
 
@@ -294,7 +294,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container">
     <div class="section-eyebrow fade-up" id="track-eyebrow"></div>
     <div class="track-intro fade-up" id="track-intro"></div>
-    <div class="track-names fade-up" id="track-names"></div>
+    <div class="track-names fade-up" id="track-names" data-animate="fade" data-delay="200"></div>
   </div>
 </section>
 
@@ -303,7 +303,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container">
     <div class="section-eyebrow fade-up" id="cases-eyebrow"></div>
     <h2 class="section-title fade-up" id="cases-title"></h2>
-    <div class="cases-grid" id="cases-grid"></div>
+    <div class="cases-grid hci-stagger" id="cases-grid"></div>
   </div>
 </section>
 
@@ -375,9 +375,21 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 
     // Stats
     var stats = mike.stats || [];
+    var counterData = [
+      { target: '30', suffix: '+' },
+      { target: '300', suffix: '%' },
+      { target: '80', prefix: '\u20AC', suffix: 'M+' },
+      { target: '6', suffix: '' },
+    ];
     document.getElementById('mike-stats').innerHTML = stats.map(function(s, i) {
+      var cd = counterData[i] || {};
+      var counterAttrs = cd.target
+        ? ' data-counter="true" data-target="' + cd.target + '"' +
+          (cd.prefix ? ' data-prefix="' + cd.prefix + '"' : '') +
+          (cd.suffix ? ' data-suffix="' + cd.suffix + '"' : '')
+        : '';
       return '<div class="stat-card fade-up stagger-' + (i+1) + '">' +
-        '<div class="stat-value">' + s.value + '</div>' +
+        '<div class="stat-value"' + counterAttrs + '>' + s.value + '</div>' +
         '<div class="stat-label">' + tx(s, 'label') + '</div>' +
       '</div>';
     }).join('');
