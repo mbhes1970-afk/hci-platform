@@ -5,7 +5,7 @@
   "modifications": {
     "schedule": "daily 07:00 (cron: 0 7 * * *)",
     "slack_node": "Slack TenderNed Alert — posts to HCI Slack channel after CPV/keyword filter",
-    "slack_webhook": "https://hooks.slack.com/services/T0AKAFST1B6/B0AKKRRJGDP/fiqGxhsMEhfZEIrHxCF1qW",
+    "slack_webhook": "{{SLACK_WEBHOOK_URL}}",
     "slack_message_fields": ["json_aanbestedingNaam", "json_opdrachtgeverNaam", "cpv_all_text", "json_sluitingsDatum", "xml_platform", "tenderNedUrl"]
   },
   "cpv_filter_codes": [

@@ -19,7 +19,7 @@
         "url": "https://api.hes-consultancy-international.com/api/admins/auth-with-password",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\"identity\":\"mbhes@hes-consultancy-international.com\",\"password\":\"02091970_Promiss@\"}",
+        "jsonBody": "={\"identity\":\"{{PB_ADMIN_EMAIL}}\",\"password\":\"{{PB_ADMIN_PASSWORD}}\"}",
         "options": {}
       },
       "name": "PB Auth",
@@ -103,7 +103,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://hooks.slack.com/services/T0AKAFST1B6/B0AKKRRJGDP/fiqGxhsMEhfZEIrHxCF1qW",
+        "url": "{{SLACK_WEBHOOK_URL}}",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\"text\":\"🎯 *Nieuwe DealFlow Lead*\\nOrganisatie: {{ $json.org_name }}\\nSector: {{ $json.sector }} | Rol: {{ $json.role }}\\nScore: {{ $json.overall_score }}/10 | Tier: {{ $json.sm_tier }}\\nBron: {{ $json.source }}\\n→ https://api.hes-consultancy-international.com/_/#/collections/deals\"}",

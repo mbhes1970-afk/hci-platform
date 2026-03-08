@@ -323,6 +323,29 @@ window.SITE = {
       { label_nl: 'Voorwaarden', label_en: 'Terms', href: '/terms.html' },
     ],
   },
+  // ── TOOLS ───────────────────────────────────────────────────────
+  tools: {
+    // Publiek toegankelijk (geen login)
+    quickscan:   '/hci-quickscan.html',
+    calculator:  '/calculator.html',
+    insights:    '/insights.html',
+    // Demo beschikbaar (gratis, beperkt)
+    assessment:  '/hci-quickscan.html',
+    // Achter softlock (Netlify Identity)
+    modules:     '/hci-modules.html',
+    pmc:         '/hci-pmc.html',
+    gtm:         '/hci-gtm.html',
+    outreach:    '/hci-outreach.html',
+    sales:       '/hci-sales-execute.html',
+    cmofmo:      '/hci-cmofmo.html',
+    dealflow:    'https://dealflow.hes-consultancy-international.com',
+    // Toegangssysteem
+    access_system: 'netlify_identity',
+    login_url:     '/modules',
+    upgrade_url:   'https://calendly.com/hci-mike',
+    upgrade_cta_nl: 'Plan een gesprek voor toegang →',
+    upgrade_cta_en: 'Schedule a call for access →',
+  },
   // ── INTELLIGENCE / SIGNALMESH ────────────────────────────────────
   intelligence: {
     debug:         false,

@@ -4,11 +4,24 @@
  * Requires env var: SLACK_WEBHOOK_URL
  */
 exports.handler = async (event) => {
-  // CORS headers
+  // CORS headers — restricted to HCI domains
+  const ALLOWED_ORIGINS = [
+    'https://hes-consultancy.nl',
+    'https://www.hes-consultancy.nl',
+    'https://hes-consultancy-international.com',
+    'https://www.hes-consultancy-international.com',
+    'https://hci-platform.netlify.app',
+    'https://nxterasolutions.eu',
+    'http://localhost:3000',
+    'http://localhost:5173',
+  ];
+  const origin = event.headers.origin || '';
+  const corsOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': corsOrigin,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Vary': 'Origin',
   };
 
   if (event.httpMethod === 'OPTIONS') {
