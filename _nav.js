@@ -7,6 +7,34 @@
   var S = window.SITE;
   if (!S) return;
 
+  // ── Inject nav CSS once ──
+  if (!document.getElementById('hci-nav-css')) {
+    var style = document.createElement('style');
+    style.id = 'hci-nav-css';
+    style.textContent =
+      'nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:16px 40px; display:flex; align-items:center; justify-content:space-between; background:rgba(8,9,12,.85); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); transition:all .3s; }' +
+      'nav.scrolled { padding:12px 40px; }' +
+      '.nav-left { display:flex; align-items:center; gap:16px; }' +
+      '.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }' +
+      '.nav-links a { font-size:13px; font-weight:400; color:var(--text-dim); text-decoration:none; transition:color .2s; letter-spacing:.2px; }' +
+      '.nav-links a:hover { color:var(--text-bright); }' +
+      '.nav-right { display:flex; align-items:center; gap:12px; }' +
+      '.lang-toggle { display:flex; gap:2px; background:rgba(0,0,0,.3); padding:3px; border-radius:6px; border:1px solid var(--border); }' +
+      '.lang-btn { padding:4px 10px; border:none; border-radius:4px; font-size:11px; font-weight:600; cursor:pointer; font-family:"Outfit",sans-serif; background:transparent; color:var(--text-dim); transition:all .2s; }' +
+      '.lang-btn.active { background:var(--gold); color:var(--bg-deep); }' +
+      '.lang-btn:hover:not(.active) { color:var(--text); }' +
+      '.nav-cta { padding:8px 20px; border-radius:6px; font-size:12px; font-weight:600; text-decoration:none; background:var(--gold); color:var(--bg-deep); transition:all .2s; letter-spacing:.3px; }' +
+      '.nav-cta:hover { background:var(--gold-light); }' +
+      '.hamburger { display:none; background:none; border:none; cursor:pointer; padding:4px; }' +
+      '.hamburger span { display:block; width:22px; height:2px; background:var(--text); margin:5px 0; transition:all .3s; }' +
+      '.mobile-menu { position:absolute; top:100%; left:0; right:0; background:rgba(8,9,12,.95); backdrop-filter:blur(16px); padding:20px 40px; border-bottom:1px solid var(--border); }' +
+      '.mobile-menu ul { list-style:none; }' +
+      '.mobile-menu ul li { padding:8px 0; }' +
+      '.mobile-menu ul a { font-size:15px; color:var(--text); text-decoration:none; }' +
+      '@media (max-width:900px) { nav { padding:14px 20px; } .nav-links { display:none; } .hamburger { display:block; } .nav-cta { display:none; } }';
+    document.head.appendChild(style);
+  }
+
   function lang() { return localStorage.getItem('hci_lang') || 'nl'; }
   function tx(nl, en) { return lang() === 'en' ? en : nl; }
 
