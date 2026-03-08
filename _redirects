@@ -33,3 +33,13 @@
 /hci-aiact-brief    /insights/aiact   301
 /cmofmo  /hci-cmofmo.html    200
 /quickscan  /hci-cmofmo.html    200
+
+# ── hes-consultancy.nl ICP routes ──
+/eu-entry          /icp1-eu-entry.html     200
+/icp1              /icp1-eu-entry.html     200
+/growth            /icp2-growth.html       200
+/partners          /icp2-growth.html       200
+/icp2              /icp2-growth.html       200
+/compliance        /icp3-compliance.html   200
+/icp3              /icp3-compliance.html   200
+/scan              /hci-quickscan.html     200

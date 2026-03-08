@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU Market Entry — HES Consultancy International</title>
+<meta name="description" content="HCI begeleidt tech-bedrijven van product-market fit naar eerste Europese klanten. Strategie, GTM en uitvoering in één aanpak.">
+<meta property="og:title" content="EU Market Entry — HES Consultancy International">
+<meta property="og:description" content="Your software product ready for the European market. Strategy, GTM and execution in one approach.">
+<meta property="og:image" content="/Color_logo_-_no_background.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="/Color_logo_-_no_background.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="/site.config.js"></script>
+<script src="/hci-intelligence-core.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   HCI — ICP1: EU MARKET ENTRY
+   All content loaded dynamically from window.SITE
+   Design system: Dark premium consultancy
+   ICP1 accent: #6C5CE7 (purple)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --gold: #c8a55a;
+  --gold-light: #e0c882;
+  --gold-dim: rgba(200,165,90,.12);
+  --gold-border: rgba(200,165,90,.25);
+
+  /* ICP1 accent */
+  --accent: #6C5CE7;
+  --accent-light: #a29bfe;
+  --accent-dim: rgba(108,92,231,.12);
+  --accent-border: rgba(108,92,231,.3);
+
+  /* Surface */
+  --bg-deep: #08090c;
+  --bg: #0d0f14;
+  --bg-card: #13151c;
+  --bg-elevated: #1c1e28;
+  --border: rgba(255,255,255,.06);
+  --border-hover: rgba(255,255,255,.12);
+
+  /* Text */
+  --text: #a8a6b4;
+  --text-dim: #5e5d6a;
+  --text-bright: #f0eef5;
+  --white: #ffffff;
+
+  /* Status */
+  --success: #4ade80;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ═══ AMBIENT BACKGROUND ═══ */
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 20%, rgba(108,92,231,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 800px at 80% 80%, rgba(200,165,90,.03) 0%, transparent 70%);
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* ═══ SHARED ═══ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
+section { padding: 120px 0; position: relative; }
+.section-border { border-top: 1px solid var(--border); }
+
+.section-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px;
+}
+.section-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.section-sub {
+  font-size: 16px; color: var(--text); line-height: 1.8;
+  max-width: 620px; margin-bottom: 56px;
+}
+
+/* ═══ BUTTONS ═══ */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  background: linear-gradient(135deg, var(--gold), #d4b45e);
+  color: var(--bg-deep); transition: all .3s; letter-spacing: .3px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,165,90,.25); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  color: var(--text); border: 1px solid var(--border); transition: all .2s;
+}
+.btn-ghost:hover { border-color: var(--gold-border); color: var(--gold); }
+
+/* ═══ S01: HERO ═══ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 120px 0 80px;
+}
+.hero-inner { max-width: 780px; }
+.hero-kicker {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 2.5px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 400; line-height: 1.08; color: var(--white); margin-bottom: 12px;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 17px; line-height: 1.8; color: var(--text);
+  max-width: 560px; margin-bottom: 32px;
+}
+.hero-chips {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px;
+}
+.hero-chip {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  padding: 6px 14px; border-radius: 20px;
+  background: var(--accent-dim); color: var(--accent);
+  border: 1px solid var(--accent-border); letter-spacing: .5px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+/* ═══ S02: PROBLEM ═══ */
+.problem-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.problem-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 32px 24px; transition: all .3s;
+  position: relative; overflow: hidden;
+}
+.problem-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--accent); opacity: .4;
+}
+.problem-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.problem-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--accent-dim); border: 1px solid var(--accent-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 20px;
+}
+.problem-card p {
+  font-size: 14px; color: var(--text); line-height: 1.7;
+}
+
+/* ═══ S03: APPROACH / STEPS ═══ */
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.step-card {
+  background: var(--bg-card); padding: 36px 28px;
+  position: relative; transition: all .3s;
+}
+.step-card:first-child { border-radius: 14px 0 0 14px; }
+.step-card:last-child { border-radius: 0 14px 14px 0; }
+.step-card:hover { background: var(--bg-elevated); }
+.step-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  color: var(--accent); letter-spacing: 1px; margin-bottom: 14px;
+}
+.step-card h4 {
+  font-family: 'Instrument Serif', serif; font-size: 22px;
+  font-weight: 400; color: var(--white); margin-bottom: 10px;
+}
+.step-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+
+/* ═══ S04: ASSESSMENT CTA ═══ */
+.assessment-cta-wrap {
+  background: var(--bg-card); border: 1px solid var(--accent-border);
+  border-radius: 16px; padding: 56px 48px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.assessment-cta-wrap::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 600px 300px at 50% 0%, rgba(108,92,231,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.assessment-cta-wrap h3 {
+  font-family: 'Instrument Serif', serif; font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400; color: var(--white); margin-bottom: 16px;
+  position: relative;
+}
+.assessment-cta-wrap h3 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.assessment-desc {
+  font-size: 15px; color: var(--text); max-width: 520px;
+  margin: 0 auto 32px; line-height: 1.7; position: relative;
+}
+.assessment-cta-wrap .btn-primary { position: relative; }
+
+/* ═══ S05: MIKE HES ═══ */
+.mike-section {
+  border-top: 1px solid var(--border);
+  padding-bottom: 80px;
+}
+.mike-grid {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 56px; align-items: center;
+}
+.mike-photo-wrap {
+  position: relative; max-width: 320px;
+}
+.mike-photo {
+  width: 280px; aspect-ratio: 1/1;
+  border-radius: 16px; border: 1px solid var(--border);
+  overflow: hidden;
+}
+.mike-photo img { width: 100%; height: 100%; object-fit: cover; }
+.mike-cred {
+  position: absolute; bottom: -16px; left: 24px;
+  background: var(--gold); color: var(--bg-deep);
+  padding: 12px 20px; border-radius: 8px;
+  display: flex; align-items: center; gap: 12px;
+}
+.mike-cred-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px; font-weight: 400;
+}
+.mike-cred-label {
+  font-size: 11px; font-weight: 600;
+  line-height: 1.3; letter-spacing: .3px;
+}
+.mike-content h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 400; color: var(--white);
+  line-height: 1.15; margin-bottom: 20px;
+}
+.mike-content h2 em { font-style: italic; color: var(--gold); }
+.mike-bio {
+  font-size: 15px; color: var(--text);
+  line-height: 1.8; margin-bottom: 32px;
+}
+.mike-title {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  color: var(--text-dim); text-transform: uppercase;
+  letter-spacing: 1.5px; margin-bottom: 12px;
+}
+.mike-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ═══ S06: BOTTOM CTA ═══ */
+.bottom-cta {
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.bottom-cta h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; color: var(--white);
+  line-height: 1.15; margin-bottom: 16px;
+}
+.bottom-cta h2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.bottom-cta-sub {
+  font-size: 16px; color: var(--text); line-height: 1.8;
+  max-width: 520px; margin: 0 auto 40px;
+}
+.bottom-cta-actions {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: .1s; }
+.stagger-2 { transition-delay: .2s; }
+.stagger-3 { transition-delay: .3s; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 900px) {
+  .container { padding: 0 20px; }
+  section { padding: 80px 0; }
+
+  .hero { padding: 100px 0 60px; min-height: auto; }
+  .hero h1 { font-size: 32px; }
+
+  .problem-grid { grid-template-columns: 1fr; }
+
+  .steps-grid { grid-template-columns: 1fr; gap: 0; }
+  .step-card:first-child { border-radius: 14px 14px 0 0; }
+  .step-card:last-child { border-radius: 0 0 14px 14px; }
+
+  .assessment-cta-wrap { padding: 40px 24px; }
+
+  .mike-grid { grid-template-columns: 1fr; gap: 40px; }
+  .mike-photo-wrap { max-width: 280px; }
+}
+
+@media (max-width: 600px) {
+  .hero-chips { gap: 6px; }
+  .hero-chip { font-size: 10px; padding: 5px 10px; }
+  .mike-photo { width: 220px; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<div id="hci-nav"></div>
+<script src="/_nav.js"></script>
+
+<!-- ════════════════════════════════════════════════════════════
+     S01: HERO
+     ════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner fade-up">
+      <div class="hero-kicker" id="hero-kicker"></div>
+      <h1 id="hero-h1"></h1>
+      <p class="hero-sub" id="hero-sub"></p>
+      <div class="hero-chips" id="hero-chips"></div>
+      <div class="hero-actions" id="hero-actions"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     S02: HET PROBLEEM
+     ════════════════════════════════════════════════════════════ -->
+<section class="section-border" id="problem">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="problem-eyebrow"></div>
+    <h2 class="section-title fade-up" id="problem-title"></h2>
+    <div class="problem-grid" id="problem-grid"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     S03: DE HCI AANPAK
+     ════════════════════════════════════════════════════════════ -->
+<section class="section-border" id="approach">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="approach-eyebrow"></div>
+    <h2 class="section-title fade-up" id="approach-title"></h2>
+    <p class="section-sub fade-up" id="approach-sub"></p>
+    <div class="steps-grid" id="steps-grid"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     S04: ASSESSMENT CTA
+     ════════════════════════════════════════════════════════════ -->
+<section class="section-border" id="assessment">
+  <div class="container">
+    <div class="assessment-cta-wrap fade-up" id="assessment-wrap"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     S05: MIKE HES
+     ════════════════════════════════════════════════════════════ -->
+<section class="mike-section" id="mike">
+  <div class="container">
+    <div class="mike-grid">
+      <div class="mike-photo-wrap fade-up">
+        <div class="mike-photo"><img id="mike-photo" src="" alt=""></div>
+        <div class="mike-cred">
+          <div class="mike-cred-num" id="mike-years"></div>
+          <div class="mike-cred-label" id="mike-years-label"></div>
+        </div>
+      </div>
+      <div class="mike-content fade-up stagger-2">
+        <div class="mike-title" id="mike-title"></div>
+        <h2 id="mike-heading"></h2>
+        <p class="mike-bio" id="mike-bio"></p>
+        <div class="mike-actions" id="mike-actions"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     S06: BOTTOM CTA
+     ════════════════════════════════════════════════════════════ -->
+<section class="bottom-cta" id="bottom">
+  <div class="container">
+    <h2 class="fade-up" id="bottom-h2"></h2>
+    <p class="bottom-cta-sub fade-up" id="bottom-sub"></p>
+    <div class="bottom-cta-actions fade-up stagger-2" id="bottom-actions"></div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<div id="hci-footer"></div>
+<script src="/_footer.js"></script>
+
+<!-- ═══ PAGE LOGIC ═══ -->
+<script>
+(function() {
+  var problemIcons = ['⚠️', '🔒', '🌐'];
+
+  function renderPage() {
+    var S = window.SITE;
+    if (!S) return;
+    var icp = S.icps.icp1;
+    var mike = S.mike;
+    var brand = S.brand;
+    var lang = (window.getLang && getLang()) || 'nl';
+
+    // ── S01: HERO ──
+    var kicker = document.getElementById('hero-kicker');
+    if (kicker) kicker.textContent = lang === 'en' ? (icp.kicker_en || '') : (icp.kicker_nl || '');
+
+    var h1 = document.getElementById('hero-h1');
+    if (h1) h1.innerHTML = lang === 'en' ? icp.hero_h1_en : icp.hero_h1_nl;
+
+    var sub = document.getElementById('hero-sub');
+    if (sub) sub.textContent = lang === 'en' ? icp.hero_sub_en : icp.hero_sub_nl;
+
+    var chips = lang === 'en' ? icp.chips_en : icp.chips_nl;
+    var chipsEl = document.getElementById('hero-chips');
+    if (chipsEl && chips) {
+      chipsEl.innerHTML = chips.map(function(c) {
+        return '<span class="hero-chip">' + c + '</span>';
+      }).join('');
+    }
+
+    var actions = document.getElementById('hero-actions');
+    if (actions) {
+      var ctaLabel = lang === 'en' ? icp.cta_en : icp.cta_nl;
+      var secLabel = lang === 'en' ? icp.secondary_en : icp.secondary_nl;
+      actions.innerHTML =
+        '<a href="' + icp.cta_href + '" class="btn-primary">' + ctaLabel + '</a>' +
+        '<a href="' + icp.secondary_href + '" class="btn-ghost">' + secLabel + '</a>';
+    }
+
+    // ── S02: PROBLEM ──
+    var probEyebrow = document.getElementById('problem-eyebrow');
+    if (probEyebrow) probEyebrow.textContent = lang === 'en' ? '01 — The Problem' : '01 — Het probleem';
+
+    var probTitle = document.getElementById('problem-title');
+    if (probTitle) probTitle.innerHTML = lang === 'en'
+      ? 'Why tech companies <em>fail in Europe.</em>'
+      : 'Waarom tech-bedrijven <em>falen in Europa.</em>';
+
+    var problems = lang === 'en' ? icp.problem_en : icp.problem_nl;
+    var probGrid = document.getElementById('problem-grid');
+    if (probGrid && problems) {
+      probGrid.innerHTML = problems.map(function(p, i) {
+        var icon = problemIcons[i] || '⚠️';
+        var stagger = 'stagger-' + (i + 1);
+        return '<div class="problem-card fade-up ' + stagger + '">' +
+          '<div class="problem-icon">' + icon + '</div>' +
+          '<p>' + p + '</p></div>';
+      }).join('');
+    }
+
+    // ── S03: APPROACH ──
+    var appEyebrow = document.getElementById('approach-eyebrow');
+    if (appEyebrow) appEyebrow.textContent = lang === 'en' ? '02 — The HCI Approach' : '02 — De HCI aanpak';
+
+    var appTitle = document.getElementById('approach-title');
+    if (appTitle) appTitle.innerHTML = lang === 'en'
+      ? 'Three steps to your <em>first European customer.</em>'
+      : 'Drie stappen naar uw <em>eerste Europese klant.</em>';
+
+    var appSub = document.getElementById('approach-sub');
+    if (appSub) appSub.textContent = lang === 'en'
+      ? 'A proven methodology that enforces the right sequence — from assessment to signed deal.'
+      : 'Een bewezen methodiek die de juiste volgorde afdwingt — van assessment tot getekende deal.';
+
+    var steps = lang === 'en' ? icp.steps_en : icp.steps_nl;
+    var stepsGrid = document.getElementById('steps-grid');
+    if (stepsGrid && steps) {
+      stepsGrid.innerHTML = steps.map(function(s, i) {
+        var num = '0' + (i + 1);
+        var stagger = 'stagger-' + (i + 1);
+        return '<div class="step-card fade-up ' + stagger + '">' +
+          '<div class="step-num">' + num + '</div>' +
+          '<h4>' + s.title + '</h4>' +
+          '<p>' + s.desc + '</p></div>';
+      }).join('');
+    }
+
+    // ── S04: ASSESSMENT CTA ──
+    var assessWrap = document.getElementById('assessment-wrap');
+    if (assessWrap) {
+      var assessTitle = lang === 'en'
+        ? 'Ready to test your <em>EU readiness?</em>'
+        : 'Klaar om uw <em>EU readiness te testen?</em>';
+      var assessDesc = lang === 'en'
+        ? 'Take the free EU Readiness Assessment. In 7 minutes you know exactly where you stand.'
+        : 'Doe de gratis EU Readiness Assessment. In 7 minuten weet u precies waar u staat.';
+      var assessCta = lang === 'en' ? icp.cta_en : icp.cta_nl;
+      assessWrap.innerHTML =
+        '<h3>' + assessTitle + '</h3>' +
+        '<p class="assessment-desc">' + assessDesc + '</p>' +
+        '<a href="' + icp.cta_href + '" class="btn-primary">' + assessCta + '</a>';
+    }
+
+    // ── S05: MIKE HES ──
+    var mikePhoto = document.getElementById('mike-photo');
+    if (mikePhoto) {
+      mikePhoto.src = brand.mike_photo;
+      mikePhoto.alt = mike.name;
+    }
+
+    var mikeYears = document.getElementById('mike-years');
+    if (mikeYears) mikeYears.textContent = mike.years;
+
+    var mikeYearsLabel = document.getElementById('mike-years-label');
+    if (mikeYearsLabel) {
+      var yl = lang === 'en' ? mike.years_label_en : mike.years_label_nl;
+      mikeYearsLabel.innerHTML = yl.replace(/\n/g, '<br>');
+    }
+
+    var mikeTitle = document.getElementById('mike-title');
+    if (mikeTitle) mikeTitle.textContent = lang === 'en' ? mike.title_en : mike.title_nl;
+
+    var mikeHeading = document.getElementById('mike-heading');
+    if (mikeHeading) mikeHeading.innerHTML = lang === 'en'
+      ? 'One phone call.<br><em>That\'s the next step.</em>'
+      : 'Eén telefoontje.<br><em>Dat is de volgende stap.</em>';
+
+    var mikeBio = document.getElementById('mike-bio');
+    if (mikeBio) mikeBio.textContent = lang === 'en' ? mike.bio_en : mike.bio_nl;
+
+    var mikeActions = document.getElementById('mike-actions');
+    if (mikeActions) {
+      var mikeCta = lang === 'en' ? mike.cta_en : mike.cta_nl;
+      mikeActions.innerHTML =
+        '<a href="' + brand.calendly + '" class="btn-primary">' + mikeCta + '</a>';
+    }
+
+    // ── S06: BOTTOM CTA ──
+    var bottomH2 = document.getElementById('bottom-h2');
+    if (bottomH2) bottomH2.innerHTML = lang === 'en'
+      ? 'Stop guessing.<br><em>Start entering Europe.</em>'
+      : 'Stop met gokken.<br><em>Begin met Europa.</em>';
+
+    var bottomSub = document.getElementById('bottom-sub');
+    if (bottomSub) bottomSub.textContent = lang === 'en'
+      ? 'Take the free assessment or schedule a call with Mike Hes.'
+      : 'Doe de gratis assessment of plan een gesprek met Mike Hes.';
+
+    var bottomActions = document.getElementById('bottom-actions');
+    if (bottomActions) {
+      var bCta = lang === 'en' ? icp.cta_en : icp.cta_nl;
+      var bSec = lang === 'en' ? mike.cta_en : mike.cta_nl;
+      bottomActions.innerHTML =
+        '<a href="' + icp.cta_href + '" class="btn-primary">' + bCta + '</a>' +
+        '<a href="' + brand.calendly + '" class="btn-ghost">' + bSec + '</a>';
+    }
+
+    // Re-observe fade-up elements after render
+    initObserver();
+  }
+
+  // ── IntersectionObserver for .fade-up ──
+  var observer;
+  function initObserver() {
+    if (!observer) {
+      observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+
+  // ── Language switch hook ──
+  window.onLangChange = renderPage;
+
+  // ── Init ──
+  document.addEventListener('DOMContentLoaded', function() {
+    renderPage();
+  });
+})();
+</script>
+
+<!-- ═══ INTELLIGENCE ═══ -->
+<script src="/_intelligence.js"></script>
+
+</body>
+</html>

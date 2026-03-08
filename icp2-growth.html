@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner & Pipeline Growth — HES Consultancy International</title>
+<meta name="description" content="Word HCI partner en verdien aan compliance & AI projecten. White-label diensten, deal registratie en gezamenlijke enterprise verkoop.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Partner & Pipeline Growth — HES Consultancy International">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="/site.config.js"></script>
+<script src="/hci-intelligence-core.js"></script>
+<style>
+:root {
+  --gold: #c8a55a;
+  --gold-light: #e0c882;
+  --gold-dim: rgba(200,165,90,.12);
+  --gold-border: rgba(200,165,90,.25);
+  --accent: #0891b2;
+  --accent-light: #22d3ee;
+  --accent-dim: rgba(8,145,178,.12);
+  --accent-border: rgba(8,145,178,.3);
+  --bg-deep: #08090c;
+  --bg: #0d0f14;
+  --bg-card: #13151c;
+  --bg-elevated: #1c1e28;
+  --border: rgba(255,255,255,.06);
+  --border-hover: rgba(255,255,255,.12);
+  --text: #a8a6b4;
+  --text-dim: #5e5d6a;
+  --text-bright: #f0eef5;
+  --white: #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 20%, rgba(8,145,178,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 800px at 80% 80%, rgba(200,165,90,.03) 0%, transparent 70%);
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
+section { padding: 120px 0; position: relative; }
+.section-border { border-top: 1px solid var(--border); }
+.section-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.section-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.section-sub {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: 56px;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  background: linear-gradient(135deg, var(--gold), #d4b45e);
+  color: var(--bg-deep);
+  transition: all .3s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(200,165,90,.25);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all .2s;
+}
+.btn-ghost:hover {
+  border-color: var(--gold-border);
+  color: var(--gold);
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 0 80px;
+}
+.hero-inner { max-width: 780px; }
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 17px; line-height: 1.8; color: var(--text);
+  max-width: 560px; margin-bottom: 28px;
+}
+.hero-chips {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 40px;
+}
+.hero-chip {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  letter-spacing: .5px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Benefits */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.benefit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px 28px;
+  transition: all .3s;
+  border-top: 3px solid transparent;
+}
+.benefit-card:hover {
+  border-color: var(--border-hover);
+  border-top-color: var(--accent);
+  background: var(--bg-elevated);
+}
+.benefit-card h4 {
+  font-size: 16px; font-weight: 600;
+  color: var(--white); margin-bottom: 10px;
+}
+.benefit-card p {
+  font-size: 14px; color: var(--text); line-height: 1.7;
+}
+
+/* Journey */
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.journey-card {
+  background: var(--bg-card);
+  padding: 36px 28px;
+  position: relative;
+  transition: all .3s;
+}
+.journey-card:first-child { border-radius: 12px 0 0 12px; }
+.journey-card:last-child { border-radius: 0 12px 12px 0; }
+.journey-card:hover { background: var(--bg-elevated); }
+.journey-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.journey-card h4 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px; font-weight: 400;
+  color: var(--white); margin-bottom: 10px;
+}
+.journey-card p {
+  font-size: 13px; color: var(--text-dim); line-height: 1.7;
+}
+
+/* Calendly CTA */
+.calendly-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-border);
+  border-radius: 16px;
+  padding: 56px 48px;
+  text-align: center;
+}
+.calendly-cta h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.calendly-cta p {
+  font-size: 15px; color: var(--text);
+  max-width: 480px; margin: 0 auto 32px; line-height: 1.7;
+}
+
+/* Mike */
+.mike-section { padding: 120px 0; }
+.mike-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.mike-photo-wrap {
+  position: relative;
+}
+.mike-photo {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.mike-photo img {
+  width: 100%; display: block;
+}
+.mike-cred {
+  position: absolute; bottom: -16px; right: -16px;
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  text-align: center;
+}
+.mike-cred-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  color: var(--gold);
+  line-height: 1;
+}
+.mike-cred-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  white-space: pre-line;
+  margin-top: 4px;
+}
+.mike-content h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.mike-content h2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.mike-title-role {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+.mike-bio {
+  font-size: 15px; line-height: 1.8;
+  color: var(--text); margin-bottom: 32px;
+}
+.mike-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Bottom CTA */
+.bottom-cta {
+  text-align: center;
+  padding: 120px 0;
+}
+.bottom-cta h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.bottom-cta h2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bottom-cta p {
+  font-size: 16px; color: var(--text);
+  max-width: 520px; margin: 0 auto 40px; line-height: 1.8;
+}
+
+/* Fade animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container { padding: 0 20px; }
+  section { padding: 80px 0; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .journey-grid { grid-template-columns: 1fr; gap: 12px; }
+  .journey-card { border-radius: 12px !important; }
+  .mike-grid { grid-template-columns: 1fr; gap: 40px; }
+  .mike-photo-wrap { max-width: 320px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .calendly-cta { padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<div id="hci-nav"></div>
+<script src="/_nav.js"></script>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner fade-up" id="hero-content"></div>
+  </div>
+</section>
+
+<!-- Benefits -->
+<section class="section-border" id="benefits">
+  <div class="container">
+    <div class="fade-up" id="benefits-header"></div>
+    <div class="benefits-grid" id="benefits-grid"></div>
+  </div>
+</section>
+
+<!-- Partner Journey -->
+<section class="section-border" id="journey">
+  <div class="container">
+    <div class="fade-up" id="journey-header"></div>
+    <div class="journey-grid fade-up" id="journey-grid"></div>
+  </div>
+</section>
+
+<!-- Calendly CTA -->
+<section id="calendly-section">
+  <div class="container">
+    <div class="calendly-cta fade-up" id="calendly-cta"></div>
+  </div>
+</section>
+
+<!-- Mike Hes -->
+<section class="mike-section section-border" id="mike">
+  <div class="container">
+    <div class="mike-grid fade-up" id="mike-grid"></div>
+  </div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="bottom-cta section-border" id="bottom-cta-section">
+  <div class="container fade-up" id="bottom-cta"></div>
+</section>
+
+<div id="hci-footer"></div>
+<script src="/_footer.js"></script>
+<script src="/_intelligence.js"></script>
+
+<script>
+function renderPage() {
+  var icp = window.SITE.icps.icp2;
+  var mike = window.SITE.mike;
+  var brand = window.SITE.brand;
+  var lang = getLang();
+
+  // Hero
+  var heroEl = document.getElementById('hero-content');
+  var chips = tk(icp, 'chips') || [];
+  var chipsHtml = '<div class="hero-chips">' +
+    chips.map(function(c) { return '<span class="hero-chip">' + c + '</span>'; }).join('') +
+    '</div>';
+
+  heroEl.innerHTML =
+    '<h1>' + tk(icp, 'hero_h1') + '</h1>' +
+    '<p class="hero-sub">' + tk(icp, 'hero_sub') + '</p>' +
+    chipsHtml +
+    '<div class="hero-actions">' +
+      '<a href="' + icp.cta_href + '" class="btn-primary">' + tk(icp, 'cta') + '</a>' +
+      '<a href="' + icp.secondary_href + '" class="btn-ghost">' + tk(icp, 'secondary') + '</a>' +
+    '</div>';
+
+  // Benefits
+  var benefitsHeader = document.getElementById('benefits-header');
+  var benefitsKey = 'benefits_' + lang;
+  var benefits = icp[benefitsKey] || icp.benefits_nl;
+
+  benefitsHeader.innerHTML =
+    '<p class="section-eyebrow">' + t('Partner voordelen', 'Partner Benefits') + '</p>' +
+    '<h2 class="section-title">' + t('Waarom <em>HCI partner</em> worden?', 'Why become an <em>HCI partner</em>?') + '</h2>';
+
+  var benefitsGrid = document.getElementById('benefits-grid');
+  benefitsGrid.innerHTML = benefits.map(function(b, i) {
+    return '<div class="benefit-card fade-up" style="transition-delay:' + (i * 80) + 'ms">' +
+      '<h4>' + b.title + '</h4>' +
+      '<p>' + b.desc + '</p>' +
+    '</div>';
+  }).join('');
+
+  // Journey
+  var journeyHeader = document.getElementById('journey-header');
+  var journeyKey = 'journey_' + lang;
+  var journey = icp[journeyKey] || icp.journey_nl;
+
+  journeyHeader.innerHTML =
+    '<p class="section-eyebrow">' + t('Partner journey', 'Partner Journey') + '</p>' +
+    '<h2 class="section-title">' + t('Van kennismaking naar <em>eerste deal</em>', 'From introduction to <em>first deal</em>') + '</h2>' +
+    '<p class="section-sub">' + t('Drie stappen naar een structureel partnerschap.', 'Three steps to a structural partnership.') + '</p>';
+
+  var journeyGrid = document.getElementById('journey-grid');
+  journeyGrid.innerHTML = journey.map(function(step, i) {
+    return '<div class="journey-card">' +
+      '<div class="journey-num">0' + (i + 1) + '</div>' +
+      '<h4>' + step.title + '</h4>' +
+      '<p>' + step.desc + '</p>' +
+    '</div>';
+  }).join('');
+
+  // Calendly CTA
+  var calendlyCta = document.getElementById('calendly-cta');
+  calendlyCta.innerHTML =
+    '<h3>' + t('Klaar om partner te worden?', 'Ready to become a partner?') + '</h3>' +
+    '<p>' + t(
+      'Plan een vrijblijvend gesprek met Mike Hes en ontdek hoe HCI partnerschap uw business kan versterken.',
+      'Schedule a no-obligation call with Mike Hes and discover how HCI partnership can strengthen your business.'
+    ) + '</p>' +
+    '<a href="' + brand.calendly + '" class="btn-primary" target="_blank" rel="noopener">' + tk(icp, 'cta') + '</a>';
+
+  // Mike Hes
+  var mikeGrid = document.getElementById('mike-grid');
+  mikeGrid.innerHTML =
+    '<div class="mike-photo-wrap">' +
+      '<div class="mike-photo"><img src="' + brand.mike_photo + '" alt="' + mike.name + '" loading="lazy"></div>' +
+      '<div class="mike-cred">' +
+        '<div class="mike-cred-num">' + mike.years + '</div>' +
+        '<div class="mike-cred-label">' + tk(mike, 'years_label') + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="mike-content">' +
+      '<h2>' + mike.name + '</h2>' +
+      '<p class="mike-title-role">' + tk(mike, 'title') + '</p>' +
+      '<p class="mike-bio">' + tk(mike, 'bio') + '</p>' +
+      '<div class="mike-actions">' +
+        '<a href="' + brand.calendly + '" class="btn-primary">' + tk(mike, 'cta') + '</a>' +
+      '</div>' +
+    '</div>';
+
+  // Bottom CTA
+  var bottomCta = document.getElementById('bottom-cta');
+  bottomCta.innerHTML =
+    '<h2>' + t(
+      'Versterk uw portfolio met <em>compliance & AI expertise</em>',
+      'Strengthen your portfolio with <em>compliance & AI expertise</em>'
+    ) + '</h2>' +
+    '<p>' + tk(icp, 'hero_sub') + '</p>' +
+    '<a href="' + icp.cta_href + '" class="btn-primary">' + tk(icp, 'cta') + '</a>';
+
+  // Re-observe fade-up elements
+  initFadeObserver();
+}
+
+function initFadeObserver() {
+  var els = document.querySelectorAll('.fade-up:not(.visible)');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el) { observer.observe(el); });
+}
+
+window.onLangChange = renderPage;
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderPage();
+});
+</script>
+</body>
+</html>
