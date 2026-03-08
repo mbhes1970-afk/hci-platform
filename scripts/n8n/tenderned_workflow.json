@@ -1,83 +1,23 @@
 {
-  "name": "HCI TenderNed Dagelijks",
-  "active": false,
-  "nodes": [
-    {
-      "parameters": {
-        "rule": {
-          "interval": [{ "field": "cronExpression", "expression": "0 7 * * *" }]
-        }
-      },
-      "name": "Dagelijks 07:00",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [240, 300]
-    },
-    {
-      "parameters": {
-        "method": "GET",
-        "url": "https://www.tenderned.nl/api/tenders/v2/publicaties",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            { "name": "datum_publicatie_vanaf", "value": "={{ $now.minus(1, 'day').toFormat('yyyy-MM-dd') }}" },
-            { "name": "datum_publicatie_tot", "value": "={{ $now.toFormat('yyyy-MM-dd') }}" },
-            { "name": "pageSize", "value": "100" }
-          ]
-        },
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            { "name": "Accept", "value": "application/json" }
-          ]
-        },
-        "options": {}
-      },
-      "name": "TenderNed publicaties",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [460, 300]
-    },
-    {
-      "parameters": {
-        "jsCode": "// CPV codes voor IT/security/compliance\nconst CPV_CODES = [\n  '72000000','72200000','72210000','72220000','72221000',\n  '72222000','72222100','72222300','72224000','72300000',\n  '72500000','72600000','72700000','79400000','79410000',\n  '79411000','48000000','48600000'\n];\n\n// Keywords regex\nconst KEYWORDS = /CRA|AIACT|NIS2|DORA|BIO|AVG|GDPR|NEN.?7510|informatiebeveiliging|cybersecurity|compliance|risicoanalyse|audit|pentest|advies|implementatie|interim|cloud|SIEM|SOC|assessment|zero.?trust|encryptie/i;\n\nconst input = $input.first().json;\nconst tenders = Array.isArray(input) ? input : (input.resultaten || input.publicaties || input.content || []);\n\nconst filtered = tenders.filter(t => {\n  const cpvMatch = (t.cpvCodes || []).some(c => CPV_CODES.includes(String(c).substring(0, 8)));\n  const text = (t.titel || '') + ' ' + (t.omschrijving || '') + ' ' + (t.aanbestedendeDienst || '');\n  const kwMatch = KEYWORDS.test(text);\n  return cpvMatch || kwMatch;\n});\n\nif (filtered.length === 0) {\n  return [];  // stopt de ketting\n}\n\nreturn filtered.map(t => ({\n  json: {\n    titel: t.titel || 'Onbekend',\n    geraamdeWaarde: t.geraamdeWaarde || t.geraamdeBedrag || 'budget onbekend',\n    sluitingsDatum: t.sluitingsDatum || t.uitersteInschrijfdatum || 'onbekend',\n    publicatieLink: t.publicatieLink || t.url || `https://www.tenderned.nl/aankondigingen/overzicht/` + (t.publicatieId || ''),\n    aanbesteder: t.aanbestedendeDienst || '-',\n    cpvCodes: (t.cpvCodes || []).join(', ')\n  }\n}));"
-      },
-      "name": "Filter CPV + keywords",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [680, 300]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Build Slack message from all filtered tenders\nconst items = $input.all();\nif (items.length === 0) return [];\n\nlet msg = `📋 *TenderNed — ${items.length} relevante aanbestedingen*\\n\\n`;\n\nfor (const item of items) {\n  const t = item.json;\n  msg += `• *${t.titel}*\\n`;\n  msg += `  💶 ${t.geraamdeWaarde}\\n`;\n  msg += `  📅 Deadline: ${t.sluitingsDatum}\\n`;\n  msg += `  🏢 ${t.aanbesteder}\\n`;\n  msg += `  🔗 ${t.publicatieLink}\\n\\n`;\n}\n\nreturn [{ json: { text: msg } }];"
-      },
-      "name": "Bouw Slack bericht",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [900, 300]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://hooks.slack.com/services/T0AKAFST1B6/B0AKKRRJGDP/fiqGxhsMEhfZEIrHxCF1qW",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ text: $json.text }) }}",
-        "options": {}
-      },
-      "name": "Slack notificatie",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1120, 300]
-    }
-  ],
-  "connections": {
-    "Dagelijks 07:00": { "main": [[{ "node": "TenderNed publicaties", "type": "main", "index": 0 }]] },
-    "TenderNed publicaties": { "main": [[{ "node": "Filter CPV + keywords", "type": "main", "index": 0 }]] },
-    "Filter CPV + keywords": { "main": [[{ "node": "Bouw Slack bericht", "type": "main", "index": 0 }]] },
-    "Bouw Slack bericht": { "main": [[{ "node": "Slack notificatie", "type": "main", "index": 0 }]] }
+  "_note": "This is a reference file. The actual TenderNed workflow (ID: 4B4zpwYnmLcAF7u3) lives on the n8n server with 28 nodes. Use deploy_workflows.py to update it (adds Slack alerts + daily 07:00 schedule). The server workflow includes: TenderNed API fetch, XML/JSON parsing, CPV filtering, field splitting, and data table storage.",
+  "id": "4B4zpwYnmLcAF7u3",
+  "name": "HCI TenderNed Dagelijkse Scan + Slack Alert",
+  "modifications": {
+    "schedule": "daily 07:00 (cron: 0 7 * * *)",
+    "slack_node": "Slack TenderNed Alert — posts to HCI Slack channel after CPV/keyword filter",
+    "slack_webhook": "https://hooks.slack.com/services/T0AKAFST1B6/B0AKKRRJGDP/fiqGxhsMEhfZEIrHxCF1qW",
+    "slack_message_fields": ["json_aanbestedingNaam", "json_opdrachtgeverNaam", "cpv_all_text", "json_sluitingsDatum", "xml_platform", "tenderNedUrl"]
   },
-  "settings": {
-    "executionOrder": "v1"
-  }
+  "cpv_filter_codes": [
+    "72000000", "72200000", "72210000", "72212000",
+    "72220000", "72221000", "72222000", "72222100",
+    "72222200", "72222300", "72224000", "72224100",
+    "72300000", "72310000", "72316000", "72317000",
+    "72500000", "72600000", "72610000", "72611000",
+    "72700000", "72710000", "72720000", "72800000",
+    "79400000", "79410000", "79411000", "79412000",
+    "48000000", "48100000", "48200000", "48600000",
+    "48730000", "48732000", "79131000"
+  ],
+  "keyword_filter": "NIS2|DORA|BIO|CRA|AVG|GDPR|NEN7510|informatiebeveiliging|cybersecurity|compliance|risicoanalyse|audit|pentest|advies|implementatie|strategie|interim|cloud|SIEM|SOC|software|SaaS|soevereiniteit|weerbaarheid|assessment|zero trust|encryptie|quantum"
 }
