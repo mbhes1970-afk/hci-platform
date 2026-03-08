@@ -63,7 +63,7 @@ export const hciTheme: ThemeConfig = {
   },
   report: {
     headerColor: '#c8a55a',
-    footerText: 'HES Consultancy International \u00b7 hes-consultancy-international.com',
+    footerText: 'HES Consultancy International · hes-consultancy-international.com',
     disclaimer: 'Dit rapport is vertrouwelijk en opgesteld op basis van uw antwoorden.',
   },
 };

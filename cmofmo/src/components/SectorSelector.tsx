@@ -44,7 +44,7 @@ export function SectorSelector() {
             </div>
             {sector === s.id && (
               <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-brand-primary flex items-center justify-center">
-                <span className="text-white text-xs">\u2713</span>
+                <span className="text-white text-xs">✓</span>
               </div>
             )}
           </button>

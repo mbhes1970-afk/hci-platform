@@ -100,13 +100,13 @@ export function OrgDetailsForm() {
 
             {wizard.pdfFileName ? (
               <div>
-                <span className="text-2xl">\uD83D\uDCC4</span>
+                <span className="text-2xl">📄</span>
                 <p className="text-sm text-brand-primary-light font-medium mt-2">{wizard.pdfFileName}</p>
                 <p className="text-xs text-brand-text-dim mt-1">{lang === 'nl' ? 'Klik om te wijzigen' : 'Click to change'}</p>
               </div>
             ) : (
               <div>
-                <span className="text-2xl">\u2B06\uFE0F</span>
+                <span className="text-2xl">⬆️</span>
                 <p className="text-sm text-brand-text mt-2">{t('org.uploadHint', lang)}</p>
               </div>
             )}

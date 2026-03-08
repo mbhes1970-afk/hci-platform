@@ -27,7 +27,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     for (const [k, v] of Object.entries(props)) root.style.setProperty(k, v);
     document.body.style.backgroundColor = c.bg;
     document.body.style.color = c.text;
-    document.title = `CMO\u2192FMO Quickscan \u00b7 ${theme.name}`;
+    document.title = `CMO→FMO Quickscan · ${theme.name}`;
   }, [theme]);
 
   return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;

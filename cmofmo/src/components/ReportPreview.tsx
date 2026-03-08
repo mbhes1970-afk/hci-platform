@@ -10,6 +10,7 @@ import { getSectorById } from '../config/sectors';
 import { getRoleById } from '../config/roles';
 import { getQuestionsForSector } from '../config/questions';
 import type { CmoFmoRow, ReportData } from '../config/types';
+import { generatePdf } from '../services/pdf-export';
 
 async function pushToDealFlow(reportData: ReportData) {
   const POCKETBASE_URL = import.meta.env.VITE_POCKETBASE_URL
@@ -43,7 +44,7 @@ async function pushToDealFlow(reportData: ReportData) {
 
 const SECTOR_CONTEXT: Record<string, { nl: string; en: string }> = {
   s01: { nl: 'Overheid & Publieke Sector — BIO, NIS2, AVG/GDPR, DigiD compliance.', en: 'Government & Public Sector — BIO, NIS2, GDPR, DigiD compliance.' },
-  s02: { nl: 'Zorg & Gezondheid — NEN 7510, NIS2, AVG/GDPR, DPIA.', en: 'Healthcare — NEN 7510, NIS2, GDPR, DPIA.' },
+  s02: { nl: 'Zorg & Gezondheid — NEN 7510:2, NIS2, AVG/GDPR, DPIA.', en: 'Healthcare — NEN 7510:2, NIS2, GDPR, DPIA.' },
   s03: { nl: 'Technologie & Software — ISO 27001, SOC2, NIS2, CRA.', en: 'Technology & Software — ISO 27001, SOC2, NIS2, CRA.' },
   s04: { nl: 'Enterprise & MKB — ISO 27001, NIS2, AVG/GDPR.', en: 'Enterprise & SMB — ISO 27001, NIS2, GDPR.' },
   s05: { nl: 'Finance & Banking — DORA, PSD2, NIS2, AVG/GDPR.', en: 'Finance & Banking — DORA, PSD2, NIS2, GDPR.' },
@@ -113,7 +114,7 @@ export function ReportPreview() {
         },
         sectorContext: SECTOR_CONTEXT[wizard.sector!] || { nl: '', en: '' },
         orgFindings: { nl: '', en: '' },
-        investmentRange: `\u20ac${investMin.toLocaleString('nl-NL')} \u2013 \u20ac${investMax.toLocaleString('nl-NL')}`,
+        investmentRange: `€${investMin.toLocaleString('nl-NL')} – €${investMax.toLocaleString('nl-NL')}`,
         timeline: avgScore < 5 ? '12-18 maanden' : '6-12 maanden',
         generatedAt: new Date().toISOString(),
       };
@@ -207,13 +208,14 @@ export function ReportPreview() {
           className="inline-block px-6 py-3 rounded-lg font-bold text-white transition-all hover:opacity-90"
           style={{ backgroundColor: theme.colors.primary }}
         >
-          {lang === 'nl' ? 'Plan een gesprek \u2192' : 'Schedule a call \u2192'}
+          {lang === 'nl' ? 'Plan een gesprek →' : 'Schedule a call →'}
         </a>
       </div>
 
       {/* Download */}
       <div className="text-center">
         <button
+          onClick={() => generatePdf(r, lang, theme)}
           className="px-8 py-3 rounded-lg text-sm font-bold text-white transition-all hover:opacity-90"
           style={{ backgroundColor: theme.colors.primary }}
         >

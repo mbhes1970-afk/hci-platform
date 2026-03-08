@@ -93,9 +93,9 @@ export const SECTOR_QUESTIONS: Record<SectorId, SectorQuestions> = {
   // ─── S02: ZORG ────────────────────────────────────────
   s02: {
     sectorId: 's02',
-    dimensions: ['NEN 7510 Compliance', 'NIS2 Readiness', 'EPD Security', 'AI Governance', 'Data Soevereiniteit'],
+    dimensions: ['NEN 7510:2 Compliance', 'NIS2 Readiness', 'EPD Security', 'AI Governance', 'Data Soevereiniteit'],
     questions: [
-      q(0, 'Hoe ver is uw NEN 7510 implementatie?', [
+      q(0, 'Hoe ver is uw NEN 7510:2 implementatie?', [
         'Net gestart / onbekend',
         'Gap-analyse uitgevoerd',
         'Grotendeels geimplementeerd',

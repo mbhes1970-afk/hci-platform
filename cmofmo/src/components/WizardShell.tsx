@@ -62,7 +62,7 @@ export function WizardShell() {
               }
             `}>
               <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border border-current">
-                {i < currentStep ? '\u2713' : i + 1}
+                {i < currentStep ? '✓' : i + 1}
               </span>
               <span className="hidden sm:inline">{step.label[lang]}</span>
             </div>
