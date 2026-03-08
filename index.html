@@ -445,6 +445,19 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   .method-step:last-child { border-radius: 0 0 12px 12px !important; }
 }
 
+/* ═══ HERO LOAD ANIMATION ═══ */
+@keyframes hci-hero-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-overline { opacity: 0; animation: hci-hero-in 0.5s ease forwards; animation-delay: 0.1s; }
+.hero h1 { opacity: 0; animation: hci-hero-in 0.6s ease forwards; animation-delay: 0.25s; }
+.hero-sub { opacity: 0; animation: hci-hero-in 0.6s ease forwards; animation-delay: 0.45s; }
+.hero-actions { opacity: 0; animation: hci-hero-in 0.6s ease forwards; animation-delay: 0.65s; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-overline, .hero h1, .hero-sub, .hero-actions { opacity: 1; animation: none; }
+}
+
 /* ═══ ANIMATIONS ═══ */
 .fade-up {
   opacity: 0; transform: translateY(24px);
@@ -489,7 +502,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     <div class="section-eyebrow fade-up" id="rt-eyebrow"></div>
     <h2 class="section-title fade-up" id="rt-title"></h2>
     <p class="section-sub fade-up" id="rt-sub"></p>
-    <div class="route-grid" id="rt-grid"></div>
+    <div class="route-grid hci-stagger" id="rt-grid"></div>
   </div>
 </section>
 
@@ -525,8 +538,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   <div class="container">
     <div class="section-eyebrow fade-up" id="sp-eyebrow"></div>
     <h2 class="section-title fade-up" id="sp-title"></h2>
-    <div class="sp-stats-grid" id="sp-stats"></div>
-    <div class="sp-cases" id="sp-cases"></div>
+    <div class="sp-stats-grid hci-stagger" id="sp-stats"></div>
+    <div class="sp-cases" id="sp-cases" data-animate="fade"></div>
     <div class="sp-track fade-up" id="sp-track"></div>
   </div>
 </section>
