@@ -1369,9 +1369,14 @@ Generate the complete JSON object with all template variables for this sector.`;
   userContent.push({ type: 'text', text: userText });
 
   try {
+    // AbortController timeout — ensures fallback on Hetzner (no Netlify Functions)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
     const response = await fetch('/.netlify/functions/claude-proxy', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
       body: JSON.stringify({
         action: 'claude',
         model: 'claude-sonnet-4-5-20250929',
@@ -1380,17 +1385,20 @@ Generate the complete JSON object with all template variables for this sector.`;
         messages: [{ role: 'user', content: userContent }]
       })
     });
-    
+    clearTimeout(timeoutId);
+
+    if (!response.ok) throw new Error('Proxy returned ' + response.status);
+
     const data = await response.json();
     const text = data.content?.map(b => b.text || '').join('') || '';
     const clean = text.replace(/```json|```/g, '').trim();
     reportData = JSON.parse(clean);
-    
+
     renderReport(orgName, contactName, contactRole);
     showScreen('screen-report');
-    
+
   } catch (err) {
-    console.error('API Error:', err);
+    console.warn('[HCI Quickscan] AI unavailable, using static report:', err.message);
     reportData = generateMockData(orgName, contactName, contactRole);
     renderReport(orgName, contactName, contactRole);
     showScreen('screen-report');

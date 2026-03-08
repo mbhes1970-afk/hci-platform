@@ -40,12 +40,15 @@ const MAX_TOKENS        = 4096;
 
 // Allowed origins — add your custom domain here when live
 const ALLOWED_ORIGINS = [
-  'https://hci-platform.netlify.app',
+  'https://hes-consultancy.nl',
+  'https://www.hes-consultancy.nl',
   'https://hes-consultancy-international.com',
   'https://www.hes-consultancy-international.com',
+  'https://hci-platform.netlify.app',
   'https://nxterasolutions.eu',
   'https://www.nxterasolutions.eu',
   'http://localhost:3000',
+  'http://localhost:5173',
   'http://127.0.0.1:5500',
   'http://localhost:8888',
 ];
@@ -70,6 +73,17 @@ exports.handler = async function(event, context) {
       headers: corsHeaders,
       body: ''
     };
+  }
+
+  // ── Health check (GET) ───────────────────────────────────
+  if (event.httpMethod === 'GET') {
+    return respond(200, {
+      status: 'ok',
+      model: DEFAULT_MODEL,
+      timestamp: new Date().toISOString(),
+      api_key_set: !!process.env.ANTHROPIC_API_KEY,
+      slack_set: !!process.env.SLACK_WEBHOOK_URL,
+    }, corsHeaders);
   }
 
   // ── Only POST allowed ─────────────────────────────────────

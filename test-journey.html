@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>HCI Test Journey — Interne Testpagina</title>
+<style>
+:root {
+  --bg: #0d1117; --bg-card: #161b22; --border: #30363d;
+  --text: #c9d1d9; --text-dim: #8b949e; --white: #e6edf3;
+  --green: #3fb950; --red: #f87171; --amber: #fbbf24; --blue: #58a6ff; --purple: #6C5CE7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 24px; max-width: 1000px; margin: 0 auto; }
+h1 { color: var(--purple); font-size: 1.3rem; margin-bottom: 4px; }
+.meta { color: var(--text-dim); font-size: .78rem; margin-bottom: 24px; }
+h2 { color: #c8a55a; font-size: .9rem; margin-top: 28px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .05em; border-left: 3px solid #c8a55a; padding-left: 10px; }
+.summary { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.summary-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; flex: 1; min-width: 120px; text-align: center; }
+.summary-num { font-size: 1.8rem; font-weight: 700; line-height: 1; }
+.summary-label { font-size: .75rem; color: var(--text-dim); margin-top: 4px; }
+.test-row { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; margin-bottom: 6px; font-size: .84rem; }
+.test-status { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; background: #21262d; }
+.test-status.pass { background: rgba(63,185,80,.15); color: var(--green); }
+.test-status.fail { background: rgba(248,113,113,.15); color: var(--red); }
+.test-status.pending { background: #21262d; color: var(--text-dim); }
+.test-info { flex: 1; }
+.test-name { color: var(--white); font-weight: 500; }
+.test-detail { font-size: .75rem; color: var(--text-dim); margin-top: 2px; }
+.test-btn { padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--blue); font-size: .78rem; cursor: pointer; white-space: nowrap; }
+.test-btn:hover { border-color: var(--blue); }
+.test-btn:disabled { opacity: .4; cursor: not-allowed; }
+.test-time { font-size: .7rem; color: var(--text-dim); white-space: nowrap; min-width: 50px; text-align: right; }
+.actions { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-export { padding: 10px 24px; border-radius: 8px; border: none; background: var(--purple); color: #fff; font-size: .85rem; font-weight: 600; cursor: pointer; }
+.btn-export:hover { opacity: .9; }
+.btn-all { padding: 10px 24px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--white); font-size: .85rem; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>HCI Test Journey — Interne Testpagina</h1>
+<p class="meta">Branch: claude/analyze-hci-signalmesh-M2NV2 | Niet gelinkt in navigatie | Alleen voor intern gebruik</p>
+
+<div class="summary">
+  <div class="summary-card"><div class="summary-num" id="sum-total" style="color:var(--white)">0</div><div class="summary-label">Totaal</div></div>
+  <div class="summary-card"><div class="summary-num" id="sum-pass" style="color:var(--green)">0</div><div class="summary-label">Geslaagd</div></div>
+  <div class="summary-card"><div class="summary-num" id="sum-fail" style="color:var(--red)">0</div><div class="summary-label">Gefaald</div></div>
+  <div class="summary-card"><div class="summary-num" id="sum-pending" style="color:var(--text-dim)">0</div><div class="summary-label">Nog te testen</div></div>
+</div>
+
+<div id="tests"></div>
+
+<div class="actions">
+  <button class="btn-all" onclick="runAllAuto()">Draai alle automatische tests</button>
+  <button class="btn-export" onclick="exportResults()">Exporteer testresultaten (JSON)</button>
+</div>
+
+<script>
+var tests = [
+  // ── Sectie 1: Infrastructuur ──
+  { id: '1.1', section: 'Infrastructuur', name: 'API Proxy bereikbaar', auto: true,
+    run: async function() {
+      var r = await fetch('/api/claude'); var d = await r.json();
+      if (d.status === 'ok') return { pass: true, detail: 'Model: ' + d.model + ', API key: ' + (d.api_key_set ? 'ja' : 'NEE') };
+      return { pass: false, detail: JSON.stringify(d) };
+    }},
+  { id: '1.2', section: 'Infrastructuur', name: 'Slack Proxy bereikbaar', auto: true,
+    run: async function() {
+      var r = await fetch('/api/slack', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ tier: 'test', score: 0, org: 'HCI Test', icp: 'test' }) });
+      var d = await r.json();
+      if (d.ok) return { pass: true, detail: d.skipped ? 'Slack niet geconfigureerd (OK voor test)' : 'Slack alert verstuurd' };
+      return { pass: false, detail: JSON.stringify(d) };
+    }},
+  { id: '1.3', section: 'Infrastructuur', name: 'PocketBase bereikbaar', auto: true,
+    run: async function() {
+      var r = await fetch('https://api.hes-consultancy-international.com/api/health');
+      if (r.ok) return { pass: true, detail: 'HTTP ' + r.status };
+      return { pass: false, detail: 'HTTP ' + r.status };
+    }},
+  { id: '1.4', section: 'Infrastructuur', name: 'site.config.js geladen', auto: true,
+    run: async function() {
+      if (window.SITE && window.SITE.brand && window.SITE.brand.name === 'HES Consultancy International')
+        return { pass: true, detail: 'SITE.brand.name correct' };
+      return { pass: false, detail: 'window.SITE niet gevonden of incorrect' };
+    }},
+
+  // ── Sectie 2: SignalMesh / Intelligence ──
+  { id: '2.1', section: 'SignalMesh', name: 'ICP1 detectie via URL param', auto: false, manual: true,
+    hint: 'Open /icp1-eu-entry.html?icp=icp1&utm_source=linkedin — controleer console voor [HCI Intelligence] ICP detected: icp1' },
+  { id: '2.2', section: 'SignalMesh', name: 'ICP3 sector detectie', auto: false, manual: true,
+    hint: 'Open /icp3-compliance.html?icp=icp3&sector=s01&utm_source=linkedin — sector s01 moet highlighted zijn' },
+  { id: '2.3', section: 'SignalMesh', name: 'Score opbouw (cold → warm)', auto: false, manual: true,
+    hint: 'Blijf 2+ minuten op een pagina, scroll naar beneden — controleer console voor score updates' },
+  { id: '2.4', section: 'SignalMesh', name: 'Tier1 Slack alert', auto: false, manual: true,
+    hint: 'Simuleer in console: fetch("/api/slack",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({tier:"tier1",score:105,org:"TEST",icp:"icp1",url:location.href})}).then(r=>r.json()).then(console.log)' },
+
+  // ── Sectie 3: ICP1 Journey ──
+  { id: '3.1', section: 'ICP1 Journey', name: 'ICP1 landing page laadt correct', auto: false, manual: true,
+    hint: 'Open /icp1-eu-entry.html — Hero tekst NL aanwezig? CTA knop aanwezig? Nav aanwezig?' },
+  { id: '3.2', section: 'ICP1 Journey', name: 'Quickscan start (ICP1)', auto: false, manual: true,
+    hint: 'Open /hci-quickscan.html?icp=icp1 — Sector selectie zichtbaar? Vragen laden? NL tekst?' },
+  { id: '3.3', section: 'ICP1 Journey', name: 'Quickscan volledig doorlopen (s03)', auto: false, manual: true,
+    hint: 'Doorloop alle 9 vragen voor sector s03 (Software). Score moet berekend worden en AI rapport starten.' },
+  { id: '3.4', section: 'ICP1 Journey', name: 'CMO-FMO rapport gegenereerd', auto: false, manual: true,
+    hint: 'Na quickscan: rapport met org naam, sector, aanbevelingen. Geen API errors in console.' },
+
+  // ── Sectie 4: ICP2 Journey ──
+  { id: '4.1', section: 'ICP2 Journey', name: 'ICP2 landing page laadt correct', auto: false, manual: true,
+    hint: 'Open /icp2-growth.html — Hero tekst, partner voordelen, Calendly CTA aanwezig?' },
+  { id: '4.2', section: 'ICP2 Journey', name: 'Calendly link werkt', auto: false, manual: true,
+    hint: 'Klik primaire CTA — moet redirect naar calendly.com/hci-mike' },
+
+  // ── Sectie 5: ICP3 Journey ──
+  { id: '5.1', section: 'ICP3 Journey', name: 'ICP3 compliance hub laadt correct', auto: false, manual: true,
+    hint: 'Open /icp3-compliance.html — 6 sector cards aanwezig? Frameworks zichtbaar?' },
+  { id: '5.2', section: 'ICP3 Journey', name: 'Sector selectie werkt (s01)', auto: false, manual: true,
+    hint: 'Klik sector s01 (Gemeente & Overheid) — redirect naar /hci-quickscan.html?sector=s01?' },
+  { id: '5.3', section: 'ICP3 Journey', name: 'Quickscan sector s01 doorlopen', auto: false, manual: true,
+    hint: 'Doorloop alle 9 vragen sector s01. BIO + NIS2 rapport moet gegenereerd worden.' },
+  { id: '5.4', section: 'ICP3 Journey', name: 'Quickscan sector s02 (Zorg) doorlopen', auto: false, manual: true,
+    hint: 'Doorloop alle 9 vragen sector s02. NEN7510 + AVG rapport moet gegenereerd worden.' },
+
+  // ── Sectie 6: Taalswitch ──
+  { id: '6.1', section: 'Taalswitch NL/EN', name: 'NL → EN switch op homepage', auto: false, manual: true,
+    hint: 'Open / — Klik taalswitch naar EN. Alle teksten moeten in het Engels verschijnen.' },
+  { id: '6.2', section: 'Taalswitch NL/EN', name: 'NL → EN switch op ICP1', auto: false, manual: true,
+    hint: 'Open /icp1-eu-entry.html — Switch naar EN. Hero, CTA, stappen in Engels?' },
+  { id: '6.3', section: 'Taalswitch NL/EN', name: 'NL → EN switch op ICP3', auto: false, manual: true,
+    hint: 'Open /icp3-compliance.html — Switch naar EN. Sector cards, frameworks in Engels?' },
+  { id: '6.4', section: 'Taalswitch NL/EN', name: 'Taal onthouden na refresh', auto: false, manual: true,
+    hint: 'Switch naar EN, refresh pagina. Moet EN blijven (localStorage hci_lang).' },
+
+  // ── Sectie 7: Responsive ──
+  { id: '7.1', section: 'Responsive (375px)', name: 'Homepage op 375px', auto: false, manual: true,
+    hint: 'Open / in DevTools responsive mode 375px. Layout correct? Geen overflow?' },
+  { id: '7.2', section: 'Responsive (375px)', name: 'ICP1 op 375px', auto: false, manual: true,
+    hint: 'Open /icp1-eu-entry.html op 375px. Stappen stapelen? CTA zichtbaar?' },
+  { id: '7.3', section: 'Responsive (375px)', name: 'ICP3 sector grid op 375px', auto: false, manual: true,
+    hint: 'Open /icp3-compliance.html op 375px. Sector grid 1 kolom? Cards leesbaar?' },
+  { id: '7.4', section: 'Responsive (375px)', name: 'Quickscan op 375px', auto: false, manual: true,
+    hint: 'Open /hci-quickscan.html op 375px. Vragen leesbaar? Knoppen klikbaar?' },
+  { id: '7.5', section: 'Responsive (375px)', name: 'Hamburger menu op mobiel', auto: false, manual: true,
+    hint: 'Open / op 375px. Hamburger menu zichtbaar? Nav items openen bij klik?' },
+];
+
+// State
+var results = {};
+
+function updateSummary() {
+  var total = tests.length, pass = 0, fail = 0;
+  tests.forEach(function(t) {
+    var r = results[t.id];
+    if (r && r.pass) pass++;
+    else if (r && !r.pass) fail++;
+  });
+  document.getElementById('sum-total').textContent = total;
+  document.getElementById('sum-pass').textContent = pass;
+  document.getElementById('sum-fail').textContent = fail;
+  document.getElementById('sum-pending').textContent = total - pass - fail;
+}
+
+function renderTests() {
+  var html = '';
+  var currentSection = '';
+  tests.forEach(function(t) {
+    if (t.section !== currentSection) {
+      currentSection = t.section;
+      html += '<h2>' + currentSection + '</h2>';
+    }
+    var r = results[t.id];
+    var statusClass = r ? (r.pass ? 'pass' : 'fail') : 'pending';
+    var statusIcon = r ? (r.pass ? '\u2705' : '\u274C') : '\u23F3';
+    var detail = r ? r.detail : (t.hint || (t.auto ? 'Klik om te testen' : 'Handmatige test'));
+    var timeStr = r ? r.time : '';
+
+    html += '<div class="test-row" id="row-' + t.id.replace('.', '-') + '">' +
+      '<div class="test-status ' + statusClass + '">' + statusIcon + '</div>' +
+      '<div class="test-info"><div class="test-name">' + t.id + ' ' + t.name + '</div>' +
+      '<div class="test-detail">' + detail + '</div></div>';
+
+    if (t.auto) {
+      html += '<button class="test-btn" onclick="runTest(\'' + t.id + '\')">Test</button>';
+    } else {
+      html += '<button class="test-btn" onclick="markPass(\'' + t.id + '\')" style="color:var(--green)">Pass</button>';
+      html += '<button class="test-btn" onclick="markFail(\'' + t.id + '\')" style="color:var(--red)">Fail</button>';
+    }
+    html += '<div class="test-time">' + timeStr + '</div></div>';
+  });
+  document.getElementById('tests').innerHTML = html;
+  updateSummary();
+}
+
+async function runTest(id) {
+  var t = tests.find(function(x) { return x.id === id; });
+  if (!t || !t.run) return;
+  var btn = document.querySelector('#row-' + id.replace('.', '-') + ' .test-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '...'; }
+  try {
+    var r = await t.run();
+    results[id] = { pass: r.pass, detail: r.detail, time: new Date().toLocaleTimeString('nl-NL') };
+  } catch (e) {
+    results[id] = { pass: false, detail: 'Error: ' + e.message, time: new Date().toLocaleTimeString('nl-NL') };
+  }
+  renderTests();
+}
+
+function markPass(id) {
+  results[id] = { pass: true, detail: 'Handmatig goedgekeurd', time: new Date().toLocaleTimeString('nl-NL') };
+  renderTests();
+}
+function markFail(id) {
+  var reason = prompt('Reden van falen (optioneel):') || 'Handmatig afgekeurd';
+  results[id] = { pass: false, detail: reason, time: new Date().toLocaleTimeString('nl-NL') };
+  renderTests();
+}
+
+async function runAllAuto() {
+  for (var i = 0; i < tests.length; i++) {
+    if (tests[i].auto) await runTest(tests[i].id);
+  }
+}
+
+function exportResults() {
+  var data = {
+    exported: new Date().toISOString(),
+    branch: 'claude/analyze-hci-signalmesh-M2NV2',
+    total: tests.length,
+    passed: 0, failed: 0, pending: 0,
+    tests: []
+  };
+  tests.forEach(function(t) {
+    var r = results[t.id];
+    if (r && r.pass) data.passed++;
+    else if (r && !r.pass) data.failed++;
+    else data.pending++;
+    data.tests.push({ id: t.id, section: t.section, name: t.name, result: r ? (r.pass ? 'pass' : 'fail') : 'pending', detail: r ? r.detail : '', time: r ? r.time : '' });
+  });
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'hci-test-results-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// Load site config for test 1.4
+var script = document.createElement('script');
+script.src = '/site.config.js';
+script.onload = function() { renderTests(); };
+script.onerror = function() { renderTests(); };
+document.head.appendChild(script);
+</script>
+</body>
+</html>

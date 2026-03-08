@@ -1,5 +1,12 @@
 [build]
   publish = "."
+  command = ""
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  directory = "netlify/functions"
 
 # Edge Functions
 [[edge_functions]]
@@ -14,7 +21,7 @@
 
 [[redirects]]
   from = "/quickscan"
-  to = "/hci-cmofmo.html"
+  to = "/hci-quickscan.html"
   status = 200
 
 [[redirects]]
@@ -164,7 +171,7 @@
 
 [[redirects]]
   from = "/api/slack"
-  to = "/.netlify/functions/claude-proxy"
+  to = "/.netlify/functions/signalmesh-alert"
   status = 200
 
 # Legacy brief redirects (→ insights pages)
