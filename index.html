@@ -363,7 +363,9 @@ section { padding: 120px 0; position: relative; }
   font-size: 36px; color: var(--gold); line-height: 1; margin-bottom: 6px;
 }
 .sp-stat-label { font-size: 12px; color: var(--text-dim); }
-.sp-cases { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px; }
+.sp-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 16px; }
+.sp-case-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.sp-case-badge { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
 .sp-case {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 12px; padding: 28px 24px; transition: all .3s;
@@ -681,12 +683,17 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       '</div>';
     }).join('');
 
-    var previewCases = cases.slice(0, 2);
+    var previewIds = ['chunkworks', 'openhealthhub', 'atomic'];
+    var previewCases = previewIds.map(function(id) {
+      return cases.find(function(c) { return c.id === id; });
+    }).filter(Boolean);
     document.getElementById('sp-cases').innerHTML = previewCases.map(function(c, i) {
+      var badges = (c.results || []).map(function(r) { return '<span class="sp-case-badge">' + r + '</span>'; }).join('');
       return '<div class="sp-case fade-up stagger-' + (i+1) + '">' +
         '<h4>' + c.company + '</h4>' +
         '<div class="sp-case-tag">' + c.tag + '</div>' +
         '<p>' + tx(c, 'text').substring(0, 200) + '...</p>' +
+        (badges ? '<div class="sp-case-badges">' + badges + '</div>' : '') +
       '</div>';
     }).join('') +
     '<div class="sp-cases-link fade-up"><a href="/mike">' + (lang === 'en' ? 'View all cases \u2192' : 'Bekijk alle cases \u2192') + '</a></div>';

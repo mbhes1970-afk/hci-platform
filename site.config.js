@@ -385,20 +385,20 @@ window.SITE = {
     {
       client:  'Chunk Works',
       icp:     'icp1',
-      result_nl: 'CMO→FMO templates gebouwd, 6 sectoren. Werkend assessment platform. Concept naar productie in 12 weken.',
-      result_en: 'Built 6 sector CMO→FMO templates. Live assessment platform. Concept to production in 12 weeks.',
+      result_nl: 'Partner netwerk opgezet (Protinus IT, IT2Growth, BlueNap). Convince-Onboard-Certify model ge\u00EFmplementeerd. NIS2 + NEN7510 positionering.',
+      result_en: 'Partner network built (Protinus IT, IT2Growth, BlueNap). Convince-Onboard-Certify model implemented. NIS2 + NEN7510 positioning.',
     },
     {
-      client:  'ElanWave',
+      client:  'Open Health Hub',
       icp:     'icp1',
-      result_nl: 'EU Market Entry strategie gedefinieerd. Eerste 3 enterprise leads gegenereerd.',
-      result_en: 'EU Market Entry strategy defined. First 3 enterprise leads generated.',
+      result_nl: 'FHIR viewer naar markt gebracht. Product focus shift van commodity naar onderscheidend platform.',
+      result_en: 'FHIR viewer brought to market. Product focus shift from commodity to distinctive platform.',
     },
     {
-      client:  'Health IQ Plus',
+      client:  'Atomic Group (Uniserver)',
       icp:     'icp3',
-      result_nl: 'NIS2 gap-analyse voltooid. Implementatieplan voor 4 maanden opgeleverd.',
-      result_en: 'NIS2 gap analysis completed. 4-month implementation plan delivered.',
+      result_nl: 'Nieuwe Business Unit Hybrid Cloud + AI/Data Analytics. KNAB Bank en SHV/KIWA onboarded. Sovereign cloud NIS2 + DORA.',
+      result_en: 'New Business Unit Hybrid Cloud + AI/Data Analytics. KNAB Bank and SHV/KIWA onboarded. Sovereign cloud NIS2 + DORA.',
     },
   ],
   // ── CASES ───────────────────────────────────────────────────────
