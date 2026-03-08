@@ -349,6 +349,48 @@ section { padding: 120px 0; position: relative; }
 .mike-bio { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 32px; }
 .mike-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
 
+/* ═══ SOCIAL PROOF ═══ */
+.social-section { border-top: 1px solid var(--border); }
+.sp-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 56px; }
+.sp-stat {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px 20px; text-align: center;
+  transition: all .3s;
+}
+.sp-stat:hover { border-color: var(--gold-border); }
+.sp-stat-value {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px; color: var(--gold); line-height: 1; margin-bottom: 6px;
+}
+.sp-stat-label { font-size: 12px; color: var(--text-dim); }
+.sp-cases { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px; }
+.sp-case {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px 24px; transition: all .3s;
+}
+.sp-case:hover { border-color: var(--border-hover); }
+.sp-case h4 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px; font-weight: 400; color: var(--white); margin-bottom: 4px;
+}
+.sp-case .sp-case-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text-dim); letter-spacing: .5px; margin-bottom: 12px;
+}
+.sp-case p { font-size: 13px; color: var(--text); line-height: 1.7; }
+.sp-cases-link { text-align: right; margin-bottom: 48px; }
+.sp-cases-link a { font-size: 13px; color: var(--gold); text-decoration: none; transition: color .2s; }
+.sp-cases-link a:hover { color: var(--gold-light); }
+.sp-track {
+  text-align: center; padding: 32px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px;
+}
+.sp-track-intro { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; }
+.sp-track-names {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; color: var(--text-bright); opacity: .8; line-height: 2;
+}
+
 /* ═══ FOOTER (injected by _footer.js) ═══ */
 footer { padding: 40px 0; border-top: 1px solid var(--border); }
 .footer-inner {
@@ -391,6 +433,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   .method-connector { display: none; }
   .proof-grid { grid-template-columns: 1fr; }
   .mike-grid { grid-template-columns: 1fr; gap: 40px; }
+  .sp-stats-grid { grid-template-columns: 1fr 1fr; }
+  .sp-cases { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
   .footer-right { align-items: center; }
 }
@@ -473,6 +517,17 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
 <section class="mike-section" id="mike">
   <div class="container">
     <div class="mike-grid" id="mk-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ SOCIAL PROOF ═══ -->
+<section class="social-section" id="social">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="sp-eyebrow"></div>
+    <h2 class="section-title fade-up" id="sp-title"></h2>
+    <div class="sp-stats-grid" id="sp-stats"></div>
+    <div class="sp-cases" id="sp-cases"></div>
+    <div class="sp-track fade-up" id="sp-track"></div>
   </div>
 </section>
 
@@ -584,12 +639,43 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       '</div>' +
       '<div class="mike-content fade-up stagger-1">' +
         '<h2>' + mike.name + ' — <em>' + tx(mike, 'title') + '</em></h2>' +
-        '<p class="mike-bio">' + tx(mike, 'bio') + '</p>' +
+        '<p class="mike-bio">' + tx(mike, 'bio_short') + '</p>' +
         '<div class="mike-actions">' +
           '<a href="' + brand.calendly + '" class="btn-primary">' + tx(mike, 'cta') + '</a>' +
           '<a href="mailto:' + brand.email + '" class="btn-ghost">' + brand.email + '</a>' +
         '</div>' +
       '</div>';
+
+    // Social proof
+    var cases = S.cases || [];
+    var mikeStats = mike.stats || [];
+    var track = mike.enterprise_track || [];
+
+    document.getElementById('sp-eyebrow').textContent = lang === 'en' ? 'Proven' : 'Bewezen';
+    document.getElementById('sp-title').innerHTML = lang === 'en'
+      ? 'Proven in <em>practice.</em>'
+      : 'Bewezen in de <em>praktijk.</em>';
+
+    document.getElementById('sp-stats').innerHTML = mikeStats.map(function(s, i) {
+      return '<div class="sp-stat fade-up stagger-' + (i+1) + '">' +
+        '<div class="sp-stat-value">' + s.value + '</div>' +
+        '<div class="sp-stat-label">' + tx(s, 'label') + '</div>' +
+      '</div>';
+    }).join('');
+
+    var previewCases = cases.slice(0, 2);
+    document.getElementById('sp-cases').innerHTML = previewCases.map(function(c, i) {
+      return '<div class="sp-case fade-up stagger-' + (i+1) + '">' +
+        '<h4>' + c.company + '</h4>' +
+        '<div class="sp-case-tag">' + c.tag + '</div>' +
+        '<p>' + tx(c, 'text').substring(0, 200) + '...</p>' +
+      '</div>';
+    }).join('') +
+    '<div class="sp-cases-link fade-up"><a href="/mike">' + (lang === 'en' ? 'View all cases \u2192' : 'Bekijk alle cases \u2192') + '</a></div>';
+
+    document.getElementById('sp-track').innerHTML =
+      '<div class="sp-track-intro">' + (lang === 'en' ? 'Previously worked for and with:' : 'Eerder gewerkt voor en met:') + '</div>' +
+      '<div class="sp-track-names">' + track.join(' \u00B7 ') + '</div>';
 
     // Re-observe fade-up elements
     initObserver();
