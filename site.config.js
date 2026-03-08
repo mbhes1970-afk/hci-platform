@@ -186,7 +186,7 @@ window.SITE = {
       ],
       cta_nl:       'Doe de gratis Quickscan →',
       cta_en:       'Take the free Quickscan →',
-      cta_href:     '/hci-quickscan.html',
+      cta_href:     'https://cmofmo.hes-consultancy-international.com?utm_source=hci-site&utm_campaign=icp3&utm_content=quickscan-cta',
       secondary_nl: 'Kies uw sector →',
       secondary_en: 'Choose your sector →',
       secondary_href: '#sectoren',
@@ -205,7 +205,7 @@ window.SITE = {
       frameworks: ['BIO', 'NIS2', 'AVG', 'AI Act'],
       pain_nl:  ['BIO-verplichtingen niet geïmplementeerd', 'NIS2 meldplicht onduidelijk', 'AI Act risico-classificatie onbekend', 'Geen DPIA-proces ingericht'],
       pain_en:  ['BIO obligations not yet implemented', 'NIS2 reporting obligation unclear', 'AI Act risk classification unknown', 'No DPIA process in place'],
-      cta_href: '/hci-quickscan.html?sector=s01',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s01&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's02', icon: '🏥',
@@ -217,7 +217,7 @@ window.SITE = {
       frameworks: ['NEN 7510', 'NIS2', 'AVG', 'MDR'],
       pain_nl:  ['Patiëntdata kwetsbaar bij ransomware', 'NIS2 geldt voor zorginstellingen', 'Medische AI niet gecertificeerd', 'Datalekken niet binnen 72 uur gemeld'],
       pain_en:  ['Patient data vulnerable to ransomware', 'NIS2 applies to healthcare', 'Medical AI tools not certified', 'Data breaches not reported within 72h'],
-      cta_href: '/hci-quickscan.html?sector=s02',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s02&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's03', icon: '💻',
@@ -229,7 +229,7 @@ window.SITE = {
       frameworks: ['CRA', 'AI Act', 'ISO 27001', 'NIS2'],
       pain_nl:  ['CE-markering CRA verplicht per 2027', 'AI features vallen onder hoog-risico', 'ISO 27001 certificering ontbreekt', 'SBOM lifecycle niet ingericht'],
       pain_en:  ['CE marking CRA mandatory by 2027', 'AI features fall under high risk', 'ISO 27001 certification missing', 'SBOM lifecycle not in place'],
-      cta_href: '/hci-quickscan.html?sector=s03',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s03&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's04', icon: '🏦',
@@ -241,7 +241,7 @@ window.SITE = {
       frameworks: ['DORA', 'PSD2', 'NIS2', 'AI Act'],
       pain_nl:  ['DORA operationele weerbaarheid verplicht', 'ICT third-party risico onduidelijk', 'AI credit scoring hoog-risico AI Act', 'Incident response niet getest'],
       pain_en:  ['DORA operational resilience mandatory', 'ICT third-party risk unclear', 'AI credit scoring high-risk AI Act', 'Incident response not tested'],
-      cta_href: '/hci-quickscan.html?sector=s04',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s04&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's05', icon: '⚡',
@@ -253,7 +253,7 @@ window.SITE = {
       frameworks: ['NIS2', 'CER', 'AVG', 'AI Act'],
       pain_nl:  ['Kritieke infra — hoogste NIS2 klasse', 'OT/IT convergentie nieuwe aanvallen', 'Leveranciersrisico in energieketen', 'Real-time monitoring door toezichthouder'],
       pain_en:  ['Critical infra — highest NIS2 class', 'OT/IT convergence new attack surface', 'Supplier risk in energy chain', 'Real-time monitoring required'],
-      cta_href: '/hci-quickscan.html?sector=s05',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s05&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's06', icon: '📡',
@@ -265,7 +265,7 @@ window.SITE = {
       frameworks: ['NIS2', 'EECC', 'Telecomwet', 'CER'],
       pain_nl:  ['NIS2+EECC dubbel regime verplicht', 'OT/SCADA legacy beveiliging', '5G Toolbox niet geïmplementeerd', 'Post-quantum migratie deadline 2030'],
       pain_en:  ['NIS2+EECC dual regime mandatory', 'OT/SCADA legacy security', '5G Toolbox not implemented', 'Post-quantum migration deadline 2030'],
-      cta_href: '/hci-quickscan.html?sector=s06',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s06&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's07', icon: '🚛',
@@ -277,7 +277,7 @@ window.SITE = {
       frameworks: ['NIS2', 'eFTI', 'AVG'],
       pain_nl:  ['NIS2 kritieke infrastructuur classificatie', 'eFTI elektronische vrachtdocumentatie verplicht', 'Cybersecurity in supply chain kwetsbaar', 'AI-adoptie in warehouse zonder governance'],
       pain_en:  ['NIS2 critical infrastructure classification', 'eFTI electronic freight documentation mandatory', 'Cybersecurity in supply chain vulnerable', 'AI adoption in warehouse without governance'],
-      cta_href: '/hci-quickscan.html?sector=s07',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s07&utm_source=hci-site&utm_campaign=icp3',
     },
     {
       id: 's08', icon: '\u2696\uFE0F',
@@ -289,7 +289,7 @@ window.SITE = {
       frameworks: ['AI Act', 'NIS2', 'DORA', 'AVG'],
       pain_nl:  ['AI Act Article 6: juridisch advies-AI = hoog risico', 'NIS2 indirect in scope via kritieke sector klanten', 'DORA voor legal teams in financiële sector', 'AVG en beroepsgeheim spanning bij AI-tools'],
       pain_en:  ['AI Act Article 6: legal advice AI = high risk', 'NIS2 indirectly in scope via critical sector clients', 'DORA for legal teams in financial sector', 'GDPR and professional secrecy tension with AI tools'],
-      cta_href: '/hci-quickscan.html?sector=s08',
+      cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s08&utm_source=hci-site&utm_campaign=icp3',
     },
     // TEMPLATE: Nieuwe sector toevoegen — kopieer dit blok:
     // {
@@ -302,7 +302,7 @@ window.SITE = {
     //   frameworks: ['AVG', 'BIO-light', 'NIS2'],
     //   pain_nl:  ['...'],
     //   pain_en:  ['...'],
-    //   cta_href: '/hci-quickscan.html?sector=s07',
+    //   cta_href: 'https://cmofmo.hes-consultancy-international.com?sector=s07&utm_source=hci-site&utm_campaign=icp3',
     // },
   ],
   // ── MIKE HES ─────────────────────────────────────────────────────
