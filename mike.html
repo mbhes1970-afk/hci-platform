@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mike Hes — Trusted Advisor CxO's | HES Consultancy International</title>
+<meta name="description" content="Mike Hes — 30 jaar C-level ervaring in EU tech & compliance. Van Citrix tot HCI Methodologie.">
+<meta property="og:title" content="Mike Hes — Trusted Advisor CxO's">
+<meta property="og:description" content="30 jaar C-level ervaring. Van Citrix en Huawei tot de HCI Methodologie.">
+<meta property="og:image" content="/Mike_Hes_Foto.jpg">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="nl_NL">
+<link rel="icon" type="image/png" href="/Color_logo_-_no_background.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="/site.config.js"></script>
+<script src="/hci-intelligence-core.js"></script>
+<style>
+:root {
+  --gold: #c8a55a;
+  --gold-light: #e0c882;
+  --gold-dim: rgba(200,165,90,.12);
+  --gold-border: rgba(200,165,90,.25);
+  --bg-deep: #08090c;
+  --bg: #0d0f14;
+  --bg-card: #13151c;
+  --bg-elevated: #1c1e28;
+  --border: rgba(255,255,255,.06);
+  --border-hover: rgba(255,255,255,.12);
+  --text: #a8a6b4;
+  --text-dim: #5e5d6a;
+  --text-bright: #f0eef5;
+  --white: #ffffff;
+  --success: #4ade80;
+  --accent: #6C5CE7;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 900px 700px at 15% 25%, rgba(200,165,90,.04) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 900px at 85% 75%, rgba(108,92,231,.03) 0%, transparent 70%);
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
+section { padding: 100px 0; position: relative; }
+
+.section-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; color: var(--white);
+  line-height: 1.15; margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-sub {
+  font-size: 16px; color: var(--text);
+  line-height: 1.8; max-width: 600px; margin-bottom: 56px;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  background: linear-gradient(135deg, var(--gold), #d4b45e);
+  color: var(--bg-deep); transition: all .3s; letter-spacing: .3px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,165,90,.25); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  color: var(--text); border: 1px solid var(--border); transition: all .2s;
+}
+.btn-ghost:hover { border-color: var(--gold-border); color: var(--gold); }
+
+/* ═══ HERO ═══ */
+.hero { padding: 140px 0 80px; }
+.hero-grid { display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: start; }
+.hero-photo { width: 280px; aspect-ratio: 1/1; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5vw, 56px); font-weight: 400;
+  color: var(--white); line-height: 1.1; margin-bottom: 8px;
+}
+.hero-title {
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 32px;
+}
+.hero-bio p {
+  font-size: 16px; color: var(--text); line-height: 1.8; margin-bottom: 16px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
+
+/* ═══ STATS ═══ */
+.stats-section { border-top: 1px solid var(--border); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 32px 24px; text-align: center;
+  transition: all .3s;
+}
+.stat-card:hover { border-color: var(--gold-border); }
+.stat-value {
+  font-family: 'Instrument Serif', serif;
+  font-size: 42px; color: var(--gold); line-height: 1; margin-bottom: 8px;
+}
+.stat-label { font-size: 13px; color: var(--text-dim); }
+
+/* ═══ ENTERPRISE TRACK ═══ */
+.track-section { border-top: 1px solid var(--border); }
+.track-intro { font-size: 15px; color: var(--text-dim); margin-bottom: 32px; }
+.track-names {
+  display: flex; flex-wrap: wrap; gap: 16px 32px;
+  align-items: center; justify-content: center;
+}
+.track-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; color: var(--text-bright); opacity: .7;
+  transition: opacity .2s;
+}
+.track-name:hover { opacity: 1; }
+.track-sep { color: var(--text-dim); font-size: 14px; }
+
+/* ═══ CASES ═══ */
+.cases-section { border-top: 1px solid var(--border); }
+.cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.case-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 36px 32px; transition: all .3s;
+}
+.case-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.case-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+.case-company {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px; font-weight: 400; color: var(--white);
+}
+.case-status {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  padding: 4px 10px; border-radius: 4px;
+}
+.case-status.active { background: rgba(74,222,128,.12); color: var(--success); }
+.case-status.previous { background: rgba(255,255,255,.06); color: var(--text-dim); }
+.case-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text-dim); letter-spacing: .5px; margin-bottom: 16px;
+}
+.case-text { font-size: 14px; color: var(--text); line-height: 1.8; margin-bottom: 20px; }
+.case-results { display: flex; flex-wrap: wrap; gap: 8px; }
+.case-badge {
+  font-size: 11px; padding: 4px 12px; border-radius: 4px;
+  background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border);
+}
+
+/* ═══ METHODOLOGY PREVIEW ═══ */
+.method-section { border-top: 1px solid var(--border); }
+.method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.method-step {
+  background: var(--bg-card); padding: 32px 24px;
+  position: relative; transition: all .3s;
+}
+.method-step:first-child { border-radius: 12px 0 0 12px; }
+.method-step:last-child { border-radius: 0 12px 12px 0; }
+.method-step:hover { background: var(--bg-elevated); }
+.method-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  color: var(--gold); letter-spacing: 1px; margin-bottom: 16px;
+}
+.method-step h4 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px; font-weight: 400;
+  color: var(--white); margin-bottom: 4px; line-height: 1.25;
+}
+.method-step .method-subtitle { font-size: 12px; color: var(--text-dim); margin-bottom: 10px; }
+.method-step p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+.method-connector {
+  position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px;
+  background: var(--bg-deep); border: 2px solid var(--border);
+  border-radius: 50%; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+}
+.method-connector::after { content: '\2192'; font-size: 8px; color: var(--text-dim); }
+.method-link { text-align: center; margin-top: 40px; }
+
+/* ═══ CTA ═══ */
+.cta-section { border-top: 1px solid var(--border); text-align: center; }
+.cta-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 42px); font-weight: 400;
+  color: var(--white); margin-bottom: 16px;
+}
+.cta-sub { font-size: 16px; color: var(--text); margin-bottom: 40px; }
+
+/* ═══ FOOTER (injected) ═══ */
+footer { padding: 40px 0; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-left { display: flex; flex-direction: column; gap: 4px; }
+.footer-tagline { font-family: 'Instrument Serif', serif; font-size: 14px; color: var(--gold); font-style: italic; }
+.footer-brand { font-size: 12px; font-weight: 500; color: var(--text-dim); letter-spacing: .3px; }
+.footer-center { display: flex; gap: 20px; }
+.footer-icp-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color .2s; margin: 0 10px; }
+.footer-icp-links a:hover { color: var(--text); }
+.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--text); }
+.footer-copyright { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: .1s; }
+.stagger-2 { transition-delay: .2s; }
+.stagger-3 { transition-delay: .3s; }
+.stagger-4 { transition-delay: .4s; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 900px) {
+  .container { padding: 0 20px; }
+  .hero { padding: 100px 0 60px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-photo { margin: 0 auto; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .method-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+  .method-step:first-child { border-radius: 12px 0 0 0; }
+  .method-step:nth-child(2) { border-radius: 0 12px 0 0; }
+  .method-step:nth-child(3) { border-radius: 0 0 0 12px; }
+  .method-step:last-child { border-radius: 0 0 12px 0; }
+  .method-connector { display: none; }
+  .track-names { gap: 12px 20px; }
+  .track-name { font-size: 18px; }
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-right { align-items: center; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .method-grid { grid-template-columns: 1fr; }
+  .method-step { border-radius: 0 !important; }
+  .method-step:first-child { border-radius: 12px 12px 0 0 !important; }
+  .method-step:last-child { border-radius: 0 0 12px 12px !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<!-- Navigation -->
+<div id="hci-nav"></div>
+<script src="/_nav.js"></script>
+
+<!-- S1 HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid fade-up" id="mike-hero"></div>
+  </div>
+</section>
+
+<!-- S2 STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid" id="mike-stats"></div>
+  </div>
+</section>
+
+<!-- S3 ENTERPRISE TRACK -->
+<section class="track-section">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="track-eyebrow"></div>
+    <div class="track-intro fade-up" id="track-intro"></div>
+    <div class="track-names fade-up" id="track-names"></div>
+  </div>
+</section>
+
+<!-- S4 CASES -->
+<section class="cases-section">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="cases-eyebrow"></div>
+    <h2 class="section-title fade-up" id="cases-title"></h2>
+    <div class="cases-grid" id="cases-grid"></div>
+  </div>
+</section>
+
+<!-- S5 METHODOLOGY PREVIEW -->
+<section class="method-section">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="method-eyebrow"></div>
+    <h2 class="section-title fade-up" id="method-title"></h2>
+    <p class="section-sub fade-up" id="method-sub"></p>
+    <div class="method-grid fade-up" id="method-grid"></div>
+    <div class="method-link fade-up" id="method-link"></div>
+  </div>
+</section>
+
+<!-- S6 CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-up" id="cta-title"></h2>
+    <p class="cta-sub fade-up" id="cta-sub"></p>
+    <div class="fade-up" id="cta-actions"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div id="hci-footer"></div>
+<script src="/_footer.js"></script>
+
+<!-- Intelligence -->
+<script src="/_intelligence.js"></script>
+
+<script>
+(function() {
+  var S = window.SITE;
+  if (!S) return;
+
+  function l() { return localStorage.getItem('hci_lang') || 'nl'; }
+  function tx(obj, key) { return obj[key + '_' + l()] || obj[key + '_nl'] || ''; }
+
+  function renderPage() {
+    var lang = l();
+    var mike = S.mike;
+    var brand = S.brand;
+    var cases = S.cases || [];
+    var meth = S.methodology;
+    var isEn = lang === 'en';
+
+    // Hero
+    var bio = tx(mike, 'bio');
+    var bioHtml = '';
+    if (Array.isArray(bio)) {
+      bio.forEach(function(p) { bioHtml += '<p>' + p + '</p>'; });
+    } else {
+      bioHtml = '<p>' + bio + '</p>';
+    }
+
+    document.getElementById('mike-hero').innerHTML =
+      '<div>' +
+        '<div class="hero-photo"><img src="' + brand.mike_photo + '" alt="' + mike.name + '"></div>' +
+      '</div>' +
+      '<div>' +
+        '<div class="hero-name">' + mike.name + '</div>' +
+        '<div class="hero-title">' + tx(mike, 'title') + '</div>' +
+        '<div class="hero-bio">' + bioHtml + '</div>' +
+        '<div class="hero-actions">' +
+          '<a href="' + mike.calendly + '" class="btn-primary">' + (isEn ? 'Schedule a call' : 'Plan een gesprek') + '</a>' +
+          '<a href="' + mike.linkedin + '" class="btn-ghost" target="_blank" rel="noopener">LinkedIn</a>' +
+        '</div>' +
+      '</div>';
+
+    // Stats
+    var stats = mike.stats || [];
+    document.getElementById('mike-stats').innerHTML = stats.map(function(s, i) {
+      return '<div class="stat-card fade-up stagger-' + (i+1) + '">' +
+        '<div class="stat-value">' + s.value + '</div>' +
+        '<div class="stat-label">' + tx(s, 'label') + '</div>' +
+      '</div>';
+    }).join('');
+
+    // Enterprise track
+    document.getElementById('track-eyebrow').textContent = isEn ? 'Track Record' : 'Track Record';
+    document.getElementById('track-intro').textContent = isEn ? 'Worked for and with:' : 'Gewerkt voor en met:';
+    var track = mike.enterprise_track || [];
+    document.getElementById('track-names').innerHTML = track.map(function(name, i) {
+      var sep = i < track.length - 1 ? '<span class="track-sep">\u00B7</span>' : '';
+      return '<span class="track-name">' + name + '</span>' + sep;
+    }).join('');
+
+    // Cases
+    document.getElementById('cases-eyebrow').textContent = 'Cases';
+    document.getElementById('cases-title').innerHTML = isEn
+      ? 'Proven in <em>practice.</em>'
+      : 'Bewezen in de <em>praktijk.</em>';
+
+    document.getElementById('cases-grid').innerHTML = cases.map(function(c, i) {
+      var statusClass = c.status === 'active' ? 'active' : 'previous';
+      var statusLabel = c.status === 'active' ? (isEn ? 'Active' : 'Actief') : (isEn ? 'Previous' : 'Afgerond');
+      var results = (c.results || []).map(function(r) {
+        return '<span class="case-badge">' + r + '</span>';
+      }).join('');
+      return '<div class="case-card fade-up stagger-' + ((i % 2) + 1) + '">' +
+        '<div class="case-header">' +
+          '<div class="case-company">' + c.company + '</div>' +
+          '<span class="case-status ' + statusClass + '">' + statusLabel + '</span>' +
+        '</div>' +
+        '<div class="case-tag">' + c.tag + '</div>' +
+        '<div class="case-text">' + tx(c, 'text') + '</div>' +
+        '<div class="case-results">' + results + '</div>' +
+      '</div>';
+    }).join('');
+
+    // Methodology preview
+    document.getElementById('method-eyebrow').textContent = isEn ? 'Methodology' : 'Methodiek';
+    document.getElementById('method-title').innerHTML = tx(meth, 'title');
+    document.getElementById('method-sub').textContent = tx(meth, 'intro');
+
+    document.getElementById('method-grid').innerHTML = meth.phases.map(function(phase, i) {
+      var connector = i < meth.phases.length - 1 ? '<div class="method-connector"></div>' : '';
+      return '<div class="method-step">' +
+        '<div class="method-num">' + phase.num + '</div>' +
+        '<h4>' + phase.title + '</h4>' +
+        '<div class="method-subtitle">' + tx(phase, 'subtitle') + '</div>' +
+        '<p>' + tx(phase, 'desc') + '</p>' +
+        connector +
+      '</div>';
+    }).join('');
+
+    document.getElementById('method-link').innerHTML =
+      '<a href="/methodologie" class="btn-ghost">' + (isEn ? 'View the full methodology \u2192' : 'Bekijk de volledige methodologie \u2192') + '</a>';
+
+    // CTA
+    document.getElementById('cta-title').textContent = isEn
+      ? 'Recognize this in your organization?'
+      : 'Herken je dit in jouw organisatie?';
+    document.getElementById('cta-sub').textContent = isEn
+      ? 'Schedule a no-obligation 30-minute conversation.'
+      : 'Plan een vrijblijvend gesprek van 30 minuten.';
+    document.getElementById('cta-actions').innerHTML =
+      '<a href="' + mike.calendly + '" class="btn-primary">' + (isEn ? 'Schedule a call' : 'Plan een gesprek') + '</a>';
+
+    initObserver();
+  }
+
+  function initObserver() {
+    var els = document.querySelectorAll('.fade-up:not(.visible)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(el) { el.classList.add('visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { observer.observe(el); });
+  }
+
+  window.onLangChange = renderPage;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderPage);
+  } else {
+    renderPage();
+  }
+})();
+</script>
+
+</body>
+</html>
