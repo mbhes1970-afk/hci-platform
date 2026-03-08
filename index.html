@@ -1,738 +1,1019 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HES Consultancy International — From Strategy to First Customer</title>
-<meta name="description" content="EU compliance, pipeline growth, market entry. HCI brings the structure to take your tech company from current state to first customer.">
-<meta property="og:title" content="HES Consultancy International — From Strategy to First Customer">
-<meta property="og:description" content="European GTM Partner. 30 jaar C-level ervaring in EU market entry, compliance en pipeline growth.">
-<meta property="og:image" content="/Color_logo_-_no_background.png">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="nl_NL">
-<meta name="twitter:card" content="summary">
-<link rel="icon" type="image/png" href="/Color_logo_-_no_background.png">
+<meta name="description" content="30 years of EU market expertise. Honest assessments. Real introductions. We tell you what you need to hear — before you invest in Europe.">
+<meta property="og:title" content="HES Consultancy International">
+<meta property="og:description" content="From Strategy to First Customer. EU market entry for technology companies.">
+<meta property="og:url" content="https://hes-consultancy-international.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="/site.config.js"></script>
-<script src="/hci-intelligence-core.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   HCI HOMEPAGE — Config-driven
-   Design system: Dark premium consultancy
-   ═══════════════════════════════════════════════════════════════ */
-
 :root {
-  --gold: #c8a55a;
-  --gold-light: #e0c882;
-  --gold-dim: rgba(200,165,90,.12);
-  --gold-border: rgba(200,165,90,.25);
-  --route-entry: #6C5CE7;
-  --route-entry-dim: rgba(108,92,231,.12);
-  --route-growth: #0891b2;
-  --route-growth-dim: rgba(8,145,178,.12);
-  --route-compliance: #1e3a5f;
-  --route-compliance-dim: rgba(30,58,95,.15);
-  --bg-deep: #08090c;
-  --bg: #0d0f14;
-  --bg-card: #13151c;
-  --bg-elevated: #1c1e28;
-  --border: rgba(255,255,255,.06);
-  --border-hover: rgba(255,255,255,.12);
-  --text: #a8a6b4;
-  --text-dim: #5e5d6a;
-  --text-bright: #f0eef5;
-  --white: #ffffff;
-  --success: #4ade80;
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dark: #8B6914;
+  --ink: #0D0D0D;
+  --ink-soft: #1A1A1A;
+  --paper: #F7F4EE;
+  --paper-warm: #EDE8DE;
+  --text-muted: #888880;
+  --text-body: #2A2A28;
+  --border: rgba(201,168,76,0.2);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg-deep);
-  color: var(--text);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.7;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--paper);
   overflow-x: hidden;
 }
-
-/* ═══ AMBIENT BACKGROUND ═══ */
-.ambient {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background:
-    radial-gradient(ellipse 900px 700px at 15% 25%, rgba(200,165,90,.04) 0%, transparent 70%),
-    radial-gradient(ellipse 700px 900px at 85% 75%, rgba(108,92,231,.03) 0%, transparent 70%);
-}
-.grain {
-  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-}
-
-/* ═══ NAVIGATION (injected by _nav.js) ═══ */
+/* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 16px 40px;
+  padding: 20px 48px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(8,9,12,.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  transition: all .3s;
+  background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+  backdrop-filter: blur(2px);
 }
-nav.scrolled { padding: 12px 40px; }
-.nav-left { display: flex; align-items: center; gap: 16px; }
-.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-logo {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--paper);
+}
+.nav-logo-sub {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); font-weight: 300;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 36px;
+  list-style: none;
+}
 .nav-links a {
-  font-size: 13px; font-weight: 400; color: var(--text-dim);
-  text-decoration: none; transition: color .2s; letter-spacing: .2px;
+  color: rgba(247,244,238,0.65); text-decoration: none;
+  font-size: 13px; letter-spacing: 0.05em; font-weight: 400;
+  transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--text-bright); }
-.nav-right { display: flex; align-items: center; gap: 12px; }
-.lang-toggle {
-  display: flex; gap: 2px; background: rgba(0,0,0,.3);
-  padding: 3px; border-radius: 6px; border: 1px solid var(--border);
-}
-.lang-btn {
-  padding: 4px 10px; border: none; border-radius: 4px;
-  font-size: 11px; font-weight: 600; cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  background: transparent; color: var(--text-dim);
-  transition: all .2s;
-}
-.lang-btn.active { background: var(--gold); color: var(--bg-deep); }
-.lang-btn:hover:not(.active) { color: var(--text); }
+.nav-links a:hover { color: var(--gold); }
 .nav-cta {
-  padding: 8px 20px; border-radius: 6px;
-  font-size: 12px; font-weight: 600; text-decoration: none;
-  background: var(--gold); color: var(--bg-deep);
-  transition: all .2s; letter-spacing: .3px;
+  background: transparent; border: 1px solid var(--gold);
+  color: var(--gold); padding: 9px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+  display: inline-block;
 }
-.nav-cta:hover { background: var(--gold-light); }
-.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: all .3s; }
-.mobile-menu {
-  position: absolute; top: 100%; left: 0; right: 0;
-  background: rgba(8,9,12,.95); backdrop-filter: blur(16px);
-  padding: 20px 40px; border-bottom: 1px solid var(--border);
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+.lang-toggle {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted);
+  cursor: pointer; display: flex; gap: 6px; align-items: center;
 }
-.mobile-menu ul { list-style: none; }
-.mobile-menu ul li { padding: 8px 0; }
-.mobile-menu ul a { font-size: 15px; color: var(--text); text-decoration: none; }
-
-/* ═══ CONTAINER ═══ */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
-
-/* ═══ HERO ═══ */
+.lang-toggle span.active { color: var(--gold); }
+/* HERO */
 .hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  justify-content: center; padding: 120px 0 80px;
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
 }
-.hero-inner { max-width: 780px; }
-.hero-overline {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px; color: var(--gold);
-  text-transform: uppercase; letter-spacing: 2.5px;
-  margin-bottom: 24px;
+.hero-left {
+  padding: 140px 64px 80px 80px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
 }
-.hero h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(36px, 5.5vw, 64px);
-  font-weight: 400; line-height: 1.1;
-  color: var(--white); margin-bottom: 28px;
-}
-.hero h1 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-size: 17px; line-height: 1.8;
-  color: var(--text); max-width: 580px; margin-bottom: 40px;
-}
-.hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 32px; border-radius: 8px;
-  font-size: 14px; font-weight: 600; text-decoration: none;
-  background: linear-gradient(135deg, var(--gold), #d4b45e);
-  color: var(--bg-deep); transition: all .3s; letter-spacing: .3px;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,165,90,.25); }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; border-radius: 8px;
-  font-size: 14px; font-weight: 500; text-decoration: none;
-  color: var(--text); border: 1px solid var(--border); transition: all .2s;
-}
-.btn-ghost:hover { border-color: var(--gold-border); color: var(--gold); }
-
-.hero-stats {
-  display: flex; gap: 48px; margin-top: 64px;
-  padding-top: 40px; border-top: 1px solid var(--border);
-}
-.hero-stat-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 42px; color: var(--gold); line-height: 1;
-}
-.hero-stat-label {
-  font-size: 12px; color: var(--text-dim);
-  line-height: 1.5; margin-top: 4px; max-width: 140px;
-  white-space: pre-line;
-}
-
-.scroll-hint {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text-dim);
-  letter-spacing: 1px; text-transform: uppercase;
-  animation: pulse 2s ease-in-out infinite;
-}
-.scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--text-dim), transparent); }
-@keyframes pulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
-
-/* ═══ SECTION SHARED ═══ */
-section { padding: 120px 0; position: relative; }
-.section-eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px; color: var(--text-dim);
-  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
-}
-.section-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 400; color: var(--white);
-  line-height: 1.15; margin-bottom: 16px;
-}
-.section-title em { font-style: italic; color: var(--gold); }
-.section-sub {
-  font-size: 16px; color: var(--text);
-  line-height: 1.8; max-width: 600px; margin-bottom: 56px;
-}
-
-/* ═══ ROUTES ═══ */
-.routes-section { border-top: 1px solid var(--border); }
-.route-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.route-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 36px 32px;
-  text-decoration: none; color: inherit;
-  transition: all .35s ease; position: relative;
-  overflow: hidden; display: flex; flex-direction: column;
-}
-.route-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 3px; background: var(--card-accent); opacity: 0; transition: opacity .3s;
-}
-.route-card:hover {
-  border-color: var(--card-accent-border);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0,0,0,.4);
-}
-.route-card:hover::before { opacity: 1; }
-.route-tag {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--card-accent); padding: 5px 12px; border-radius: 4px;
-  background: var(--card-accent-dim); display: inline-block; margin-bottom: 20px;
-}
-.route-icon { font-size: 32px; margin-bottom: 16px; }
-.route-card h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px; font-weight: 400;
-  color: var(--white); line-height: 1.25; margin-bottom: 12px;
-}
-.route-desc {
-  font-size: 15px; color: var(--text);
-  line-height: 1.7; margin-bottom: 20px; flex: 1;
-}
-.route-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-.route-chip {
-  font-size: 11px; padding: 4px 10px; border-radius: 4px;
-  background: rgba(255,255,255,.04); color: var(--text-dim);
-  border: 1px solid var(--border);
-}
-.route-cta {
-  font-size: 13px; font-weight: 500; color: var(--card-accent);
-  display: flex; align-items: center; gap: 6px; transition: gap .2s;
-}
-.route-card:hover .route-cta { gap: 12px; }
-
-/* ═══ METHOD ═══ */
-.method-section { border-top: 1px solid var(--border); }
-.method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-.method-step {
-  background: var(--bg-card); padding: 36px 28px;
-  position: relative; transition: all .3s;
-}
-.method-step:first-child { border-radius: 12px 0 0 12px; }
-.method-step:last-child { border-radius: 0 12px 12px 0; }
-.method-step:hover { background: var(--bg-elevated); }
-.method-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  color: var(--gold); letter-spacing: 1px; margin-bottom: 16px;
-}
-.method-step h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px; font-weight: 400;
-  color: var(--white); margin-bottom: 10px; line-height: 1.25;
-}
-.method-step p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
-.method-connector {
-  position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
-  width: 16px; height: 16px;
-  background: var(--bg-deep); border: 2px solid var(--border);
-  border-radius: 50%; z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-}
-.method-connector::after { content: '\2192'; font-size: 8px; color: var(--text-dim); }
-.method-tagline {
-  margin-top: 40px; padding: 24px 32px;
-  background: var(--gold-dim); border: 1px solid var(--gold-border);
-  border-radius: 10px; font-size: 15px;
-  color: var(--gold-light); text-align: center;
-}
-.method-tagline strong { color: var(--gold); }
-
-/* ═══ PROOF ═══ */
-.proof-section { border-top: 1px solid var(--border); }
-.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.proof-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 32px 28px; transition: all .3s;
-}
-.proof-card:hover { border-color: var(--border-hover); }
-.proof-route {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.proof-card h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px; font-weight: 400;
-  color: var(--white); margin-bottom: 10px;
-}
-.proof-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
-
-/* ═══ MIKE ═══ */
-.mike-section { border-top: 1px solid var(--border); padding-bottom: 80px; }
-.mike-grid { display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: center; }
-.mike-photo-wrap { position: relative; max-width: 320px; }
-.mike-photo {
-  width: 280px; aspect-ratio: 1/1; border-radius: 16px;
-  border: 1px solid var(--border); overflow: hidden;
-}
-.mike-photo img { width: 100%; height: 100%; object-fit: cover; }
-.mike-cred {
-  position: absolute; bottom: -16px; left: 24px;
-  background: var(--gold); color: var(--bg-deep);
-  padding: 12px 20px; border-radius: 8px;
+.hero-tag {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); font-weight: 400; margin-bottom: 36px;
   display: flex; align-items: center; gap: 12px;
 }
-.mike-cred-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 28px; font-weight: 400;
+.hero-tag::before {
+  content: ''; width: 32px; height: 1px; background: var(--gold);
 }
-.mike-cred-label { font-size: 11px; font-weight: 600; line-height: 1.3; letter-spacing: .3px; white-space: pre-line; }
-.mike-content h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 400; color: var(--white);
-  line-height: 1.15; margin-bottom: 20px;
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 4.5vw, 62px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper);
+  margin-bottom: 32px;
 }
-.mike-content h2 em { font-style: italic; color: var(--gold); }
-.mike-bio { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 32px; }
-.mike-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
-
-/* ═══ SOCIAL PROOF ═══ */
-.social-section { border-top: 1px solid var(--border); }
-.sp-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 56px; }
-.sp-stat {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 28px 20px; text-align: center;
-  transition: all .3s;
+.hero-headline em {
+  font-style: italic; color: var(--gold);
 }
-.sp-stat:hover { border-color: var(--gold-border); }
-.sp-stat-value {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px; color: var(--gold); line-height: 1; margin-bottom: 6px;
+.hero-body {
+  font-size: 15px; line-height: 1.75;
+  color: rgba(247,244,238,0.65);
+  max-width: 440px; margin-bottom: 48px;
+  font-weight: 300;
 }
-.sp-stat-label { font-size: 12px; color: var(--text-dim); }
-.sp-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 16px; }
-.sp-case-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-.sp-case-badge { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
-.sp-case {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 28px 24px; transition: all .3s;
+.hero-ctas {
+  display: flex; flex-direction: column; gap: 14px;
 }
-.sp-case:hover { border-color: var(--border-hover); }
-.sp-case h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px; font-weight: 400; color: var(--white); margin-bottom: 4px;
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--gold); color: var(--ink);
+  padding: 16px 32px; font-size: 13px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 500; text-decoration: none;
+  transition: all 0.25s; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  width: fit-content;
 }
-.sp-case .sp-case-tag {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text-dim); letter-spacing: .5px; margin-bottom: 12px;
+.btn-primary:hover { background: var(--gold-light); transform: translateX(4px); }
+.btn-primary svg { transition: transform 0.25s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: rgba(247,244,238,0.6); font-size: 13px;
+  letter-spacing: 0.05em; text-decoration: none;
+  transition: color 0.2s; width: fit-content;
+  font-weight: 300;
 }
-.sp-case p { font-size: 13px; color: var(--text); line-height: 1.7; }
-.sp-cases-link { text-align: right; margin-bottom: 48px; }
-.sp-cases-link a { font-size: 13px; color: var(--gold); text-decoration: none; transition: color .2s; }
-.sp-cases-link a:hover { color: var(--gold-light); }
-.sp-track {
-  text-align: center; padding: 32px; background: var(--bg-card);
-  border: 1px solid var(--border); border-radius: 12px;
+.btn-secondary:hover { color: var(--gold); }
+.btn-secondary::before {
+  content: ''; width: 20px; height: 1px;
+  background: currentColor; transition: width 0.25s;
 }
-.sp-track-intro { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; }
-.sp-track-chips { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-bottom: 16px; }
-.sp-track .chip {
-  display: inline-block; background: rgba(200,165,90,0.08);
-  border: 1px solid rgba(200,165,90,0.2); color: #e6edf3;
-  padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin: 4px;
+.btn-secondary:hover::before { width: 32px; }
+.hero-right {
+  position: relative; overflow: hidden;
 }
-.sp-track-link { font-size: 13px; }
-.sp-track-link a { color: var(--gold); text-decoration: none; transition: color .2s; }
-.sp-track-link a:hover { color: var(--gold-light); }
-
-/* ═══ FOOTER (injected by _footer.js) ═══ */
-footer { padding: 40px 0; border-top: 1px solid var(--border); }
-.footer-inner {
-  display: flex; justify-content: space-between; align-items: center;
+.hero-visual {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 90% 80%, rgba(201,168,76,0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #111 0%, #0D0D0D 100%);
 }
-.footer-left { display: flex; flex-direction: column; gap: 4px; }
-.footer-tagline {
-  font-family: 'Instrument Serif', serif;
-  font-size: 14px; color: var(--gold); font-style: italic;
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(201,168,76,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
-.footer-brand { font-size: 12px; font-weight: 500; color: var(--text-dim); letter-spacing: .3px; }
-.footer-center { display: flex; gap: 20px; }
-.footer-icp-links a {
-  font-size: 12px; color: var(--text-dim); text-decoration: none;
-  transition: color .2s; margin: 0 10px;
+.hero-stat-block {
+  position: absolute; bottom: 80px; left: 48px;
+  display: flex; flex-direction: column; gap: 32px;
 }
-.footer-icp-links a:hover { color: var(--text); }
-.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.footer-links { display: flex; gap: 16px; }
-.footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color .2s; }
-.footer-links a:hover { color: var(--text); }
-.footer-copyright { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
-
-/* ═══ MOBILE ═══ */
-@media (max-width: 900px) {
-  nav { padding: 14px 20px; }
+.hero-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 600; color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(247,244,238,0.4); font-weight: 300;
+}
+.hero-quote {
+  position: absolute; top: 120px; left: 48px; right: 48px;
+  border-left: 2px solid var(--gold);
+  padding: 24px 28px;
+  background: rgba(201,168,76,0.04);
+}
+.hero-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-style: italic; line-height: 1.5;
+  color: rgba(247,244,238,0.8);
+}
+.hero-quote-attr {
+  margin-top: 12px; font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); font-weight: 300;
+}
+/* TRUST BAR */
+.trust-bar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 80px;
+  display: flex; align-items: center; gap: 48px;
+  background: rgba(255,255,255,0.02);
+  overflow: hidden; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 10px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.trust-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0;
+}
+.trust-text {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(247,244,238,0.45); font-weight: 300;
+}
+.trust-sep {
+  width: 1px; height: 20px; background: var(--border); flex-shrink: 0;
+}
+/* SECTION BASE */
+section { padding: 120px 80px; }
+.section-tag {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.section-tag::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper); margin-bottom: 20px;
+}
+.section-body {
+  font-size: 15px; line-height: 1.8;
+  color: rgba(247,244,238,0.6); font-weight: 300;
+  max-width: 560px;
+}
+/* WHAT WE DO — WHY HCI */
+.why-section {
+  background: var(--ink-soft);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.why-left {}
+.why-right { padding-top: 16px; }
+.why-statement {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.5vw, 34px);
+  font-weight: 500; line-height: 1.4;
+  color: var(--paper); margin-bottom: 40px;
+  font-style: italic;
+}
+.why-statement strong { color: var(--gold); font-style: normal; }
+.truth-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.truth-item {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 28px 1fr; gap: 16px;
+  align-items: start;
+}
+.truth-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; color: var(--gold); font-weight: 600;
+  padding-top: 2px;
+}
+.truth-content {}
+.truth-title {
+  font-size: 14px; font-weight: 500; color: var(--paper);
+  margin-bottom: 6px; letter-spacing: 0.02em;
+}
+.truth-desc {
+  font-size: 13px; line-height: 1.65;
+  color: rgba(247,244,238,0.5); font-weight: 300;
+}
+/* CASES */
+.cases-section {
+  background: #0A0A0A;
+}
+.cases-intro {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  margin-bottom: 80px;
+}
+.cases-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.case-card {
+  background: rgba(255,255,255,0.02);
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+  border: 1px solid transparent;
+}
+.case-card:hover {
+  background: rgba(201,168,76,0.04);
+  border-color: var(--border);
+}
+.case-verdict {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 12px; margin-bottom: 24px;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 500;
+}
+.verdict-proceed {
+  background: rgba(201,168,76,0.1); color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+.verdict-redirect {
+  background: rgba(255,255,255,0.05); color: rgba(247,244,238,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.case-sector {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 14px; font-weight: 300;
+}
+.case-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600; line-height: 1.2;
+  color: var(--paper); margin-bottom: 16px;
+}
+.case-body {
+  font-size: 13px; line-height: 1.75;
+  color: rgba(247,244,238,0.5); font-weight: 300;
+  margin-bottom: 24px;
+}
+.case-insight {
+  font-size: 12px; color: var(--gold);
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; line-height: 1.4;
+  border-top: 1px solid var(--border); padding-top: 20px;
+}
+/* SERVICES */
+.services-section {
+  background: var(--ink-soft);
+}
+.services-intro {
+  display: grid; grid-template-columns: 5fr 4fr; gap: 80px;
+  margin-bottom: 80px; align-items: end;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+}
+.service-card {
+  padding: 44px 40px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  transition: all 0.3s; position: relative;
+}
+.service-card:hover {
+  background: rgba(201,168,76,0.04);
+  border-color: var(--border);
+}
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; color: var(--gold);
+  margin-bottom: 20px; font-weight: 600;
+}
+.service-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px; font-weight: 600;
+  color: var(--paper); margin-bottom: 12px; line-height: 1.2;
+}
+.service-desc {
+  font-size: 13px; line-height: 1.75;
+  color: rgba(247,244,238,0.5); font-weight: 300;
+  margin-bottom: 20px;
+}
+.service-price {
+  font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 400;
+}
+/* ASSESSMENT SECTION */
+.scan-section {
+  background: #0A0A0A;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+.scan-visual {
+  position: relative;
+}
+.scan-card {
+  background: rgba(201,168,76,0.05);
+  border: 1px solid var(--border);
+  padding: 48px;
+}
+.scan-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 600; margin-bottom: 8px;
+  color: var(--paper);
+}
+.scan-sub {
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px; font-weight: 300;
+}
+.scan-dims { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+.scan-dim {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.scan-dim-name {
+  font-size: 13px; color: rgba(247,244,238,0.7); font-weight: 300;
+}
+.scan-dim-bar {
+  width: 80px; height: 2px; background: rgba(255,255,255,0.1);
+  position: relative; overflow: hidden;
+}
+.scan-dim-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--gold);
+}
+.scan-meta {
+  display: flex; gap: 32px;
+}
+.scan-meta-item {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.scan-meta-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; color: var(--gold); font-weight: 600;
+}
+.scan-meta-label {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 300;
+}
+/* MIKE SECTION */
+.mike-section {
+  background: var(--ink-soft);
+  display: grid; grid-template-columns: 5fr 4fr; gap: 100px;
+  align-items: start;
+}
+.mike-quote-block {
+  border-left: 2px solid var(--gold);
+  padding: 32px 36px;
+  background: rgba(201,168,76,0.04);
+  margin-bottom: 40px;
+}
+.mike-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-style: italic; line-height: 1.5;
+  color: rgba(247,244,238,0.85);
+}
+.mike-bio { font-size: 14px; line-height: 1.8; color: rgba(247,244,238,0.55); font-weight: 300; }
+.mike-right { padding-top: 20px; }
+.mike-cv { display: flex; flex-direction: column; gap: 0; }
+.mike-cv-item {
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 80px 1fr; gap: 20px;
+}
+.mike-cv-year {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--gold);
+  font-weight: 300; padding-top: 2px; text-transform: uppercase;
+}
+.mike-cv-content {}
+.mike-cv-role {
+  font-size: 13px; font-weight: 500; color: var(--paper); margin-bottom: 4px;
+}
+.mike-cv-co {
+  font-size: 12px; color: var(--text-muted); font-weight: 300;
+}
+/* CTA SECTION */
+.cta-section {
+  background: #0A0A0A;
+  text-align: center; padding: 140px 80px;
+  position: relative; overflow: hidden;
+}
+.cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 65%);
+}
+.cta-section > * { position: relative; z-index: 1; }
+.cta-eyebrow {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 24px; font-weight: 300;
+}
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper); max-width: 700px;
+  margin: 0 auto 20px;
+}
+.cta-body {
+  font-size: 15px; line-height: 1.75;
+  color: rgba(247,244,238,0.55); font-weight: 300;
+  max-width: 480px; margin: 0 auto 52px;
+}
+.cta-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: 24px; flex-wrap: wrap;
+}
+.cta-divider {
+  font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--ink);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-weight: 600; color: rgba(247,244,238,0.5);
+}
+.footer-links { display: flex; gap: 32px; }
+.footer-links a {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-legal {
+  font-size: 11px; color: var(--text-muted); font-weight: 300;
+}
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-tag { animation: fadeUp 0.6s ease both; }
+.hero-headline { animation: fadeUp 0.7s 0.1s ease both; }
+.hero-body { animation: fadeUp 0.7s 0.2s ease both; }
+.hero-ctas { animation: fadeUp 0.7s 0.3s ease both; }
+.hero-quote { animation: fadeUp 0.8s 0.4s ease both; }
+.hero-stat-block { animation: fadeUp 0.8s 0.5s ease both; }
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 20px 24px; }
   .nav-links { display: none; }
-  .hamburger { display: block; }
-  .nav-cta { display: none; }
-  .container { padding: 0 20px; }
-  .hero { padding: 100px 0 60px; min-height: auto; }
-  .hero h1 { font-size: 32px; }
-  .hero-stats { flex-direction: column; gap: 24px; }
-  .route-grid { grid-template-columns: 1fr; }
-  .method-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
-  .method-step:first-child { border-radius: 12px 0 0 0; }
-  .method-step:nth-child(2) { border-radius: 0 12px 0 0; }
-  .method-step:nth-child(3) { border-radius: 0 0 0 12px; }
-  .method-step:last-child { border-radius: 0 0 12px 0; }
-  .method-connector { display: none; }
-  .proof-grid { grid-template-columns: 1fr; }
-  .mike-grid { grid-template-columns: 1fr; gap: 40px; }
-  .sp-stats-grid { grid-template-columns: 1fr 1fr; }
-  .sp-cases { grid-template-columns: 1fr; }
-  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-  .footer-right { align-items: center; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 120px 24px 60px; }
+  .hero-right { min-height: 320px; }
+  section { padding: 80px 24px; }
+  .why-section, .scan-section, .mike-section { grid-template-columns: 1fr; gap: 48px; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .cases-intro, .services-intro { grid-template-columns: 1fr; gap: 32px; }
+  .trust-bar { padding: 20px 24px; }
+  footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+  .cta-section { padding: 100px 24px; }
 }
-@media (max-width: 600px) {
-  .method-grid { grid-template-columns: 1fr; }
-  .method-step { border-radius: 0 !important; }
-  .method-step:first-child { border-radius: 12px 12px 0 0 !important; }
-  .method-step:last-child { border-radius: 0 0 12px 12px !important; }
-}
-
-/* ═══ HERO LOAD ANIMATION ═══ */
-@keyframes hci-hero-in {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hero-overline { opacity: 0; animation: hci-hero-in 0.5s ease forwards; animation-delay: 0.1s; }
-.hero h1 { opacity: 0; animation: hci-hero-in 0.6s ease forwards; animation-delay: 0.25s; }
-.hero-sub { opacity: 0; animation: hci-hero-in 0.6s ease forwards; animation-delay: 0.45s; }
-.hero-actions { opacity: 0; animation: hci-hero-in 0.6s ease forwards; animation-delay: 0.65s; }
-@media (prefers-reduced-motion: reduce) {
-  .hero-overline, .hero h1, .hero-sub, .hero-actions { opacity: 1; animation: none; }
-}
-
-/* ═══ ANIMATIONS ═══ */
-.fade-up {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.stagger-1 { transition-delay: .1s; }
-.stagger-2 { transition-delay: .2s; }
-.stagger-3 { transition-delay: .3s; }
-.stagger-4 { transition-delay: .4s; }
 </style>
 </head>
 <body>
-
-<div class="ambient"></div>
-<div class="grain"></div>
-
-<!-- Navigation -->
-<div id="hci-nav"></div>
-<script src="/_nav.js"></script>
-
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-overline" id="hp-overline"></div>
-      <h1 id="hp-h1"></h1>
-      <p class="hero-sub" id="hp-sub"></p>
-      <div class="hero-actions" id="hp-actions"></div>
-      <div class="hero-stats" id="hp-stats"></div>
+<!-- NAV -->
+<nav>
+  <a href="/" style="text-decoration:none">
+    <div class="nav-logo">
+      <div class="nav-logo-main">HES Consultancy International</div>
+      <div class="nav-logo-sub">From Strategy to First Customer</div>
     </div>
-    <div class="scroll-hint">
-      <span id="hp-scroll">Scroll</span>
-      <div class="scroll-line"></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Why HCI</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#scan">EU Scan</a></li>
+    <li><a href="#mike">About</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle">
+      <span class="active">EN</span>
+      <span style="opacity:0.3">|</span>
+      <span>NL</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-left">
+    <div class="hero-tag">European Market Entry · Since 1994</div>
+    <h1 class="hero-headline">
+      Most companies don't fail in Europe<br>
+      because of a <em>bad product.</em><br>
+      They fail because nobody told them<br>
+      the truth <em>before</em> they started.
+    </h1>
+    <p class="hero-body">
+      30 years of EU market expertise. We assess your real readiness,
+      tell you what others won't, and guide you from strategy
+      to your first European customer.
+    </p>
+    <div class="hero-ctas">
+      <a href="/services/assessment" class="btn-primary">
+        Take the Free EU Readiness Scan — 7 min
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">
+        Or book a discovery call
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-quote">
+      <p class="hero-quote-text">
+        "The most valuable thing we can offer is an honest assessment —
+        even when the answer is no. Especially when the answer is no."
+      </p>
+      <p class="hero-quote-attr">Mike Hes · Founder, HES Consultancy International</p>
+    </div>
+    <div class="hero-stat-block">
+      <div class="hero-stat">
+        <div class="hero-stat-num">30+</div>
+        <div class="hero-stat-label">Years EU market experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">EU sectors · Deep expertise</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">300+</div>
+        <div class="hero-stat-label">C-level introductions available</div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- ═══ ROUTES ═══ -->
-<section class="routes-section" id="routes">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="rt-eyebrow"></div>
-    <h2 class="section-title fade-up" id="rt-title"></h2>
-    <p class="section-sub fade-up" id="rt-sub"></p>
-    <div class="route-grid hci-stagger" id="rt-grid"></div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">NIS2 · DORA · AI Act · CRA · GDPR · NEN 7510</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Healthcare · Finance · Government · Software · Logistics</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Netherlands · Belgium · Germany · France · UK</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Direct · Indirect · Hybrid GTM</span></div>
+</div>
+<!-- WHY HCI -->
+<section class="why-section" id="why">
+  <div class="why-left">
+    <div class="section-tag">Why HCI</div>
+    <h2 class="section-title">We tell you what you need to hear</h2>
+    <p class="why-statement">
+      Most advisors tell you what you <strong>want</strong> to hear.<br>
+      We built our reputation on telling you what you <strong>need</strong> to hear —
+      before you invest time, money and credibility in the wrong approach.
+    </p>
+    <p class="section-body">
+      After 30 years working with companies like Citrix, Huawei, DXC and Telindus
+      across Europe, we know exactly what makes EU market entry succeed — and fail.
+      That knowledge is what we put to work for you.
+    </p>
+  </div>
+  <div class="why-right">
+    <ul class="truth-list">
+      <li class="truth-item">
+        <div class="truth-num">01</div>
+        <div class="truth-content">
+          <div class="truth-title">Honest EU Readiness Assessment</div>
+          <div class="truth-desc">Before any engagement, we assess your real readiness across six dimensions. If your product isn't ready for a specific market, we tell you — and show you why.</div>
+        </div>
+      </li>
+      <li class="truth-item">
+        <div class="truth-num">02</div>
+        <div class="truth-content">
+          <div class="truth-title">Regulatory Reality Check</div>
+          <div class="truth-desc">NIS2, DORA, AI Act, CRA, GDPR, NEN 7510. We map exactly which regulations apply to your product and what needs to be in place before you can sell.</div>
+        </div>
+      </li>
+      <li class="truth-item">
+        <div class="truth-num">03</div>
+        <div class="truth-content">
+          <div class="truth-title">Real Introductions — Not Cold Outreach</div>
+          <div class="truth-desc">300+ C-level contacts built over 30 years. Warm introductions achieve 40-60% engagement. Cold email: 2-5%. We know the difference.</div>
+        </div>
+      </li>
+      <li class="truth-item">
+        <div class="truth-num">04</div>
+        <div class="truth-content">
+          <div class="truth-title">From Strategy to First Customer</div>
+          <div class="truth-desc">Not just strategy documents. We stay with you through the full cycle — from GTM design to pipeline to closed deals. Our fee structure reflects that commitment.</div>
+        </div>
+      </li>
+    </ul>
   </div>
 </section>
-
-<!-- ═══ METHOD ═══ -->
-<section class="method-section" id="method">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="mt-eyebrow"></div>
-    <h2 class="section-title fade-up" id="mt-title"></h2>
-    <p class="section-sub fade-up" id="mt-sub"></p>
-    <div class="method-grid fade-up" id="mt-grid"></div>
-    <div class="method-tagline fade-up" id="mt-tagline"></div>
+<!-- CASES -->
+<section class="cases-section" id="cases">
+  <div class="cases-intro">
+    <div>
+      <div class="section-tag">Real Cases</div>
+      <h2 class="section-title">What honest advice looks like in practice</h2>
+    </div>
+    <div>
+      <p class="section-body" style="padding-top:16px">
+        These are real engagements — anonymised at client request.
+        Some we proceeded with. Some we redirected. All of them saved
+        our clients from expensive mistakes.
+      </p>
+    </div>
+  </div>
+  <div class="cases-grid">
+    <!-- CASE 1 - Redirected -->
+    <div class="case-card">
+      <div class="case-verdict verdict-redirect">&#8617; Redirected</div>
+      <div class="case-sector">Healthcare Technology · Canada</div>
+      <h3 class="case-title">EHR vendor saved two years and &#8364;300K</h3>
+      <p class="case-body">
+        A Canadian EHR founder approached HCI to represent their product
+        in Western Europe. After a full assessment: product maturity was below
+        the threshold of existing EU market leaders. Western Europe was not viable.
+      </p>
+      <p class="case-insight">
+        "Advice: Eastern Europe first, via local ISV OEM partnerships.
+        Founder avoided a costly failed market entry."
+      </p>
+    </div>
+    <!-- CASE 2 - Redirected -->
+    <div class="case-card">
+      <div class="case-verdict verdict-redirect">&#8617; Redirected</div>
+      <div class="case-sector">Smart City · Israel</div>
+      <h3 class="case-title">AI surveillance platform hits EU regulatory wall</h3>
+      <p class="case-body">
+        A smart city platform with impressive tech and strong US/APAC traction
+        wanted to enter the Dutch municipal market. HCI's due diligence identified
+        three critical blockers under EU AI Act and GDPR before a single conversation happened.
+      </p>
+      <p class="case-insight">
+        "Core AI features either banned or requiring full redesign for EU.
+        Compliance audit and EU SKU development required before any sales activity."
+      </p>
+    </div>
+    <!-- CASE 3 - Proceed -->
+    <div class="case-card">
+      <div class="case-verdict verdict-proceed">&#10003; Active Partnership</div>
+      <div class="case-sector">Compliance Communications · EU</div>
+      <h3 class="case-title">EU-native compliance suite enters NL healthcare</h3>
+      <p class="case-body">
+        A fully European compliance communications platform — email, chat, video,
+        file sharing — was assessed for the Dutch healthcare sector following
+        the Zivver/Kiteworks acquisition and subsequent CLOUD Act exposure confirmed
+        in official parliamentary documents.
+      </p>
+      <p class="case-insight">
+        "3,500+ organisations actively seeking a European alternative.
+        NEN 7510 certification roadmap: 4-9 months. Market timing: optimal."
+      </p>
+    </div>
+    <!-- CASE 4 - Proceed -->
+    <div class="case-card">
+      <div class="case-verdict verdict-proceed">&#10003; Active Partnership</div>
+      <div class="case-sector">Digital Sovereignty · Netherlands</div>
+      <h3 class="case-title">Expert framework commercialised for EU timing</h3>
+      <p class="case-body">
+        A Dutch digital sovereignty specialist with 22+ years enterprise experience
+        and 8 proprietary frameworks had exceptional IP — but no commercial packaging.
+        Market timing was optimal: Dutch parliament sovereignty motions, NIS2, AI Act.
+      </p>
+      <p class="case-insight">
+        "Diamond in the rough: IP score 9/10, market timing 9/10,
+        commercial readiness 4/10. HCI role: translate expertise into sellable products."
+      </p>
+    </div>
+    <!-- CASE 5 - Redirected -->
+    <div class="case-card">
+      <div class="case-verdict verdict-redirect">&#8617; Honest Advice</div>
+      <div class="case-sector">SaaS Vendor · Eastern Europe</div>
+      <h3 class="case-title">Product origin was the market problem</h3>
+      <p class="case-body">
+        A software vendor requested representation in a market that held
+        significant bias against their country of origin — independent of product quality.
+        HCI's network confirmed the bias was real, not perceived.
+      </p>
+      <p class="case-insight">
+        "Advice: reposition via a neutral EU entity and target sectors
+        with lower country-of-origin sensitivity first."
+      </p>
+    </div>
+    <!-- CASE 6 - Proceed -->
+    <div class="case-card">
+      <div class="case-verdict verdict-proceed">&#10003; Active Engagement</div>
+      <div class="case-sector">AI Medical Video · Canada / Japan</div>
+      <h3 class="case-title">US value proposition rebuilt for EU healthcare</h3>
+      <p class="case-body">
+        An AI video platform for medical communication had strong traction in
+        the US — where HCAHPS scores link directly to Medicare reimbursement.
+        That mechanism doesn't exist in Europe. Full value proposition rebuild required.
+      </p>
+      <p class="case-insight">
+        "EU opportunity is real — workforce shortage, WGBO compliance, health literacy gap.
+        But not a copy-paste of the US model. Phase 1: paid market readiness assessment."
+      </p>
+    </div>
   </div>
 </section>
-
-<!-- ═══ PROOF ═══ -->
-<section class="proof-section" id="proof">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="pf-eyebrow"></div>
-    <h2 class="section-title fade-up" id="pf-title"></h2>
-    <div class="proof-grid" id="pf-grid"></div>
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-intro">
+    <div>
+      <div class="section-tag">Services</div>
+      <h2 class="section-title">What we actually deliver</h2>
+      <p class="section-body">
+        Every engagement starts with an honest assessment.
+        We don't sell you a full programme before we know if your product
+        is ready for the European market.
+      </p>
+    </div>
+    <div style="padding-top:16px">
+      <p class="section-body">
+        Your EU Readiness Score determines where we start.
+        Higher score means less foundation work, faster time to market,
+        lower onboarding investment.
+      </p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">EU Readiness Assessment</div>
+      <p class="service-desc">
+        Structured assessment across six dimensions: ICP clarity, product-market fit,
+        regulatory compliance, go-to-market model, team readiness, and financial runway.
+        Your score determines every next step.
+      </p>
+      <div class="service-price">Free self-service scan · From &#8364;750 full report</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">GTM Strategy &amp; Positioning</div>
+      <p class="service-desc">
+        ICP definition for EU market. Product-market combination development.
+        Value proposition reframing for European buyers.
+        Competitive landscape mapping. Pricing strategy.
+      </p>
+      <div class="service-price">From &#8364;2,000 · 2-3 weeks</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">24-Month GTM Execution</div>
+      <p class="service-desc">
+        Full lifecycle market entry. Active pipeline building. Warm introductions
+        to qualified decision makers. MEDDIC+ deal qualification.
+        Target: 5 closed deals. 10% TCV commission on results.
+      </p>
+      <div class="service-price">From &#8364;5,000/month · Exploration to Full Commitment</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Partner Channel Development</div>
+      <p class="service-desc">
+        For companies choosing indirect market entry. Partner ICP definition,
+        recruitment, certification and enablement. From prospect to
+        first deal via reseller or distributor network.
+      </p>
+      <div class="service-price">From &#8364;3,500/month + 10% TCV</div>
+    </div>
   </div>
 </section>
-
-<!-- ═══ MIKE HES ═══ -->
+<!-- SCAN SECTION -->
+<section class="scan-section" id="scan">
+  <div>
+    <div class="section-tag">EU Readiness Scan</div>
+    <h2 class="section-title">Know where you stand before you invest</h2>
+    <p class="section-body" style="margin-bottom:32px">
+      Seven minutes. Six dimensions. One honest score.
+      The EU Readiness Scan tells you exactly how prepared your company
+      is for European market entry — and where the gaps are.
+    </p>
+    <p class="section-body" style="margin-bottom:48px">
+      Score 55+: You're market ready. Score 0-29: We need to build the foundation first.
+      Either way, you'll know exactly where you stand — before spending a euro on market entry.
+    </p>
+    <a href="/services/assessment" class="btn-primary">
+      Start the Free Scan — 7 minutes
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+  <div class="scan-visual">
+    <div class="scan-card">
+      <div class="scan-title">EU Readiness Score</div>
+      <div class="scan-sub">Sample Assessment Output</div>
+      <div class="scan-dims">
+        <div class="scan-dim">
+          <span class="scan-dim-name">ICP Clarity</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:75%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Regulatory Compliance</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:40%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Product-Market Fit EU</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:60%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">GTM Model</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:55%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Team Readiness</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:80%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Financial Runway</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+      <div class="scan-meta">
+        <div class="scan-meta-item">
+          <div class="scan-meta-val">62</div>
+          <div class="scan-meta-label">Overall Score</div>
+        </div>
+        <div class="scan-meta-item">
+          <div class="scan-meta-val">Market Ready</div>
+          <div class="scan-meta-label">Status</div>
+        </div>
+        <div class="scan-meta-item">
+          <div class="scan-meta-val">&#8364;2,000</div>
+          <div class="scan-meta-label">Onboarding tier</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MIKE -->
 <section class="mike-section" id="mike">
-  <div class="container">
-    <div class="mike-grid" id="mk-grid"></div>
+  <div>
+    <div class="section-tag">Mike Hes · Founder</div>
+    <h2 class="section-title">30 years of saying what needs to be said</h2>
+    <div class="mike-quote-block">
+      <p class="mike-quote">
+        "I have walked away from engagements where I knew the product
+        wouldn't make it in Europe. That integrity is the only reason
+        clients trust my introductions when I say yes."
+      </p>
+    </div>
+    <p class="mike-bio">
+      Mike Hes has spent 30 years in enterprise sales and business development
+      across the European technology market — at Citrix, Huawei, DXC Technology
+      and Telindus, among others. Since January 2026, he runs HES Consultancy
+      International full-time, bringing that experience directly to technology
+      companies navigating EU market entry.
+      <br><br>
+      His approach is direct, analytical and built on one principle:
+      an honest assessment now is worth more than a failed market entry later.
+    </p>
+  </div>
+  <div class="mike-right">
+    <div class="mike-cv">
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">2026 &#8594;</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Founder &amp; Managing Partner</div>
+          <div class="mike-cv-co">HES Consultancy International</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Enterprise</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Senior Business Development</div>
+          <div class="mike-cv-co">DXC Technology · Telindus</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Enterprise</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Channel &amp; Partner Management</div>
+          <div class="mike-cv-co">Huawei Enterprise · EU</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Enterprise</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Sales &amp; Business Development</div>
+          <div class="mike-cv-co">Citrix Systems · European Markets</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Focus</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Healthcare · Finance · Government · SaaS</div>
+          <div class="mike-cv-co">NL · DE · BE · FR · UK</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:36px">
+      <a href="https://linkedin.com/in/mihes" target="_blank" class="btn-secondary">
+        Connect on LinkedIn
+      </a>
+    </div>
   </div>
 </section>
-
-<!-- ═══ SOCIAL PROOF ═══ -->
-<section class="social-section" id="social">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="sp-eyebrow"></div>
-    <h2 class="section-title fade-up" id="sp-title"></h2>
-    <div class="sp-stats-grid hci-stagger" id="sp-stats"></div>
-    <div class="sp-cases" id="sp-cases" data-animate="fade"></div>
-    <div class="sp-track fade-up" id="sp-track"></div>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <p class="cta-eyebrow">Start Here</p>
+  <h2 class="cta-title">The first conversation costs nothing. The wrong market entry costs everything.</h2>
+  <p class="cta-body">
+    Take the free EU Readiness Scan and know exactly where you stand.
+    Or book a direct call with Mike — no sales pitch, just an honest conversation.
+  </p>
+  <div class="cta-actions">
+    <a href="/services/assessment" class="btn-primary">
+      Free EU Readiness Scan — 7 min
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+    <span class="cta-divider">or</span>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">
+      Book a discovery call
+    </a>
   </div>
 </section>
-
-<!-- Footer -->
-<div id="hci-footer"></div>
-<script src="/_footer.js"></script>
-
-<!-- Intelligence -->
-<script src="/_intelligence.js"></script>
-
-<script>
-(function() {
-  var S = window.SITE;
-  if (!S) return;
-
-  function l() { return localStorage.getItem('hci_lang') || 'nl'; }
-  function tx(obj, key) { return obj[key + '_' + l()] || obj[key + '_nl'] || ''; }
-
-  function renderPage() {
-    var lang = l();
-    var home = S.home;
-    var icps = S.icps;
-    var mike = S.mike;
-    var brand = S.brand;
-    var proof = S.proof;
-
-    // Hero
-    document.getElementById('hp-overline').innerHTML = tx(home, 'hero_overline');
-    document.getElementById('hp-h1').innerHTML = tx(home, 'hero_h1');
-    document.getElementById('hp-sub').innerHTML = tx(home, 'hero_sub');
-    document.getElementById('hp-scroll').textContent = lang === 'en' ? 'Scroll' : 'Scroll';
-
-    document.getElementById('hp-actions').innerHTML =
-      '<a href="' + home.hero_cta_href + '" class="btn-primary">' + tx(home, 'hero_cta') + '</a>' +
-      '<a href="' + home.hero_ghost_href + '" class="btn-ghost">' + tx(home, 'hero_ghost') + '</a>';
-
-    document.getElementById('hp-stats').innerHTML = home.stats.map(function(stat, i) {
-      return '<div class="fade-up stagger-' + (i+1) + '">' +
-        '<div class="hero-stat-num">' + stat.num + '</div>' +
-        '<div class="hero-stat-label">' + tx(stat, 'label') + '</div>' +
-      '</div>';
-    }).join('');
-
-    // Routes
-    document.getElementById('rt-eyebrow').textContent = lang === 'en' ? 'Three Routes' : 'Drie Routes';
-    document.getElementById('rt-title').innerHTML = lang === 'en'
-      ? 'Choose your <em>route.</em>'
-      : 'Kies uw <em>route.</em>';
-    document.getElementById('rt-sub').textContent = lang === 'en'
-      ? 'Every company is different. That\'s why HCI offers three focused routes — each with its own assessment, methodology and result.'
-      : 'Elk bedrijf is anders. Daarom biedt HCI drie gerichte routes — elk met eigen assessment, methodiek en resultaat.';
-
-    var routeAccents = { icp1: '--route-entry', icp2: '--route-growth', icp3: '--route-compliance' };
-    var routeDims = { icp1: '--route-entry-dim', icp2: '--route-growth-dim', icp3: '--route-compliance-dim' };
-
-    document.getElementById('rt-grid').innerHTML = Object.keys(icps).map(function(key, i) {
-      var icp = icps[key];
-      var chips = tx(icp, 'chips') || [];
-      var chipsHtml = chips.map(function(c) { return '<span class="route-chip">' + c + '</span>'; }).join('');
-      return '<a href="' + icp.route + '" class="route-card fade-up stagger-' + (i+1) + '" style="--card-accent:' + icp.accent + ';--card-accent-border:' + icp.accent_dim + ';--card-accent-dim:' + icp.accent_dim + ';">' +
-        '<div class="route-icon">' + icp.icon + '</div>' +
-        '<span class="route-tag">' + tx(icp, 'kicker') + '</span>' +
-        '<h3>' + tx(icp, 'label') + '</h3>' +
-        '<div class="route-chips">' + chipsHtml + '</div>' +
-        '<div class="route-cta">' + tx(icp, 'cta') + '</div>' +
-      '</a>';
-    }).join('');
-
-    // Method
-    document.getElementById('mt-eyebrow').textContent = tx(home, 'method_eyebrow');
-    document.getElementById('mt-title').innerHTML = tx(home, 'method_title');
-    document.getElementById('mt-sub').textContent = tx(home, 'method_sub');
-
-    document.getElementById('mt-grid').innerHTML = home.method_steps.map(function(step, i) {
-      var connector = i < home.method_steps.length - 1 ? '<div class="method-connector"></div>' : '';
-      return '<div class="method-step">' +
-        '<div class="method-num">' + step.num + '</div>' +
-        '<h4>' + tx(step, 'title') + '</h4>' +
-        '<p>' + tx(step, 'desc') + '</p>' +
-        connector +
-      '</div>';
-    }).join('');
-
-    document.getElementById('mt-tagline').innerHTML = tx(home, 'method_tagline');
-
-    // Proof
-    document.getElementById('pf-eyebrow').textContent = lang === 'en' ? 'Results' : 'Resultaten';
-    document.getElementById('pf-title').innerHTML = lang === 'en'
-      ? 'What we <em>delivered.</em>'
-      : 'Wat we <em>opgeleverd hebben.</em>';
-
-    document.getElementById('pf-grid').innerHTML = proof.map(function(p, i) {
-      var icp = icps[p.icp] || {};
-      return '<div class="proof-card fade-up stagger-' + (i+1) + '">' +
-        '<div class="proof-route" style="color:' + (icp.accent || 'var(--gold)') + '">' + (tx(icp, 'kicker') || '') + '</div>' +
-        '<h4>' + p.client + '</h4>' +
-        '<p>' + tx(p, 'result') + '</p>' +
-      '</div>';
-    }).join('');
-
-    // Mike
-    document.getElementById('mk-grid').innerHTML =
-      '<div class="mike-photo-wrap fade-up">' +
-        '<div class="mike-photo"><img src="' + brand.mike_photo + '" alt="' + mike.name + '"></div>' +
-        '<div class="mike-cred">' +
-          '<div class="mike-cred-num">' + mike.years + '</div>' +
-          '<div class="mike-cred-label">' + tx(mike, 'years_label') + '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="mike-content fade-up stagger-1">' +
-        '<h2>' + mike.name + ' — <em>' + tx(mike, 'title') + '</em></h2>' +
-        '<p class="mike-bio">' + tx(mike, 'bio_short') + '</p>' +
-        '<div class="mike-actions">' +
-          '<a href="' + brand.calendly + '" class="btn-primary">' + tx(mike, 'cta') + '</a>' +
-          '<a href="mailto:' + brand.email + '" class="btn-ghost">' + brand.email + '</a>' +
-        '</div>' +
-      '</div>';
-
-    // Social proof
-    var cases = S.cases || [];
-    var mikeStats = mike.stats || [];
-    var trackNames = ['Philips', 'ASML', 'ABN AMRO', 'Rabobank', 'KPN', 'IKEA', 'PostNL', 'Medtronic', 'DSM', 'KPMG', 'Bayer', 'Dr\u00E4ger'];
-
-    document.getElementById('sp-eyebrow').textContent = lang === 'en' ? 'Proven' : 'Bewezen';
-    document.getElementById('sp-title').innerHTML = lang === 'en'
-      ? 'Proven in <em>practice.</em>'
-      : 'Bewezen in de <em>praktijk.</em>';
-
-    document.getElementById('sp-stats').innerHTML = mikeStats.map(function(s, i) {
-      return '<div class="sp-stat fade-up stagger-' + (i+1) + '">' +
-        '<div class="sp-stat-value">' + s.value + '</div>' +
-        '<div class="sp-stat-label">' + tx(s, 'label') + '</div>' +
-      '</div>';
-    }).join('');
-
-    var previewIds = ['chunkworks', 'openhealthhub', 'atomic'];
-    var previewCases = previewIds.map(function(id) {
-      return cases.find(function(c) { return c.id === id; });
-    }).filter(Boolean);
-    document.getElementById('sp-cases').innerHTML = previewCases.map(function(c, i) {
-      var badges = (c.results || []).map(function(r) { return '<span class="sp-case-badge">' + r + '</span>'; }).join('');
-      return '<div class="sp-case fade-up stagger-' + (i+1) + '">' +
-        '<h4>' + c.company + '</h4>' +
-        '<div class="sp-case-tag">' + c.tag + '</div>' +
-        '<p>' + tx(c, 'text').substring(0, 200) + '...</p>' +
-        (badges ? '<div class="sp-case-badges">' + badges + '</div>' : '') +
-      '</div>';
-    }).join('') +
-    '<div class="sp-cases-link fade-up"><a href="/mike">' + (lang === 'en' ? 'View all cases \u2192' : 'Bekijk alle cases \u2192') + '</a></div>';
-
-    document.getElementById('sp-track').innerHTML =
-      '<div class="sp-track-intro">' + (lang === 'en' ? 'Enterprise track record' : 'Enterprise track record') + '</div>' +
-      '<div class="sp-track-chips">' + trackNames.map(function(n) { return '<span class="chip">' + n + '</span>'; }).join('') + '</div>' +
-      '<div class="sp-track-link"><a href="/mike">' + (lang === 'en' ? 'Full overview \u2192' : 'Volledig overzicht \u2192') + '</a></div>';
-
-    // Re-observe fade-up elements
-    initObserver();
-  }
-
-  function initObserver() {
-    var els = document.querySelectorAll('.fade-up:not(.visible)');
-    if (!('IntersectionObserver' in window)) {
-      els.forEach(function(el) { el.classList.add('visible'); });
-      return;
-    }
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    els.forEach(function(el) { observer.observe(el); });
-  }
-
-  window.onLangChange = renderPage;
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderPage);
-  } else {
-    renderPage();
-  }
-})();
-</script>
-
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/services">Services</a>
+    <a href="/about">About</a>
+    <a href="/services/assessment">EU Scan</a>
+    <a href="mailto:mike@hes-consultancy-international.com">Contact</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International. All rights reserved.</div>
+</footer>
 </body>
 </html>
