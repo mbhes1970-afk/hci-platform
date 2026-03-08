@@ -311,9 +311,48 @@ window.SITE = {
       { value: '\u20AC80M+', label_nl: 'omzet aangestuurd', label_en: 'revenue managed' },
       { value: '6', label_nl: 'sectoren, 1 methodologie', label_en: 'sectors, 1 methodology' },
     ],
-    enterprise_track: [
-      'Philips', 'KPMG', 'Deutsche Bank', 'ABN AMRO',
-      'Rabobank', 'PostNL', 'ASML', 'KPN', 'Medtronic', 'DSM',
+    career_track: [
+      'Vobis Microcomputers',
+      'Citrix Systems',
+      'PQR',
+      'eSeSix Computer',
+      'NEH ICT Solutions',
+      'Telindus (Proximus)',
+      'Login Consultants / Orange Business Services',
+      'Huawei Technologies',
+      'DXC Technologies / Dedalus',
+      'EPAM Systems',
+      'Atomic Group (Uniserver)',
+      'Open Health Hub',
+      'First Line Software',
+      'HCI / Nxt Era Solutions',
+    ],
+    client_track: [
+      {
+        sector: 'Finance & Banking',
+        sector_en: 'Finance & Banking',
+        clients: ['ABN AMRO', 'Rabobank', 'De Nederlandsche Bank', 'KPMG', 'VUmc', 'AMC'],
+      },
+      {
+        sector: 'Healthcare & Pharma',
+        sector_en: 'Healthcare & Pharma',
+        clients: ['Philips', 'Medtronic', 'DSM', 'J&J', 'Bayer', 'Novartis', 'Dr\u00E4ger', 'Siemens Health', 'Sectra', 'VZVZ', 'MedMij', 'Min. VWS', 'Catharina Ziekenhuis'],
+      },
+      {
+        sector: 'DACH Enterprise',
+        sector_en: 'DACH Enterprise',
+        clients: ['Deutsche Telekom Health', 'Siemens Health', 'Dr\u00E4ger', 'T-Systems', 'Deutsche Bank'],
+      },
+      {
+        sector: 'Technology & Telecom',
+        sector_en: 'Technology & Telecom',
+        clients: ['KPN', 'T-Mobile', 'Canon', 'Ziggo', 'ASML'],
+      },
+      {
+        sector: 'Logistics & Industrie',
+        sector_en: 'Logistics & Industry',
+        clients: ['PostNL', 'DHL', 'DPD', 'Mammoet', 'IKEA', 'Vitens'],
+      },
     ],
   },
   // ── RESULTATEN / PROOF ───────────────────────────────────────────

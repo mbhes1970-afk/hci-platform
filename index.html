@@ -386,10 +386,15 @@ section { padding: 120px 0; position: relative; }
   border: 1px solid var(--border); border-radius: 12px;
 }
 .sp-track-intro { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; }
-.sp-track-names {
-  font-family: 'Instrument Serif', serif;
-  font-size: 18px; color: var(--text-bright); opacity: .8; line-height: 2;
+.sp-track-chips { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-bottom: 16px; }
+.sp-track .chip {
+  display: inline-block; background: rgba(200,165,90,0.08);
+  border: 1px solid rgba(200,165,90,0.2); color: #e6edf3;
+  padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin: 4px;
 }
+.sp-track-link { font-size: 13px; }
+.sp-track-link a { color: var(--gold); text-decoration: none; transition: color .2s; }
+.sp-track-link a:hover { color: var(--gold-light); }
 
 /* ═══ FOOTER (injected by _footer.js) ═══ */
 footer { padding: 40px 0; border-top: 1px solid var(--border); }
@@ -662,7 +667,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     // Social proof
     var cases = S.cases || [];
     var mikeStats = mike.stats || [];
-    var track = mike.enterprise_track || [];
+    var trackNames = ['Philips', 'ASML', 'ABN AMRO', 'Rabobank', 'KPN', 'IKEA', 'PostNL', 'Medtronic', 'DSM', 'KPMG', 'Bayer', 'Dr\u00E4ger'];
 
     document.getElementById('sp-eyebrow').textContent = lang === 'en' ? 'Proven' : 'Bewezen';
     document.getElementById('sp-title').innerHTML = lang === 'en'
@@ -687,8 +692,9 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     '<div class="sp-cases-link fade-up"><a href="/mike">' + (lang === 'en' ? 'View all cases \u2192' : 'Bekijk alle cases \u2192') + '</a></div>';
 
     document.getElementById('sp-track').innerHTML =
-      '<div class="sp-track-intro">' + (lang === 'en' ? 'Previously worked for and with:' : 'Eerder gewerkt voor en met:') + '</div>' +
-      '<div class="sp-track-names">' + track.join(' \u00B7 ') + '</div>';
+      '<div class="sp-track-intro">' + (lang === 'en' ? 'Enterprise track record' : 'Enterprise track record') + '</div>' +
+      '<div class="sp-track-chips">' + trackNames.map(function(n) { return '<span class="chip">' + n + '</span>'; }).join('') + '</div>' +
+      '<div class="sp-track-link"><a href="/mike">' + (lang === 'en' ? 'Full overview \u2192' : 'Volledig overzicht \u2192') + '</a></div>';
 
     // Re-observe fade-up elements
     initObserver();

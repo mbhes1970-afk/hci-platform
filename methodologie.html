@@ -133,7 +133,7 @@ section { padding: 100px 0; position: relative; }
 
 /* ═══ PHASES ═══ */
 .phases-section { border-top: 1px solid var(--border); }
-.phases-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.phases-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; overflow: hidden; }
 .phase-card {
   background: var(--bg-card); padding: 40px 28px;
   position: relative; transition: all .3s;
@@ -462,7 +462,11 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
     els.forEach(function(el) { observer.observe(el); });
   }
 
-  window.onLangChange = renderPage;
+  var _prevLangChange = window.onLangChange;
+  window.onLangChange = function() {
+    renderPage();
+    if (typeof _prevLangChange === 'function') _prevLangChange();
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', renderPage);

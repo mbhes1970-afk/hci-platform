@@ -129,20 +129,30 @@ section { padding: 100px 0; position: relative; }
 }
 .stat-label { font-size: 13px; color: var(--text-dim); }
 
-/* ═══ ENTERPRISE TRACK ═══ */
+/* ═══ CARRIÈRE + KLANTEN ═══ */
 .track-section { border-top: 1px solid var(--border); }
 .track-intro { font-size: 15px; color: var(--text-dim); margin-bottom: 32px; }
-.track-names {
-  display: flex; flex-wrap: wrap; gap: 16px 32px;
-  align-items: center; justify-content: center;
+.career-list {
+  font-size: 14px; color: var(--text); line-height: 2;
+  text-align: center; max-width: 700px; margin: 0 auto;
 }
-.track-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px; color: var(--text-bright); opacity: .7;
-  transition: opacity .2s;
+.career-sep { color: var(--text-dim); margin: 0 6px; }
+.client-section { border-top: 1px solid var(--border); }
+.client-grid { max-width: 800px; margin: 0 auto; }
+.client-sector { margin-bottom: 8px; }
+.sector-label {
+  display: block; font-size: 0.7rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 8px; margin-top: 20px;
 }
-.track-name:hover { opacity: 1; }
-.track-sep { color: var(--text-dim); font-size: 14px; }
+.client-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip {
+  display: inline-block;
+  background: rgba(200,165,90,0.08);
+  border: 1px solid rgba(200,165,90,0.2);
+  color: #e6edf3; padding: 4px 12px;
+  border-radius: 20px; font-size: 0.8rem; margin: 4px;
+}
 
 /* ═══ CASES ═══ */
 .cases-section { border-top: 1px solid var(--border); }
@@ -289,12 +299,21 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
   </div>
 </section>
 
-<!-- S3 ENTERPRISE TRACK -->
+<!-- S3 CARRIÈRE -->
 <section class="track-section">
   <div class="container">
     <div class="section-eyebrow fade-up" id="track-eyebrow"></div>
-    <div class="track-intro fade-up" id="track-intro"></div>
-    <div class="track-names fade-up" id="track-names" data-animate="fade" data-delay="200"></div>
+    <h2 class="section-title fade-up" id="track-title"></h2>
+    <div class="career-list fade-up" id="career-list" data-animate="fade"></div>
+  </div>
+</section>
+
+<!-- S3B KLANTEN -->
+<section class="client-section">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="client-eyebrow"></div>
+    <h2 class="section-title fade-up" id="client-title"></h2>
+    <div class="client-grid" id="client-grid"></div>
   </div>
 </section>
 
@@ -394,13 +413,32 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); }
       '</div>';
     }).join('');
 
-    // Enterprise track
-    document.getElementById('track-eyebrow').textContent = isEn ? 'Track Record' : 'Track Record';
-    document.getElementById('track-intro').textContent = isEn ? 'Worked for and with:' : 'Gewerkt voor en met:';
-    var track = mike.enterprise_track || [];
-    document.getElementById('track-names').innerHTML = track.map(function(name, i) {
-      var sep = i < track.length - 1 ? '<span class="track-sep">\u00B7</span>' : '';
-      return '<span class="track-name">' + name + '</span>' + sep;
+    // Carrière track
+    document.getElementById('track-eyebrow').textContent = isEn ? 'Career' : 'Carri\u00E8re';
+    document.getElementById('track-title').innerHTML = isEn
+      ? '30 years, 14 <em>organisations.</em>'
+      : '30 jaar, 14 <em>organisaties.</em>';
+    var career = mike.career_track || [];
+    document.getElementById('career-list').innerHTML = career.map(function(name, i) {
+      var sep = i < career.length - 1 ? '<span class="career-sep">\u00B7</span>' : '';
+      return name + sep;
+    }).join(' ');
+
+    // Klanten per sector
+    document.getElementById('client-eyebrow').textContent = isEn ? 'Clients' : 'Klanten';
+    document.getElementById('client-title').innerHTML = isEn
+      ? 'Worked <em>for:</em>'
+      : 'Gewerkt <em>voor:</em>';
+    var clients = mike.client_track || [];
+    document.getElementById('client-grid').innerHTML = clients.map(function(s) {
+      var sectorName = isEn ? (s.sector_en || s.sector) : s.sector;
+      var chips = s.clients.map(function(c) {
+        return '<span class="chip">' + c + '</span>';
+      }).join('');
+      return '<div class="client-sector" data-animate="fade">' +
+        '<span class="sector-label">' + sectorName + '</span>' +
+        '<div class="client-chips">' + chips + '</div>' +
+      '</div>';
     }).join('');
 
     // Cases
