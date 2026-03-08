@@ -31,7 +31,9 @@
       '.mobile-menu ul { list-style:none; }' +
       '.mobile-menu ul li { padding:8px 0; }' +
       '.mobile-menu ul a { font-size:15px; color:var(--text); text-decoration:none; }' +
-      '@media (max-width:900px) { nav { padding:14px 20px; } .nav-links { display:none; } .hamburger { display:block; } .nav-cta { display:none; } }';
+      '.nav-logo { height:52px; max-width:180px; object-fit:contain; display:block; }' +
+      '@media (max-width:900px) { nav { padding:14px 20px; } .nav-links { display:none; } .hamburger { display:block; } .nav-cta { display:none; } }' +
+      '@media (max-width:768px) { .nav-logo { height:40px; } }';
     document.head.appendChild(style);
   }
 
@@ -53,7 +55,7 @@
 
     var html = '<nav id="nav">' +
       '<div class="nav-left">' +
-        '<a href="/"><img src="' + brand.logo_white + '" alt="' + brand.name + '" style="height:36px;"></a>' +
+        '<a href="/"><img src="' + brand.logo_white + '" alt="' + brand.name + '" class="nav-logo"></a>' +
       '</div>' +
       '<ul class="nav-links">' + linksHtml + '</ul>' +
       '<div class="nav-right">' +
@@ -145,4 +147,12 @@
       });
     }
   });
+
+  // ── Load animations script once ──
+  if (!document.getElementById('hci-anim-script')) {
+    var animScript = document.createElement('script');
+    animScript.id = 'hci-anim-script';
+    animScript.src = '/_animations.js';
+    document.body.appendChild(animScript);
+  }
 })();
