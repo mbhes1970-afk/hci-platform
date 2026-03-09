@@ -131,6 +131,8 @@ body {
 }
 .footer-note a { color: var(--gold); text-decoration: none; }
 #view-loading, #view-success, #view-error, #view-no-token { display: none; }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold); }
 </style>
 </head>
 <body>
@@ -138,13 +140,20 @@ body {
 <div class="logo-bar">
   <div class="logo-name">HES Consultancy International</div>
   <div class="logo-tag">From Strategy to First Customer</div>
+  <div style="margin-top:12px;display:flex;justify-content:center">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+  </div>
 </div>
 
 <!-- Loading -->
 <div class="card" id="view-loading">
   <div class="status-icon loading"><div class="spinner"></div></div>
-  <h1>Bezig met verwerken...</h1>
-  <p>Uw uitschrijving wordt verwerkt.</p>
+  <h1 data-nl="Bezig met verwerken..." data-en="Processing...">Bezig met verwerken...</h1>
+  <p data-nl="Uw uitschrijving wordt verwerkt." data-en="Your unsubscription is being processed.">Uw uitschrijving wordt verwerkt.</p>
 </div>
 
 <!-- Success -->
@@ -154,10 +163,10 @@ body {
       <polyline points="20 6 9 17 4 12" />
     </svg>
   </div>
-  <h1>U bent uitgeschreven</h1>
-  <p>Uw gegevens worden niet verwijderd, maar u ontvangt <span class="highlight">geen verdere communicatie</span> van HES Consultancy International.</p>
-  <p>Wilt u dat al uw gegevens volledig worden verwijderd? Dat kan via onderstaande knop. Wij verwerken uw verzoek binnen 30 dagen conform de AVG.</p>
-  <a id="delete-btn" href="#" class="btn btn-outline" style="display:inline-block">
+  <h1 data-nl="U bent uitgeschreven" data-en="You have been unsubscribed">U bent uitgeschreven</h1>
+  <p data-nl="Uw gegevens worden niet verwijderd, maar u ontvangt &lt;span class=&quot;highlight&quot;&gt;geen verdere communicatie&lt;/span&gt; van HES Consultancy International." data-en="Your data will not be deleted, but you will receive &lt;span class=&quot;highlight&quot;&gt;no further communications&lt;/span&gt; from HES Consultancy International.">Uw gegevens worden niet verwijderd, maar u ontvangt <span class="highlight">geen verdere communicatie</span> van HES Consultancy International.</p>
+  <p data-nl="Wilt u dat al uw gegevens volledig worden verwijderd? Dat kan via onderstaande knop. Wij verwerken uw verzoek binnen 30 dagen conform de AVG." data-en="Would you like all your data to be fully deleted? You can do so via the button below. We will process your request within 30 days in accordance with the GDPR.">Wilt u dat al uw gegevens volledig worden verwijderd? Dat kan via onderstaande knop. Wij verwerken uw verzoek binnen 30 dagen conform de AVG.</p>
+  <a id="delete-btn" href="#" class="btn btn-outline" style="display:inline-block" data-nl="Verwijder al mijn gegevens" data-en="Delete all my data">
     Verwijder al mijn gegevens
   </a>
 </div>
@@ -171,8 +180,8 @@ body {
       <line x1="9" y1="9" x2="15" y2="15" />
     </svg>
   </div>
-  <h1>Token niet gevonden</h1>
-  <p>De uitschrijflink is ongeldig of verlopen. Neem contact op met <a href="mailto:mbhes@hes-consultancy-international.com" style="color:var(--gold)">mbhes@hes-consultancy-international.com</a> als u zich wilt uitschrijven.</p>
+  <h1 data-nl="Token niet gevonden" data-en="Token not found">Token niet gevonden</h1>
+  <p data-nl="De uitschrijflink is ongeldig of verlopen. Neem contact op met &lt;a href=&quot;mailto:mbhes@hes-consultancy-international.com&quot; style=&quot;color:var(--gold)&quot;&gt;mbhes@hes-consultancy-international.com&lt;/a&gt; als u zich wilt uitschrijven." data-en="The unsubscribe link is invalid or expired. Please contact &lt;a href=&quot;mailto:mbhes@hes-consultancy-international.com&quot; style=&quot;color:var(--gold)&quot;&gt;mbhes@hes-consultancy-international.com&lt;/a&gt; if you wish to unsubscribe.">De uitschrijflink is ongeldig of verlopen. Neem contact op met <a href="mailto:mbhes@hes-consultancy-international.com" style="color:var(--gold)">mbhes@hes-consultancy-international.com</a> als u zich wilt uitschrijven.</p>
 </div>
 
 <!-- No token in URL -->
@@ -184,14 +193,14 @@ body {
       <line x1="12" y1="16" x2="12.01" y2="16" />
     </svg>
   </div>
-  <h1>Geen referentie opgegeven</h1>
-  <p>Deze pagina verwacht een uitschrijflink met referentiecode. Als u zich wilt uitschrijven, gebruik de link uit uw e-mail of neem contact op via <a href="mailto:mbhes@hes-consultancy-international.com" style="color:var(--gold)">mbhes@hes-consultancy-international.com</a>.</p>
+  <h1 data-nl="Geen referentie opgegeven" data-en="No reference provided">Geen referentie opgegeven</h1>
+  <p data-nl="Deze pagina verwacht een uitschrijflink met referentiecode. Als u zich wilt uitschrijven, gebruik de link uit uw e-mail of neem contact op via &lt;a href=&quot;mailto:mbhes@hes-consultancy-international.com&quot; style=&quot;color:var(--gold)&quot;&gt;mbhes@hes-consultancy-international.com&lt;/a&gt;." data-en="This page requires an unsubscribe link with a reference code. If you wish to unsubscribe, use the link from your email or contact &lt;a href=&quot;mailto:mbhes@hes-consultancy-international.com&quot; style=&quot;color:var(--gold)&quot;&gt;mbhes@hes-consultancy-international.com&lt;/a&gt;.">Deze pagina verwacht een uitschrijflink met referentiecode. Als u zich wilt uitschrijven, gebruik de link uit uw e-mail of neem contact op via <a href="mailto:mbhes@hes-consultancy-international.com" style="color:var(--gold)">mbhes@hes-consultancy-international.com</a>.</p>
 </div>
 
 <div class="footer-note">
   &copy; 2026 HES Consultancy International &middot;
-  <a href="/privacy">Privacy Policy</a> &middot;
-  <a href="/terms">Terms of Use</a>
+  <a href="/privacy/" data-nl="Privacybeleid" data-en="Privacy Policy">Privacybeleid</a> &middot;
+  <a href="/terms/" data-nl="Voorwaarden" data-en="Terms of Use">Voorwaarden</a>
 </div>
 
 <script>
@@ -254,5 +263,6 @@ body {
   }
 })();
 </script>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>
