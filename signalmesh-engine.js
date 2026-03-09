@@ -81,6 +81,48 @@
 
     if (cityMeta && cityMeta.content) state.ipCity = cityMeta.content;
     if (countryMeta && countryMeta.content) state.ipCountry = countryMeta.content;
+
+    // Client-side IPInfo fallback when edge function meta tags are absent
+    if (!orgMeta && cfg.global.ipinfoToken && cfg.global.ipinfoToken !== 'TOKEN_PLACEHOLDER') {
+      fetchIPInfo();
+    }
+  }
+
+  function fetchIPInfo() {
+    var token = cfg.global.ipinfoToken;
+    fetch('https://ipinfo.io/json?token=' + token, { signal: AbortSignal.timeout(2000) })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (!data) return;
+        var orgName = (data.org || '').replace(/^AS\d+\s+/i, '').trim();
+        if (orgName) {
+          state.ipOrg = orgName;
+          if (orgName.length > 2) addFit(8);
+          log('IP Org (client): ' + orgName);
+        }
+        if (data.city) state.ipCity = data.city;
+        if (data.country) state.ipCountry = data.country;
+
+        // Infer sector from org name
+        if (!state.sector) {
+          var orgLower = orgName.toLowerCase();
+          var sectorHint = '';
+          if (/gemeente|province|overheid|ministerie|rijks/.test(orgLower)) sectorHint = 's01';
+          else if (/hospital|ziekenhuis|zorg|health|clinic|ggz/.test(orgLower)) sectorHint = 's02';
+          else if (/software|saas|hosting|cloud|digital|tech|ict/.test(orgLower)) sectorHint = 's03';
+          else if (/bank|financial|finance|verzeker|pensioen/.test(orgLower)) sectorHint = 's04';
+          else if (/telecom|kpn|vodafone|t-mobile|ziggo/.test(orgLower)) sectorHint = 's05';
+          else if (/energy|energie|water|utility|eneco/.test(orgLower)) sectorHint = 's06';
+
+          if (sectorHint && cfg.sectors[sectorHint]) {
+            state.sector = sectorHint;
+            _sectorFromIP = true;
+            addFit(12);
+            log('Sector from IPInfo: ' + sectorHint);
+          }
+        }
+      })
+      .catch(function() { log('IPInfo lookup failed (silent)'); });
   }
 
   // ── URL PARAMS LEZEN ──────────────────────────────
@@ -364,31 +406,52 @@
 
   // ── UPGRADE F: SLACK ALERT (enriched with IP intel) ──
   function sendSlackAlert() {
-    if (state.tier === 'cold') return;
+    if (state.tier === 'cold' || state.tier === 'warm') return;
+
+    var webhook = cfg.global.slackWebhook;
+    if (!webhook || webhook === 'SLACK_WEBHOOK_PLACEHOLDER') return;
+
+    var sectorLabel = '';
+    if (state.sector && cfg.sectors[state.sector]) {
+      sectorLabel = cfg.sectors[state.sector].label.nl || state.sector;
+    }
+
+    var ts = new Date().toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
 
     var payload = {
-      text: '*SignalMesh Alert* \u2014 ' + state.tier.toUpperCase() + ' bezoeker',
+      text: ':dart: *Hoog-scorende bezoeker \u2014 SignalMesh*',
       blocks: [
         {
           type: 'section',
           text: { type: 'mrkdwn', text:
-            '*Tier:* ' + state.tier + ' | *Score:* ' + state.total + ' (fit: ' + state.fit + ', intent: ' + state.intent + ')\n' +
-            '*ICP:* ' + (state.icp || '\u2014') + ' | *Sector:* ' + (state.sector || '\u2014') + '\n' +
-            '*VID:* ' + (state.vid || '\u2014') + ' | *UTM:* ' + (state.utm_source || '\u2014') + '\n' +
-            '*Pagina:* ' + d.location.href
+            ':dart: *Hoog-scorende bezoeker gedetecteerd*\n' +
+            '*Score:* ' + state.total + '/100 (fit: ' + state.fit + ', intent: ' + state.intent + ')\n' +
+            '*Bedrijf:* ' + (state.ipOrg || 'Onbekend') + '\n' +
+            '*Land:* ' + (state.ipCountry || 'Onbekend') + ' | *Stad:* ' + (state.ipCity || 'Onbekend') + '\n' +
+            '*Pagina:* ' + d.location.href + '\n' +
+            '*Sector:* ' + (sectorLabel || 'Onbekend') + ' | *ICP:* ' + (state.icp || '\u2014') + '\n' +
+            '*Tier:* ' + state.tier.toUpperCase() + ' | *Tijd:* ' + ts
           }
         },
         {
-          type: 'section',
-          fields: [
-            { type: 'mrkdwn', text: '*Organisatie (IP):*\n' + (state.ipOrg || 'Onbekend') },
-            { type: 'mrkdwn', text: '*Stad:*\n' + (state.ipCity || 'Onbekend') },
+          type: 'actions',
+          elements: [
+            {
+              type: 'button',
+              text: { type: 'plain_text', text: 'Open PocketBase Deal' },
+              url: 'https://api.hes-consultancy-international.com/_/'
+            },
+            {
+              type: 'button',
+              text: { type: 'plain_text', text: 'Boek gesprek' },
+              url: 'https://calendly.com/mbhes1970/30min'
+            }
           ]
-        },
+        }
       ]
     };
 
-    fetch('/.netlify/functions/signalmesh-alert', {
+    fetch(webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
