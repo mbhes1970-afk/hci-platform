@@ -25,6 +25,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .nav-logo-sub { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
 .nav-back { font-size: 12px; color: rgba(247,244,238,0.5); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
 .nav-back:hover { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { color: rgba(247,244,238,0.65); text-decoration: none; font-size: 13px; letter-spacing: 0.05em; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
 .nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 9px 22px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
 .nav-cta:hover { background: var(--gold); color: var(--ink); }
 .hero { min-height: 100vh; padding: 160px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; overflow: hidden; }
@@ -111,17 +114,19 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
     <div class="nav-logo-main">HES Consultancy International</div>
     <div class="nav-logo-sub">From Strategy to First Customer</div>
   </a>
-  <a href="/" class="nav-back">
-    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    <span data-nl="Terug naar home" data-en="Back to home">Back to home</span>
-  </a>
+  <ul class="nav-links">
+    <li><a href="/#why" data-nl="Waarom HCI" data-en="Why HCI">Waarom HCI</a></li>
+    <li><a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a></li>
+    <li><a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a></li>
+    <li><a href="/about/" data-nl="Over ons" data-en="About">Over ons</a></li>
+  </ul>
   <div style="display:flex;align-items:center;gap:20px">
     <div class="lang-toggle" id="lang-toggle">
       <span data-lang="nl" class="active">NL</span>
       <span style="opacity:0.3">|</span>
       <span data-lang="en">EN</span>
     </div>
-    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Gesprek Boeken" data-en="Book a Call">Book a Call</a>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Bel ons" data-en="Book a Call">Bel ons</a>
   </div>
 </nav>
 <section class="hero" style="padding-top:160px;padding-bottom:100px">
