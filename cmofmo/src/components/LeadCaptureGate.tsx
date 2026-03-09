@@ -45,12 +45,15 @@ export function LeadCaptureGate() {
     wizard.setConsentReportShare(consentReportShare);
     wizard.setConsentFollowup(consentFollowup);
 
-    // Store consent in PocketBase (AVG Art. 7 lid 1 — bewijs van toestemming)
+    // Store consent + create/update contact in PocketBase
+    let optOutToken = '';
     try {
       const POCKETBASE_URL = import.meta.env.VITE_POCKETBASE_URL
         || 'https://api.hes-consultancy-international.com';
+
+      // 1. Store AVG consent record (Art. 7 lid 1 — bewijs van toestemming)
       const [ipHash, uaHash] = await Promise.all([
-        sha256(Date.now().toString()), // No real IP available client-side; use timestamp as proxy
+        sha256(Date.now().toString()),
         sha256(navigator.userAgent),
       ]);
       await fetch(`${POCKETBASE_URL}/api/collections/cmo_fmo_consents/records`, {
@@ -68,8 +71,51 @@ export function LeadCaptureGate() {
           withdrawn: false,
         }),
       });
+
+      // 2. Create or update contact with opt_out_token
+      const uuid = crypto.randomUUID();
+      const lookupRes = await fetch(
+        `${POCKETBASE_URL}/api/collections/contacts/records?filter=(email='${encodeURIComponent(localEmail)}')&perPage=1`
+      );
+      const lookupData = await lookupRes.json();
+      if (lookupData.items && lookupData.items.length > 0) {
+        // Existing contact — read their token
+        optOutToken = lookupData.items[0].opt_out_token || '';
+        // Update consent_status
+        await fetch(`${POCKETBASE_URL}/api/collections/contacts/records/${lookupData.items[0].id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            consent_status: 'cmofmo_consent',
+            data_source: 'cmofmo',
+            last_contact_date: new Date().toISOString(),
+            ...(optOutToken ? {} : { opt_out_token: uuid }),
+          }),
+        });
+        if (!optOutToken) optOutToken = uuid;
+      } else {
+        // New contact
+        optOutToken = uuid;
+        await fetch(`${POCKETBASE_URL}/api/collections/contacts/records`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            voornaam: localName.split(' ')[0],
+            achternaam: localName.split(' ').slice(1).join(' '),
+            volledige_naam: localName,
+            organisatie: localOrg,
+            email: localEmail,
+            consent_status: 'cmofmo_consent',
+            data_source: 'cmofmo',
+            gdpr_basis: 'consent',
+            opt_out_token: uuid,
+            first_contact_date: new Date().toISOString(),
+            last_contact_date: new Date().toISOString(),
+          }),
+        });
+      }
     } catch {
-      // Non-blocking — consent storage failure should not block the user
+      // Non-blocking — consent/contact storage failure should not block the user
     }
 
     // Calculate scores for mailto
@@ -77,8 +123,11 @@ export function LeadCaptureGate() {
     const avgScore = scores.reduce((s, d) => s + d.score, 0) / scores.length;
     const sectorLabel = getSectorById(wizard.sector)?.label[lang] || wizard.sector;
 
-    // Build mailto
+    // Build mailto with opt-out link
     const nl = lang === 'nl';
+    const optOutUrl = optOutToken
+      ? `https://hes-consultancy.nl/optout?ref=${optOutToken}`
+      : '';
     const subject = encodeURIComponent(
       `CMO-FMO Rapport — ${localName} — ${localOrg}`
     );
@@ -102,6 +151,7 @@ export function LeadCaptureGate() {
       `  ${nl ? 'Rapport delen' : 'Report sharing'}: ${consentReportShare ? (nl ? 'Ja' : 'Yes') : (nl ? 'Nee' : 'No')}`,
       `  ${nl ? 'Commerciele opvolging' : 'Follow-up contact'}: ${consentFollowup ? (nl ? 'Ja' : 'Yes') : (nl ? 'Nee' : 'No')}`,
       '',
+      ...(optOutUrl ? [`Opt-out link: ${optOutUrl}`, ''] : []),
       `Datum: ${new Date().toLocaleDateString('nl-NL')}`,
     ];
 
