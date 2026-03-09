@@ -280,7 +280,7 @@ section { padding: 100px 56px; }
         <div class="score-verdict">
           <div class="score-verdict-label">Verdict</div>
           <div class="score-verdict-val">Market Ready</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:4px;">&euro;2,000 onboarding</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Programme II</div>
         </div>
       </div>
     </div>
@@ -300,23 +300,20 @@ section { padding: 100px 56px; }
     <div class="band-card green">
       <div class="band-range">55&ndash;100</div>
       <div class="band-label">Market Ready</div>
-      <div class="band-desc">Your fundamentals are in place. You have a clear ICP, a credible regulatory position and a GTM model that works for EU buyers. We can start building pipeline now.</div>
-      <div class="band-action">&rarr; HCI Exploration programme &middot; immediate start</div>
-      <div class="band-price">Onboarding from &euro;2,000</div>
+      <div class="band-desc">Your fundamentals are in place. You are ready to build EU pipeline now. Programme II is your starting point.</div>
+      <div class="band-action">&rarr; Programme II recommended &mdash; EU Market Entry</div>
     </div>
     <div class="band-card amber">
       <div class="band-range">30&ndash;54</div>
       <div class="band-label">Needs Preparation</div>
-      <div class="band-desc">Solid potential, specific gaps. Typically: regulatory position unclear, ICP too broad or value proposition not reframed for EU buyers yet. Fixable &mdash; in 4-8 weeks.</div>
-      <div class="band-action">&rarr; GTM Design + 90-day foundation phase</div>
-      <div class="band-price">Onboarding from &euro;4,500</div>
+      <div class="band-desc">Solid potential, specific gaps. Programme I gives you the validated ICP and market map you need before outreach starts.</div>
+      <div class="band-action">&rarr; Start with Programme I &mdash; EU Market Intelligence</div>
     </div>
     <div class="band-card red">
       <div class="band-range">0&ndash;29</div>
       <div class="band-label">Foundation First</div>
-      <div class="band-desc">Significant work needed before any customer conversations make sense. This is not a rejection &mdash; it is the honest assessment that protects your investment. We can build from here.</div>
-      <div class="band-action">&rarr; Full Commitment programme &middot; onboarding waived</div>
-      <div class="band-price">From &euro;14,500/month</div>
+      <div class="band-desc">Significant foundation work needed first. This is not a rejection &mdash; it is the assessment that protects your investment. Programme I tells you exactly what to fix.</div>
+      <div class="band-action">&rarr; Programme I is your honest starting point</div>
     </div>
   </div>
 </div>
@@ -396,7 +393,7 @@ section { padding: 100px 56px; }
     <div class="help-card">
       <div class="help-icon">&#128182;</div>
       <div class="help-title">What it will cost to get market-ready</div>
-      <div class="help-body">Your score maps directly to HCI's onboarding tiers. Score 55+: &euro;2,000 onboarding. Score 30-54: &euro;4,500. Score 0-29: onboarding waived. No surprises, no hidden fees.</div>
+      <div class="help-body">Your score maps directly to the right programme. Score 55+: Programme II &mdash; Market Entry. Score 30&ndash;54: Programme I &mdash; Intelligence first. Score 0&ndash;29: Programme I &mdash; honest foundation. See full programme details at <a href="/services/" style="color:var(--gold);text-decoration:none">hes-consultancy.nl/services/</a></div>
     </div>
     <div class="help-card">
       <div class="help-icon">&#128197;</div>
@@ -580,10 +577,10 @@ function showResults(){
     dimScores.push(Math.round(total/75*100));
   }
   var overall=Math.round(dimScores.reduce(function(a,b){return a+b;},0)/6);
-  var band,bandColor,bandDesc,bandAction,onboarding;
-  if(overall>=55){band="Market Ready";bandColor="#4ADE80";bandDesc="Your fundamentals are in place. We can start building pipeline now.";bandAction="HCI Exploration programme \u2014 active pipeline within weeks.";onboarding="Onboarding: \u20ac2,000";}
-  else if(overall>=30){band="Needs Preparation";bandColor="#FCD34D";bandDesc="Solid potential with specific gaps. 4\u20138 weeks of preparation before we start outreach.";bandAction="GTM Design + Foundation phase \u2014 first conversations in 3\u20134 months.";onboarding="Onboarding: \u20ac4,500";}
-  else{band="Foundation First";bandColor="#F87171";bandDesc="Significant work needed before customer conversations make sense. Fully buildable from here.";bandAction="Full Commitment programme \u2014 onboarding fee waived at this tier.";onboarding="Onboarding waived";}
+  var band,bandColor,bandDesc,bandAction;
+  if(overall>=55){band="Market Ready";bandColor="#4ADE80";bandDesc="Your fundamentals are in place. You are ready to build EU pipeline now.";bandAction="Programme II recommended \u2014 EU Market Entry";}
+  else if(overall>=30){band="Needs Preparation";bandColor="#FCD34D";bandDesc="Solid potential with specific gaps. Programme I gives you the validated foundation.";bandAction="Start with Programme I \u2014 EU Market Intelligence";}
+  else{band="Foundation First";bandColor="#F87171";bandDesc="Foundation work needed before customer conversations make sense. Fully buildable.";bandAction="Programme I is your honest starting point";}
   var dimsHtml='';
   for(var i=0;i<dimNames.length;i++){
     var c=dimScores[i]>=55?'#4ADE80':dimScores[i]>=30?'#FCD34D':'#F87171';
@@ -591,7 +588,7 @@ function showResults(){
   }
   var el=document.getElementById('scanResults');
   el.className='results-card active';
-  el.innerHTML='<div class="results-headline">Your EU Readiness Score</div><div class="results-score-display"><div class="results-score-num">'+overall+'</div><div class="results-score-info"><div class="results-score-band" style="color:'+bandColor+'">'+band+'</div><div class="results-score-desc">'+bandDesc+'</div></div></div><div class="results-dims">'+dimsHtml+'</div><div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:300;">'+bandAction+' \u00b7 '+onboarding+'</div><div class="results-cta"><div class="results-cta-text">Book a 30-minute call with Mike to walk through your score. No pitch \u2014 just an honest conversation about what the results mean and what the right next step is for your specific situation.</div><div class="results-actions"><a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">Book a call with Mike \u2192</a><a href="/" class="btn-secondary">Back to home</a></div></div>';
+  el.innerHTML='<div class="results-headline">Your EU Readiness Score</div><div class="results-score-display"><div class="results-score-num">'+overall+'</div><div class="results-score-info"><div class="results-score-band" style="color:'+bandColor+'">'+band+'</div><div class="results-score-desc">'+bandDesc+'</div></div></div><div class="results-dims">'+dimsHtml+'</div><div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:300;">'+bandAction+' \u00b7 <a href="/services/" style="color:var(--gold)">See what\u2019s included \u2192</a></div><div class="results-cta"><div class="results-cta-text">Book a 30-minute call with Mike to walk through your score. No pitch \u2014 just an honest conversation about what the results mean and what the right next step is for your specific situation.</div><div class="results-actions"><a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">Book a call with Mike \u2192</a><a href="/" class="btn-secondary">Back to home</a></div></div>';
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 renderQuestion(0);
