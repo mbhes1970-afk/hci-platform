@@ -4,135 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terms &amp; Conditions — HES Consultancy International</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--accent:#6C5CE7;--bg:#0d0f14;--bg-card:#13151c;--border:rgba(255,255,255,.06);--white:#f0eef5;--text:#c0bdd0;--text-dim:#6e6b80;--gold:#c8a55a}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}
-.container{max-width:740px;margin:0 auto;padding:60px 32px 80px}
-nav{padding:20px 32px;display:flex;justify-content:space-between;align-items:center;max-width:740px;margin:0 auto}
-nav a{color:var(--white);text-decoration:none;font-weight:600;font-size:14px}nav a:hover{color:var(--accent)}
-.lang-toggle{display:flex;gap:4px}
-.lang-btn{padding:4px 10px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;background:transparent;color:var(--text-dim);transition:all .2s}
-.lang-btn.active{background:var(--accent);color:#fff}
-h1{font-family:'Instrument Serif',serif;font-size:32px;color:var(--white);margin-bottom:8px}
-h1 em{font-style:italic;color:var(--gold)}
-.subtitle{color:var(--text-dim);font-size:13px;margin-bottom:40px}
-h2{font-family:'Instrument Serif',serif;font-size:20px;color:var(--white);margin:36px 0 12px}
-p{margin-bottom:14px}strong{color:var(--white)}a{color:var(--accent)}
-ul{margin:0 0 14px 20px}li{margin-bottom:6px}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0}
-footer{text-align:center;padding:40px 32px;font-size:12px;color:var(--text-dim);border-top:1px solid var(--border)}
-footer a{color:var(--text-dim);text-decoration:none;margin:0 12px}footer a:hover{color:var(--accent)}
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.1); --gold-border: rgba(201,168,76,0.22);
+  --ink: #0D0D0D; --ink-2: #131313; --ink-3: #1A1A1A;
+  --paper: #F7F4EE;
+  --muted: #888880; --muted-2: rgba(247,244,238,0.45); --muted-3: rgba(247,244,238,0.65);
+  --border: rgba(247,244,238,0.07);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--paper); overflow-x: hidden; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(13,13,13,0.97);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.05em; color: var(--paper); }
+.nav-logo-sub { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { color: rgba(247,244,238,0.65); text-decoration: none; font-size: 13px; letter-spacing: 0.05em; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 9px 22px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold); }
+.container { max-width: 760px; margin: 0 auto; padding: 140px 32px 80px; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 600; color: var(--paper); margin-bottom: 8px; line-height: 1.1; }
+h1 em { font-style: italic; color: var(--gold); }
+.subtitle { color: var(--muted); font-size: 13px; margin-bottom: 48px; letter-spacing: 0.05em; }
+h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--paper); margin: 40px 0 14px; }
+p { font-size: 15px; line-height: 1.85; color: var(--muted-3); font-weight: 300; margin-bottom: 14px; }
+strong { color: var(--paper); }
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-light); }
+ul { margin: 0 0 14px 20px; }
+li { margin-bottom: 6px; font-size: 15px; line-height: 1.7; color: var(--muted-3); font-weight: 300; }
+footer { border-top: 1px solid var(--border); padding: 28px 56px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: rgba(247,244,238,0.35); }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: var(--muted); }
+@media (max-width: 1024px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .container { padding: 100px 24px 60px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+}
 </style>
 </head>
 <body>
 <nav>
-  <a href="/">← HES Consultancy International</a>
-  <div class="lang-toggle"><button class="lang-btn active" onclick="setLang('nl')">NL</button><button class="lang-btn" onclick="setLang('en')">EN</button></div>
+  <a href="/" style="text-decoration:none">
+    <div class="nav-logo">
+      <div class="nav-logo-main">HES Consultancy International</div>
+      <div class="nav-logo-sub">From Strategy to First Customer</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#why" data-nl="Waarom HCI" data-en="Why HCI">Waarom HCI</a></li>
+    <li><a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a></li>
+    <li><a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a></li>
+    <li><a href="/about/" data-nl="Over ons" data-en="About">Over ons</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Bel ons" data-en="Book a Call">Bel ons</a>
+  </div>
 </nav>
 <div class="container">
 
-<div id="content-nl">
-<h1>Algemene <em>Voorwaarden</em></h1>
-<p class="subtitle">Laatst bijgewerkt: maart 2026</p>
+<h1 data-nl="Algemene <em>Voorwaarden</em>" data-en="Terms &amp; <em>Conditions</em>">Algemene <em>Voorwaarden</em></h1>
+<p class="subtitle" data-nl="Laatst bijgewerkt: maart 2026" data-en="Last updated: March 2026">Laatst bijgewerkt: maart 2026</p>
 
-<h2>Artikel 1 — Definities</h2>
+<h2 data-nl="Artikel 1 — Definities" data-en="Article 1 — Definitions">Artikel 1 — Definities</h2>
 <ul>
-<li><strong>"HCI":</strong> HES Consultancy International</li>
-<li><strong>"Klant":</strong> de partij die een programma afneemt</li>
-<li><strong>"Programma":</strong> &eacute;&eacute;n van de drie vaste programma's (I, II of III)</li>
-<li><strong>"Deliverable":</strong> het schriftelijk omschreven resultaat per programma</li>
+<li data-nl="&lt;strong&gt;&quot;HCI&quot;:&lt;/strong&gt; HES Consultancy International" data-en="&lt;strong&gt;&quot;HCI&quot;:&lt;/strong&gt; HES Consultancy International"><strong>"HCI":</strong> HES Consultancy International</li>
+<li data-nl="&lt;strong&gt;&quot;Klant&quot;:&lt;/strong&gt; de partij die een programma afneemt" data-en="&lt;strong&gt;&quot;Client&quot;:&lt;/strong&gt; the party purchasing a programme"><strong>"Klant":</strong> de partij die een programma afneemt</li>
+<li data-nl="&lt;strong&gt;&quot;Programma&quot;:&lt;/strong&gt; &eacute;&eacute;n van de drie vaste programma's (I, II of III)" data-en="&lt;strong&gt;&quot;Programme&quot;:&lt;/strong&gt; one of the three fixed programmes (I, II or III)"><strong>"Programma":</strong> &eacute;&eacute;n van de drie vaste programma's (I, II of III)</li>
+<li data-nl="&lt;strong&gt;&quot;Deliverable&quot;:&lt;/strong&gt; het schriftelijk omschreven resultaat per programma" data-en="&lt;strong&gt;&quot;Deliverable&quot;:&lt;/strong&gt; the written result defined per programme"><strong>"Deliverable":</strong> het schriftelijk omschreven resultaat per programma</li>
 </ul>
 
-<h2>Artikel 2 — Toepasselijkheid</h2>
-<p>Deze voorwaarden zijn van toepassing op alle offertes, overeenkomsten en leveringen van HCI. Afwijkingen zijn uitsluitend geldig indien schriftelijk overeengekomen.</p>
+<h2 data-nl="Artikel 2 — Toepasselijkheid" data-en="Article 2 — Applicability">Artikel 2 — Toepasselijkheid</h2>
+<p data-nl="Deze voorwaarden zijn van toepassing op alle offertes, overeenkomsten en leveringen van HCI. Afwijkingen zijn uitsluitend geldig indien schriftelijk overeengekomen." data-en="These terms apply to all quotations, agreements and deliveries by HCI. Deviations are only valid if agreed in writing.">Deze voorwaarden zijn van toepassing op alle offertes, overeenkomsten en leveringen van HCI. Afwijkingen zijn uitsluitend geldig indien schriftelijk overeengekomen.</p>
 
-<h2>Artikel 3 — Programma's en scope</h2>
-<p>Elk programma heeft een vaste scope zoals omschreven in het programmavoorstel. Werkzaamheden buiten de scope worden niet uitgevoerd zonder een afzonderlijke schriftelijke opdracht.</p>
-<p>HCI behoudt zich het recht voor een programma te weigeren indien de vereiste klantinformatie niet tijdig beschikbaar wordt gesteld.</p>
-<p>Het aantal introductiegesprekken bij Programma II is gebaseerd op het bij aanvang overeengekomen klantprofiel en de doelsector, zoals vastgesteld via de EU Readiness Scan en/of Programma I. HCI behoudt zich het recht voor de uitvoering te pauzeren indien de klant essenti&euml;le informatie, toegang of medewerking niet tijdig beschikbaar stelt. Een dergelijke pauze telt niet mee als onderdeel van de kwartaallooptijd.</p>
+<h2 data-nl="Artikel 3 — Programma's en scope" data-en="Article 3 — Programmes and scope">Artikel 3 — Programma's en scope</h2>
+<p data-nl="Elk programma heeft een vaste scope zoals omschreven in het programmavoorstel. Werkzaamheden buiten de scope worden niet uitgevoerd zonder een afzonderlijke schriftelijke opdracht." data-en="Each programme has a fixed scope as described in the programme proposal. Work outside the scope will not be performed without a separate written assignment.">Elk programma heeft een vaste scope zoals omschreven in het programmavoorstel. Werkzaamheden buiten de scope worden niet uitgevoerd zonder een afzonderlijke schriftelijke opdracht.</p>
+<p data-nl="HCI behoudt zich het recht voor een programma te weigeren indien de vereiste klantinformatie niet tijdig beschikbaar wordt gesteld." data-en="HCI reserves the right to decline a programme if the required client information is not made available in a timely manner.">HCI behoudt zich het recht voor een programma te weigeren indien de vereiste klantinformatie niet tijdig beschikbaar wordt gesteld.</p>
+<p data-nl="Het aantal introductiegesprekken bij Programma II is gebaseerd op het bij aanvang overeengekomen klantprofiel en de doelsector, zoals vastgesteld via de EU Readiness Scan en/of Programma I. HCI behoudt zich het recht voor de uitvoering te pauzeren indien de klant essenti&euml;le informatie, toegang of medewerking niet tijdig beschikbaar stelt. Een dergelijke pauze telt niet mee als onderdeel van de kwartaallooptijd." data-en="The number of introduction meetings under Programme II is based on the client profile and target sector agreed at the outset, as established via the EU Readiness Scan and/or Programme I. HCI reserves the right to pause execution if the client fails to provide essential information, access or cooperation in a timely manner. Such a pause does not count as part of the quarterly term.">Het aantal introductiegesprekken bij Programma II is gebaseerd op het bij aanvang overeengekomen klantprofiel en de doelsector, zoals vastgesteld via de EU Readiness Scan en/of Programma I. HCI behoudt zich het recht voor de uitvoering te pauzeren indien de klant essenti&euml;le informatie, toegang of medewerking niet tijdig beschikbaar stelt. Een dergelijke pauze telt niet mee als onderdeel van de kwartaallooptijd.</p>
 
-<h2>Artikel 4 — Prijs en betaling</h2>
-<p>Prijzen zijn exclusief BTW. Facturen worden voldaan binnen 14 dagen na factuurdatum.</p>
-<p>Bij Programma II en III: facturatie per kwartaal, vooraf. Bij te late betaling is wettelijke handelsrente verschuldigd.</p>
+<h2 data-nl="Artikel 4 — Prijs en betaling" data-en="Article 4 — Price and payment">Artikel 4 — Prijs en betaling</h2>
+<p data-nl="Prijzen zijn exclusief BTW. Facturen worden voldaan binnen 14 dagen na factuurdatum." data-en="Prices are exclusive of VAT. Invoices are due within 14 days of the invoice date.">Prijzen zijn exclusief BTW. Facturen worden voldaan binnen 14 dagen na factuurdatum.</p>
+<p data-nl="Bij Programma II en III: facturatie per kwartaal, vooraf. Bij te late betaling is wettelijke handelsrente verschuldigd." data-en="For Programme II and III: invoicing per quarter, in advance. Late payment is subject to statutory commercial interest.">Bij Programma II en III: facturatie per kwartaal, vooraf. Bij te late betaling is wettelijke handelsrente verschuldigd.</p>
 
-<h2>Artikel 5 — Looptijd en opzegging</h2>
-<p>Programma I: eenmalig, geen opzegtermijn.</p>
-<p>Programma II en III: per kwartaal verlengbaar. Opzegging dient te geschieden v&oacute;&oacute;r aanvang van het nieuwe kwartaal. Het lopende kwartaal wordt niet gecrediteerd bij tussentijdse opzegging.</p>
+<h2 data-nl="Artikel 5 — Looptijd en opzegging" data-en="Article 5 — Term and termination">Artikel 5 — Looptijd en opzegging</h2>
+<p data-nl="Programma I: eenmalig, geen opzegtermijn." data-en="Programme I: one-off, no notice period.">Programma I: eenmalig, geen opzegtermijn.</p>
+<p data-nl="Programma II en III: per kwartaal verlengbaar. Opzegging dient te geschieden v&oacute;&oacute;r aanvang van het nieuwe kwartaal. Het lopende kwartaal wordt niet gecrediteerd bij tussentijdse opzegging." data-en="Programme II and III: renewable per quarter. Termination must be given before the start of the new quarter. The current quarter is not refunded upon early termination.">Programma II en III: per kwartaal verlengbaar. Opzegging dient te geschieden v&oacute;&oacute;r aanvang van het nieuwe kwartaal. Het lopende kwartaal wordt niet gecrediteerd bij tussentijdse opzegging.</p>
 
-<h2>Artikel 6 — Succesfee (Programma III)</h2>
-<p>De succesfee bedraagt 8&ndash;12% van het eerste volledige jaarcontract, afhankelijk van de contractwaarde zoals vastgelegd in de programmaovereenkomst.</p>
-<p>"Eerste klant" betekent: een gesigneerd contract van minimaal 12 maanden. Pilots, Letters of Intent en proefperiodes tellen niet.</p>
-<p>De succesfee is verschuldigd binnen 30 dagen na contractondertekening door de klant.</p>
+<h2 data-nl="Artikel 6 — Succesfee (Programma III)" data-en="Article 6 — Success fee (Programme III)">Artikel 6 — Succesfee (Programma III)</h2>
+<p data-nl="De succesfee bedraagt 8&ndash;12% van het eerste volledige jaarcontract, afhankelijk van de contractwaarde zoals vastgelegd in de programmaovereenkomst." data-en="The success fee is 8&ndash;12% of the first full annual contract, depending on the contract value as specified in the programme agreement.">De succesfee bedraagt 8&ndash;12% van het eerste volledige jaarcontract, afhankelijk van de contractwaarde zoals vastgelegd in de programmaovereenkomst.</p>
+<p data-nl="&quot;Eerste klant&quot; betekent: een gesigneerd contract van minimaal 12 maanden. Pilots, Letters of Intent en proefperiodes tellen niet." data-en="&quot;First customer&quot; means: a signed contract of at least 12 months. Pilots, Letters of Intent and trial periods do not qualify.">"Eerste klant" betekent: een gesigneerd contract van minimaal 12 maanden. Pilots, Letters of Intent en proefperiodes tellen niet.</p>
+<p data-nl="De succesfee is verschuldigd binnen 30 dagen na contractondertekening door de klant." data-en="The success fee is due within 30 days of contract signing by the customer.">De succesfee is verschuldigd binnen 30 dagen na contractondertekening door de klant.</p>
 
-<h2>Artikel 7 — Vertrouwelijkheid</h2>
-<p>Beide partijen behandelen elkaars bedrijfsinformatie vertrouwelijk. Deze verplichting geldt gedurende de looptijd en 3 jaar daarna.</p>
+<h2 data-nl="Artikel 7 — Vertrouwelijkheid" data-en="Article 7 — Confidentiality">Artikel 7 — Vertrouwelijkheid</h2>
+<p data-nl="Beide partijen behandelen elkaars bedrijfsinformatie vertrouwelijk. Deze verplichting geldt gedurende de looptijd en 3 jaar daarna." data-en="Both parties treat each other's business information confidentially. This obligation applies during the term and for 3 years thereafter.">Beide partijen behandelen elkaars bedrijfsinformatie vertrouwelijk. Deze verplichting geldt gedurende de looptijd en 3 jaar daarna.</p>
 
-<h2>Artikel 8 — Aansprakelijkheid</h2>
-<p>HCI is niet aansprakelijk voor indirecte schade of gevolgschade. De aansprakelijkheid van HCI is beperkt tot de factuurwaarde van het betreffende programma.</p>
+<h2 data-nl="Artikel 8 — Aansprakelijkheid" data-en="Article 8 — Liability">Artikel 8 — Aansprakelijkheid</h2>
+<p data-nl="HCI is niet aansprakelijk voor indirecte schade of gevolgschade. De aansprakelijkheid van HCI is beperkt tot de factuurwaarde van het betreffende programma." data-en="HCI is not liable for indirect or consequential damages. HCI's liability is limited to the invoice value of the relevant programme.">HCI is niet aansprakelijk voor indirecte schade of gevolgschade. De aansprakelijkheid van HCI is beperkt tot de factuurwaarde van het betreffende programma.</p>
 
-<h2>Artikel 9 — Intellectueel eigendom</h2>
-<p>Rapporten en analyses die HCI opstelt, worden na volledige betaling eigendom van de klant. HCI behoudt het recht tot gebruik van methodieken en werkwijzen.</p>
+<h2 data-nl="Artikel 9 — Intellectueel eigendom" data-en="Article 9 — Intellectual property">Artikel 9 — Intellectueel eigendom</h2>
+<p data-nl="Rapporten en analyses die HCI opstelt, worden na volledige betaling eigendom van de klant. HCI behoudt het recht tot gebruik van methodieken en werkwijzen." data-en="Reports and analyses prepared by HCI become the property of the client upon full payment. HCI retains the right to use its methodologies and working methods.">Rapporten en analyses die HCI opstelt, worden na volledige betaling eigendom van de klant. HCI behoudt het recht tot gebruik van methodieken en werkwijzen.</p>
 
-<h2>Artikel 10 — Toepasselijk recht</h2>
-<p>Nederlands recht is van toepassing. Geschillen worden voorgelegd aan de bevoegde rechter in Nederland.</p>
+<h2 data-nl="Artikel 10 — Toepasselijk recht" data-en="Article 10 — Governing law">Artikel 10 — Toepasselijk recht</h2>
+<p data-nl="Nederlands recht is van toepassing. Geschillen worden voorgelegd aan de bevoegde rechter in Nederland." data-en="Dutch law applies. Disputes shall be submitted to the competent court in the Netherlands.">Nederlands recht is van toepassing. Geschillen worden voorgelegd aan de bevoegde rechter in Nederland.</p>
 
-<p class="subtitle" style="margin-top:40px">Laatste update: maart 2026</p>
-</div>
-
-<div id="content-en" style="display:none">
-<h1>Terms &amp; <em>Conditions</em></h1>
-<p class="subtitle">Last updated: March 2026</p>
-
-<h2>Article 1 — Definitions</h2>
-<ul>
-<li><strong>"HCI":</strong> HES Consultancy International</li>
-<li><strong>"Client":</strong> the party purchasing a programme</li>
-<li><strong>"Programme":</strong> one of the three fixed programmes (I, II or III)</li>
-<li><strong>"Deliverable":</strong> the written result defined per programme</li>
-</ul>
-
-<h2>Article 2 — Applicability</h2>
-<p>These terms apply to all quotations, agreements and deliveries by HCI. Deviations are only valid if agreed in writing.</p>
-
-<h2>Article 3 — Programmes and scope</h2>
-<p>Each programme has a fixed scope as described in the programme proposal. Work outside the scope will not be performed without a separate written assignment.</p>
-<p>HCI reserves the right to decline a programme if the required client information is not made available in a timely manner.</p>
-<p>The number of introduction meetings under Programme II is based on the client profile and target sector agreed at the outset, as established via the EU Readiness Scan and/or Programme I. HCI reserves the right to pause execution if the client fails to provide essential information, access or cooperation in a timely manner. Such a pause does not count as part of the quarterly term.</p>
-
-<h2>Article 4 — Price and payment</h2>
-<p>Prices are exclusive of VAT. Invoices are due within 14 days of the invoice date.</p>
-<p>For Programme II and III: invoicing per quarter, in advance. Late payment is subject to statutory commercial interest.</p>
-
-<h2>Article 5 — Term and termination</h2>
-<p>Programme I: one-off, no notice period.</p>
-<p>Programme II and III: renewable per quarter. Termination must be given before the start of the new quarter. The current quarter is not refunded upon early termination.</p>
-
-<h2>Article 6 — Success fee (Programme III)</h2>
-<p>The success fee is 8&ndash;12% of the first full annual contract, depending on the contract value as specified in the programme agreement.</p>
-<p>"First customer" means: a signed contract of at least 12 months. Pilots, Letters of Intent and trial periods do not qualify.</p>
-<p>The success fee is due within 30 days of contract signing by the customer.</p>
-
-<h2>Article 7 — Confidentiality</h2>
-<p>Both parties treat each other's business information confidentially. This obligation applies during the term and for 3 years thereafter.</p>
-
-<h2>Article 8 — Liability</h2>
-<p>HCI is not liable for indirect or consequential damages. HCI's liability is limited to the invoice value of the relevant programme.</p>
-
-<h2>Article 9 — Intellectual property</h2>
-<p>Reports and analyses prepared by HCI become the property of the client upon full payment. HCI retains the right to use its methodologies and working methods.</p>
-
-<h2>Article 10 — Governing law</h2>
-<p>Dutch law applies. Disputes shall be submitted to the competent court in the Netherlands.</p>
-
-<p class="subtitle" style="margin-top:40px">Last updated: March 2026</p>
-</div>
+<p class="subtitle" style="margin-top:40px" data-nl="Laatste update: maart 2026" data-en="Last updated: March 2026">Laatste update: maart 2026</p>
 
 </div>
-<footer><a href="/">Home</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="mailto:mbhes@hes-consultancy-international.com">Contact</a></footer>
-<script>
-function setLang(l){document.getElementById('content-nl').style.display=l==='nl'?'block':'none';document.getElementById('content-en').style.display=l==='en'?'block':'none';document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toUpperCase()===l.toUpperCase()));document.documentElement.lang=l}
-</script>
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/" data-nl="Home" data-en="Home">Home</a>
+    <a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a>
+    <a href="/about/" data-nl="Over ons" data-en="About">Over ons</a>
+    <a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a>
+    <a href="mailto:mbhes@hes-consultancy-international.com">mbhes@hes-consultancy-international.com</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Privacybeleid" data-en="Privacy Policy">Privacybeleid</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Voorwaarden" data-en="Terms &amp; Conditions">Voorwaarden</a></div>
+</footer>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>
