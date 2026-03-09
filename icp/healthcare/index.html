@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,6 +89,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 .footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--gold); }
 .footer-legal { font-size: 11px; color: var(--text-muted); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted, #888880); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold, #C9A84C); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .hero-left > * { animation: fadeUp 0.6s ease both; }
 .hero-headline { animation-delay: 0.1s; } .hero-body { animation-delay: 0.2s; }
@@ -111,9 +113,16 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </a>
   <a href="/" class="nav-back">
     <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Back to home
+    <span data-nl="Terug naar home" data-en="Back to home">Back to home</span>
   </a>
-  <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta">Book a Call</a>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Gesprek Boeken" data-en="Book a Call">Book a Call</a>
+  </div>
 </nav>
 <section class="hero" style="padding-top:160px;padding-bottom:100px">
   <div class="hero-bg"></div>
@@ -123,24 +132,24 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
       Healthcare &amp; Life Sciences · NL / EU
     </div>
-    <h1 class="hero-headline">
+    <h1 class="hero-headline" data-nl="Nederlandse zorg<br>koopt niet op<br><em>ROI.</em><br>Maar op <em>compliance.</em>" data-en="Dutch healthcare<br>doesn't buy<br>on <em>ROI.</em><br>It buys on <em>compliance.</em>">
       Dutch healthcare<br>
       doesn't buy<br>
       on <em>ROI.</em><br>
       It buys on <em>compliance.</em>
     </h1>
-    <p class="hero-body">
+    <p class="hero-body" data-nl="NEN 7510, AVG, NIS2, WGBO, EU AI Act — de Nederlandse zorgsector is een van de meest gereguleerde markten in Europa. Het juiste product met het verkeerde compliance-verhaal komt niet voorbij inkoop. Wij kennen beide kanten van die vergelijking." data-en="NEN 7510, GDPR, NIS2, WGBO, NIS2 — the Dutch healthcare sector is one of the most regulated markets in Europe. The right product with the wrong regulatory story doesn't get past procurement. We know both sides of that equation.">
       NEN 7510, GDPR, NIS2, WGBO, NIS2 — the Dutch healthcare sector
       is one of the most regulated markets in Europe.
       The right product with the wrong regulatory story doesn't get past procurement.
       We know both sides of that equation.
     </p>
     <div style="display:flex;flex-direction:column;gap:0">
-      <a href="/services/assessment" class="btn-primary">
+      <a href="/services/assessment" class="btn-primary" data-nl="Gratis EU Zorg Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;" data-en="Free EU Healthcare Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;">
         Free EU Healthcare Readiness Scan
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">Or speak to Mike directly</a>
+      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary" data-nl="Of spreek Mike direct" data-en="Or speak to Mike directly">Or speak to Mike directly</a>
     </div>
   </div>
   <div class="hero-right">
@@ -177,9 +186,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
 </section>
 <section class="segments-section" id="segments">
-  <div class="section-tag">Target Segments</div>
-  <h2 class="section-title">Where HCI has active reach in Dutch healthcare</h2>
-  <p class="section-body">Direct C-level introductions across all major healthcare segments. Not cold outreach — warm connections built over 30 years.</p>
+  <div class="section-tag" data-nl="Doelsegmenten" data-en="Target Segments">Target Segments</div>
+  <h2 class="section-title" data-nl="Waar HCI actief bereik heeft in de Nederlandse zorg" data-en="Where HCI has active reach in Dutch healthcare">Where HCI has active reach in Dutch healthcare</h2>
+  <p class="section-body" data-nl="Directe C-level introducties in alle grote zorgsegmenten. Geen koude acquisitie — warme connecties opgebouwd in 30 jaar." data-en="Direct C-level introductions across all major healthcare segments. Not cold outreach — warm connections built over 30 years.">Direct C-level introductions across all major healthcare segments. Not cold outreach — warm connections built over 30 years.</p>
   <div class="segments-grid">
     <div class="segment-card">
       <div class="segment-icon">&#127973;</div>
@@ -221,8 +230,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 </section>
 <section class="spotlight-section" id="case">
   <div>
-    <div class="section-tag">Case Spotlight</div>
-    <h2 class="section-title">EU-native compliance suite enters Dutch healthcare</h2>
+    <div class="section-tag" data-nl="Case Spotlight" data-en="Case Spotlight">Case Spotlight</div>
+    <h2 class="section-title" data-nl="EU-native compliance suite betreedt Nederlandse zorg" data-en="EU-native compliance suite enters Dutch healthcare">EU-native compliance suite enters Dutch healthcare</h2>
     <p class="section-body" style="margin-bottom:32px">
       Following the Zivver/Kiteworks acquisition and the Dutch cabinet's official confirmation
       that CLOUD Act applies to Zivver data — even stored on European servers — approximately
@@ -253,8 +262,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 <section class="drivers-section" id="drivers">
   <div class="drivers-intro">
     <div>
-      <div class="section-tag">Market Drivers</div>
-      <h2 class="section-title">Why now is the right moment for healthcare technology</h2>
+      <div class="section-tag" data-nl="Marktdrijfveren" data-en="Market Drivers">Market Drivers</div>
+      <h2 class="section-title" data-nl="Waarom nu het juiste moment is voor zorgtechnologie" data-en="Why now is the right moment for healthcare technology">Why now is the right moment for healthcare technology</h2>
     </div>
     <div>
       <p class="section-body" style="padding-top:16px">
@@ -288,9 +297,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 </section>
 <section class="cta-section">
   <div class="cta-bg"></div>
-  <p class="cta-eyebrow">Ready to Enter Dutch Healthcare?</p>
-  <h2 class="cta-title">Know your regulatory position before the first meeting.</h2>
-  <p class="cta-body">The EU Healthcare Readiness Scan assesses your NEN 7510, GDPR, NIS2 and WGBO position. Seven minutes. No sales call required.</p>
+  <p class="cta-eyebrow" data-nl="Klaar voor de Nederlandse zorg?" data-en="Ready to Enter Dutch Healthcare?">Ready to Enter Dutch Healthcare?</p>
+  <h2 class="cta-title" data-nl="Ken uw regelgevingspositie voor het eerste gesprek." data-en="Know your regulatory position before the first meeting.">Know your regulatory position before the first meeting.</h2>
+  <p class="cta-body" data-nl="De EU Healthcare Readiness Scan beoordeelt uw NEN 7510, AVG, NIS2 en WGBO positie. Zeven minuten. Geen verkoopgesprek nodig." data-en="The EU Healthcare Readiness Scan assesses your NEN 7510, GDPR, NIS2 and WGBO position. Seven minutes. No sales call required.">The EU Healthcare Readiness Scan assesses your NEN 7510, GDPR, NIS2 and WGBO position. Seven minutes. No sales call required.</p>
   <div class="cta-actions">
     <a href="/services/assessment" class="btn-primary">
       Free Healthcare Readiness Scan
@@ -311,5 +320,6 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
   <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Privacy Policy</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Terms &amp; Conditions</a></div>
 </footer>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>

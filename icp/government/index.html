@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,6 +101,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 .footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--gold); }
 .footer-legal { font-size: 11px; color: var(--text-muted); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted, #888880); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold, #C9A84C); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .hero-left > * { animation: fadeUp 0.6s ease both; }
 .hero-headline { animation-delay: 0.1s; } .hero-body { animation-delay: 0.2s; }
@@ -123,9 +125,16 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </a>
   <a href="/" class="nav-back">
     <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Back to home
+    <span data-nl="Terug naar home" data-en="Back to home">Back to home</span>
   </a>
-  <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta">Book a Call</a>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Gesprek Boeken" data-en="Book a Call">Book a Call</a>
+  </div>
 </nav>
 <section class="hero" style="padding-top:160px;padding-bottom:100px">
   <div class="hero-bg"></div>
@@ -135,24 +144,23 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
       Government &amp; Public Sector · NL / Benelux
     </div>
-    <h1 class="hero-headline">
-      Public sector<br>
+    <h1 class="hero-headline" data-nl="De publieke sector<br>beweegt niet snel.<br>Maar beweegt wel<br><em>met zekerheid.</em>" data-en="Public sector<br>doesn't move fast.<br>But it moves<br><em>with certainty.</em>">Public sector<br>
       doesn't move fast.<br>
       But it moves<br>
       <em>with certainty.</em>
     </h1>
-    <p class="hero-body">
+    <p class="hero-body" data-nl="342 Nederlandse gemeenten. 21 waterschappen. 12 provincies. Duizenden publieke organisaties die te maken hebben met BIO, NIS2, EU AI Act en een urgente verantwoordingsvraag vanuit hun raden. De markt is er. Maar publieke inkoop vereist een geheel andere aanpak." data-en="342 Dutch municipalities. 21 water boards. 12 provinces. Thousands of public organisations facing BIO, NIS2, EU AI Act and an urgent accountability question from their councils. The market is there. But public procurement requires a different approach entirely.">
       342 Dutch municipalities. 21 water boards. 12 provinces.
       Thousands of public organisations facing BIO, NIS2, EU AI Act
       and an urgent accountability question from their councils.
       The market is there. But public procurement requires a different approach entirely.
     </p>
     <div style="display:flex;flex-direction:column;gap:0">
-      <a href="/services/assessment" class="btn-primary">
+      <a href="/services/assessment" class="btn-primary" data-nl="Gratis EU Government Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;" data-en="Free EU Government Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;">
         Free EU Government Readiness Scan
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">Or speak to Mike directly</a>
+      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary" data-nl="Of spreek Mike direct" data-en="Or speak to Mike directly">Or speak to Mike directly</a>
     </div>
   </div>
   <div class="hero-right">
@@ -196,9 +204,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
 </section>
 <section class="procurement-section" id="procurement">
-  <div class="section-tag">Procurement Reality</div>
-  <h2 class="section-title">How public sector actually buys technology</h2>
-  <p class="section-body">Knowing the market size is irrelevant if you don't understand how decisions are made. Public procurement is a process — not a conversation.</p>
+  <div class="section-tag" data-nl="Inkooprealiteit" data-en="Procurement Reality">Procurement Reality</div>
+  <h2 class="section-title" data-nl="Hoe de publieke sector daadwerkelijk technologie inkoopt" data-en="How public sector actually buys technology">How public sector actually buys technology</h2>
+  <p class="section-body" data-nl="De marktomvang kennen is irrelevant als u niet begrijpt hoe beslissingen worden genomen. Publieke inkoop is een proces — geen gesprek." data-en="Knowing the market size is irrelevant if you don't understand how decisions are made. Public procurement is a process — not a conversation.">Knowing the market size is irrelevant if you don't understand how decisions are made. Public procurement is a process — not a conversation.</p>
   <div class="procurement-grid">
     <div class="proc-card">
       <div class="proc-phase">Phase 1 · Awareness</div>
@@ -228,8 +236,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 </section>
 <section class="spotlight-section" id="case">
   <div>
-    <div class="section-tag">Case Spotlight</div>
-    <h2 class="section-title">Digital sovereignty expert enters municipal market</h2>
+    <div class="section-tag" data-nl="Case Spotlight" data-en="Case Spotlight">Case Spotlight</div>
+    <h2 class="section-title" data-nl="Expert digitale soevereiniteit betreedt gemeentemarkt" data-en="Digital sovereignty expert enters municipal market">Digital sovereignty expert enters municipal market</h2>
     <p class="section-body" style="margin-bottom:32px">
       A Dutch digital sovereignty specialist with 22+ years enterprise IT experience
       and eight proprietary frameworks — including methodologies for AI governance,
@@ -258,9 +266,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
 </section>
 <section class="drivers-section" id="drivers">
-  <div class="section-tag">Regulatory Drivers</div>
-  <h2 class="section-title">Three laws creating immediate demand</h2>
-  <p class="section-body">These are not future requirements. They are active obligations creating budget and urgency in every public organisation in the Netherlands right now.</p>
+  <div class="section-tag" data-nl="Regelgevende drijfveren" data-en="Regulatory Drivers">Regulatory Drivers</div>
+  <h2 class="section-title" data-nl="Drie wetten die directe vraag creëren" data-en="Three laws creating immediate demand">Three laws creating immediate demand</h2>
+  <p class="section-body" data-nl="Dit zijn geen toekomstige vereisten. Het zijn actieve verplichtingen die budget en urgentie creëren in elke publieke organisatie in Nederland op dit moment." data-en="These are not future requirements. They are active obligations creating budget and urgency in every public organisation in the Netherlands right now.">These are not future requirements. They are active obligations creating budget and urgency in every public organisation in the Netherlands right now.</p>
   <div class="drivers-grid">
     <div class="driver-card">
       <div class="driver-law">BIO · Baseline Informatiebeveiliging Overheid</div>
@@ -338,9 +346,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 </section>
 <section class="cta-section">
   <div class="cta-bg"></div>
-  <p class="cta-eyebrow">Ready for Dutch Public Sector?</p>
-  <h2 class="cta-title">Know how your product fits before procurement does.</h2>
-  <p class="cta-body">The Government Readiness Scan assesses your BIO, NIS2, EU AI Act and CRA position — and your procurement strategy. Seven minutes.</p>
+  <p class="cta-eyebrow" data-nl="Klaar voor de Nederlandse publieke sector?" data-en="Ready for Dutch Public Sector?">Ready for Dutch Public Sector?</p>
+  <h2 class="cta-title" data-nl="Weet hoe uw product past voordat inkoop dat doet." data-en="Know how your product fits before procurement does.">Know how your product fits before procurement does.</h2>
+  <p class="cta-body" data-nl="De Government Readiness Scan beoordeelt uw BIO, NIS2, EU AI Act en CRA positie — en uw inkoopstrategie. Zeven minuten." data-en="The Government Readiness Scan assesses your BIO, NIS2, EU AI Act and CRA position — and your procurement strategy. Seven minutes.">The Government Readiness Scan assesses your BIO, NIS2, EU AI Act and CRA position — and your procurement strategy. Seven minutes.</p>
   <div class="cta-actions">
     <a href="/services/assessment" class="btn-primary">
       Free Government Readiness Scan
@@ -361,5 +369,6 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
   <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Privacy Policy</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Terms &amp; Conditions</a></div>
 </footer>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>

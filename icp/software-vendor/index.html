@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -159,6 +159,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 .footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--gold); }
 .footer-legal { font-size: 11px; color: var(--text-muted); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted, #888880); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold, #C9A84C); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .hero-left > * { animation: fadeUp 0.6s ease both; }
 .icp-badge { animation-delay: 0s; }
@@ -185,9 +187,16 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </a>
   <a href="/" class="nav-back">
     <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Back to home
+    <span data-nl="Terug naar home" data-en="Back to home">Back to home</span>
   </a>
-  <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta">Book a Call</a>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Gesprek Boeken" data-en="Book a Call">Book a Call</a>
+  </div>
 </nav>
 <section class="hero" style="padding-top:160px;padding-bottom:100px">
   <div class="hero-bg"></div>
@@ -197,24 +206,24 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
       For Software Vendors &amp; ISVs
     </div>
-    <h1 class="hero-headline">
+    <h1 class="hero-headline" data-nl="U heeft een product<br>dat werkt.<br>Europa is <em>niet</em> zomaar<br>een nieuwe markt." data-en="You have a product<br>that works.<br>Europe is <em>not</em> just<br>another market.">
       You have a product<br>
       that works.<br>
       Europe is <em>not</em> just<br>
       another market.
     </h1>
-    <p class="hero-body">
+    <p class="hero-body" data-nl="De kopers zijn anders. De regelgeving is anders. De salescyclus is anders. En wat werkte in de VS, Canada of APAC werkt hier niet automatisch. Wij helpen u de kloof te overbruggen — voordat het u geld kost." data-en="The buyers are different. The regulations are different. The sales cycle is different. And what worked in the US, Canada or APAC will not automatically work here. We help you navigate the gap — before it costs you.">
       The buyers are different. The regulations are different.
       The sales cycle is different. And what worked in the US,
       Canada or APAC will not automatically work here.
       We help you navigate the gap — before it costs you.
     </p>
     <div style="display:flex;flex-direction:column;gap:0">
-      <a href="/services/assessment" class="btn-primary">
+      <a href="/services/assessment" class="btn-primary" data-nl="Start met een Gratis EU Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;" data-en="Start with a Free EU Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;">
         Start with a Free EU Readiness Scan
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">
+      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary" data-nl="Of spreek Mike direct" data-en="Or talk to Mike directly">
         Or talk to Mike directly
       </a>
     </div>
@@ -237,9 +246,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
 </section>
 <section class="fail-section" id="challenges">
-  <div class="section-tag">Where Vendors Get Stuck</div>
-  <h2 class="section-title">Six reasons EU market entry fails</h2>
-  <p class="section-body">We have seen these patterns across 30 years and dozens of engagements. Every single one is preventable.</p>
+  <div class="section-tag" data-nl="Waar vendors vastlopen" data-en="Where Vendors Get Stuck">Where Vendors Get Stuck</div>
+  <h2 class="section-title" data-nl="Zes redenen waarom EU-markttoetreding mislukt" data-en="Six reasons EU market entry fails">Six reasons EU market entry fails</h2>
+  <p class="section-body" data-nl="We hebben deze patronen gezien in 30 jaar en tientallen trajecten. Elk patroon is te voorkomen." data-en="We have seen these patterns across 30 years and dozens of engagements. Every single one is preventable.">We have seen these patterns across 30 years and dozens of engagements. Every single one is preventable.</p>
   <div class="fail-grid">
     <div class="fail-card">
       <div class="fail-icon">&#9878;&#65039;</div>
@@ -282,8 +291,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 <section class="routes-section" id="routes">
   <div class="routes-intro">
     <div>
-      <div class="section-tag">GTM Routes</div>
-      <h2 class="section-title">Three paths to the European market</h2>
+      <div class="section-tag" data-nl="GTM Routes" data-en="GTM Routes">GTM Routes</div>
+      <h2 class="section-title" data-nl="Drie routes naar de Europese markt" data-en="Three paths to the European market">Three paths to the European market</h2>
     </div>
     <div>
       <p class="section-body" style="padding-top:16px">
@@ -314,9 +323,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
 </section>
 <section class="process-section" id="process">
-  <div class="section-tag">How It Works</div>
-  <h2 class="section-title">From first conversation to first customer</h2>
-  <p class="section-body">Every engagement starts with an honest assessment. No full commitment before we both know it makes sense.</p>
+  <div class="section-tag" data-nl="Hoe het werkt" data-en="How It Works">How It Works</div>
+  <h2 class="section-title" data-nl="Van eerste gesprek tot eerste klant" data-en="From first conversation to first customer">From first conversation to first customer</h2>
+  <p class="section-body" data-nl="Elk traject begint met een eerlijke beoordeling. Geen volledige commitment voordat we beiden weten dat het zinvol is." data-en="Every engagement starts with an honest assessment. No full commitment before we both know it makes sense.">Every engagement starts with an honest assessment. No full commitment before we both know it makes sense.</p>
   <div class="process-grid">
     <div class="process-step">
       <div class="process-num">01</div>
@@ -347,8 +356,8 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 <section class="pricing-section" id="pricing">
   <div class="pricing-intro">
     <div>
-      <div class="section-tag">Investment</div>
-      <h2 class="section-title">Transparent pricing. No surprises.</h2>
+      <div class="section-tag" data-nl="Investering" data-en="Investment">Investment</div>
+      <h2 class="section-title" data-nl="Transparante prijzen. Geen verrassingen." data-en="Transparent pricing. No surprises.">Transparent pricing. No surprises.</h2>
     </div>
     <div>
       <p class="section-body" style="padding-top:16px">
@@ -404,9 +413,9 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
 </section>
 <section class="cta-section">
   <div class="cta-bg"></div>
-  <p class="cta-eyebrow">Next Step</p>
-  <h2 class="cta-title">Seven minutes to know where you stand.</h2>
-  <p class="cta-body">The EU Readiness Scan is free, takes 7 minutes, and gives you an honest score across six dimensions. No sales call required to see your results.</p>
+  <p class="cta-eyebrow" data-nl="Volgende stap" data-en="Next Step">Next Step</p>
+  <h2 class="cta-title" data-nl="Zeven minuten om te weten waar u staat." data-en="Seven minutes to know where you stand.">Seven minutes to know where you stand.</h2>
+  <p class="cta-body" data-nl="De EU Readiness Scan is gratis, duurt 7 minuten en geeft u een eerlijke score op zes dimensies. Geen verkoopgesprek nodig om uw resultaten te zien." data-en="The EU Readiness Scan is free, takes 7 minutes, and gives you an honest score across six dimensions. No sales call required to see your results.">The EU Readiness Scan is free, takes 7 minutes, and gives you an honest score across six dimensions. No sales call required to see your results.</p>
   <div class="cta-actions">
     <a href="/services/assessment" class="btn-primary">
       Start Free EU Readiness Scan
@@ -427,5 +436,6 @@ footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex;
   </div>
   <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Privacy Policy</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Terms &amp; Conditions</a></div>
 </footer>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>

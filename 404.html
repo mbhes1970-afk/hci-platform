@@ -18,18 +18,28 @@ p{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:28px}
 .btn-primary:hover{background:#d4b366}
 .btn-ghost{border:1px solid var(--border);color:var(--text)}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim, #888880); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold, #C9A84C); }
 </style>
 </head>
 <body>
 <div class="card">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+  </div>
   <div class="code">404</div>
-  <h1>Pagina niet gevonden</h1>
-  <p>De pagina die u zoekt bestaat niet of is verplaatst. Gebruik de links hieronder om verder te navigeren.</p>
+  <h1 data-nl="Pagina niet gevonden" data-en="Page not found">Pagina niet gevonden</h1>
+  <p data-nl="De pagina die u zoekt bestaat niet of is verplaatst. Gebruik de links hieronder om verder te navigeren." data-en="The page you are looking for does not exist or has been moved. Use the links below to navigate further.">De pagina die u zoekt bestaat niet of is verplaatst. Gebruik de links hieronder om verder te navigeren.</p>
   <div class="links">
     <a href="/" class="btn-primary">Homepage</a>
     <a href="/insights" class="btn-ghost">Insights</a>
     <a href="/modules" class="btn-ghost">Platform</a>
   </div>
 </div>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>

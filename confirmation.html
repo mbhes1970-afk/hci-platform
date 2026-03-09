@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,15 +16,24 @@ p{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:20px}
 .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:20px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 a{color:var(--gold);text-decoration:none}
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim, #888880); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold, #C9A84C); }
 </style>
 </head>
 <body>
 <div class="card">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+  </div>
   <div class="mark">HCI</div>
-  <h1>Confirming your email...</h1>
-  <p>Please wait while we verify your account.</p>
+  <h1 data-nl="E-mail bevestigen..." data-en="Confirming your email...">Confirming your email...</h1>
+  <p data-nl="Even geduld terwijl we uw account verifiëren." data-en="Please wait while we verify your account.">Please wait while we verify your account.</p>
   <div class="spinner"></div>
-  <p style="font-size:12px">If nothing happens, <a href="/modules">return to the platform</a>.</p>
+  <p style="font-size:12px" data-nl="Als er niets gebeurt, <a href='/modules'>keer terug naar het platform</a>." data-en="If nothing happens, <a href='/modules'>return to the platform</a>.">If nothing happens, <a href="/modules">return to the platform</a>.</p>
 </div>
 <script>
 if(window.netlifyIdentity){
@@ -36,5 +45,6 @@ if(window.netlifyIdentity){
   });
 }
 </script>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>
