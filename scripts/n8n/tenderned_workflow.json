@@ -1,12 +1,30 @@
 {
-  "_note": "This is a reference file. The actual TenderNed workflow (ID: 4B4zpwYnmLcAF7u3) lives on the n8n server with 28 nodes. Use deploy_workflows.py to update it (adds Slack alerts + daily 07:00 schedule). The server workflow includes: TenderNed API fetch, XML/JSON parsing, CPV filtering, field splitting, and data table storage.",
-  "id": "4B4zpwYnmLcAF7u3",
+  "_note": "TenderNed workflow deployed on n8n. Old workflow (4B4zpwYnmLcAF7u3) is archived. New active workflow below.",
+  "id": "5PMjgibDTqGr2EQh",
   "name": "HCI TenderNed Dagelijkse Scan + Slack Alert",
-  "modifications": {
-    "schedule": "daily 07:00 (cron: 0 7 * * *)",
-    "slack_node": "Slack TenderNed Alert — posts to HCI Slack channel after CPV/keyword filter",
-    "slack_webhook": "{{SLACK_WEBHOOK_URL}}",
-    "slack_message_fields": ["json_aanbestedingNaam", "json_opdrachtgeverNaam", "cpv_all_text", "json_sluitingsDatum", "xml_platform", "tenderNedUrl"]
+  "active": true,
+  "deployed": "2026-03-09T15:43:44.528Z",
+  "n8n_url": "https://n8n.hes-consultancy-international.com",
+  "schedule": "daily 07:00",
+  "nodes_summary": {
+    "total": 28,
+    "Schedule Trigger": "Daily at 07:00",
+    "Tenderned Publicaties": "GET /papi/tenderned-rs-tns/v2/publicaties (Basic Auth, last 24h, AAO type)",
+    "Verwerk Response": "Extract publicaties array from paginated response",
+    "Split Out": "Split array into individual items",
+    "Loop Over Items": "Process each tender one at a time",
+    "Haal JSON Details": "GET /publicaties/{id} for metadata (Basic Auth)",
+    "Haal XML Details": "GET /publicaties/{id}/public-xml for full XML (Basic Auth)",
+    "XML": "Parse XML to JSON",
+    "Merge": "Combine JSON + XML + original data (3 inputs)",
+    "Aggregate": "Collect all processed items",
+    "Splits Alle Velden": "Flatten XML/JSON into usable fields (v6 with gunningscriteria + platform)",
+    "Filter op ...": "CPV code + keyword filter for HCI ICP sectors",
+    "Slack TenderNed Alert": "POST to Slack webhook with rich Block Kit message"
+  },
+  "credentials": {
+    "tenderned_api": "Basic Auth (tnxml08339) — header injected in HTTP nodes",
+    "slack_webhook": "Inline in Slack node"
   },
   "cpv_filter_codes": [
     "72000000", "72200000", "72210000", "72212000",
@@ -19,5 +37,20 @@
     "48000000", "48100000", "48200000", "48600000",
     "48730000", "48732000", "79131000"
   ],
-  "keyword_filter": "NIS2|DORA|BIO|CRA|AVG|GDPR|NEN7510|informatiebeveiliging|cybersecurity|compliance|risicoanalyse|audit|pentest|advies|implementatie|strategie|interim|cloud|SIEM|SOC|software|SaaS|soevereiniteit|weerbaarheid|assessment|zero trust|encryptie|quantum"
+  "keyword_filter": "NIS2|DORA|BIO|CRA|AVG|GDPR|NEN7510|informatiebeveiliging|cybersecurity|compliance|risicoanalyse|audit|pentest|advies|implementatie|strategie|interim|cloud|SIEM|SOC|software|SaaS|soevereiniteit|weerbaarheid|assessment|zero trust|encryptie|quantum",
+  "slack_message_fields": [
+    "json_aanbestedingNaam",
+    "json_opdrachtgeverNaam",
+    "cpv_all_text",
+    "json_sluitingsDatum",
+    "xml_platform",
+    "json_procedure",
+    "xml_geschatteWaardeFormatted",
+    "tenderNedUrl"
+  ],
+  "previous_workflow": {
+    "id": "4B4zpwYnmLcAF7u3",
+    "status": "archived",
+    "reason": "Migrated to new workflow with Slack alerts and daily schedule"
+  }
 }
