@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useWizard } from '../hooks/useWizard';
 import { useTheme } from '../themes/ThemeProvider';
 import { useLanguage } from '../config/i18n';
@@ -9,6 +9,7 @@ import { OrgDetailsForm } from './OrgDetailsForm';
 import { QuestionStep } from './QuestionStep';
 import { LeadCaptureGate } from './LeadCaptureGate';
 import { ReportPreview } from './ReportPreview';
+import type { RoleId, SectorId } from '../config/types';
 
 const STEPS = [
   { key: 'wizard.step1', label: { nl: 'Uw rol', en: 'Your role' } },
@@ -25,10 +26,31 @@ const ICP_MAP: Record<string, string> = {
   cto: 'icp1', cfo: 'icp2', coo: 'icp3',
 };
 
+const VALID_ROLES: RoleId[] = ['ciso', 'cto', 'cio', 'cfo', 'ceo', 'coo'];
+const VALID_SECTORS: SectorId[] = ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08'];
+
 export function WizardShell() {
-  const { currentStep, totalSteps, nextStep, prevStep, canProceed, role, sector } = useWizard();
+  const { currentStep, totalSteps, nextStep, prevStep, canProceed, role, sector,
+          setRole, setSector, goToStep } = useWizard();
   const theme = useTheme();
   const { lang } = useLanguage();
+  const urlParamsApplied = useRef(false);
+
+  // URL parameter pre-selection: ?sector=s01&role=cio
+  useEffect(() => {
+    if (urlParamsApplied.current) return;
+    urlParamsApplied.current = true;
+    const params = new URLSearchParams(window.location.search);
+    const sectorParam = params.get('sector') as SectorId | null;
+    const roleParam = params.get('role') as RoleId | null;
+    if (roleParam && VALID_ROLES.includes(roleParam)) setRole(roleParam);
+    if (sectorParam && VALID_SECTORS.includes(sectorParam)) setSector(sectorParam);
+    if (sectorParam && roleParam && VALID_ROLES.includes(roleParam) && VALID_SECTORS.includes(sectorParam)) {
+      goToStep(2); // Skip to org details (step 3)
+    } else if (sectorParam && VALID_SECTORS.includes(sectorParam)) {
+      goToStep(1); // Skip to sector (already set, user sees confirmation)
+    }
+  }, []);
 
   // SignalMesh integratie: update state bij elke wizard stap
   useEffect(() => {
