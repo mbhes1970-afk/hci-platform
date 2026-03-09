@@ -149,6 +149,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 56
 .results-cta { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
 .results-cta-text { font-size: 14px; color: var(--muted-3); font-weight: 300; line-height: 1.6; margin-bottom: 8px; }
 .results-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.results-btn-secondary { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--gold-border); color: var(--gold); background: transparent; padding: 18px 36px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+.results-btn-secondary:hover { border-color: var(--gold); background: var(--gold-dim); color: var(--paper); }
 .help-section { background: #0A0A0A; padding: 100px 56px; }
 .help-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
 .help-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border-left: 2px solid var(--border); transition: border-color 0.3s; }
@@ -299,21 +301,21 @@ section { padding: 100px 56px; }
   <div class="bands-grid">
     <div class="band-card green">
       <div class="band-range">55&ndash;100</div>
-      <div class="band-label">Market Ready</div>
-      <div class="band-desc">Your fundamentals are in place. You are ready to build EU pipeline now. Programme II is your starting point.</div>
-      <div class="band-action">&rarr; Programme II recommended &mdash; EU Market Entry</div>
+      <div class="band-label">Ready for Programme II</div>
+      <div class="band-desc">Your fundamentals are in place. You have a clear ICP, a credible regulatory position and a GTM model that works for EU buyers. You are ready to build pipeline now.</div>
+      <div class="band-action">&rarr; EU Market Entry Programme &middot; first conversations in 6&ndash;8 weeks</div>
     </div>
     <div class="band-card amber">
       <div class="band-range">30&ndash;54</div>
-      <div class="band-label">Needs Preparation</div>
-      <div class="band-desc">Solid potential, specific gaps. Programme I gives you the validated ICP and market map you need before outreach starts.</div>
-      <div class="band-action">&rarr; Start with Programme I &mdash; EU Market Intelligence</div>
+      <div class="band-label">Start with Programme I</div>
+      <div class="band-desc">Solid potential, specific gaps. Typically: regulatory position unclear, ICP too broad or value proposition not yet reframed for EU buyers. Programme I gives you the intelligence to fix this.</div>
+      <div class="band-action">&rarr; EU Market Intelligence Programme &middot; 3 weeks &middot; fixed deliverable</div>
     </div>
     <div class="band-card red">
       <div class="band-range">0&ndash;29</div>
-      <div class="band-label">Foundation First</div>
-      <div class="band-desc">Significant foundation work needed first. This is not a rejection &mdash; it is the assessment that protects your investment. Programme I tells you exactly what to fix.</div>
-      <div class="band-action">&rarr; Programme I is your honest starting point</div>
+      <div class="band-label">Programme I is your starting point</div>
+      <div class="band-desc">Significant groundwork needed before customer conversations make sense. This is not a rejection &mdash; it is an honest assessment that protects your investment. Programme I tells you exactly what to fix and in what order.</div>
+      <div class="band-action">&rarr; EU Market Intelligence Programme &middot; book a 30-min call first</div>
     </div>
   </div>
 </div>
@@ -361,7 +363,7 @@ section { padding: 100px 56px; }
     <div class="dim-card">
       <div class="dim-card-num">06</div>
       <div class="dim-card-name">Financial Runway</div>
-      <div class="dim-card-body">EU enterprise sales cycles run 6-18 months. Do you have the runway to sustain a 24-month engagement? Budget clarity protects both sides from starting something that can't be completed.</div>
+      <div class="dim-card-body">EU enterprise sales cycles run 6&ndash;18 months. Each programme runs per quarter &mdash; no long-term commitment required upfront. You evaluate results at the end of each quarter before renewing.</div>
       <div class="dim-card-questions">Questions: Runway duration &middot; Budget allocated &middot; Board commitment</div>
     </div>
   </div>
@@ -393,12 +395,12 @@ section { padding: 100px 56px; }
     <div class="help-card">
       <div class="help-icon">&#128182;</div>
       <div class="help-title">What it will cost to get market-ready</div>
-      <div class="help-body">Your score maps directly to the right programme. Score 55+: Programme II &mdash; Market Entry. Score 30&ndash;54: Programme I &mdash; Intelligence first. Score 0&ndash;29: Programme I &mdash; honest foundation. See full programme details at <a href="/services/" style="color:var(--gold);text-decoration:none">hes-consultancy.nl/services/</a></div>
+      <div class="help-body">Your score maps to one of three fixed-price programmes. Each programme has a defined deliverable, a defined timeline and a defined price. No hourly billing. No retainers. See all programmes at <a href="/services/" style="color:var(--gold);text-decoration:none">/services/</a></div>
     </div>
     <div class="help-card">
       <div class="help-icon">&#128197;</div>
       <div class="help-title">How long until first customer conversations</div>
-      <div class="help-body">Score 55+: active pipeline in weeks. Score 30-54: first conversations in 3-4 months after GTM prep. Score 0-29: 6-8 months foundation work first. Honest timelines protect your budget.</div>
+      <div class="help-body">Score 55+: first conversations within 6&ndash;8 weeks via Programme II. Score 30&ndash;54: Programme I delivers your EU intelligence in 3 weeks, then you decide on next steps. Score 0&ndash;29: Programme I first &mdash; it tells you exactly what needs to happen before market entry.</div>
     </div>
   </div>
 </div>
@@ -499,11 +501,11 @@ var questions = [
     {l:"C",t:"English-only \u2014 assuming buyers will manage in English.",s:8},
     {l:"D",t:"No consideration given to language requirements.",s:0}
   ]},
-  {dim:"Team Readiness",q:"Does your board/leadership support a 24-month EU commitment?",opts:[
-    {l:"A",t:"Yes \u2014 board-level sign-off, budget allocated, KPIs defined.",s:25},
-    {l:"B",t:"Leadership is supportive but no formal commitment yet.",s:14},
-    {l:"C",t:"We\u2019re testing the market first before committing.",s:6},
-    {l:"D",t:"EU entry is not yet a board-level priority.",s:0}
+  {dim:"Team Readiness",q:"Does your leadership have budget and mandate for EU market entry in the next 12 months?",opts:[
+    {l:"A",t:"Yes \u2014 budget allocated, mandate confirmed, team available.",s:25},
+    {l:"B",t:"Leadership is supportive but formal budget is not yet allocated.",s:14},
+    {l:"C",t:"We are testing the market before committing budget.",s:6},
+    {l:"D",t:"No budget or mandate in place yet.",s:0}
   ]},
   {dim:"Financial Runway",q:"What is your current funding runway?",opts:[
     {l:"A",t:"24+ months \u2014 fully funded through a complete EU engagement cycle.",s:25},
@@ -588,7 +590,7 @@ function showResults(){
   }
   var el=document.getElementById('scanResults');
   el.className='results-card active';
-  el.innerHTML='<div class="results-headline">Your EU Readiness Score</div><div class="results-score-display"><div class="results-score-num">'+overall+'</div><div class="results-score-info"><div class="results-score-band" style="color:'+bandColor+'">'+band+'</div><div class="results-score-desc">'+bandDesc+'</div></div></div><div class="results-dims">'+dimsHtml+'</div><div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:300;">'+bandAction+' \u00b7 <a href="/services/" style="color:var(--gold)">See what\u2019s included \u2192</a></div><div class="results-cta"><div class="results-cta-text">Book a 30-minute call with Mike to walk through your score. No pitch \u2014 just an honest conversation about what the results mean and what the right next step is for your specific situation.</div><div class="results-actions"><a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">Book a call with Mike \u2192</a><a href="/" class="btn-secondary">Back to home</a></div></div>';
+  el.innerHTML='<div class="results-headline">Your EU Readiness Score</div><div class="results-score-display"><div class="results-score-num">'+overall+'</div><div class="results-score-info"><div class="results-score-band" style="color:'+bandColor+'">'+band+'</div><div class="results-score-desc">'+bandDesc+'</div></div></div><div class="results-dims">'+dimsHtml+'</div><div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-weight:300;">'+bandAction+' \u00b7 <a href="/services/" style="color:var(--gold)">See what\u2019s included \u2192</a></div><div class="results-cta"><div class="results-cta-text">Book a 30-minute call with Mike to walk through your score. No pitch \u2014 just an honest conversation about what the results mean and what the right next step is for your specific situation.</div><div class="results-actions"><a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">Book a call with Mike \u2192</a><a href="/services/" class="results-btn-secondary">See all three programmes \u2192</a><a href="/" class="btn-secondary">Back to home</a></div></div>';
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 renderQuestion(0);
