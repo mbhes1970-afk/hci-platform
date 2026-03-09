@@ -15,6 +15,7 @@ interface WizardState extends WizardData {
   setContactRole: (role: string) => void;
   setPdfText: (text: string | null, fileName: string | null) => void;
   setLanguage: (lang: Language) => void;
+  setConsent: (consent: boolean) => void;
   setAnswer: (questionIndex: number, score: number) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -34,12 +35,13 @@ const initialData: WizardData = {
   pdfFileName: null,
   language: 'nl',
   icp: 'icp3',
+  consent: false,
 };
 
 export const useWizard = create<WizardState>((set, get) => ({
   ...initialData,
   currentStep: 0,
-  totalSteps: 5, // 0=rol, 1=sector, 2=org, 3=vragen, 4=rapport
+  totalSteps: 6, // 0=rol, 1=sector, 2=org, 3=vragen, 4=leadgate, 5=rapport
   answers: {},
 
   setRole: (role) => set({ role }),
@@ -50,6 +52,7 @@ export const useWizard = create<WizardState>((set, get) => ({
   setContactRole: (contactRole) => set({ contactRole }),
   setPdfText: (pdfText, pdfFileName) => set({ pdfText, pdfFileName }),
   setLanguage: (language) => set({ language }),
+  setConsent: (consent) => set({ consent }),
   setAnswer: (questionIndex, score) => set((state) => ({
     answers: { ...state.answers, [questionIndex]: score },
   })),
@@ -71,6 +74,7 @@ export const useWizard = create<WizardState>((set, get) => ({
       case 1: return s.sector !== null;
       case 2: return s.orgName.trim().length > 0 && s.contactEmail.trim().length > 0;
       case 3: return Object.keys(s.answers).length >= 9; // alle 9 vragen beantwoord
+      case 4: return s.contactName.trim().length > 0 && s.orgName.trim().length > 0 && s.contactEmail.trim().length > 0;
       default: return false;
     }
   },

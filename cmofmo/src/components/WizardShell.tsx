@@ -7,6 +7,7 @@ import { RoleSelector } from './RoleSelector';
 import { SectorSelector } from './SectorSelector';
 import { OrgDetailsForm } from './OrgDetailsForm';
 import { QuestionStep } from './QuestionStep';
+import { LeadCaptureGate } from './LeadCaptureGate';
 import { ReportPreview } from './ReportPreview';
 
 const STEPS = [
@@ -14,7 +15,8 @@ const STEPS = [
   { key: 'wizard.step2', label: { nl: 'Sector', en: 'Sector' } },
   { key: 'wizard.step3', label: { nl: 'Organisatie', en: 'Organization' } },
   { key: 'wizard.step4q', label: { nl: 'Quickscan', en: 'Quickscan' } },
-  { key: 'wizard.step5', label: { nl: 'Rapport', en: 'Report' } },
+  { key: 'wizard.step5g', label: { nl: 'Gegevens', en: 'Details' } },
+  { key: 'wizard.step6', label: { nl: 'Rapport', en: 'Report' } },
 ];
 
 // Map wizard roles naar SignalMesh ICP's
@@ -42,6 +44,7 @@ export function WizardShell() {
     <SectorSelector key="sector" />,
     <OrgDetailsForm key="org" />,
     <QuestionStep key="questions" />,
+    <LeadCaptureGate key="leadgate" />,
     <ReportPreview key="report" />,
   ];
 

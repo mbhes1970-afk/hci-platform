@@ -38,6 +38,7 @@ export interface WizardData {
   pdfFileName: string | null;
   language: Language;
   icp: IcpId | null;
+  consent: boolean;
 }
 
 export interface DimensionScore {
