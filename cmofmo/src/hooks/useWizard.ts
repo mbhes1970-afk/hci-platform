@@ -15,7 +15,9 @@ interface WizardState extends WizardData {
   setContactRole: (role: string) => void;
   setPdfText: (text: string | null, fileName: string | null) => void;
   setLanguage: (lang: Language) => void;
-  setConsent: (consent: boolean) => void;
+  setConsentProcessing: (v: boolean) => void;
+  setConsentReportShare: (v: boolean) => void;
+  setConsentFollowup: (v: boolean) => void;
   setAnswer: (questionIndex: number, score: number) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -35,7 +37,9 @@ const initialData: WizardData = {
   pdfFileName: null,
   language: 'nl',
   icp: 'icp3',
-  consent: false,
+  consentProcessing: false,
+  consentReportShare: false,
+  consentFollowup: false,
 };
 
 export const useWizard = create<WizardState>((set, get) => ({
@@ -52,7 +56,9 @@ export const useWizard = create<WizardState>((set, get) => ({
   setContactRole: (contactRole) => set({ contactRole }),
   setPdfText: (pdfText, pdfFileName) => set({ pdfText, pdfFileName }),
   setLanguage: (language) => set({ language }),
-  setConsent: (consent) => set({ consent }),
+  setConsentProcessing: (v) => set({ consentProcessing: v }),
+  setConsentReportShare: (v) => set({ consentReportShare: v }),
+  setConsentFollowup: (v) => set({ consentFollowup: v }),
   setAnswer: (questionIndex, score) => set((state) => ({
     answers: { ...state.answers, [questionIndex]: score },
   })),

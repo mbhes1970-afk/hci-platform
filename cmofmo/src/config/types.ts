@@ -38,7 +38,9 @@ export interface WizardData {
   pdfFileName: string | null;
   language: Language;
   icp: IcpId | null;
-  consent: boolean;
+  consentProcessing: boolean;
+  consentReportShare: boolean;
+  consentFollowup: boolean;
 }
 
 export interface DimensionScore {

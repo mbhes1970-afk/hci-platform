@@ -5,6 +5,13 @@ import { useTheme } from '../themes/ThemeProvider';
 import { calculateScores } from '../services/score-engine';
 import { getSectorById } from '../config/sectors';
 
+// Simple SHA-256 hash for pseudonymisation (AVG-compliant)
+async function sha256(text: string): Promise<string> {
+  const data = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 export function LeadCaptureGate() {
   const wizard = useWizard();
   const { lang } = useLanguage();
@@ -12,22 +19,58 @@ export function LeadCaptureGate() {
   const [localName, setLocalName] = useState(wizard.contactName);
   const [localOrg, setLocalOrg] = useState(wizard.orgName);
   const [localEmail, setLocalEmail] = useState(wizard.contactEmail);
-  const [localConsent, setLocalConsent] = useState(wizard.consent);
+  const [consentProcessing, setConsentProcessing] = useState(wizard.consentProcessing);
+  const [consentReportShare, setConsentReportShare] = useState(wizard.consentReportShare);
+  const [consentFollowup, setConsentFollowup] = useState(wizard.consentFollowup);
+  const [submitting, setSubmitting] = useState(false);
 
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(localEmail);
   const isValid = localName.trim().length > 0
     && localOrg.trim().length > 0
     && localEmail.trim().length > 0
-    && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(localEmail);
+    && emailValid
+    && consentProcessing
+    && consentReportShare;
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!isValid || !wizard.sector) return;
+    if (!isValid || !wizard.sector || submitting) return;
+    setSubmitting(true);
 
     // Persist to wizard state
     wizard.setContactName(localName);
     wizard.setOrgName(localOrg);
     wizard.setContactEmail(localEmail);
-    wizard.setConsent(localConsent);
+    wizard.setConsentProcessing(consentProcessing);
+    wizard.setConsentReportShare(consentReportShare);
+    wizard.setConsentFollowup(consentFollowup);
+
+    // Store consent in PocketBase (AVG Art. 7 lid 1 — bewijs van toestemming)
+    try {
+      const POCKETBASE_URL = import.meta.env.VITE_POCKETBASE_URL
+        || 'https://api.hes-consultancy-international.com';
+      const [ipHash, uaHash] = await Promise.all([
+        sha256(Date.now().toString()), // No real IP available client-side; use timestamp as proxy
+        sha256(navigator.userAgent),
+      ]);
+      await fetch(`${POCKETBASE_URL}/api/collections/cmo_fmo_consents/records`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: localEmail,
+          org_name: localOrg,
+          consent_processing: consentProcessing,
+          consent_report_share: consentReportShare,
+          consent_followup: consentFollowup,
+          consent_timestamp: new Date().toISOString(),
+          ip_hash: ipHash,
+          user_agent_hash: uaHash,
+          withdrawn: false,
+        }),
+      });
+    } catch {
+      // Non-blocking — consent storage failure should not block the user
+    }
 
     // Calculate scores for mailto
     const scores = calculateScores(wizard.sector, wizard.answers);
@@ -54,9 +97,10 @@ export function LeadCaptureGate() {
       nl ? 'Dimensiescores:' : 'Dimension scores:',
       ...scores.map(s => `  ${s.label[lang]}: ${s.score}/10 (${s.className})`),
       '',
-      nl
-        ? `Toestemming rapport delen: ${localConsent ? 'Ja' : 'Nee'}`
-        : `Consent to share report: ${localConsent ? 'Yes' : 'No'}`,
+      nl ? 'Toestemmingen:' : 'Consents:',
+      `  ${nl ? 'Verwerking gegevens' : 'Data processing'}: ${consentProcessing ? (nl ? 'Ja' : 'Yes') : (nl ? 'Nee' : 'No')}`,
+      `  ${nl ? 'Rapport delen' : 'Report sharing'}: ${consentReportShare ? (nl ? 'Ja' : 'Yes') : (nl ? 'Nee' : 'No')}`,
+      `  ${nl ? 'Commerciele opvolging' : 'Follow-up contact'}: ${consentFollowup ? (nl ? 'Ja' : 'Yes') : (nl ? 'Nee' : 'No')}`,
       '',
       `Datum: ${new Date().toLocaleDateString('nl-NL')}`,
     ];
@@ -68,10 +112,48 @@ export function LeadCaptureGate() {
     window.location.href = mailtoLink;
 
     // Proceed to report after short delay (allows mailto to open)
-    setTimeout(() => wizard.nextStep(), 500);
+    setTimeout(() => {
+      setSubmitting(false);
+      wizard.nextStep();
+    }, 500);
   }
 
   const nl = lang === 'nl';
+
+  // Reusable checkbox component
+  function ConsentCheckbox({
+    checked, onChange, required, children,
+  }: {
+    checked: boolean; onChange: (v: boolean) => void; required?: boolean; children: React.ReactNode;
+  }) {
+    return (
+      <label className="flex items-start gap-3 cursor-pointer group">
+        <div className="relative mt-0.5 flex-shrink-0">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => onChange(e.target.checked)}
+            className="sr-only"
+          />
+          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all
+            ${checked
+              ? 'border-brand-primary bg-brand-primary'
+              : 'border-brand-border bg-brand-bg-card group-hover:border-brand-primary-light'
+            }`}>
+            {checked && (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            )}
+          </div>
+        </div>
+        <span className="text-sm text-brand-text leading-relaxed">
+          {children}
+          {required && <span className="text-brand-text-dim ml-1">*</span>}
+        </span>
+      </label>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto">
@@ -151,49 +233,51 @@ export function LeadCaptureGate() {
           />
         </div>
 
-        {/* Consent checkbox */}
-        <label className="flex items-start gap-3 cursor-pointer group">
-          <div className="relative mt-0.5 flex-shrink-0">
-            <input
-              type="checkbox"
-              checked={localConsent}
-              onChange={(e) => setLocalConsent(e.target.checked)}
-              className="sr-only"
-            />
-            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all
-              ${localConsent
-                ? 'border-brand-primary bg-brand-primary'
-                : 'border-brand-border bg-brand-bg-card group-hover:border-brand-primary-light'
-              }`}>
-              {localConsent && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              )}
-            </div>
-          </div>
-          <span className="text-sm text-brand-text leading-relaxed">
+        {/* AVG Art. 7 lid 2 — drie aparte checkboxen */}
+        <div className="space-y-4 pt-2">
+          <p className="text-xs font-mono text-brand-text-dim uppercase tracking-wider">
+            {nl ? 'Toestemmingen' : 'Consents'}
+          </p>
+
+          {/* Checkbox 1 — Verwerking (verplicht) */}
+          <ConsentCheckbox checked={consentProcessing} onChange={setConsentProcessing} required>
             {nl
-              ? 'Ik ga akkoord dat HCI dit rapport ook ontvangt'
-              : 'I agree that HCI also receives this report'}
-          </span>
-        </label>
+              ? 'Ik ga akkoord dat HES Consultancy International mijn naam, organisatie en e-mailadres opslaat en gebruikt om contact met mij op te nemen over dit rapport en gerelateerde diensten. Ik kan mijn toestemming te allen tijde intrekken via mbhes@hes-consultancy-international.com.'
+              : 'I agree that HES Consultancy International stores my name, organization and email address and uses them to contact me about this report and related services. I can withdraw my consent at any time via mbhes@hes-consultancy-international.com.'}
+          </ConsentCheckbox>
+
+          {/* Checkbox 2 — Rapport delen (verplicht) */}
+          <ConsentCheckbox checked={consentReportShare} onChange={setConsentReportShare} required>
+            {nl
+              ? 'Ik ga akkoord dat HES Consultancy International een kopie van mijn rapport ontvangt voor kwaliteits- en opvolgingsdoeleinden.'
+              : 'I agree that HES Consultancy International receives a copy of my report for quality and follow-up purposes.'}
+          </ConsentCheckbox>
+
+          {/* Checkbox 3 — Commerciele opvolging (optioneel) */}
+          <ConsentCheckbox checked={consentFollowup} onChange={setConsentFollowup}>
+            {nl
+              ? 'Ik sta open voor een vrijblijvend gesprek met HES Consultancy International over de uitkomsten van dit rapport.'
+              : 'I am open to a no-obligation conversation with HES Consultancy International about the results of this report.'}
+          </ConsentCheckbox>
+        </div>
 
         {/* Submit */}
         <button
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || submitting}
           className="w-full py-3.5 rounded-lg text-sm font-bold text-white transition-all
                      disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-90"
           style={{ backgroundColor: isValid ? theme.colors.primary : theme.colors.textDim }}
         >
-          {nl ? 'Bekijk mijn rapport →' : 'View my report →'}
+          {submitting
+            ? (nl ? 'Bezig...' : 'Processing...')
+            : (nl ? 'Bekijk mijn rapport →' : 'View my report →')}
         </button>
 
         <p className="text-[11px] text-brand-text-dim text-center leading-relaxed">
           {nl
-            ? 'Uw gegevens worden alleen gebruikt voor dit rapport. Geen spam, geen verplichtingen.'
-            : 'Your data is only used for this report. No spam, no obligations.'}
+            ? 'Uw gegevens worden alleen gebruikt voor de doeleinden waarvoor u toestemming geeft. U kunt uw toestemming te allen tijde intrekken via mbhes@hes-consultancy-international.com.'
+            : 'Your data is only used for the purposes you consent to. You can withdraw your consent at any time via mbhes@hes-consultancy-international.com.'}
         </p>
       </form>
 
