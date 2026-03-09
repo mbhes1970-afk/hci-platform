@@ -37,7 +37,7 @@ export const hciTheme: ThemeConfig = {
   id: 'hci',
   name: 'HES Consultancy International',
   tagline: 'From Strategy to First Customer',
-  domain: 'cmofmo.hes-consultancy-international.com',
+  domain: 'platform.hes-consultancy-international.com',
   logoUrl: '/logos/hci-logo-gold.svg',
   logoWhiteUrl: '/logos/hci-logo-white.svg',
   contactEmail: 'mbhes@hes-consultancy-international.com',
@@ -58,7 +58,7 @@ export const hciTheme: ThemeConfig = {
     email: 'mbhes@hes-consultancy-international.com',
     phone: '+31612345678',
     phoneDisplay: '+31 6 12 34 56 78',
-    calendlyUrl: 'https://calendly.com/hci-mike',
+    calendlyUrl: 'https://calendly.com/mbhes1970/30min',
     website: 'https://www.hes-consultancy-international.com',
   },
   report: {

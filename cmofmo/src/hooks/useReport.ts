@@ -18,7 +18,7 @@ export const useReport = create<ReportState>((set) => ({
   report: null,
   isLoading: false,
   error: null,
-  mockMode: true, // Start altijd in mock mode
+  mockMode: false, // Production mode — echte Claude rapporten
 
   setReport: (report) => set({ report, isLoading: false, error: null }),
   setLoading: (isLoading) => set({ isLoading }),
