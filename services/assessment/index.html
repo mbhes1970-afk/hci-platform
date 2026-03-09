@@ -30,6 +30,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 56
 .nav-right { display: flex; align-items: center; gap: 28px; }
 .nav-back { font-size: 12px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; font-weight: 300; }
 .nav-back:hover { color: var(--gold); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold); }
 .hero {
   min-height: 100vh;
   padding: 140px 56px 0;
@@ -192,10 +194,15 @@ section { padding: 100px 56px; }
     <div class="nav-logo-sub">From Strategy to First Customer</div>
   </a>
   <div class="nav-right">
-    <a href="/" class="nav-back">
+    <a href="/" class="nav-back" data-i18n="nav-back">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
       Back to home
     </a>
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
   </div>
 </nav>
 <div class="hero">
@@ -203,12 +210,12 @@ section { padding: 100px 56px; }
   <div class="hero-grid"></div>
   <div class="hero-left">
     <div class="kicker">EU Readiness Scan</div>
-    <h1 class="hero-h1">
+    <h1 class="hero-h1" data-i18n="as-h1">
       Seven minutes.<br>
       Six dimensions.<br>
       One <em>honest</em> score.
     </h1>
-    <p class="hero-body">
+    <p class="hero-body" data-i18n="as-body">
       Before you invest time and money in European market entry,
       know exactly where you stand. The EU Readiness Scan assesses
       your real position across six critical dimensions &mdash; and tells you
@@ -594,6 +601,36 @@ function showResults(){
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 renderQuestion(0);
+</script>
+<script>
+(function(){
+  var T = {
+    'nav-back':   { en: 'Back to home', nl: 'Terug naar home' },
+    'as-h1':      { en: 'Seven minutes.<br>Six dimensions.<br>One <em>honest</em> score.', nl: 'Zeven minuten.<br>Zes dimensies.<br>E\u00E9n <em>eerlijke</em> score.' },
+    'as-body':    { en: 'Before you invest time and money in European market entry, know exactly where you stand. The EU Readiness Scan assesses your real position across six critical dimensions \u2014 and tells you what needs to be in place before the first customer conversation.', nl: 'Voordat u tijd en geld investeert in Europese markttoegang, weet precies waar u staat. De EU Readiness Scan beoordeelt uw werkelijke positie op zes kritieke dimensies \u2014 en vertelt u wat er moet zijn geregeld v\u00F3\u00F3r het eerste klantgesprek.' }
+  };
+  var lang = localStorage.getItem('hci-lang') || 'nl';
+  function apply(l) {
+    lang = l;
+    localStorage.setItem('hci-lang', l);
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (T[key] && T[key][l]) {
+        if (T[key][l].indexOf('<') > -1) el.innerHTML = T[key][l];
+        else el.textContent = T[key][l];
+      }
+    });
+    document.querySelectorAll('#lang-toggle span[data-lang]').forEach(function(s) {
+      s.classList.toggle('active', s.getAttribute('data-lang') === l);
+    });
+  }
+  document.getElementById('lang-toggle').addEventListener('click', function(e) {
+    var t = e.target.closest('[data-lang]');
+    if (t) apply(t.getAttribute('data-lang'));
+  });
+  apply(lang);
+})();
 </script>
 </body>
 </html>

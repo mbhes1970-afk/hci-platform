@@ -72,6 +72,8 @@ nav {
   display: inline-block;
 }
 .nav-cta:hover { background: var(--gold); color: var(--ink); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold); }
 
 /* HERO */
 .hero {
@@ -378,21 +380,26 @@ footer {
     <li><a href="/about/">About</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:20px">
-    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta">Book a Call</a>
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-i18n="nav-cta">Book a Call</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-kicker">Three Programmes &middot; Fixed Price &middot; No Hourly Billing</div>
-  <h1 class="hero-h1">
+  <div class="hero-kicker" data-i18n="sv-kicker">Three Programmes &middot; Fixed Price &middot; No Hourly Billing</div>
+  <h1 class="hero-h1" data-i18n="sv-h1">
     You are not buying<br>
     our time.<br>
     You are buying<br>
     a <em>result</em>.
   </h1>
-  <p class="hero-body">
+  <p class="hero-body" data-i18n="sv-body">
     HCI operates on fixed-programme pricing. Each engagement
     has a defined scope, a clear deliverable, and a price that
     does not change &mdash; regardless of how long it takes us.
@@ -563,5 +570,36 @@ footer {
   </div>
   <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Privacy Policy</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)">Terms &amp; Conditions</a></div>
 </footer>
+<script>
+(function(){
+  var T = {
+    'nav-cta':    { en: 'Book a Call', nl: 'Bel ons' },
+    'sv-kicker':  { en: 'Three Programmes \u00B7 Fixed Price \u00B7 No Hourly Billing', nl: 'Drie Programma\u2019s \u00B7 Vaste Prijs \u00B7 Geen Uurtje-factuurtje' },
+    'sv-h1':      { en: 'You are not buying<br>our time.<br>You are buying<br>a <em>result</em>.', nl: 'U koopt niet<br>onze tijd.<br>U koopt<br>een <em>resultaat</em>.' },
+    'sv-body':    { en: 'HCI operates on fixed-programme pricing. Each engagement has a defined scope, a clear deliverable, and a price that does not change \u2014 regardless of how long it takes us.', nl: 'HCI werkt met vaste programmaprijzen. Elke opdracht heeft een gedefinieerde scope, een helder deliverable en een prijs die niet verandert \u2014 ongeacht hoe lang het ons kost.' }
+  };
+  var lang = localStorage.getItem('hci-lang') || 'nl';
+  function apply(l) {
+    lang = l;
+    localStorage.setItem('hci-lang', l);
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (T[key] && T[key][l]) {
+        if (T[key][l].indexOf('<') > -1) el.innerHTML = T[key][l];
+        else el.textContent = T[key][l];
+      }
+    });
+    document.querySelectorAll('#lang-toggle span[data-lang]').forEach(function(s) {
+      s.classList.toggle('active', s.getAttribute('data-lang') === l);
+    });
+  }
+  document.getElementById('lang-toggle').addEventListener('click', function(e) {
+    var t = e.target.closest('[data-lang]');
+    if (t) apply(t.getAttribute('data-lang'));
+  });
+  apply(lang);
+})();
+</script>
 </body>
 </html>
