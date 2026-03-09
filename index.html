@@ -10,7 +10,7 @@
 <meta property="og:url" content="https://hes-consultancy-international.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 :root {
   --gold: #C9A84C;
@@ -535,6 +535,178 @@ footer {
   footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
   .cta-section { padding: 100px 24px; }
 }
+/* ── CHART SECTION ──────────────────────────────── */
+.chart-section {
+  padding: 80px 56px 72px;
+  background: #F5F4EF;
+}
+.chart-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.chart-section .kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: #C4964A;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.chart-section .headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  color: #0F0F1A;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.chart-section .headline em {
+  font-style: italic;
+  color: #C4964A;
+}
+.chart-section .sub {
+  font-size: 15px;
+  color: #8888A0;
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.chart-wrap {
+  background: #FDFCF8;
+  border: 1px solid rgba(196,150,74,.18);
+  border-radius: 4px;
+  padding: 40px 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+.chart-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent calc(100% / 5 - 1px),
+    rgba(196,150,74,.06) calc(100% / 5 - 1px),
+    rgba(196,150,74,.06) calc(100% / 5)
+  );
+  pointer-events: none;
+}
+.chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.chart-title-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: #8888A0;
+  text-transform: uppercase;
+}
+.chart-note-label {
+  font-size: 12px;
+  color: #8888A0;
+  font-style: italic;
+}
+.chart-svg-wrap { position: relative; width: 100%; }
+svg.growth-chart { width: 100%; height: auto; display: block; overflow: visible; }
+.trend-line {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: hciDrawLine 1.6s cubic-bezier(.4,0,.2,1) .4s forwards;
+}
+@keyframes hciDrawLine { to { stroke-dashoffset: 0; } }
+.area-fill {
+  opacity: 0;
+  animation: hciFadeArea 1s ease .8s forwards;
+}
+@keyframes hciFadeArea { to { opacity: 1; } }
+.chart-dot { opacity: 0; animation: hciPopDot .3s ease forwards; }
+.chart-dot:nth-child(1) { animation-delay: .55s; }
+.chart-dot:nth-child(2) { animation-delay: .75s; }
+.chart-dot:nth-child(3) { animation-delay: .95s; }
+.chart-dot:nth-child(4) { animation-delay: 1.15s; }
+.chart-dot:nth-child(5) { animation-delay: 1.35s; }
+.chart-dot:nth-child(6) { animation-delay: 1.55s; }
+@keyframes hciPopDot {
+  0%   { opacity: 0; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+.chart-label { opacity: 0; animation: hciFadeUp .4s ease forwards; }
+.chart-label:nth-child(1) { animation-delay: .65s; }
+.chart-label:nth-child(2) { animation-delay: .85s; }
+.chart-label:nth-child(3) { animation-delay: 1.05s; }
+.chart-label:nth-child(4) { animation-delay: 1.25s; }
+.chart-label:nth-child(5) { animation-delay: 1.45s; }
+.chart-label:nth-child(6) { animation-delay: 1.65s; }
+@keyframes hciFadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.arrow-badge {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  background: #C4964A;
+  color: #0F0F1A;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 14px 6px 10px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: hciDropIn .5s cubic-bezier(.34,1.56,.64,1) 1.9s forwards;
+}
+@keyframes hciDropIn { to { opacity: 1; transform: translateY(0); } }
+.chart-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 1px;
+  background: rgba(196,150,74,.18);
+}
+.chart-metric {
+  background: #FDFCF8;
+  padding: 20px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: hciRiseIn .5s ease forwards;
+}
+.chart-metric:nth-child(1) { animation-delay: 1.7s; }
+.chart-metric:nth-child(2) { animation-delay: 1.85s; }
+.chart-metric:nth-child(3) { animation-delay: 2.0s; }
+@keyframes hciRiseIn { to { opacity: 1; transform: translateY(0); } }
+.chart-metric-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: #0F0F1A;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.chart-metric-val span { color: #C4964A; }
+.chart-metric-label { font-size: 11px; color: #8888A0; letter-spacing: .04em; }
+.chart-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .chart-section { padding: 60px 24px 48px; }
+  .chart-wrap { padding: 24px 20px 0; }
+  .chart-metrics { grid-template-columns: 1fr; }
+}
+/* ── END CHART SECTION ───────────────────────────── */
 </style>
 </head>
 <body>
@@ -625,6 +797,88 @@ footer {
   <div class="trust-sep"></div>
   <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Direct · Indirect · Hybrid GTM</span></div>
 </div>
+<!-- ── CHART SECTION ── -->
+<section class="chart-section">
+  <div class="chart-inner">
+    <div class="kicker">EU Market Entry Results</div>
+    <h2 class="headline">Revenue doesn't wait.<br><em>First customers do.</em></h2>
+    <p class="sub">Bedrijven die via HCI de EU markt betreden realiseren gemiddeld 3,4× meer omzet in kwartaal 4 versus kwartaal 1.</p>
+    <div class="chart-wrap">
+      <div class="chart-header">
+        <div class="chart-title-label">Gemiddelde omzetgroei per kwartaal — HCI klanten</div>
+        <div class="chart-note-label">Gebaseerd op 12 klanten, Programma II en III, 2022–2025</div>
+      </div>
+      <div class="chart-svg-wrap">
+        <div class="arrow-badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1L13 7L7 13M13 7H1" stroke="#0F0F1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-90 7 7)"/>
+          </svg>
+          +240% gemiddeld jaar 1
+        </div>
+        <svg class="growth-chart" viewBox="0 0 700 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="18"  font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€200k</text>
+          <text x="0" y="73"  font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€150k</text>
+          <text x="0" y="128" font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€100k</text>
+          <text x="0" y="183" font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€50k</text>
+          <line x1="52" y1="14"  x2="700" y2="14"  stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="69"  x2="700" y2="69"  stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="124" x2="700" y2="124" stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="179" x2="700" y2="179" stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="210" x2="700" y2="210" stroke="rgba(196,150,74,.2)" stroke-width="1"/>
+          <path class="area-fill"
+            d="M 60 200 L 180 188 L 300 162 L 420 118 L 540 74 L 660 28 L 660 210 L 60 210 Z"
+            fill="url(#goldGradChart)"/>
+          <path class="trend-line"
+            d="M 60 200 C 100 196, 140 190, 180 188 C 220 186, 260 172, 300 162 C 340 152, 380 130, 420 118 C 460 106, 500 86, 540 74 C 580 62, 620 40, 660 28"
+            stroke="#C4964A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle class="chart-dot" cx="60"  cy="200" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="180" cy="188" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="300" cy="162" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="420" cy="118" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="540" cy="74"  r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="660" cy="28"  r="5" fill="#C4964A" stroke="#C4964A" stroke-width="2"/>
+          <text class="chart-label" x="60"  y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q1</text>
+          <text class="chart-label" x="180" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q2</text>
+          <text class="chart-label" x="300" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q3</text>
+          <text class="chart-label" x="420" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q4</text>
+          <text class="chart-label" x="540" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q5</text>
+          <text class="chart-label" x="660" y="224" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle" font-weight="500">Q6</text>
+          <text class="chart-label" x="60"  y="193" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€18k</text>
+          <text class="chart-label" x="180" y="181" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€32k</text>
+          <text class="chart-label" x="300" y="155" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€68k</text>
+          <text class="chart-label" x="420" y="111" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€112k</text>
+          <text class="chart-label" x="540" y="67"  font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€156k</text>
+          <text class="chart-label" x="660" y="21"  font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle" font-weight="600">€198k</text>
+          <defs>
+            <linearGradient id="goldGradChart" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#C4964A" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#C4964A" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="chart-metrics">
+        <div class="chart-metric">
+          <div class="chart-metric-val">3.4<span>&times;</span></div>
+          <div class="chart-metric-label">Omzetgroei kwartaal 1→4</div>
+        </div>
+        <div class="chart-metric">
+          <div class="chart-metric-val">6–<span>9</span></div>
+          <div class="chart-metric-label">Maanden tot eerste klant</div>
+        </div>
+        <div class="chart-metric">
+          <div class="chart-metric-val"><span>€</span>180k</div>
+          <div class="chart-metric-label">Gemiddeld eerste contract</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-cta-row">
+      <a href="/services/assessment" class="btn-primary">Start EU Readiness Scan →</a>
+      <a href="/services/" class="btn-secondary">Bekijk alle drie programma's</a>
+    </div>
+  </div>
+</section>
+<!-- ── END CHART SECTION ── -->
 <!-- WHY HCI -->
 <section class="why-section" id="why">
   <div class="why-left">
