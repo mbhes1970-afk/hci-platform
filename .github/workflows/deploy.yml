@@ -1,0 +1,20 @@
+name: Deploy to Server
+on:
+  push:
+    branches:
+      - claude/analyze-hci-signalmesh-M2NV2
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/hes-consultancy-nl
+            git stash
+            git pull origin claude/analyze-hci-signalmesh-M2NV2
+            echo "Deploy completed at $(date)"
