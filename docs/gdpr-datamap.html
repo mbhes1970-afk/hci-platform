@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI — GDPR Datamap & Toegangsmatrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --ink: #0D0D0D;
+  --paper: #F7F4EE;
+  --border: #E5E2DB;
+  --muted: #6B6B65;
+  --green: #059669;
+  --amber: #D97706;
+  --red: #DC2626;
+  --blue: #2563EB;
+  --green-bg: #ECFDF5;
+  --amber-bg: #FFFBEB;
+  --red-bg: #FEF2F2;
+  --blue-bg: #EFF6FF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #FAFAF8; color: var(--ink); font-size: 14px; line-height: 1.6; }
+.cover {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 80px;
+  min-height: 280px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 300px; height: 100%;
+  background: linear-gradient(135deg, transparent 0%, rgba(201,168,76,0.06) 100%);
+}
+.cover-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.cover-title { font-size: 36px; font-weight: 600; line-height: 1.1; margin-bottom: 8px; }
+.cover-sub { font-size: 15px; color: rgba(247,244,238,0.55); font-weight: 300; margin-bottom: 32px; }
+.cover-meta { display: flex; gap: 32px; }
+.cover-meta-item { display: flex; flex-direction: column; gap: 2px; }
+.cover-meta-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,244,238,0.4); }
+.cover-meta-val { font-size: 13px; color: var(--gold); }
+.container { max-width: 960px; margin: 0 auto; padding: 64px 48px; }
+.warning-box {
+  background: var(--red-bg); border: 1px solid #FECACA; border-left: 4px solid var(--red);
+  padding: 20px 24px; margin-bottom: 48px; border-radius: 0 6px 6px 0;
+}
+.warning-box h4 { color: var(--red); font-size: 13px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+.warning-box p { font-size: 13px; color: #7F1D1D; line-height: 1.65; }
+.section { margin-bottom: 64px; }
+.section-num { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.section-title { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.section-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; font-weight: 300; }
+.section-body { font-size: 14px; color: #3A3A36; line-height: 1.75; margin-bottom: 20px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+thead th {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 14px; text-align: left;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+}
+thead th:first-child { border-radius: 4px 0 0 0; }
+thead th:last-child { border-radius: 0 4px 0 0; }
+tbody tr:nth-child(even) { background: #F7F6F2; }
+tbody tr:hover { background: #F0EDE5; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+td:first-child { font-weight: 500; color: var(--ink); }
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.badge-red { background: var(--red-bg); color: var(--red); border: 1px solid #FECACA; }
+.badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid #FDE68A; }
+.badge-green { background: var(--green-bg); color: var(--green); border: 1px solid #A7F3D0; }
+.badge-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid #BFDBFE; }
+.badge-gold { background: rgba(201,168,76,0.1); color: #92651A; border: 1px solid rgba(201,168,76,0.3); }
+.flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 28px; }
+.flow-step {
+  display: grid; grid-template-columns: 40px 1fr auto;
+  gap: 16px; align-items: start;
+  padding: 16px 20px; background: white; border: 1px solid var(--border);
+}
+.flow-step:first-child { border-radius: 6px 6px 0 0; }
+.flow-step:last-child { border-radius: 0 0 6px 6px; }
+.flow-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ink); color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
+}
+.flow-content h4 { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.flow-content p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.flow-action { font-size: 11px; color: var(--gold); font-weight: 500; white-space: nowrap; padding-top: 4px; }
+.info-box {
+  background: var(--blue-bg); border: 1px solid #BFDBFE; border-left: 4px solid var(--blue);
+  padding: 16px 20px; margin: 20px 0; border-radius: 0 6px 6px 0;
+}
+.info-box h4 { color: var(--blue); font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.info-box p { font-size: 13px; color: #1E3A5F; line-height: 1.6; }
+.amber-box {
+  background: var(--amber-bg); border: 1px solid #FDE68A; border-left: 4px solid var(--amber);
+  padding: 16px 20px; margin: 20px 0; border-radius: 0 6px 6px 0;
+}
+.amber-box h4 { color: var(--amber); font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.amber-box p { font-size: 13px; color: #78350F; line-height: 1.6; }
+.matrix-wrap { overflow-x: auto; }
+.matrix { min-width: 700px; }
+.matrix thead th { font-size: 10px; }
+.matrix td { text-align: center; }
+.matrix td:first-child { text-align: left; }
+.check { color: var(--green); font-weight: 700; font-size: 16px; }
+.cross { color: #D1D5DB; font-size: 16px; }
+.partial { color: var(--amber); font-weight: 700; font-size: 14px; }
+.code-block {
+  background: #1A1A1A; color: #E5E7EB;
+  padding: 20px 24px; border-radius: 6px;
+  font-family: 'Courier New', monospace; font-size: 12px;
+  line-height: 1.7; margin: 16px 0;
+  overflow-x: auto;
+}
+.code-block .comment { color: #6B7280; }
+.code-block .key { color: #93C5FD; }
+.code-block .val { color: #A7F3D0; }
+.code-block .string { color: #FDE68A; }
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.checklist li {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 16px; background: white; border: 1px solid var(--border); border-radius: 4px;
+  font-size: 13px;
+}
+.checklist li .check-icon { flex-shrink: 0; margin-top: 1px; }
+.checklist li .check-text { line-height: 1.55; }
+.checklist li .check-owner { margin-top: 4px; font-size: 11px; color: var(--gold); font-weight: 500; }
+.doc-footer {
+  background: var(--ink); color: rgba(247,244,238,0.4);
+  padding: 24px 80px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-tag">Intern werkdocument · Vertrouwelijk</div>
+  <div class="cover-title">GDPR Datamap &<br>Toegangsmatrix</div>
+  <div class="cover-sub">HES Consultancy International · Platform architectuur</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Versie</span>
+      <span class="cover-meta-val">1.0 — Maart 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Verantwoordelijke</span>
+      <span class="cover-meta-val">Mike Hes · Verwerkingsverantwoordelijke</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Toepassingsgebied</span>
+      <span class="cover-meta-val">CMO-FMO · DealFlow · hes-consultancy.nl</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Rechtsgrondslag</span>
+      <span class="cover-meta-val">AVG / GDPR (EU) 2016/679</span>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="warning-box">
+    <h4>Actie vereist voor uitrol</h4>
+    <p>Dit document beschrijft de gewenste architectuur. Onderdelen gemarkeerd als <strong>ONTBREEKT</strong> moeten worden geimplementeerd voor de CMO-FMO en DealFlow publiek beschikbaar worden gesteld. Uitrol zonder deze voorzieningen is niet AVG-compliant.</p>
+  </div>
+  <div class="section">
+    <div class="section-num">Sectie 01</div>
+    <div class="section-title">Verwerkingsoverzicht</div>
+    <div class="section-sub">Welke persoonsgegevens worden verwerkt, voor welk doel, op welke rechtsgrondslag.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Tool / context</th>
+          <th>Gegevens</th>
+          <th>Doel</th>
+          <th>Rechtsgrondslag</th>
+          <th>Bewaartermijn</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CMO-FMO Quickscan</td>
+          <td>Naam, organisatie, functietitel, e-mailadres, scanresultaten, gegenereerd rapport</td>
+          <td>Op maat rapport genereren + lead kwalificatie voor HCI</td>
+          <td>Toestemming (checkbox vereist)</td>
+          <td>24 maanden na laatste activiteit</td>
+          <td><span class="badge badge-amber">Deels gereed</span></td>
+        </tr>
+        <tr>
+          <td>EU Readiness Assessment</td>
+          <td>Geen — anoniem, geen opslag</td>
+          <td>Score tonen aan bezoeker</td>
+          <td>N.v.t.</td>
+          <td>Geen opslag</td>
+          <td><span class="badge badge-green">Compliant</span></td>
+        </tr>
+        <tr>
+          <td>DealFlow CRM (PocketBase)</td>
+          <td>Naam, organisatie, functie, e-mail, telefoon, deal history, activiteiten, KvK-data</td>
+          <td>Pipeline management, outreach, rapportage</td>
+          <td>Gerechtvaardigd belang (B2B contact)</td>
+          <td>5 jaar na laatste activiteit of verwijderverzoek</td>
+          <td><span class="badge badge-red">Ontbreekt</span></td>
+        </tr>
+        <tr>
+          <td>SignalMesh (IP-detectie)</td>
+          <td>IP-adres (gepseudonimiseerd), sector-inschatting, paginagedrag</td>
+          <td>Dynamische homepage personalisatie</td>
+          <td>Gerechtvaardigd belang (geen cookie, geen opslag)</td>
+          <td>Sessie — geen persistente opslag</td>
+          <td><span class="badge badge-amber">In ontwikkeling</span></td>
+        </tr>
+        <tr>
+          <td>Contactformulier / e-mail</td>
+          <td>Naam, e-mail, berichtinhoud</td>
+          <td>Beantwoorden van vragen</td>
+          <td>Toestemming (door inzenden)</td>
+          <td>2 jaar</td>
+          <td><span class="badge badge-amber">Geen formulier — mailto</span></td>
+        </tr>
+        <tr>
+          <td>Calendly (extern)</td>
+          <td>Naam, e-mail, tijdzone (Calendly verwerkt)</td>
+          <td>Afspraken inplannen</td>
+          <td>Toestemming</td>
+          <td>Conform Calendly privacybeleid</td>
+          <td><span class="badge badge-blue">Extern — verwerkersovereenkomst Calendly</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <div class="section">
+    <div class="section-num">Sectie 02</div>
+    <div class="section-title">Toegangsmatrix</div>
+    <div class="section-sub">Wie mag welke data zien en bewerken — per rol en per systeem.</div>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Data / functie</th>
+            <th>Anonieme bezoeker</th>
+            <th>CMO-FMO gebruiker</th>
+            <th>DealFlow (gratis)</th>
+            <th>DealFlow (betaald)</th>
+            <th>Mike (admin)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EU Readiness Assessment invullen</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>CMO-FMO scan invullen</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>Eigen CMO-FMO rapport inzien</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>Eigen CMO-FMO rapport downloaden (PDF)</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>Alle CMO-FMO rapporten inzien</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>DealFlow pipeline inzien (eigen)</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="partial">beperkt</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>DealFlow pipeline bewerken</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>KvK-verrijkte contacten inzien</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>Alle deals / contacts (alle klanten)</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>Verwijderverzoek indienen (eigen data)</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>Verwijderverzoek uitvoeren</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+          </tr>
+          <tr>
+            <td>PocketBase admin UI</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="cross">—</td>
+            <td class="check">&#10003;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="amber-box">
+      <h4>Implementatie vereist</h4>
+      <p>De toegangsmatrix hierboven beschrijft de <em>gewenste</em> situatie. PocketBase collection rules en authenticatie moeten per rol worden geconfigureerd. Momenteel heeft PocketBase geen rolgebaseerde toegangscontrole ingesteld — alle authenticatie verloopt via admin account.</p>
+    </div>
+  </div>
+  <hr>
+  <div class="section">
+    <div class="section-num">Sectie 03</div>
+    <div class="section-title">Betrokkenenrechten (AVG Art. 15–22)</div>
+    <div class="section-sub">Hoe HCI omgaat met rechten van gebruikers — inclusief technische vereisten voor Code.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Recht</th>
+          <th>Wat het betekent</th>
+          <th>Termijn</th>
+          <th>Hoe te implementeren</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inzagerecht (Art. 15)</td>
+          <td>Gebruiker mag opvragen welke data HCI van hem heeft</td>
+          <td>30 dagen</td>
+          <td>PocketBase API: alle records gefilterd op e-mailadres exporteren als PDF/JSON</td>
+          <td><span class="badge badge-red">Ontbreekt</span></td>
+        </tr>
+        <tr>
+          <td>Rectificatierecht (Art. 16)</td>
+          <td>Gebruiker mag onjuiste data laten corrigeren</td>
+          <td>30 dagen</td>
+          <td>Mike corrigeert handmatig via PocketBase admin UI</td>
+          <td><span class="badge badge-amber">Handmatig mogelijk</span></td>
+        </tr>
+        <tr>
+          <td>Verwijderrecht / "Recht op vergetelheid" (Art. 17)</td>
+          <td>Gebruiker mag alle data laten verwijderen + bewijs ontvangen</td>
+          <td>30 dagen</td>
+          <td>Geautomatiseerde delete + bevestigings-e-mail met timestamp + logentry</td>
+          <td><span class="badge badge-red">Ontbreekt</span></td>
+        </tr>
+        <tr>
+          <td>Bezwaarrecht (Art. 21)</td>
+          <td>Gebruiker mag bezwaar maken tegen verwerking o.b.v. gerechtvaardigd belang</td>
+          <td>30 dagen</td>
+          <td>E-mail naar mbhes@ + handmatige verwerking + optout collectie in PocketBase</td>
+          <td><span class="badge badge-amber">Gedeeltelijk</span></td>
+        </tr>
+        <tr>
+          <td>Dataportabiliteit (Art. 20)</td>
+          <td>Gebruiker ontvangt zijn data in machine-leesbaar formaat (JSON/CSV)</td>
+          <td>30 dagen</td>
+          <td>PocketBase export per e-mailadres als JSON download</td>
+          <td><span class="badge badge-red">Ontbreekt</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-title" style="font-size:16px;margin-top:32px;margin-bottom:16px">Verwijderverzoek — vereiste flow</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h4>Verzoek ontvangen</h4>
+          <p>Via e-mail aan mbhes@hes-consultancy-international.com of via zelfbedieningsknop in accountpagina. Identiteit verifieren via het e-mailadres waarmee geregistreerd.</p>
+        </div>
+        <div class="flow-action">Dag 0</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h4>Bevestiging sturen</h4>
+          <p>Automatische ontvangstbevestiging met referentienummer en maximale behandelingstermijn (30 dagen conform AVG Art. 12).</p>
+        </div>
+        <div class="flow-action">Dag 0 — automatisch</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h4>Data zoeken en verwijderen</h4>
+          <p>Alle records in PocketBase gefilterd op e-mailadres: CMO-FMO scans, quickscans, contacten, deals, activiteiten. Elk record verwijderen + loggen met timestamp en admin-ID.</p>
+        </div>
+        <div class="flow-action">Binnen 30 dagen</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h4>Bewijsdocument genereren</h4>
+          <p>Geautomatiseerd document met: welke collections doorzocht zijn, hoeveel records verwijderd, timestamp, door wie uitgevoerd. Dit document bewaren in een aparte deletion_log collectie (geen persoonsdata, alleen metadata).</p>
+        </div>
+        <div class="flow-action">Gelijktijdig</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <h4>Bevestiging naar betrokkene</h4>
+          <p>E-mail met bevestiging van verwijdering, datum en beschrijving van welke categorieen zijn verwijderd. Geen persoonsdata meesturen in de bevestiging.</p>
+        </div>
+        <div class="flow-action">Uiterlijk dag 30</div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h4>Opdracht voor Code</h4>
+      <p>Maak een PocketBase collection <code>deletion_log</code> met velden: <code>request_date</code>, <code>completion_date</code>, <code>collections_checked</code>, <code>records_deleted</code>, <code>executed_by</code>, <code>reference_number</code>. Geen e-mailadres of naam opslaan in dit log — alleen aantallen en metadata. Maak een admin-script dat op basis van een e-mailadres alle gerelateerde records vindt, verwijdert en het log aanmaakt.</p>
+    </div>
+  </div>
+  <hr>
+  <div class="section">
+    <div class="section-num">Sectie 04</div>
+    <div class="section-title">Toestemmingsregistratie — CMO-FMO</div>
+    <div class="section-sub">Wat er juridisch vereist is bij het verzamelen van gegevens via de CMO-FMO wizard.</div>
+    <p class="section-body">De CMO-FMO vraagt persoonsgegevens (naam, e-mail) voordat het rapport gegenereerd wordt. Dit vereist een geldige rechtsgrondslag. HCI kiest voor <strong>toestemming (AVG Art. 6 lid 1 sub a)</strong> omdat de verwerking niet strikt noodzakelijk is voor de dienst — het rapport kan technisch ook anoniem gegenereerd worden.</p>
+    <div class="section-title" style="font-size:16px;margin-bottom:16px">Vereiste checkbox teksten</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Checkbox</th>
+          <th>Tekst (verplicht exact zo)</th>
+          <th>Verplicht?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Toestemming verwerking</td>
+          <td>Ik ga akkoord dat HES Consultancy International mijn naam, organisatie en e-mailadres opslaat en gebruikt om contact met mij op te nemen over dit rapport en gerelateerde diensten. Ik kan mijn toestemming te allen tijde intrekken via mbhes@hes-consultancy-international.com.</td>
+          <td><span class="badge badge-red">Verplicht</span></td>
+        </tr>
+        <tr>
+          <td>Rapport delen met HCI</td>
+          <td>Ik ga akkoord dat HES Consultancy International een kopie van mijn rapport ontvangt voor kwaliteits- en opvolgingsdoeleinden.</td>
+          <td><span class="badge badge-red">Verplicht</span></td>
+        </tr>
+        <tr>
+          <td>Commerciele opvolging</td>
+          <td>Ik sta open voor een vrijblijvend gesprek met HES Consultancy International over de uitkomsten van dit rapport.</td>
+          <td><span class="badge badge-green">Optioneel</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="amber-box">
+      <h4>Juridisch vereist — niet samenvoegen</h4>
+      <p>De drie checkboxen mogen <strong>niet</strong> worden samengevoegd tot een checkbox. AVG Art. 7 lid 2 vereist dat toestemming per doel afzonderlijk wordt gevraagd. Bundelen maakt de toestemming ongeldig.</p>
+    </div>
+    <div class="section-title" style="font-size:16px;margin-top:32px;margin-bottom:16px">Toestemming opslaan in PocketBase</div>
+    <div class="code-block">
+<span class="comment">// PocketBase collection: cmo_fmo_consents</span>
+{
+  <span class="key">"id"</span>: <span class="string">"auto"</span>,
+  <span class="key">"email"</span>: <span class="string">"contact@organisatie.nl"</span>,
+  <span class="key">"org_name"</span>: <span class="string">"Gemeente Amsterdam"</span>,
+  <span class="key">"consent_processing"</span>: <span class="val">true</span>,        <span class="comment">// checkbox 1 — verplicht</span>
+  <span class="key">"consent_report_share"</span>: <span class="val">true</span>,        <span class="comment">// checkbox 2 — verplicht</span>
+  <span class="key">"consent_followup"</span>: <span class="val">false</span>,           <span class="comment">// checkbox 3 — optioneel</span>
+  <span class="key">"consent_timestamp"</span>: <span class="string">"2026-03-09T10:23:00Z"</span>,
+  <span class="key">"ip_hash"</span>: <span class="string">"sha256_hash_not_plaintext"</span>,   <span class="comment">// gepseudonimiseerd</span>
+  <span class="key">"user_agent_hash"</span>: <span class="string">"sha256_hash"</span>,
+  <span class="key">"withdrawn"</span>: <span class="val">false</span>,                    <span class="comment">// true als toestemming ingetrokken</span>
+  <span class="key">"withdrawn_date"</span>: <span class="val">null</span>
+}
+    </div>
+  </div>
+  <hr>
+  <div class="section">
+    <div class="section-num">Sectie 05</div>
+    <div class="section-title">Abonnementen & Authenticatie</div>
+    <div class="section-sub">Rollen, toegangsniveaus en wat elke rol mag — technische specificatie voor Code.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Rol</th>
+          <th>Hoe aangemaakt</th>
+          <th>Authenticatie</th>
+          <th>Prijs</th>
+          <th>Wat zij mogen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Anonieme bezoeker</td>
+          <td>N.v.t.</td>
+          <td>Geen</td>
+          <td>Gratis</td>
+          <td>Assessment invullen, CMO-FMO starten, rapport zien (sessie)</td>
+        </tr>
+        <tr>
+          <td>CMO-FMO gebruiker</td>
+          <td>Na invullen contactformulier in wizard</td>
+          <td>Magic link via e-mail (geen wachtwoord)</td>
+          <td>Gratis</td>
+          <td>Eigen rapport terugzien, PDF downloaden, verwijderverzoek</td>
+        </tr>
+        <tr>
+          <td>DealFlow Free</td>
+          <td>Registratie via hes-consultancy.nl</td>
+          <td>E-mail + wachtwoord</td>
+          <td>&#8364;149/mnd</td>
+          <td>Beperkt pipeline dashboard, eigen deals, geen KvK-data</td>
+        </tr>
+        <tr>
+          <td>DealFlow Pro</td>
+          <td>Upgrade via Stripe (of handmatig)</td>
+          <td>E-mail + wachtwoord</td>
+          <td>&#8364;299/mnd</td>
+          <td>Volledig pipeline, KvK-verrijking, AI coaching, exports</td>
+        </tr>
+        <tr>
+          <td>HCI Admin (Mike)</td>
+          <td>Handmatig in PocketBase</td>
+          <td>PocketBase admin account</td>
+          <td>N.v.t.</td>
+          <td>Alles — inclusief alle rapporten, alle deals, verwijderen</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box">
+      <h4>Implementatienoot voor Code</h4>
+      <p>PocketBase ondersteunt gebruikersauthenticatie natively. Gebruik <code>pb.collection('users').authWithPassword()</code> voor Free/Pro. Voor CMO-FMO gebruikers: gebruik <code>authWithOTP()</code> (magic link) — geen wachtwoord vereist. Rol bepalen via een <code>subscription_tier</code> veld in de users collectie. Collection rules beperken op basis van <code>@request.auth.subscription_tier</code>.</p>
+    </div>
+  </div>
+  <hr>
+  <div class="section">
+    <div class="section-num">Sectie 06</div>
+    <div class="section-title">Privacybeleid — verplichte onderdelen</div>
+    <div class="section-sub">Wat er minimaal in het privacybeleid op hes-consultancy.nl moet staan (AVG Art. 13).</div>
+    <ul class="checklist">
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Verwerkingsverantwoordelijke</strong> — naam, adres, KvK-nummer, e-mailadres van HCI
+          <div class="check-owner">Eigenaar: Mike Hes · Moet aangemaakt worden</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Welke gegevens worden verwerkt</strong> — per tool/context (zie Sectie 01)
+          <div class="check-owner">Gebaseerd op Sectie 01 van dit document</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Doel en rechtsgrondslag</strong> — per verwerking expliciet vermeld
+          <div class="check-owner">Gebaseerd op Sectie 01 van dit document</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Bewaartermijnen</strong> — per categorie vermeld
+          <div class="check-owner">Gebaseerd op Sectie 01 van dit document</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Derden / verwerkers</strong> — Calendly, PocketBase hosting (Hetzner), Anthropic (AI)
+          <div class="check-owner">Verwerkersovereenkomst met elk vereist</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Betrokkenenrechten</strong> — hoe ze uitgeoefend kunnen worden + contactadres
+          <div class="check-owner">Zie Sectie 03 van dit document</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Klachtrecht</strong> — verwijzing naar Autoriteit Persoonsgegevens (autoriteitpersoonsgegevens.nl)
+          <div class="check-owner">Verplicht conform AVG Art. 13 lid 2 sub d</div>
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">&#9744;</span>
+        <div class="check-text">
+          <strong>Cookiebeleid</strong> — SignalMesh gebruikt geen cookies (IP-only, sessie). Vermelden dat geen tracking cookies worden gebruikt.
+          <div class="check-owner">Vereenvoudigt cookiebanner aanzienlijk</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <hr>
+  <div class="section">
+    <div class="section-num">Sectie 07</div>
+    <div class="section-title">Actielijst voor Code</div>
+    <div class="section-sub">Concrete technische taken op volgorde van prioriteit.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Taak</th>
+          <th>Systeem</th>
+          <th>Prioriteit</th>
+          <th>Afhankelijk van</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>PocketBase collectie <code>cmo_fmo_consents</code> aanmaken (schema zie Sectie 04)</td>
+          <td>PocketBase</td>
+          <td><span class="badge badge-red">Voor uitrol</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>PocketBase collectie <code>deletion_log</code> aanmaken (schema zie Sectie 03)</td>
+          <td>PocketBase</td>
+          <td><span class="badge badge-red">Voor uitrol</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>CMO-FMO: drie checkboxen toevoegen voor rapport genereren (zie Sectie 04)</td>
+          <td>React app</td>
+          <td><span class="badge badge-red">Voor uitrol</span></td>
+          <td>Taak 1</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>CMO-FMO: toestemming opslaan in PocketBase bij submit</td>
+          <td>React app + PocketBase</td>
+          <td><span class="badge badge-red">Voor uitrol</span></td>
+          <td>Taak 1, 3</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Admin script: verwijderverzoek uitvoeren op basis van e-mailadres</td>
+          <td>PocketBase / Node script</td>
+          <td><span class="badge badge-red">Voor uitrol</span></td>
+          <td>Taak 2</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>PocketBase users collectie uitbreiden met <code>subscription_tier</code> veld</td>
+          <td>PocketBase</td>
+          <td><span class="badge badge-amber">Fase 2</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Collection rules instellen per rol (zie Sectie 02 toegangsmatrix)</td>
+          <td>PocketBase</td>
+          <td><span class="badge badge-amber">Fase 2</span></td>
+          <td>Taak 6</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Magic link authenticatie voor CMO-FMO gebruikers</td>
+          <td>PocketBase + React</td>
+          <td><span class="badge badge-amber">Fase 2</span></td>
+          <td>Taak 6</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Privacybeleid pagina bouwen op hes-consultancy.nl/privacy</td>
+          <td>HTML</td>
+          <td><span class="badge badge-amber">Fase 2</span></td>
+          <td>Sectie 06 checklist</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Stripe integratie voor DealFlow abonnementen</td>
+          <td>PocketBase + Stripe</td>
+          <td><span class="badge badge-blue">Fase 3</span></td>
+          <td>Taak 6, 7</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="doc-footer">
+  <span>HES Consultancy International · GDPR Datamap v1.0 · Maart 2026</span>
+  <span>Vertrouwelijk — intern gebruik</span>
+  <span>Verwerkingsverantwoordelijke: Mike Hes · mbhes@hes-consultancy-international.com</span>
+</div>
+</body>
+</html>

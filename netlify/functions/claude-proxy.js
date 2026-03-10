@@ -35,7 +35,7 @@
 // ============================================================
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_VERSION = '2023-06-01';
-const DEFAULT_MODEL     = 'claude-haiku-4-5-20251001';
+const DEFAULT_MODEL     = 'claude-sonnet-4-5-20251001';
 const MAX_TOKENS        = 4096;
 
 // Allowed origins — add your custom domain here when live
@@ -45,6 +45,7 @@ const ALLOWED_ORIGINS = [
   'https://hes-consultancy-international.com',
   'https://www.hes-consultancy-international.com',
   'https://hci-platform.netlify.app',
+  'https://platform.hes-consultancy-international.com',
   'https://nxterasolutions.eu',
   'https://www.nxterasolutions.eu',
   'http://localhost:3000',

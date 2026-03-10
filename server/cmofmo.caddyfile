@@ -1,0 +1,24 @@
+cmofmo.hes-consultancy-international.com {
+    # Statische React app
+    root * /var/www/cmofmo
+    file_server
+
+    # SPA fallback — alle routes naar index.html
+    try_files {path} /index.html
+
+    # Claude API proxy route
+    handle /api/claude {
+        reverse_proxy localhost:3001
+    }
+
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+        -Server
+    }
+
+    # Gzip compressie
+    encode gzip
+}

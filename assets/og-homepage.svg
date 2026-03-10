@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#08090c"/>
+      <stop offset="100%" style="stop-color:#13151c"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c8a55a"/>
+      <stop offset="100%" style="stop-color:#e0c882"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="4" fill="url(#gold)"/>
+  <circle cx="200" cy="150" r="300" fill="rgba(108,92,231,0.04)"/>
+  <circle cx="1000" cy="500" r="250" fill="rgba(200,165,90,0.03)"/>
+  <text x="80" y="200" font-family="Georgia, serif" font-size="18" fill="#c8a55a" letter-spacing="4" text-transform="uppercase">HES CONSULTANCY INTERNATIONAL</text>
+  <text x="80" y="280" font-family="Georgia, serif" font-size="56" fill="#ffffff" font-weight="400">European GTM Partner</text>
+  <text x="80" y="350" font-family="Georgia, serif" font-size="42" fill="#c8a55a" font-style="italic">From Strategy to First Customer</text>
+  <line x1="80" y1="400" x2="280" y2="400" stroke="#c8a55a" stroke-width="2" opacity="0.4"/>
+  <text x="80" y="450" font-family="sans-serif" font-size="18" fill="#a8a6b4">30+ years C-level experience · Benelux &amp; DACH</text>
+  <text x="80" y="490" font-family="sans-serif" font-size="16" fill="#5e5d6a">hes-consultancy.nl</text>
+</svg>

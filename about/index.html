@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mike Hes — HES Consultancy International</title>
+<meta name="description" content="30 years in EU enterprise technology. The consultant who tells you what you need to hear — not what you want to hear.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: rgba(201,168,76,0.12);
+  --gold-border: rgba(201,168,76,0.22);
+  --ink: #0D0D0D;
+  --ink-2: #131313;
+  --ink-3: #1A1A1A;
+  --paper: #F7F4EE;
+  --muted: #888880;
+  --muted-2: rgba(247,244,238,0.45);
+  --muted-3: rgba(247,244,238,0.6);
+  --border: rgba(247,244,238,0.07);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--paper); overflow-x: hidden; line-height: 1; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(13,13,13,0.97);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--paper); letter-spacing: 0.02em; }
+.nav-logo-sub { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
+.nav-right { display: flex; align-items: center; gap: 32px; }
+.nav-back { font-size: 12px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; font-weight: 300; }
+.nav-back:hover { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { color: rgba(247,244,238,0.65); text-decoration: none; font-size: 13px; letter-spacing: 0.05em; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 8px 20px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold); }
+.editorial-header {
+  padding: 80px 56px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.header-left {
+  padding: 0 80px 100px 0;
+  display: flex; flex-direction: column; justify-content: flex-start;
+  border-right: 1px solid var(--border);
+  position: relative; z-index: 2;
+}
+.header-right {
+  padding: 60px 0 100px 64px;
+  display: flex; flex-direction: column; justify-content: flex-start;
+  position: relative; z-index: 2;
+}
+.header-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 85% 30%, rgba(201,168,76,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(201,168,76,0.03) 0%, transparent 45%);
+}
+.editorial-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 28px;
+  display: flex; align-items: center; gap: 16px;
+}
+.editorial-kicker::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); }
+.mike-photo-wrap {
+  position: relative; margin-bottom: 48px;
+  width: 100%; max-width: 340px;
+}
+.mike-photo {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: grayscale(20%) contrast(1.05);
+}
+.mike-photo-frame {
+  position: absolute; inset: 0;
+  border: 1px solid var(--gold-border);
+  pointer-events: none;
+}
+.mike-photo-label {
+  position: absolute; bottom: -1px; left: 0; right: 0;
+  background: rgba(13,13,13,0.85);
+  padding: 10px 16px;
+  border-top: 1px solid var(--gold-border);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold);
+}
+.editorial-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 7vw, 100px);
+  font-weight: 300; line-height: 0.92;
+  color: var(--paper); margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.editorial-name .surname {
+  display: block;
+  font-weight: 600; color: var(--gold);
+}
+.editorial-title {
+  font-size: 13px; font-weight: 300;
+  color: var(--muted); letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 56px;
+}
+.header-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 32px; }
+.header-summary {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 400; line-height: 1.45;
+  color: rgba(247,244,238,0.8);
+  max-width: 480px;
+}
+.header-summary em { font-style: italic; color: var(--gold); }
+.fact-stack { display: flex; flex-direction: column; gap: 0; margin-bottom: 48px; }
+.fact-item {
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start;
+}
+.fact-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px; font-weight: 300; color: var(--gold);
+  line-height: 1; letter-spacing: -0.02em;
+}
+.fact-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 300; margin-bottom: 4px; padding-top: 8px; }
+.fact-desc { font-size: 13px; color: var(--muted-3); font-weight: 300; line-height: 1.55; }
+.header-quote {
+  border-left: 2px solid var(--gold);
+  padding: 20px 24px;
+  background: var(--gold-dim);
+}
+.header-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; font-style: italic; line-height: 1.55;
+  color: rgba(247,244,238,0.75);
+}
+.content-section {
+  padding: 100px 56px;
+  display: grid; grid-template-columns: 260px 1fr; gap: 80px;
+}
+.content-section.alt { background: var(--ink-3); }
+.content-section.dark { background: #0A0A0A; }
+.content-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); padding-top: 6px;
+  position: sticky; top: 100px; align-self: start;
+}
+.content-body {}
+.content-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper); margin-bottom: 24px;
+}
+.content-h2 em { font-style: italic; color: var(--gold); }
+.content-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 400; line-height: 1.6;
+  color: rgba(247,244,238,0.75); margin-bottom: 28px;
+  font-style: italic;
+}
+.content-p {
+  font-size: 15px; line-height: 1.85;
+  color: var(--muted-3); font-weight: 300;
+  margin-bottom: 20px; max-width: 680px;
+}
+.content-p:last-child { margin-bottom: 0; }
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: grid; grid-template-columns: 140px 1fr;
+  gap: 32px; padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.timeline-item:first-child { padding-top: 0; }
+.timeline-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--gold);
+  letter-spacing: 0.08em; padding-top: 4px;
+  font-weight: 400;
+}
+.timeline-content {}
+.timeline-role {
+  font-size: 15px; font-weight: 500;
+  color: var(--paper); margin-bottom: 4px;
+}
+.timeline-company {
+  font-size: 12px; color: var(--muted);
+  font-weight: 300; margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.timeline-desc {
+  font-size: 13px; line-height: 1.65;
+  color: var(--muted-2); font-weight: 300;
+}
+.timeline-current {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold-dim); border: 1px solid var(--gold-border);
+  padding: 3px 10px; margin-left: 12px;
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); font-family: 'DM Mono', monospace;
+  vertical-align: middle;
+}
+.timeline-current::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; }
+.lesson-card {
+  padding: 32px 28px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  transition: all 0.3s;
+}
+.lesson-card:hover {
+  border-color: var(--gold-border);
+  background: var(--gold-dim);
+}
+.lesson-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px;
+}
+.lesson-title {
+  font-size: 14px; font-weight: 500; color: var(--paper);
+  margin-bottom: 10px; line-height: 1.3;
+}
+.lesson-body {
+  font-size: 13px; line-height: 1.7;
+  color: var(--muted-2); font-weight: 300;
+}
+.lesson-insight {
+  margin-top: 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-style: italic;
+  color: var(--gold); line-height: 1.4;
+}
+.method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+.method-card {
+  padding: 32px 28px;
+  background: rgba(255,255,255,0.02);
+  border-top: 2px solid var(--border);
+  transition: border-top-color 0.3s;
+}
+.method-card:hover { border-top-color: var(--gold); }
+.method-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300;
+  color: rgba(201,168,76,0.15); line-height: 1;
+  margin-bottom: 16px;
+}
+.method-name {
+  font-size: 14px; font-weight: 500; color: var(--paper);
+  margin-bottom: 10px;
+}
+.method-desc {
+  font-size: 13px; line-height: 1.7;
+  color: var(--muted-2); font-weight: 300;
+}
+.principles { display: flex; flex-direction: column; gap: 0; }
+.principle {
+  padding: 28px 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 32px 1fr; gap: 20px;
+}
+.principle-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--gold); padding-top: 3px;
+}
+.principle-content {}
+.principle-title { font-size: 15px; font-weight: 500; color: var(--paper); margin-bottom: 8px; }
+.principle-body { font-size: 13px; line-height: 1.7; color: var(--muted-2); font-weight: 300; }
+.contact-strip {
+  background: #0A0A0A;
+  padding: 80px 56px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+  border-top: 1px solid var(--border);
+}
+.contact-left {}
+.contact-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper); margin-bottom: 16px;
+}
+.contact-tagline em { font-style: italic; color: var(--gold); }
+.contact-sub {
+  font-size: 14px; line-height: 1.7;
+  color: var(--muted-2); font-weight: 300;
+}
+.contact-right { display: flex; flex-direction: column; gap: 16px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--gold); color: var(--ink);
+  padding: 16px 32px; font-size: 12px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 500; text-decoration: none;
+  transition: all 0.25s; font-family: 'DM Sans', sans-serif;
+  width: fit-content;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateX(4px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--muted-2); font-size: 13px;
+  text-decoration: none; transition: color 0.2s; font-weight: 300;
+  width: fit-content;
+}
+.btn-secondary:hover { color: var(--gold); }
+.btn-secondary::before { content: ''; width: 20px; height: 1px; background: currentColor; transition: width 0.25s; }
+.btn-secondary:hover::before { width: 32px; }
+.contact-detail {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; color: var(--muted); font-weight: 300;
+}
+.contact-detail a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.contact-detail a:hover { color: var(--gold); }
+.contact-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--ink);
+}
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: rgba(247,244,238,0.35); }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: var(--muted); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.editorial-kicker { animation: fadeUp 0.5s ease both; }
+.editorial-name { animation: fadeUp 0.6s 0.1s ease both; }
+.editorial-title { animation: fadeUp 0.6s 0.15s ease both; }
+.header-rule { animation: fadeUp 0.6s 0.2s ease both; }
+.header-summary { animation: fadeUp 0.7s 0.25s ease both; }
+.fact-stack { animation: fadeUp 0.7s 0.3s ease both; }
+.header-quote { animation: fadeUp 0.7s 0.4s ease both; }
+@media (max-width: 1024px) {
+  nav { padding: 16px 24px; }
+  .editorial-header { grid-template-columns: 1fr; padding: 68px 24px 0; }
+  .header-left { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 56px; }
+  .header-right { padding: 48px 0 80px; }
+  .content-section { grid-template-columns: 1fr; gap: 32px; padding: 72px 24px; }
+  .content-label { position: static; }
+  .lessons-grid, .method-grid { grid-template-columns: 1fr; }
+  .contact-strip { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  .timeline-item { grid-template-columns: 100px 1fr; gap: 20px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-main">HES Consultancy International</div>
+    <div class="nav-logo-sub">From Strategy to First Customer</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#why" data-nl="Waarom HCI" data-en="Why HCI">Waarom HCI</a></li>
+    <li><a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a></li>
+    <li><a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a></li>
+    <li><a href="/about/" data-nl="Over ons" data-en="About">Over ons</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Bel ons" data-en="Book a Call">Bel ons</a>
+  </div>
+</nav>
+<div class="editorial-header">
+  <div class="header-bg"></div>
+  <div class="header-left">
+    <div class="editorial-kicker" data-nl="Oprichter &amp; Managing Partner" data-en="Founder &amp; Managing Partner">Founder &amp; Managing Partner</div>
+    <div class="editorial-name">
+      Mike
+      <span class="surname">Hes</span>
+    </div>
+    <div class="editorial-title">HES Consultancy International &middot; Amsterdam</div>
+    <div class="header-rule"></div>
+    <p class="header-summary" data-nl="Dertig jaar in EU enterprise technologie. De consultant die u vertelt wat u <em>moet</em> horen \u2014 niet wat u wilt horen. Vooral als het antwoord nee is." data-en="Thirty years in EU enterprise technology. The consultant who tells you what you <em>need</em> to hear \u2014 not what you want to hear. Especially when the answer is no.">
+      Thirty years in EU enterprise technology.
+      The consultant who tells you what you <em>need</em> to hear &mdash;
+      not what you want to hear.
+      Especially when the answer is no.
+    </p>
+  </div>
+  <div class="header-right">
+    <div class="mike-photo-wrap">
+      <img src="/mike-hes.jpg" alt="Mike Hes — HES Consultancy International" class="mike-photo">
+      <div class="mike-photo-frame"></div>
+      <div class="mike-photo-label" data-nl="Mike Hes &middot; Oprichter &amp; Managing Partner" data-en="Mike Hes &middot; Founder &amp; Managing Partner">Mike Hes &middot; Founder &amp; Managing Partner</div>
+    </div>
+    <div class="fact-stack">
+      <div class="fact-item">
+        <div class="fact-num">30</div>
+        <div>
+          <div class="fact-label" data-nl="Jaar EU-ervaring" data-en="Years EU experience">Years EU experience</div>
+          <div class="fact-desc" data-nl="Enterprise sales, business development en channel management in West-Europa." data-en="Enterprise sales, business development and channel management across Western Europe.">Enterprise sales, business development and channel management across Western Europe.</div>
+        </div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num">8</div>
+        <div>
+          <div class="fact-label" data-nl="Sectoren met diepe expertise" data-en="Sectors with deep expertise">Sectors with deep expertise</div>
+          <div class="fact-desc" data-nl="Zorg, finance, overheid, software, logistiek, maakindustrie, telecom, onderwijs." data-en="Healthcare, finance, government, software, logistics, manufacturing, telecom, education.">Healthcare, finance, government, software, logistics, manufacturing, telecom, education.</div>
+        </div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num">300+</div>
+        <div>
+          <div class="fact-label" data-nl="C-level introducties" data-en="C-level introductions">C-level introductions</div>
+          <div class="fact-desc" data-nl="CIO's, CISO's, CFO's en bestuursleden in NL, DE, BE, FR en UK &mdash; opgebouwd in drie decennia." data-en="CIOs, CISOs, CFOs and board members across NL, DE, BE, FR and UK &mdash; built over three decades.">CIOs, CISOs, CFOs and board members across NL, DE, BE, FR and UK &mdash; built over three decades.</div>
+        </div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num">5</div>
+        <div>
+          <div class="fact-label" data-nl="Landen als primaire markten" data-en="Countries as primary markets">Countries as primary markets</div>
+          <div class="fact-desc" data-nl="Nederland &middot; Duitsland &middot; Belgi&euml; &middot; Frankrijk &middot; Verenigd Koninkrijk." data-en="Netherlands &middot; Germany &middot; Belgium &middot; France &middot; United Kingdom.">Netherlands &middot; Germany &middot; Belgium &middot; France &middot; United Kingdom.</div>
+        </div>
+      </div>
+    </div>
+    <div class="header-quote">
+      <p class="header-quote-text" data-nl="&quot;Ik heb opdrachten afgewezen waarvan ik wist dat het product het niet zou redden in Europa. Die integriteit is de enige reden dat klanten mijn introducties vertrouwen als ik ja zeg.&quot;" data-en="&quot;I have walked away from engagements where I knew the product would not make it in Europe. That integrity is the only reason clients trust my introductions when I say yes.&quot;">
+        "I have walked away from engagements where I knew the product
+        would not make it in Europe. That integrity is the only reason
+        clients trust my introductions when I say yes."
+      </p>
+    </div>
+  </div>
+</div>
+<div class="content-section alt" id="background">
+  <div class="content-label" data-nl="Achtergrond" data-en="Background">Background</div>
+  <div class="content-body">
+    <h2 class="content-h2" data-nl="Altijd in dienst van andermans agenda &mdash; <em>tot nu.</em>" data-en="Always in service of someone else's agenda &mdash; <em>until now.</em>">Always in service of someone else's agenda &mdash; <em>until now.</em></h2>
+    <p class="content-lead">
+      Three decades at the intersection of technology and European enterprise.
+      Citrix. Huawei. DXC Technology. Telindus. Always building market presence
+      for other people's products in markets they didn't fully understand.
+    </p>
+    <p class="content-p">
+      In January 2026, Mike Hes launched HES Consultancy International &mdash; the first time
+      in his career that the agenda is entirely his own. The mission: bring the same
+      depth of EU market knowledge that he deployed for global corporations
+      to technology companies navigating European market entry for the first time.
+    </p>
+    <p class="content-p">
+      The difference between HCI and a conventional sales agent or market entry consultant
+      is in the first conversation. Where most advisors begin with enthusiasm and a proposal,
+      Mike begins with an assessment. The honest kind &mdash; the kind that sometimes ends with
+      "not yet" or "not this market" or "not in this form."
+    </p>
+    <p class="content-p">
+      That approach is not cautious. It is commercial. A failed market entry wastes
+      18-36 months and &euro;200K-&euro;500K. An honest assessment upfront costs a fraction of that
+      and protects both the client's investment and HCI's reputation.
+    </p>
+  </div>
+</div>
+<div class="content-section dark" id="career">
+  <div class="content-label" data-nl="Carri&egrave;re" data-en="Career">Career</div>
+  <div class="content-body">
+    <h2 class="content-h2" data-nl="30 jaar. E&eacute;n rode draad." data-en="30 years. One consistent thread.">30 years. One consistent thread.</h2>
+    <p class="content-lead" data-nl="Enterprise technologie. Europese markten. Aanwezigheid opbouwen vanaf nul." data-en="Enterprise technology. European markets. Building presence from zero.">Enterprise technology. European markets. Building presence from zero.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">
+          2026 &rarr;
+          <span class="timeline-current" data-nl="Nu" data-en="Now">Now</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-role">Founder &amp; Managing Partner</div>
+          <div class="timeline-company">HES Consultancy International &middot; Amsterdam, NL</div>
+          <div class="timeline-desc" data-nl="EU-markttoegang advies en uitvoering voor technologiebedrijven. Eerlijke beoordelingen. Echte introducties. Van strategie tot eerste klant." data-en="EU market entry advisory and execution for technology companies. Honest assessments. Real introductions. From strategy to first customer.">EU market entry advisory and execution for technology companies. Honest assessments. Real introductions. From strategy to first customer.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Enterprise</div>
+        <div class="timeline-content">
+          <div class="timeline-role">Senior Business Development &amp; Partnerships</div>
+          <div class="timeline-company">DXC Technology &middot; Telindus</div>
+          <div class="timeline-desc" data-nl="Enterprise IT-diensten en infrastructuur. Opbouw van strategische partnerschappen in West-Europa. Beheer van complexe meerjarige contracten met publieke en private sector klanten." data-en="Enterprise IT services and infrastructure. Building strategic partnerships across Western Europe. Managing complex multi-year contracts with public and private sector clients.">Enterprise IT services and infrastructure. Building strategic partnerships across Western Europe. Managing complex multi-year contracts with public and private sector clients.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Enterprise</div>
+        <div class="timeline-content">
+          <div class="timeline-role">Channel &amp; Partner Management</div>
+          <div class="timeline-company">Huawei Enterprise &middot; European Markets</div>
+          <div class="timeline-desc" data-nl="Opbouw van Huawei's enterprise channel in West-Europa. Navigeren door country-of-origin bias, regelgevingszorgen en concurrentiepositie tegen gevestigde EU- en VS-leveranciers &mdash; in real time." data-en="Building Huawei's enterprise channel in Western Europe. Navigating country-of-origin bias, regulatory concerns and competitive positioning against established EU and US vendors &mdash; in real time.">Building Huawei's enterprise channel in Western Europe. Navigating country-of-origin bias, regulatory concerns and competitive positioning against established EU and US vendors &mdash; in real time.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Enterprise</div>
+        <div class="timeline-content">
+          <div class="timeline-role">Sales &amp; Business Development</div>
+          <div class="timeline-company">Citrix Systems &middot; European Markets</div>
+          <div class="timeline-desc" data-nl="Virtualisatie, remote access en enterprise software. Relatieopbouw met CIO's en IT-beslissers in Nederland, Belgi&euml; en Duitsland." data-en="Virtualisation, remote access and enterprise software. Building relationships with CIOs and IT decision makers across the Netherlands, Belgium and Germany.">Virtualisation, remote access and enterprise software. Building relationships with CIOs and IT decision makers across the Netherlands, Belgium and Germany.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1994 &rarr;</div>
+        <div class="timeline-content">
+          <div class="timeline-role">Enterprise Technology Sales &amp; BD</div>
+          <div class="timeline-company">Multiple organisations &middot; Western Europe</div>
+          <div class="timeline-desc" data-nl="Drie decennia marktaanwezigheid opbouwen, partnernetwerken beheren en enterprise deals sluiten in West-Europese markten." data-en="Three decades of building market presence, managing partner networks and closing enterprise deals across Western European markets.">Three decades of building market presence, managing partner networks and closing enterprise deals across Western European markets.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-section alt" id="lessons">
+  <div class="content-label" data-nl="Praktijkervaring" data-en="Field Experience">Field Experience</div>
+  <div class="content-body">
+    <h2 class="content-h2" data-nl="Hoe 30 jaar eerlijk advies eruitziet." data-en="What 30 years of honest advice actually looks like.">What 30 years of honest advice actually looks like.</h2>
+    <p class="content-lead">
+      These are real situations. The names are not used &mdash; but the lessons are.
+      Each one shaped how HCI operates today.
+    </p>
+    <div class="lessons-grid">
+      <div class="lesson-card">
+        <div class="lesson-type" data-nl="Productgereedheid" data-en="Product readiness">Product readiness</div>
+        <div class="lesson-title" data-nl="Het product dat niet klaar was voor West-Europa" data-en="The product that wasn't ready for Western Europe">The product that wasn't ready for Western Europe</div>
+        <div class="lesson-body">A Canadian EHR vendor wanted to enter Western Europe. Full assessment: product maturity was below the threshold of existing EU market leaders. Western Europe was not viable &mdash; the gap was too large.</div>
+        <div class="lesson-insight">"I told them: Eastern Europe first, via OEM partnerships. They saved two years and &euro;300K. That is the value of honesty before the investment."</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-type" data-nl="Land-van-herkomst vooroordeel" data-en="Country-of-origin bias">Country-of-origin bias</div>
+        <div class="lesson-title" data-nl="Als de markt de geografie afwijst, niet het product" data-en="When the market rejects the geography, not the product">When the market rejects the geography, not the product</div>
+        <div class="lesson-body">A software vendor from a country with documented bias in their target market. The product was good. The market wouldn't hear it. HCI confirmed the bias was real &mdash; not perceived &mdash; via direct network conversations.</div>
+        <div class="lesson-insight">"Repositioning via a neutral EU entity and targeting lower-sensitivity sectors first. The market can be entered &mdash; just not directly."</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-type" data-nl="Regelgeving realiteit" data-en="Regulatory reality">Regulatory reality</div>
+        <div class="lesson-title" data-nl="Het AI-platform dat tegen drie EU-muren tegelijk liep" data-en="The AI platform that hit three EU walls at once">The AI platform that hit three EU walls at once</div>
+        <div class="lesson-body">A smart city AI platform with strong US and APAC traction wanted the Dutch municipal market. Due diligence before the first meeting: EU AI Act (suspect detection = high-risk), GDPR (biometric data processing), and no EU reference customers.</div>
+        <div class="lesson-insight">"Three critical blockers identified before a single conversation happened. The client avoided a &euro;400K+ failed pilot."</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-type" data-nl="Waardepropositie" data-en="Value proposition">Value proposition</div>
+        <div class="lesson-title" data-nl="De VS-pitch die niet vertaalde naar EU-zorg" data-en="The US pitch that didn't translate to EU healthcare">The US pitch that didn't translate to EU healthcare</div>
+        <div class="lesson-body">An AI medical video platform built its entire value proposition around HCAHPS reimbursement scores &mdash; a US Medicare mechanism. That mechanism doesn't exist in Europe. Same product, completely broken pitch.</div>
+        <div class="lesson-insight">"The EU opportunity is real &mdash; but built around workforce shortage, WGBO compliance and health literacy. Completely different story. Completely different buyer."</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-type" data-nl="Partnerbeoordeling" data-en="Partner assessment">Partner assessment</div>
+        <div class="lesson-title" data-nl="De NDA die niemand beschermde" data-en="The NDA that protected nobody">The NDA that protected nobody</div>
+        <div class="lesson-body">A potential development partner sent an NDA governed entirely by Indian law with one-sided confidentiality obligations. Signing it would have provided zero protection under Dutch or EU law.</div>
+        <div class="lesson-insight">"Legal awareness is not optional in European partnerships. The NDA assessment prevented a relationship that would have been unenforceable from day one."</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-type" data-nl="Markttiming" data-en="Market timing">Market timing</div>
+        <div class="lesson-title" data-nl="De compliance-crisis die een marktvenster cre&euml;erde" data-en="The compliance crisis that created a market window">The compliance crisis that created a market window</div>
+        <div class="lesson-body">Zivver acquired by US company Kiteworks. Dutch parliament officially confirms CLOUD Act exposure. 40% of Dutch hospitals using Zivver. 3,500+ organisations suddenly in the market for a European alternative.</div>
+        <div class="lesson-insight">"The window between a market event and procurement response is 6-12 months. That is when the deal is won &mdash; not at the tender stage."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-section dark" id="methodology">
+  <div class="content-label" data-nl="Methodologie" data-en="Methodology">Methodology</div>
+  <div class="content-body">
+    <h2 class="content-h2" data-nl="Hoe HCI werkt. <em>Elke keer.</em>" data-en="How HCI works. <em>Every time.</em>">How HCI works. <em>Every time.</em></h2>
+    <p class="content-lead">
+      The methodology is consistent across every engagement, every sector, every client.
+      Because the fundamentals of EU market entry don't change.
+    </p>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-num">01</div>
+        <div class="method-name" data-nl="Eerlijke Beoordeling Eerst" data-en="Honest Assessment First">Honest Assessment First</div>
+        <div class="method-desc">Before any engagement, we assess real EU readiness across six dimensions: ICP clarity, product-market fit, regulatory compliance, GTM model, team readiness, financial runway. The score determines everything that follows.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">02</div>
+        <div class="method-name" data-nl="Regelgeving Mapping" data-en="Regulatory Mapping">Regulatory Mapping</div>
+        <div class="method-desc">Every product in every sector has a specific regulatory profile. We map it before the first customer conversation &mdash; not after the first failed pilot. NIS2, GDPR, AI Act, CRA, NEN 7510, DORA, WGBO.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">03</div>
+        <div class="method-name" data-nl="EU Waardepropositie" data-en="EU Value Proposition">EU Value Proposition</div>
+        <div class="method-desc">What works in the US doesn't work in Europe. EU buyers respond to compliance, sovereignty, workforce efficiency and regulatory risk reduction &mdash; not ROI timelines and HCAHPS scores. We rebuild the pitch for the actual market.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">04</div>
+        <div class="method-name" data-nl="Warme Introducties" data-en="Warm Introductions">Warm Introductions</div>
+        <div class="method-desc">300+ C-level contacts built over 30 years. Warm introductions achieve 40-60% engagement. Cold email: 2-5%. We never burn an introduction on a product that isn't ready. That's why the introductions work when we make them.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">05</div>
+        <div class="method-name" data-nl="MEDDIC+ Kwalificatie" data-en="MEDDIC+ Qualification">MEDDIC+ Qualification</div>
+        <div class="method-desc">Every prospect in the pipeline is qualified against nine criteria including EU compliance match and decision-making authority mapping. We don't advance deals that can't close. Pipeline quality over volume.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">06</div>
+        <div class="method-name" data-nl="Volledige Cyclus Commitment" data-en="Full Cycle Commitment">Full Cycle Commitment</div>
+        <div class="method-desc">Not just strategy documents. HCI stays with the client from assessment through closed deal. The fee structure &mdash; retainer plus success commission &mdash; reflects that shared commitment to the outcome.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-section alt" id="principles">
+  <div class="content-label" data-nl="Principes" data-en="Principles">Principles</div>
+  <div class="content-body">
+    <h2 class="content-h2" data-nl="Waar HCI voor staat. <em>Niet-onderhandelbaar.</em>" data-en="What HCI stands for. <em>Non-negotiable.</em>">What HCI stands for. <em>Non-negotiable.</em></h2>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-content">
+          <div class="principle-title" data-nl="Eerlijkheid voor enthousiasme" data-en="Honesty before enthusiasm">Honesty before enthusiasm</div>
+          <div class="principle-body">We will not tell you your product is ready if it isn't. We will not promise five closed deals if the regulatory foundation isn't there. We would rather lose the engagement than deliver a failed market entry. The market knows the difference.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-content">
+          <div class="principle-title" data-nl="EU-wetgeving is niet optioneel" data-en="EU law is not optional">EU law is not optional</div>
+          <div class="principle-body">GDPR, NIS2, the EU AI Act, the Cyber Resilience Act, NEN 7510 &mdash; these are not compliance checkboxes. They are the commercial reality of the European market. We treat them as fundamental, not as obstacles to work around.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-content">
+          <div class="principle-title" data-nl="Introducties zijn niet te koop" data-en="Introductions are not for sale">Introductions are not for sale</div>
+          <div class="principle-body">Thirty years of relationships cannot be rebuilt if they are burned on an unprepared vendor. Every introduction HCI makes is preceded by an honest assessment of whether the product is ready for that conversation. That protection keeps the network valuable.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <div class="principle-content">
+          <div class="principle-title" data-nl="Commissie wordt verdiend op resultaten, niet op activiteit" data-en="Commission is earned on outcomes, not activity">Commission is earned on outcomes, not activity</div>
+          <div class="principle-body">HCI's fee structure includes a success component on closed deals. That alignment means we are focused on the same thing our clients are: revenue. Not reports, not meetings, not pipeline theatre. Closed deals.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">05</div>
+        <div class="principle-content">
+          <div class="principle-title" data-nl="Europese digitale soevereiniteit doet ertoe" data-en="European digital sovereignty matters">European digital sovereignty matters</div>
+          <div class="principle-body">The CLOUD Act, FISA, and the documented exposure of US-owned tools in European markets are not hypothetical risks. HCI specifically works with companies that respect European data sovereignty &mdash; and uses that as a commercial differentiator, not just a principle.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="contact-strip" id="contact">
+  <div class="contact-left">
+    <h2 class="contact-tagline" data-nl="Het eerste gesprek<br>kost <em>niets.</em>" data-en="The first conversation<br>costs <em>nothing.</em>">The first conversation<br>costs <em>nothing.</em></h2>
+    <p class="contact-sub" data-nl="Geen pitch. Geen voorstel. Gewoon een eerlijk gesprek over waar u staat en of HCI kan helpen. Dat gesprek is gratis. De verkeerde markttoegang niet." data-en="No pitch. No proposal. Just an honest conversation about where you are and whether HCI can help. That conversation is free. The wrong market entry isn't.">No pitch. No proposal. Just an honest conversation about where you are and whether HCI can help. That conversation is free. The wrong market entry isn't.</p>
+  </div>
+  <div class="contact-right">
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-primary">
+      <span data-nl="Bel met Mike" data-en="Book a call with Mike">Book a call with Mike</span>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="/services/assessment" class="btn-secondary">
+      <span data-nl="Of doe de gratis EU Readiness Scan" data-en="Or take the free EU Readiness Scan">Or take the free EU Readiness Scan</span>
+    </a>
+    <div style="margin-top:8px;display:flex;flex-direction:column;gap:10px">
+      <div class="contact-detail">
+        <div class="contact-dot"></div>
+        <a href="mailto:mbhes@hes-consultancy-international.com">mbhes@hes-consultancy-international.com</a>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-dot"></div>
+        <a href="https://linkedin.com/in/mihes" target="_blank">linkedin.com/in/mihes</a>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-dot"></div>
+        <span>Amsterdam, Netherlands</span>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/" data-nl="Home" data-en="Home">Home</a>
+    <a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a>
+    <a href="/about/" data-nl="Over ons" data-en="About">Over ons</a>
+    <a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a>
+    <a href="mailto:mbhes@hes-consultancy-international.com">mbhes@hes-consultancy-international.com</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Privacybeleid" data-en="Privacy Policy">Privacybeleid</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Voorwaarden" data-en="Terms &amp; Conditions">Voorwaarden</a></div>
+</footer>
+<script src="/js/lang-toggle.js"></script>
+</body>
+</html>

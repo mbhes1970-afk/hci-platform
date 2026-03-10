@@ -1,0 +1,256 @@
+{
+  "collection": {
+    "name": "kb_regulations",
+    "type": "base",
+    "schema": [
+      { "name": "code", "type": "text", "required": true },
+      { "name": "naam_nl", "type": "text", "required": true },
+      { "name": "naam_en", "type": "text", "required": true },
+      { "name": "sectoren", "type": "json", "required": true },
+      { "name": "deadline", "type": "text" },
+      { "name": "boete_max", "type": "text" },
+      { "name": "scope", "type": "text" },
+      { "name": "verplichtingen", "type": "json" },
+      { "name": "pijn_per_rol", "type": "json" },
+      { "name": "bronnen", "type": "json" }
+    ]
+  },
+  "records": [
+    {
+      "code": "CRA",
+      "naam_nl": "Cyber Resilience Act",
+      "naam_en": "Cyber Resilience Act",
+      "sectoren": ["s06", "s03"],
+      "deadline": "December 2027",
+      "boete_max": "€15M of 2.5% wereldwijde omzet",
+      "scope": "Alle producten met digitale elementen die op de EU-markt worden gebracht",
+      "verplichtingen": [
+        "CE-markering voor software met digitale elementen",
+        "Continue SBOM generatie en onderhoud",
+        "Vulnerability disclosure proces inrichten",
+        "Security-by-design documentatie",
+        "5 jaar security updates garantie",
+        "Incident melding binnen 24 uur aan ENISA"
+      ],
+      "pijn_per_rol": {
+        "CISO": "Moet vulnerability management proces opzetten dat voldoet aan CRA-eisen",
+        "CTO": "Product development lifecycle moet security-by-design aantonen",
+        "CFO": "CE-markering vereist investering in compliance tooling en audits",
+        "CEO": "Persoonlijk aansprakelijk als product niet voldoet aan essentiële cybersecurity-eisen",
+        "CIO": "Alle ingekochte software moet CRA-compliant zijn — vendor assessment nodig",
+        "COO": "Supply chain moet aantoonbaar veilig zijn, SBOM verplicht"
+      },
+      "bronnen": [
+        { "url": "https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act", "titel": "EU Cyber Resilience Act — officieel" },
+        { "url": "https://www.enisa.europa.eu/topics/cyber-resilience-act", "titel": "ENISA — CRA guidance" }
+      ]
+    },
+    {
+      "code": "NIS2",
+      "naam_nl": "Netwerk- en Informatiebeveiliging Richtlijn 2",
+      "naam_en": "Network and Information Security Directive 2",
+      "sectoren": ["s01", "s02", "s04", "s06", "s07"],
+      "deadline": "Oktober 2024 (implementatie lidstaten)",
+      "boete_max": "€10M of 2% wereldwijde omzet (essential entities) / €7M of 1.4% (important entities)",
+      "scope": "Essentiële en belangrijke entiteiten in 18 sectoren: energie, transport, gezondheid, digitale infrastructuur, overheid, etc.",
+      "verplichtingen": [
+        "Risicoanalyse en informatiebeveiligingsbeleid",
+        "Incidentafhandeling en melding binnen 24/72 uur",
+        "Bedrijfscontinuïteit en crisismanagement",
+        "Supply chain beveiliging",
+        "Kwetsbaarheidsbeheer en disclosure",
+        "Cyberhygiëne en training",
+        "Versleuteling en multi-factor authenticatie",
+        "Bestuursaansprakelijkheid (art. 20)"
+      ],
+      "pijn_per_rol": {
+        "CISO": "Moet incident response plan hebben dat voldoet aan 24-uurs meldplicht",
+        "CTO": "Technische maatregelen moeten aantoonbaar 'state of the art' zijn",
+        "CFO": "Bestuurders worden persoonlijk aansprakelijk — D&O verzekering reviewen",
+        "CEO": "Persoonlijke aansprakelijkheid voor cybersecurity-governance",
+        "CIO": "Alle leveranciers moeten voldoen aan supply chain security eisen",
+        "COO": "Bedrijfscontinuïteitsplannen moeten actueel en getest zijn"
+      },
+      "bronnen": [
+        { "url": "https://digital-strategy.ec.europa.eu/en/policies/nis2-directive", "titel": "NIS2 Richtlijn — officieel" },
+        { "url": "https://www.ncsc.nl/onderwerpen/nis2", "titel": "NCSC Nederland — NIS2" }
+      ]
+    },
+    {
+      "code": "DORA",
+      "naam_nl": "Digital Operational Resilience Act",
+      "naam_en": "Digital Operational Resilience Act",
+      "sectoren": ["s05"],
+      "deadline": "Januari 2025",
+      "boete_max": "€5M of 10% jaaromzet (kritieke ICT-dienstverleners)",
+      "scope": "Financiële entiteiten: banken, verzekeraars, beleggingsondernemingen, crypto-dienstverleners, en hun kritieke ICT-dienstverleners",
+      "verplichtingen": [
+        "ICT-risicobeheer framework implementeren",
+        "ICT-gerelateerde incidenten classificeren en melden",
+        "Digital operational resilience testen (TLPT voor systeemrelevante instellingen)",
+        "ICT third-party risicobeheer",
+        "Informatie-uitwisseling over cyberdreigingen",
+        "Contractuele eisen aan ICT-dienstverleners"
+      ],
+      "pijn_per_rol": {
+        "CISO": "TLPT (Threat-Led Penetration Testing) vereist gespecialiseerde red-team capaciteit",
+        "CTO": "Alle ICT-systemen moeten voldoen aan resilience-eisen inclusief recovery testing",
+        "CFO": "Third-party ICT contracten moeten herzien worden — exit-strategieën verplicht",
+        "CEO": "Board moet aantoonbaar betrokken zijn bij ICT-risicobeheer",
+        "CIO": "Vendor lock-in risico's moeten geïdentificeerd en gemitigeerd worden",
+        "COO": "Operationele continuïteit moet ook bij ICT-uitval gegarandeerd zijn"
+      },
+      "bronnen": [
+        { "url": "https://finance.ec.europa.eu/regulation-and-supervision/financial-services-legislation/implementing-and-delegated-acts/digital-operational-resilience-act_en", "titel": "DORA — Europese Commissie" }
+      ]
+    },
+    {
+      "code": "NEN7510",
+      "naam_nl": "NEN 7510:2 Informatiebeveiliging in de zorg",
+      "naam_en": "NEN 7510:2 Information Security in Healthcare",
+      "sectoren": ["s02"],
+      "deadline": "Doorlopend (certificering vereist)",
+      "boete_max": "Indirect via AVG: €20M of 4% omzet bij datalek door non-compliance",
+      "scope": "Alle organisaties die gezondheidsinformatie verwerken: ziekenhuizen, GGZ, VVT, huisartsen, apothekers, labs",
+      "verplichtingen": [
+        "Information Security Management System (ISMS) implementeren",
+        "Risicobeoordeling specifiek voor gezondheidsinformatie",
+        "Toegangsbeveiliging en logging conform NEN 7513",
+        "Encryptie van patiëntdata in rust en transport",
+        "Incidentmanagement en meldprocedures",
+        "Leveranciersmanagement en verwerkersovereenkomsten",
+        "Periodieke audits en certificering"
+      ],
+      "pijn_per_rol": {
+        "CISO": "NEN 7510 certificering vereist continue monitoring en jaarlijkse audits",
+        "CTO": "Legacy systemen in zorg voldoen vaak niet aan encryptie-eisen",
+        "CFO": "Certificeringstraject kost €50k-€200k afhankelijk van organisatiegrootte",
+        "CEO": "Reputatieschade bij datalek met patiëntgegevens is onomkeerbaar",
+        "CIO": "Integratie met EPD-systemen moet NEN 7510 compliant zijn",
+        "COO": "Zorgprocessen mogen niet verstoord worden door beveiligingsmaatregelen"
+      },
+      "bronnen": [
+        { "url": "https://www.nen.nl/nen-7510-1-2017-a1-2020-nl-265560", "titel": "NEN 7510 — officiële norm" },
+        { "url": "https://www.z-cert.nl/", "titel": "Z-CERT — Cybersecurity voor de zorg" }
+      ]
+    },
+    {
+      "code": "BIO",
+      "naam_nl": "Baseline Informatiebeveiliging Overheid",
+      "naam_en": "Baseline Information Security Government",
+      "sectoren": ["s01"],
+      "deadline": "Doorlopend (verplicht voor alle overheidslagen)",
+      "boete_max": "Geen directe boete, wel politieke en bestuurlijke consequenties + aansprakelijkheid",
+      "scope": "Rijksoverheid, provincies, gemeenten, waterschappen en uitvoeringsorganisaties",
+      "verplichtingen": [
+        "ISMS conform ISO 27001 inrichten",
+        "Baseline maatregelen implementeren (controls op 3 niveaus)",
+        "DigiD audit jaarlijks succesvol doorlopen",
+        "ENSIA verantwoording afleggen",
+        "Risicoanalyse per informatiesysteem",
+        "Awareness programma voor alle medewerkers",
+        "Incident response conform NCSC richtlijnen"
+      ],
+      "pijn_per_rol": {
+        "CISO": "ENSIA verantwoording en DigiD audit vereisen continue documentatie",
+        "CTO": "Legacy overheidsssystemen voldoen vaak niet aan BIO-baselines",
+        "CFO": "Budget voor informatiebeveiliging is chronisch te laag bij gemeenten",
+        "CEO": "Gemeenteraad en bestuur worden aangesproken bij beveiligingsincidenten",
+        "CIO": "Integratie DigiD, Suwinet en andere overheidskoppelingen moet BIO-compliant",
+        "COO": "Dienstverlening aan burgers mag niet onderbroken worden door security-incidenten"
+      },
+      "bronnen": [
+        { "url": "https://bio-overheid.nl/", "titel": "BIO — officieel" },
+        { "url": "https://www.digitaleoverheid.nl/overzicht-van-alle-onderwerpen/informatieveiligheid/bio/", "titel": "Digitale Overheid — BIO" }
+      ]
+    },
+    {
+      "code": "AI_ACT",
+      "naam_nl": "EU AI Verordening",
+      "naam_en": "EU Artificial Intelligence Act",
+      "sectoren": ["s06", "s08"],
+      "deadline": "Februari 2025 (verboden AI) / Augustus 2025 (GPAI) / Augustus 2026 (hoog-risico)",
+      "boete_max": "€35M of 7% wereldwijde omzet (verboden AI) / €15M of 3% (overige)",
+      "scope": "Alle aanbieders en gebruikers van AI-systemen op de EU-markt",
+      "verplichtingen": [
+        "AI-systemen classificeren (verboden / hoog-risico / beperkt / minimaal risico)",
+        "Conformiteitsbeoordeling voor hoog-risico AI",
+        "Technische documentatie en risicobeheer",
+        "Data governance en kwaliteit trainingsdata",
+        "Transparantie-eisen (deepfakes, chatbots)",
+        "Menselijk toezicht inrichten",
+        "Registratie in EU-database voor hoog-risico AI"
+      ],
+      "pijn_per_rol": {
+        "CISO": "AI-systemen moeten cybersecurity-by-design aantonen",
+        "CTO": "Classificatie van AI-toepassingen vereist technische expertise die schaars is",
+        "CFO": "Conformiteitsbeoordeling voor hoog-risico AI kost €100k-€500k",
+        "CEO": "Verboden AI-toepassingen leiden tot directe marktverboden",
+        "CIO": "Ingekochte AI-tools moeten geclassificeerd en gedocumenteerd worden",
+        "COO": "Menselijk toezicht op AI-beslissingen moet operationeel ingeregeld worden"
+      },
+      "bronnen": [
+        { "url": "https://artificialintelligenceact.eu/", "titel": "AI Act Explorer" },
+        { "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", "titel": "EU AI Act — officieel" }
+      ]
+    },
+    {
+      "code": "eFTI",
+      "naam_nl": "electronic Freight Transport Information",
+      "naam_en": "electronic Freight Transport Information",
+      "sectoren": ["s07"],
+      "deadline": "Augustus 2025 (autoriteiten moeten eFTI accepteren)",
+      "boete_max": "Nationale handhaving, geen EU-breed boeteplafond",
+      "scope": "Alle vervoerders, expediteurs en logistieke dienstverleners die goederenvervoer uitvoeren in de EU",
+      "verplichtingen": [
+        "Wettelijk verplichte transportinformatie digitaal beschikbaar stellen",
+        "eFTI-platforms moeten gecertificeerd zijn",
+        "Interoperabiliteit tussen nationale systemen",
+        "Data-integriteit en authenticatie waarborgen",
+        "Koppeling met douane en inspectiediensten"
+      ],
+      "pijn_per_rol": {
+        "CISO": "Transportdata moet integer en authentiek zijn — manipulatie voorkomen",
+        "CTO": "Legacy TMS-systemen moeten eFTI-interface krijgen",
+        "CFO": "Investering in gecertificeerd eFTI-platform nodig",
+        "CEO": "Digitalisering is geen keuze meer — het is wettelijk verplicht",
+        "CIO": "Integratie met bestaande ERP/TMS/WMS-systemen is complex",
+        "COO": "Operationele processen moeten omschakelen van papier naar digitaal"
+      },
+      "bronnen": [
+        { "url": "https://transport.ec.europa.eu/transport-themes/digitalisation-and-multimodality/efti_en", "titel": "eFTI — Europese Commissie" }
+      ]
+    },
+    {
+      "code": "AVG",
+      "naam_nl": "Algemene Verordening Gegevensbescherming",
+      "naam_en": "General Data Protection Regulation (GDPR)",
+      "sectoren": ["s01", "s02", "s03", "s04", "s05", "s06", "s07", "s08"],
+      "deadline": "Mei 2018 (actief)",
+      "boete_max": "€20M of 4% wereldwijde jaaromzet",
+      "scope": "Alle organisaties die persoonsgegevens van EU-ingezetenen verwerken",
+      "verplichtingen": [
+        "Verwerkingsregister bijhouden (art. 30)",
+        "Data Protection Impact Assessments uitvoeren bij hoog risico (art. 35)",
+        "Functionaris Gegevensbescherming aanstellen indien verplicht (art. 37)",
+        "Datalekken melden binnen 72 uur (art. 33)",
+        "Privacy by design en default implementeren (art. 25)",
+        "Verwerkersovereenkomsten afsluiten (art. 28)",
+        "Rechten van betrokkenen faciliteren (inzage, verwijdering, portabiliteit)",
+        "Grondslag voor verwerking documenteren (art. 6)"
+      ],
+      "pijn_per_rol": {
+        "CISO": "Datalekprocedure moet waterdicht zijn — 72 uur meldtermijn is kort",
+        "CTO": "Privacy by design moet in elke nieuwe feature ingebouwd worden",
+        "CFO": "Boetes tot 4% omzet + reputatieschade bij overtreding",
+        "CEO": "AVG-compliance is bestuursverantwoordelijkheid",
+        "CIO": "Alle systemen moeten rechten van betrokkenen technisch ondersteunen",
+        "COO": "Verwerkingsregister moet actueel en compleet zijn voor alle processen"
+      },
+      "bronnen": [
+        { "url": "https://autoriteitpersoonsgegevens.nl/nl/over-privacy/wetten/algemene-verordening-gegevensbescherming-avg", "titel": "AP — AVG" },
+        { "url": "https://gdpr.eu/", "titel": "GDPR.eu — Complete guide" }
+      ]
+    }
+  ]
+}

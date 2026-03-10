@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCI Platform — Project Status</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#c8a55a;--gold-d:rgba(200,165,90,.12);--gold-b:rgba(200,165,90,.22);
+  --bg:#08090c;--bg2:#13151c;--bg3:#181a22;
+  --border:rgba(255,255,255,.055);--border2:rgba(255,255,255,.09);
+  --t:#c8c6d4;--td:#6e6d7a;--tb:#f0eef5;--white:#fff;
+  --ok:#4ade80;--ok-d:rgba(74,222,128,.1);--ok-b:rgba(74,222,128,.22);
+  --blue:#60a5fa;--blue-d:rgba(96,165,250,.1);--blue-b:rgba(96,165,250,.22);
+  --amber:#fbbf24;--amber-d:rgba(251,191,36,.1);--amber-b:rgba(251,191,36,.22);
+  --red:#f87171;--red-d:rgba(248,113,113,.1);--red-b:rgba(248,113,113,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t);-webkit-font-smoothing:antialiased;line-height:1.6}
+header{background:rgba(8,9,12,.9);border-bottom:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+.logo-mark{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;color:var(--gold);font-weight:600}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-name{font-size:13px;font-weight:500;color:var(--tb)}
+.logo-sub{font-size:10px;color:var(--td);font-family:'Geist Mono',monospace}
+main{max-width:1000px;margin:0 auto;padding:48px 48px 100px}
+h1{font-size:32px;font-weight:600;color:var(--white);margin-bottom:8px}
+.sub{font-size:13px;color:var(--td);margin-bottom:40px;font-family:'Geist Mono',monospace}
+h2{font-size:14px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin:36px 0 14px;font-family:'Geist Mono',monospace;border-left:3px solid var(--gold);padding-left:10px}
+.badge{font-family:'Geist Mono',monospace;font-size:9px;padding:4px 10px;border-radius:4px;letter-spacing:.5px;text-transform:uppercase;display:inline-block}
+.badge.gold{background:var(--gold-d);color:var(--gold);border:1px solid var(--gold-b)}
+.badge.ok{background:var(--ok-d);color:var(--ok);border:1px solid var(--ok-b)}
+.badge.blue{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b)}
+.badge.amber{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b)}
+.badge.red{background:var(--red-d);color:var(--red);border:1px solid var(--red-b)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px 24px}
+.card-title{font-size:13px;font-weight:600;color:var(--tb);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card-body{font-size:12px;color:var(--t);line-height:1.7}
+.card-body code{font-family:'Geist Mono',monospace;font-size:11px;color:var(--gold);background:var(--gold-d);padding:1px 5px;border-radius:3px}
+.wp-list{display:flex;flex-direction:column;gap:10px}
+.wp{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.wp-left{display:flex;align-items:center;gap:14px}
+.wp-num{font-family:'Geist Mono',monospace;font-size:11px;color:var(--gold);font-weight:600;min-width:32px}
+.wp-name{font-size:13px;color:var(--tb);font-weight:500}
+.wp-owner{font-size:11px;color:var(--td);margin-top:2px}
+.list{list-style:none;padding:0}
+.list li{font-size:12px;color:var(--t);padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.list li:last-child{border-bottom:none}
+.list li::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.list.gold li::before{background:var(--gold)}
+.list.red li::before{background:var(--red)}
+.list.ok li::before{background:var(--ok)}
+.list.amber li::before{background:var(--amber)}
+.infra-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:700px){.infra-grid{grid-template-columns:1fr}}
+.infra-item{font-size:11px;font-family:'Geist Mono',monospace;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:6px}
+.infra-label{color:var(--td);font-size:9px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.infra-value{color:var(--tb);word-break:break-all}
+.infra-value a{color:var(--blue);text-decoration:none}
+.infra-value a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <div class="logo-mark">HCI</div>
+    <div>
+      <div class="logo-name">HES Consultancy International</div>
+      <div class="logo-sub">Project Status Dashboard</div>
+    </div>
+  </div>
+  <span class="badge gold">Laatst bijgewerkt: 2026-03-08</span>
+</header>
+<main>
+
+<h1>Project Status</h1>
+<p class="sub">HCI Platform &mdash; Sprint: WP1 Inhoud Review</p>
+
+<!-- WERKPAKKETTEN -->
+<h2>Werkpakketten</h2>
+<div class="wp-list">
+  <div class="wp" style="border-left:3px solid var(--ok)">
+    <div class="wp-left">
+      <div class="wp-num">WP1</div>
+      <div>
+        <div class="wp-name">Inhoud & Teksten goedkeuren</div>
+        <div class="wp-owner">Eigenaar: Mike + Claude</div>
+      </div>
+    </div>
+    <span class="badge ok">Actief</span>
+  </div>
+  <div class="wp">
+    <div class="wp-left">
+      <div class="wp-num">WP2</div>
+      <div>
+        <div class="wp-name">Site Rebuild op goedgekeurde inhoud</div>
+        <div class="wp-owner">Eigenaar: Code</div>
+      </div>
+    </div>
+    <span class="badge blue">Wacht op WP1</span>
+  </div>
+  <div class="wp">
+    <div class="wp-left">
+      <div class="wp-num">WP3</div>
+      <div>
+        <div class="wp-name">SignalMesh twee-assig model activeren</div>
+        <div class="wp-owner">Eigenaar: Code + Review</div>
+      </div>
+    </div>
+    <span class="badge amber">Wacht op WP2</span>
+  </div>
+  <div class="wp">
+    <div class="wp-left">
+      <div class="wp-num">WP4</div>
+      <div>
+        <div class="wp-name">DealFlow outreach ready</div>
+        <div class="wp-owner">Eigenaar: Code</div>
+      </div>
+    </div>
+    <span class="badge amber">Wacht op WP3</span>
+  </div>
+  <div class="wp">
+    <div class="wp-left">
+      <div class="wp-num">WP5</div>
+      <div>
+        <div class="wp-name">LinkedIn Activatie</div>
+        <div class="wp-owner">Eigenaar: Mike</div>
+      </div>
+    </div>
+    <span class="badge red">Geblokkeerd</span>
+  </div>
+</div>
+
+<!-- WP1 OPEN SESSIES -->
+<h2>WP1 — Open sessies</h2>
+<div class="card">
+  <ul class="list gold">
+    <li>Homepage hero tekst</li>
+    <li>Mike Hes pagina exacte bio</li>
+    <li>ICP3 compliance teksten per sector</li>
+    <li>SignalMesh tier CTA teksten</li>
+    <li>Engels vs Nederlands default beslissing</li>
+  </ul>
+</div>
+
+<!-- OPEN BESLUITEN -->
+<h2>Open besluiten (Mike)</h2>
+<div class="card">
+  <ul class="list amber">
+    <li>Taaldefault: Engels of Nederlands?</li>
+    <li>Homepage: voor iedereen of direct ICP-gericht?</li>
+    <li>IPInfo token aanmaken op ipinfo.io</li>
+    <li>Anthropic API key roteren na blootstelling in chat</li>
+    <li>Google Search Console activeren + sitemap indienen</li>
+    <li>Plausible Analytics account aanmaken</li>
+  </ul>
+</div>
+
+<!-- BEKENDE ISSUES -->
+<h2>Bekende issues</h2>
+<div class="card">
+  <ul class="list red">
+    <li>Homepage inhoud niet goedgekeurd door Mike</li>
+    <li>ICP3 compliance teksten onvoldoende</li>
+    <li>ElanWave + FLS + Vorro niet zichtbaar in cases</li>
+    <li>Mike.html bio tekst klopt niet</li>
+    <li>icp3-compliance.html nav CSS stuk</li>
+    <li>6 sectoren tekst moet 8 sectoren zijn</li>
+    <li>Gewerkt voor moet zijn: Gewerkt met</li>
+    <li>SignalMesh actief maar IPInfo token ontbreekt</li>
+    <li>n8n DealFlow workflow geeft 400 error</li>
+    <li>CMO-FMO niet gekoppeld aan PocketBase leads collectie</li>
+  </ul>
+</div>
+
+<!-- VOLTOOID -->
+<h2>Voltooide taken</h2>
+<div class="card">
+  <ul class="list ok">
+    <li>hes-consultancy.nl live op Hetzner (52 HTML bestanden)</li>
+    <li>cmofmo.hes-consultancy-international.com live</li>
+    <li>CMO-FMO React app: s01-s08 alle sectoren gebouwd</li>
+    <li>CMO-FMO: NEN7510 &rarr; NEN7510:2 gecorrigeerd</li>
+    <li>CMO-FMO: unicode bugs gefixed</li>
+    <li>CMO-FMO: PDF download gebouwd (jsPDF)</li>
+    <li>Quickscan links gekoppeld aan CMO-FMO app</li>
+    <li>Dubbele pijl bug gefixed op homepage</li>
+    <li>PocketBase: 6336 contacten geimporteerd</li>
+    <li>HCI gold theme + navigatie + animaties</li>
+    <li>Mike.html + methodologie.html gebouwd</li>
+    <li>SignalMesh + ICP journeys gebouwd</li>
+    <li>SEO: sitemap + robots.txt + OG images</li>
+    <li>Levend projectdocument systeem opgezet</li>
+  </ul>
+</div>
+
+<!-- ICP MODEL -->
+<h2>ICP Model</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-title"><span class="badge gold">ICP1</span> Tech / ISV / Startup</div>
+    <div class="card-body">EU Market Entry — PMC + GTM + Partner Enablement</div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="badge blue">ICP2</span> Partner / Reseller</div>
+    <div class="card-body">Pipeline Growth — CMO-FMO + Outreach</div>
+  </div>
+  <div class="card" style="grid-column:1/-1">
+    <div class="card-title"><span class="badge amber">ICP3</span> Compliance Eindklant — 8 sectoren</div>
+    <div class="card-body">
+      s01 Gemeente/Overheid (BIO+NIS2) &bull;
+      s02 Ziekenhuis/Zorg (NEN7510:2+AVG) &bull;
+      s03 Software/SaaS (CRA+AI Act) &bull;
+      s04 Enterprise/Industrie (NIS2+CER) &bull;
+      s05 Financieel/Bank (DORA+PSD2) &bull;
+      s06 Telecom/Kritieke Infra (NIS2+EECC) &bull;
+      s07 Logistiek/Supply Chain (NIS2+eFTI+AVG) &bull;
+      s08 Legal/LegalTech (AI Act+NIS2+DORA)
+    </div>
+  </div>
+</div>
+
+<!-- INFRASTRUCTUUR -->
+<h2>Infrastructuur</h2>
+<div class="infra-grid">
+  <div class="infra-item">
+    <div class="infra-label">Server</div>
+    <div class="infra-value">Hetzner CPX22 — 46.225.61.78</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Webroot</div>
+    <div class="infra-value">/var/www/hes-consultancy-nl</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Main site</div>
+    <div class="infra-value"><a href="https://hes-consultancy.nl">hes-consultancy.nl</a></div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">CMO-FMO App</div>
+    <div class="infra-value"><a href="https://cmofmo.hes-consultancy-international.com">cmofmo.hes-consultancy-international.com</a></div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">PocketBase</div>
+    <div class="infra-value"><a href="https://api.hes-consultancy-international.com/_/">api.hes-consultancy-international.com</a></div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">n8n</div>
+    <div class="infra-value"><a href="https://n8n.hes-consultancy-international.com">n8n.hes-consultancy-international.com</a></div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Repo</div>
+    <div class="infra-value">mbhes1970-afk/hci-platform</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Branch</div>
+    <div class="infra-value">claude/analyze-hci-signalmesh-M2NV2</div>
+  </div>
+</div>
+
+</main>
+</body>
+</html>

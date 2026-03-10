@@ -570,23 +570,40 @@
   }
 
   function fireSlackAlert(deal) {
-    // Netlify proxy endpoint — set this once deployed
-    const proxyUrl = window.HCI_SLACK_PROXY_URL || '/.netlify/functions/claude-proxy';
-    if (!proxyUrl || proxyUrl.includes('YOUR_')) return;
+    // Read webhook URL from meta tag
+    const webhookMeta = document.querySelector('meta[name="slack-webhook"]');
+    const webhook = webhookMeta ? webhookMeta.content : '';
+    if (!webhook || webhook === 'SLACK_WEBHOOK_PLACEHOLDER') return;
 
-    fetch(proxyUrl + '?action=slack', {
+    const ts = new Date().toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
+
+    fetch(webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        tier: deal.tier,
-        score: deal.score,
-        org: deal.org,
-        icp: deal.icp,
-        url: deal.pageUrl,
-        returnVisitor: deal.isReturnVisitor,
-        utm: deal.utmData
+        text: ':dart: *Hoog-scorende bezoeker \u2014 HCI Intelligence*',
+        blocks: [
+          {
+            type: 'section',
+            text: { type: 'mrkdwn', text:
+              ':dart: *Hoog-scorende bezoeker gedetecteerd*\n' +
+              '*Score:* ' + Math.round(deal.score) + ' | *Tier:* ' + deal.tier.toUpperCase() + '\n' +
+              '*Bedrijf:* ' + (deal.org || 'Onbekend') + '\n' +
+              '*ICP:* ' + (deal.icp || '\u2014') + '\n' +
+              '*Pagina:* ' + deal.pageUrl + '\n' +
+              '*Tijd:* ' + ts
+            }
+          },
+          {
+            type: 'actions',
+            elements: [
+              { type: 'button', text: { type: 'plain_text', text: 'Open PocketBase' }, url: 'https://api.hes-consultancy-international.com/_/' },
+              { type: 'button', text: { type: 'plain_text', text: 'Boek gesprek' }, url: 'https://calendly.com/mbhes1970/30min' }
+            ]
+          }
+        ]
       })
-    }).catch(() => {}); // Silent fail — never block the user experience
+    }).catch(() => {}); // Silent fail
   }
 
   function fireAnalytics(deal, tier) {
@@ -612,11 +629,38 @@
     if (CONFIG.ipProvider === 'none') return;
     if (session.mode === 'known') return; // Don't bother for known visitors
 
+    // Always try IPInfo first (lightweight, fast)
+    initIPInfo(session, onOrgIdentified);
+
     if (CONFIG.ipProvider === 'rb2b') {
       initRB2B(session, onOrgIdentified);
     } else if (CONFIG.ipProvider === 'dealfront') {
       initDealfront(session, onOrgIdentified);
     }
+  }
+
+  function initIPInfo(session, onOrgIdentified) {
+    // Client-side IPInfo lookup using token from meta tag
+    var tokenMeta = document.querySelector('meta[name="ipinfo-token"]');
+    var token = tokenMeta ? tokenMeta.content : '';
+    if (!token || token === 'TOKEN_PLACEHOLDER') return;
+
+    // Check if edge function already injected sm-org meta tag
+    if (document.querySelector('meta[name="sm-org"]')) return;
+
+    fetch('https://ipinfo.io/json?token=' + token, { signal: AbortSignal.timeout(2000) })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (!data || !data.org) return;
+        var orgName = data.org.replace(/^AS\d+\s+/i, '').trim();
+        onOrgIdentified({
+          name: orgName,
+          domain: data.hostname || null,
+          sector: null,
+          location: data.country || null
+        });
+      })
+      .catch(function() {});
   }
 
   function initRB2B(session, onOrgIdentified) {

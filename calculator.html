@@ -4,15 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GTM Calculator — Regulatory Practice Revenue Model — HCI</title>
+<meta name="description" content="Bereken uw regulatory practice revenue. Drie scenario's: status quo, één PMC, en het volledige traject.">
+<meta property="og:title" content="GTM Calculator — HES Consultancy International">
+<meta property="og:description" content="Calculate your regulatory practice revenue potential with three scenarios.">
+<meta property="og:image" content="/Color_logo_-_no_background.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="/Color_logo_-_no_background.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="/site.config.js"></script>
 <style>
 :root{--gold:#c8a55a;--gold-dim:rgba(200,165,90,.12);--gold-border:rgba(200,165,90,.3);--accent:#0891b2;--accent-light:#22d3ee;--bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;--border:rgba(255,255,255,.06);--text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;--red:#f87171;--green:#4ade80;--amber:#fbbf24;--purple:#a78bfa;--teal:#2dd4bf;--orange:#fb923c}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
 .ambient{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 600px at 30% 10%,rgba(200,165,90,.06) 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 80% 90%,rgba(8,145,178,.04) 0%,transparent 70%)}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;background:rgba(8,9,12,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.nav-left{display:flex;align-items:center;gap:16px}
-.nav-tag{font-family:'Geist Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;background:var(--gold-dim);color:var(--gold);letter-spacing:1px;text-transform:uppercase;border:1px solid var(--gold-border)}
 .container{max-width:960px;margin:0 auto;padding:0 32px;position:relative;z-index:10}
 .hero{padding:140px 0 48px}
 .hero h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,4.5vw,42px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:16px}.hero h1 em{font-style:italic;color:var(--gold)}
@@ -71,13 +78,13 @@ p{font-size:15px;line-height:1.8;margin-bottom:14px}
 
 .final-cta{text-align:center;padding:64px 0;border-top:1px solid var(--border)}.final-cta h2{margin-bottom:12px}.final-cta p{color:var(--text);margin-bottom:24px}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;background:var(--gold);color:var(--bg-deep);transition:all .3s}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,165,90,.3)}
-footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.footer-text{font-size:11px;color:var(--text-dim)}.footer-text a{color:var(--gold);text-decoration:none}
 @media(max-width:700px){nav{padding:12px 20px}.container{padding:0 20px}.hero{padding:100px 0 32px}.scenarios,.results-grid{grid-template-columns:1fr}.config-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="ambient"></div>
-<nav><div class="nav-left"><a href="/"><img src="White_logo_-_no_background.png" alt="HCI" style="height:32px"></a><span class="nav-tag">GTM Calculator · Growth</span></div></nav>
+<div id="hci-nav"></div>
+<script src="/_nav.js"></script>
 
 <div class="container">
 <section class="hero">
@@ -176,11 +183,12 @@ footer{padding:32px 0;border-top:1px solid var(--border);text-align:center}.foot
 <div class="final-cta">
   <h2>Klaar om deze cijfers werkelijkheid te maken?<br><em>Van calculator naar concrete propositie.</em></h2>
   <p>HCI helpt IT-partners de regulatory practice ontwerpen, de sales enablement opzetten, en de eerste pipeline genereren.</p>
-  <a href="mailto:mbhes@hes-consultancy-international.com?subject=GTM%20Calculator%20-%20Gesprek" class="btn-primary">Plan een gesprek →</a>
+  <a href="https://calendly.com/mbhes1970/30min" target="_blank" rel="noopener" class="btn-primary">Plan een gesprek →</a>
 </div>
 </div>
 
-<footer><div class="container"><div class="footer-text">HES Consultancy International · <a href="/">hes-consultancy-international.com</a> · <a href="/growth">Pipeline & Growth</a></div></div></footer>
+<div id="hci-footer"></div>
+<script src="/_footer.js"></script>
 
 <script>
 const REG_DATA = {

@@ -3,624 +3,1260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="ipinfo-token" content="346441b021b8f4">
+<meta name="slack-webhook" content="SLACK_WEBHOOK_PLACEHOLDER">
 <title>HES Consultancy International — From Strategy to First Customer</title>
-<meta name="description" content="EU compliance, pipeline growth, market entry. HCI brings the structure to take your tech company from current state to first customer.">
-<meta property="og:title" content="HES Consultancy International — From Strategy to First Customer">
-<meta property="og:description" content="European GTM Partner. 30 jaar C-level ervaring in EU market entry, compliance en pipeline growth.">
-<meta property="og:image" content="/Color_logo_-_no_background.png">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="nl_NL">
-<meta name="twitter:card" content="summary">
-<link rel="icon" type="image/png" href="/Color_logo_-_no_background.png">
+<meta name="description" content="30 years of EU market expertise. Honest assessments. Real introductions. We tell you what you need to hear — before you invest in Europe.">
+<meta property="og:title" content="HES Consultancy International">
+<meta property="og:description" content="From Strategy to First Customer. EU market entry for technology companies.">
+<meta property="og:url" content="https://hes-consultancy.nl">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="/site.config.js"></script>
-<script src="/hci-intelligence-core.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   HCI HOMEPAGE — Config-driven
-   Design system: Dark premium consultancy
-   ═══════════════════════════════════════════════════════════════ */
-
 :root {
-  --gold: #c8a55a;
-  --gold-light: #e0c882;
-  --gold-dim: rgba(200,165,90,.12);
-  --gold-border: rgba(200,165,90,.25);
-  --route-entry: #6C5CE7;
-  --route-entry-dim: rgba(108,92,231,.12);
-  --route-growth: #0891b2;
-  --route-growth-dim: rgba(8,145,178,.12);
-  --route-compliance: #1e3a5f;
-  --route-compliance-dim: rgba(30,58,95,.15);
-  --bg-deep: #08090c;
-  --bg: #0d0f14;
-  --bg-card: #13151c;
-  --bg-elevated: #1c1e28;
-  --border: rgba(255,255,255,.06);
-  --border-hover: rgba(255,255,255,.12);
-  --text: #a8a6b4;
-  --text-dim: #5e5d6a;
-  --text-bright: #f0eef5;
-  --white: #ffffff;
-  --success: #4ade80;
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dark: #8B6914;
+  --ink: #0D0D0D;
+  --ink-soft: #1A1A1A;
+  --paper: #F7F4EE;
+  --paper-warm: #EDE8DE;
+  --text-muted: #888880;
+  --text-body: #2A2A28;
+  --border: rgba(201,168,76,0.2);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg-deep);
-  color: var(--text);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.7;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--paper);
   overflow-x: hidden;
 }
-
-/* ═══ AMBIENT BACKGROUND ═══ */
-.ambient {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background:
-    radial-gradient(ellipse 900px 700px at 15% 25%, rgba(200,165,90,.04) 0%, transparent 70%),
-    radial-gradient(ellipse 700px 900px at 85% 75%, rgba(108,92,231,.03) 0%, transparent 70%);
-}
-.grain {
-  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-}
-
-/* ═══ NAVIGATION (injected by _nav.js) ═══ */
+/* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 16px 40px;
+  padding: 20px 48px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(8,9,12,.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  transition: all .3s;
+  background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+  backdrop-filter: blur(2px);
 }
-nav.scrolled { padding: 12px 40px; }
-.nav-left { display: flex; align-items: center; gap: 16px; }
-.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-logo {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--paper);
+}
+.nav-logo-sub {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); font-weight: 300;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 36px;
+  list-style: none;
+}
 .nav-links a {
-  font-size: 13px; font-weight: 400; color: var(--text-dim);
-  text-decoration: none; transition: color .2s; letter-spacing: .2px;
+  color: rgba(247,244,238,0.65); text-decoration: none;
+  font-size: 13px; letter-spacing: 0.05em; font-weight: 400;
+  transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--text-bright); }
-.nav-right { display: flex; align-items: center; gap: 12px; }
-.lang-toggle {
-  display: flex; gap: 2px; background: rgba(0,0,0,.3);
-  padding: 3px; border-radius: 6px; border: 1px solid var(--border);
-}
-.lang-btn {
-  padding: 4px 10px; border: none; border-radius: 4px;
-  font-size: 11px; font-weight: 600; cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  background: transparent; color: var(--text-dim);
-  transition: all .2s;
-}
-.lang-btn.active { background: var(--gold); color: var(--bg-deep); }
-.lang-btn:hover:not(.active) { color: var(--text); }
+.nav-links a:hover { color: var(--gold); }
 .nav-cta {
-  padding: 8px 20px; border-radius: 6px;
-  font-size: 12px; font-weight: 600; text-decoration: none;
-  background: var(--gold); color: var(--bg-deep);
-  transition: all .2s; letter-spacing: .3px;
+  background: transparent; border: 1px solid var(--gold);
+  color: var(--gold); padding: 9px 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+  display: inline-block;
 }
-.nav-cta:hover { background: var(--gold-light); }
-.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: all .3s; }
-.mobile-menu {
-  position: absolute; top: 100%; left: 0; right: 0;
-  background: rgba(8,9,12,.95); backdrop-filter: blur(16px);
-  padding: 20px 40px; border-bottom: 1px solid var(--border);
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+.lang-toggle {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted);
+  cursor: pointer; display: flex; gap: 6px; align-items: center;
 }
-.mobile-menu ul { list-style: none; }
-.mobile-menu ul li { padding: 8px 0; }
-.mobile-menu ul a { font-size: 15px; color: var(--text); text-decoration: none; }
-
-/* ═══ CONTAINER ═══ */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
-
-/* ═══ HERO ═══ */
+.lang-toggle span.active { color: var(--gold); }
+/* HERO */
 .hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  justify-content: center; padding: 120px 0 80px;
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
 }
-.hero-inner { max-width: 780px; }
-.hero-overline {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px; color: var(--gold);
-  text-transform: uppercase; letter-spacing: 2.5px;
-  margin-bottom: 24px;
+.hero-left {
+  padding: 140px 64px 80px 80px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
 }
-.hero h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(36px, 5.5vw, 64px);
-  font-weight: 400; line-height: 1.1;
-  color: var(--white); margin-bottom: 28px;
-}
-.hero h1 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-size: 17px; line-height: 1.8;
-  color: var(--text); max-width: 580px; margin-bottom: 40px;
-}
-.hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 32px; border-radius: 8px;
-  font-size: 14px; font-weight: 600; text-decoration: none;
-  background: linear-gradient(135deg, var(--gold), #d4b45e);
-  color: var(--bg-deep); transition: all .3s; letter-spacing: .3px;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,165,90,.25); }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; border-radius: 8px;
-  font-size: 14px; font-weight: 500; text-decoration: none;
-  color: var(--text); border: 1px solid var(--border); transition: all .2s;
-}
-.btn-ghost:hover { border-color: var(--gold-border); color: var(--gold); }
-
-.hero-stats {
-  display: flex; gap: 48px; margin-top: 64px;
-  padding-top: 40px; border-top: 1px solid var(--border);
-}
-.hero-stat-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 42px; color: var(--gold); line-height: 1;
-}
-.hero-stat-label {
-  font-size: 12px; color: var(--text-dim);
-  line-height: 1.5; margin-top: 4px; max-width: 140px;
-  white-space: pre-line;
-}
-
-.scroll-hint {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text-dim);
-  letter-spacing: 1px; text-transform: uppercase;
-  animation: pulse 2s ease-in-out infinite;
-}
-.scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--text-dim), transparent); }
-@keyframes pulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
-
-/* ═══ SECTION SHARED ═══ */
-section { padding: 120px 0; position: relative; }
-.section-eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px; color: var(--text-dim);
-  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
-}
-.section-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 400; color: var(--white);
-  line-height: 1.15; margin-bottom: 16px;
-}
-.section-title em { font-style: italic; color: var(--gold); }
-.section-sub {
-  font-size: 16px; color: var(--text);
-  line-height: 1.8; max-width: 600px; margin-bottom: 56px;
-}
-
-/* ═══ ROUTES ═══ */
-.routes-section { border-top: 1px solid var(--border); }
-.route-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.route-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 36px 32px;
-  text-decoration: none; color: inherit;
-  transition: all .35s ease; position: relative;
-  overflow: hidden; display: flex; flex-direction: column;
-}
-.route-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 3px; background: var(--card-accent); opacity: 0; transition: opacity .3s;
-}
-.route-card:hover {
-  border-color: var(--card-accent-border);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0,0,0,.4);
-}
-.route-card:hover::before { opacity: 1; }
-.route-tag {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--card-accent); padding: 5px 12px; border-radius: 4px;
-  background: var(--card-accent-dim); display: inline-block; margin-bottom: 20px;
-}
-.route-icon { font-size: 32px; margin-bottom: 16px; }
-.route-card h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px; font-weight: 400;
-  color: var(--white); line-height: 1.25; margin-bottom: 12px;
-}
-.route-desc {
-  font-size: 15px; color: var(--text);
-  line-height: 1.7; margin-bottom: 20px; flex: 1;
-}
-.route-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-.route-chip {
-  font-size: 11px; padding: 4px 10px; border-radius: 4px;
-  background: rgba(255,255,255,.04); color: var(--text-dim);
-  border: 1px solid var(--border);
-}
-.route-cta {
-  font-size: 13px; font-weight: 500; color: var(--card-accent);
-  display: flex; align-items: center; gap: 6px; transition: gap .2s;
-}
-.route-card:hover .route-cta { gap: 12px; }
-
-/* ═══ METHOD ═══ */
-.method-section { border-top: 1px solid var(--border); }
-.method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-.method-step {
-  background: var(--bg-card); padding: 36px 28px;
-  position: relative; transition: all .3s;
-}
-.method-step:first-child { border-radius: 12px 0 0 12px; }
-.method-step:last-child { border-radius: 0 12px 12px 0; }
-.method-step:hover { background: var(--bg-elevated); }
-.method-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  color: var(--gold); letter-spacing: 1px; margin-bottom: 16px;
-}
-.method-step h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px; font-weight: 400;
-  color: var(--white); margin-bottom: 10px; line-height: 1.25;
-}
-.method-step p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
-.method-connector {
-  position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
-  width: 16px; height: 16px;
-  background: var(--bg-deep); border: 2px solid var(--border);
-  border-radius: 50%; z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-}
-.method-connector::after { content: '\2192'; font-size: 8px; color: var(--text-dim); }
-.method-tagline {
-  margin-top: 40px; padding: 24px 32px;
-  background: var(--gold-dim); border: 1px solid var(--gold-border);
-  border-radius: 10px; font-size: 15px;
-  color: var(--gold-light); text-align: center;
-}
-.method-tagline strong { color: var(--gold); }
-
-/* ═══ PROOF ═══ */
-.proof-section { border-top: 1px solid var(--border); }
-.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.proof-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 32px 28px; transition: all .3s;
-}
-.proof-card:hover { border-color: var(--border-hover); }
-.proof-route {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.proof-card h4 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px; font-weight: 400;
-  color: var(--white); margin-bottom: 10px;
-}
-.proof-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
-
-/* ═══ MIKE ═══ */
-.mike-section { border-top: 1px solid var(--border); padding-bottom: 80px; }
-.mike-grid { display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: center; }
-.mike-photo-wrap { position: relative; max-width: 320px; }
-.mike-photo {
-  width: 280px; aspect-ratio: 1/1; border-radius: 16px;
-  border: 1px solid var(--border); overflow: hidden;
-}
-.mike-photo img { width: 100%; height: 100%; object-fit: cover; }
-.mike-cred {
-  position: absolute; bottom: -16px; left: 24px;
-  background: var(--gold); color: var(--bg-deep);
-  padding: 12px 20px; border-radius: 8px;
+.hero-tag {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); font-weight: 400; margin-bottom: 36px;
   display: flex; align-items: center; gap: 12px;
 }
-.mike-cred-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 28px; font-weight: 400;
+.hero-tag::before {
+  content: ''; width: 32px; height: 1px; background: var(--gold);
 }
-.mike-cred-label { font-size: 11px; font-weight: 600; line-height: 1.3; letter-spacing: .3px; white-space: pre-line; }
-.mike-content h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 400; color: var(--white);
-  line-height: 1.15; margin-bottom: 20px;
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 4.5vw, 62px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper);
+  margin-bottom: 32px;
 }
-.mike-content h2 em { font-style: italic; color: var(--gold); }
-.mike-bio { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 32px; }
-.mike-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
-
-/* ═══ FOOTER (injected by _footer.js) ═══ */
-footer { padding: 40px 0; border-top: 1px solid var(--border); }
-.footer-inner {
-  display: flex; justify-content: space-between; align-items: center;
+.hero-headline em {
+  font-style: italic; color: var(--gold);
 }
-.footer-left { display: flex; flex-direction: column; gap: 4px; }
-.footer-tagline {
-  font-family: 'Instrument Serif', serif;
-  font-size: 14px; color: var(--gold); font-style: italic;
+.hero-body {
+  font-size: 15px; line-height: 1.75;
+  color: rgba(247,244,238,0.65);
+  max-width: 440px; margin-bottom: 48px;
+  font-weight: 300;
 }
-.footer-brand { font-size: 12px; font-weight: 500; color: var(--text-dim); letter-spacing: .3px; }
-.footer-center { display: flex; gap: 20px; }
-.footer-icp-links a {
-  font-size: 12px; color: var(--text-dim); text-decoration: none;
-  transition: color .2s; margin: 0 10px;
+.hero-ctas {
+  display: flex; flex-direction: column; gap: 14px;
 }
-.footer-icp-links a:hover { color: var(--text); }
-.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.footer-links { display: flex; gap: 16px; }
-.footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color .2s; }
-.footer-links a:hover { color: var(--text); }
-.footer-copyright { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
-
-/* ═══ MOBILE ═══ */
-@media (max-width: 900px) {
-  nav { padding: 14px 20px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--gold); color: var(--ink);
+  padding: 16px 32px; font-size: 13px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 500; text-decoration: none;
+  transition: all 0.25s; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  width: fit-content;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateX(4px); }
+.btn-primary svg { transition: transform 0.25s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: rgba(247,244,238,0.6); font-size: 13px;
+  letter-spacing: 0.05em; text-decoration: none;
+  transition: color 0.2s; width: fit-content;
+  font-weight: 300;
+}
+.btn-secondary:hover { color: var(--gold); }
+.btn-secondary::before {
+  content: ''; width: 20px; height: 1px;
+  background: currentColor; transition: width 0.25s;
+}
+.btn-secondary:hover::before { width: 32px; }
+.hero-right {
+  position: relative; overflow: hidden;
+}
+.hero-visual {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 90% 80%, rgba(201,168,76,0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #111 0%, #0D0D0D 100%);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(201,168,76,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-stat-block {
+  position: absolute; bottom: 80px; left: 48px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+.hero-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 600; color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(247,244,238,0.4); font-weight: 300;
+}
+.hero-quote {
+  position: absolute; top: 120px; left: 48px; right: 48px;
+  border-left: 2px solid var(--gold);
+  padding: 24px 28px;
+  background: rgba(201,168,76,0.04);
+}
+.hero-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-style: italic; line-height: 1.5;
+  color: rgba(247,244,238,0.8);
+}
+.hero-quote-attr {
+  margin-top: 12px; font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); font-weight: 300;
+}
+/* TRUST BAR */
+.trust-bar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 80px;
+  display: flex; align-items: center; gap: 48px;
+  background: rgba(255,255,255,0.02);
+  overflow: hidden; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 10px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.trust-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0;
+}
+.trust-text {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(247,244,238,0.45); font-weight: 300;
+}
+.trust-sep {
+  width: 1px; height: 20px; background: var(--border); flex-shrink: 0;
+}
+/* SECTION BASE */
+section { padding: 120px 80px; }
+.section-tag {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.section-tag::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper); margin-bottom: 20px;
+}
+.section-body {
+  font-size: 15px; line-height: 1.8;
+  color: rgba(247,244,238,0.6); font-weight: 300;
+  max-width: 560px;
+}
+/* WHAT WE DO — WHY HCI */
+.why-section {
+  background: var(--ink-soft);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.why-left {}
+.why-right { padding-top: 16px; }
+.why-statement {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.5vw, 34px);
+  font-weight: 500; line-height: 1.4;
+  color: var(--paper); margin-bottom: 40px;
+  font-style: italic;
+}
+.why-statement strong { color: var(--gold); font-style: normal; }
+.truth-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.truth-item {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 28px 1fr; gap: 16px;
+  align-items: start;
+}
+.truth-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; color: var(--gold); font-weight: 600;
+  padding-top: 2px;
+}
+.truth-content {}
+.truth-title {
+  font-size: 14px; font-weight: 500; color: var(--paper);
+  margin-bottom: 6px; letter-spacing: 0.02em;
+}
+.truth-desc {
+  font-size: 13px; line-height: 1.65;
+  color: rgba(247,244,238,0.5); font-weight: 300;
+}
+/* CASES */
+.cases-section {
+  background: #0A0A0A;
+}
+.cases-intro {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  margin-bottom: 80px;
+}
+.cases-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.case-card {
+  background: rgba(255,255,255,0.02);
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+  border: 1px solid transparent;
+}
+.case-card:hover {
+  background: rgba(201,168,76,0.04);
+  border-color: var(--border);
+}
+.case-verdict {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 12px; margin-bottom: 24px;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 500;
+}
+.verdict-proceed {
+  background: rgba(201,168,76,0.1); color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+.verdict-redirect {
+  background: rgba(255,255,255,0.05); color: rgba(247,244,238,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.case-sector {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 14px; font-weight: 300;
+}
+.case-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600; line-height: 1.2;
+  color: var(--paper); margin-bottom: 16px;
+}
+.case-body {
+  font-size: 13px; line-height: 1.75;
+  color: rgba(247,244,238,0.5); font-weight: 300;
+  margin-bottom: 24px;
+}
+.case-insight {
+  font-size: 12px; color: var(--gold);
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; line-height: 1.4;
+  border-top: 1px solid var(--border); padding-top: 20px;
+}
+/* SERVICES */
+.services-section {
+  background: var(--ink-soft);
+}
+.services-intro {
+  display: grid; grid-template-columns: 5fr 4fr; gap: 80px;
+  margin-bottom: 80px; align-items: end;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+}
+.service-card {
+  padding: 44px 40px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  transition: all 0.3s; position: relative;
+}
+.service-card:hover {
+  background: rgba(201,168,76,0.04);
+  border-color: var(--border);
+}
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; color: var(--gold);
+  margin-bottom: 20px; font-weight: 600;
+}
+.service-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px; font-weight: 600;
+  color: var(--paper); margin-bottom: 12px; line-height: 1.2;
+}
+.service-desc {
+  font-size: 13px; line-height: 1.75;
+  color: rgba(247,244,238,0.5); font-weight: 300;
+  margin-bottom: 20px;
+}
+.service-price {
+  font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 400;
+}
+/* ASSESSMENT SECTION */
+.scan-section {
+  background: #0A0A0A;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+.scan-visual {
+  position: relative;
+}
+.scan-card {
+  background: rgba(201,168,76,0.05);
+  border: 1px solid var(--border);
+  padding: 48px;
+}
+.scan-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 600; margin-bottom: 8px;
+  color: var(--paper);
+}
+.scan-sub {
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px; font-weight: 300;
+}
+.scan-dims { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+.scan-dim {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.scan-dim-name {
+  font-size: 13px; color: rgba(247,244,238,0.7); font-weight: 300;
+}
+.scan-dim-bar {
+  width: 80px; height: 2px; background: rgba(255,255,255,0.1);
+  position: relative; overflow: hidden;
+}
+.scan-dim-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--gold);
+}
+.scan-meta {
+  display: flex; gap: 32px;
+}
+.scan-meta-item {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.scan-meta-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; color: var(--gold); font-weight: 600;
+}
+.scan-meta-label {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 300;
+}
+/* MIKE SECTION */
+.mike-section {
+  background: var(--ink-soft);
+  display: grid; grid-template-columns: 5fr 4fr; gap: 100px;
+  align-items: start;
+}
+.mike-quote-block {
+  border-left: 2px solid var(--gold);
+  padding: 32px 36px;
+  background: rgba(201,168,76,0.04);
+  margin-bottom: 40px;
+}
+.mike-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-style: italic; line-height: 1.5;
+  color: rgba(247,244,238,0.85);
+}
+.mike-bio { font-size: 14px; line-height: 1.8; color: rgba(247,244,238,0.55); font-weight: 300; }
+.mike-right { padding-top: 20px; }
+.mike-cv { display: flex; flex-direction: column; gap: 0; }
+.mike-cv-item {
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 80px 1fr; gap: 20px;
+}
+.mike-cv-year {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--gold);
+  font-weight: 300; padding-top: 2px; text-transform: uppercase;
+}
+.mike-cv-content {}
+.mike-cv-role {
+  font-size: 13px; font-weight: 500; color: var(--paper); margin-bottom: 4px;
+}
+.mike-cv-co {
+  font-size: 12px; color: var(--text-muted); font-weight: 300;
+}
+/* CTA SECTION */
+.cta-section {
+  background: #0A0A0A;
+  text-align: center; padding: 140px 80px;
+  position: relative; overflow: hidden;
+}
+.cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 65%);
+}
+.cta-section > * { position: relative; z-index: 1; }
+.cta-eyebrow {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 24px; font-weight: 300;
+}
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 600; line-height: 1.1;
+  color: var(--paper); max-width: 700px;
+  margin: 0 auto 20px;
+}
+.cta-body {
+  font-size: 15px; line-height: 1.75;
+  color: rgba(247,244,238,0.55); font-weight: 300;
+  max-width: 480px; margin: 0 auto 52px;
+}
+.cta-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: 24px; flex-wrap: wrap;
+}
+.cta-divider {
+  font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--ink);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-weight: 600; color: rgba(247,244,238,0.5);
+}
+.footer-links { display: flex; gap: 32px; }
+.footer-links a {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-legal {
+  font-size: 11px; color: var(--text-muted); font-weight: 300;
+}
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-tag { animation: fadeUp 0.6s ease both; }
+.hero-headline { animation: fadeUp 0.7s 0.1s ease both; }
+.hero-body { animation: fadeUp 0.7s 0.2s ease both; }
+.hero-ctas { animation: fadeUp 0.7s 0.3s ease both; }
+.hero-quote { animation: fadeUp 0.8s 0.4s ease both; }
+.hero-stat-block { animation: fadeUp 0.8s 0.5s ease both; }
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 20px 24px; }
   .nav-links { display: none; }
-  .hamburger { display: block; }
-  .nav-cta { display: none; }
-  .container { padding: 0 20px; }
-  .hero { padding: 100px 0 60px; min-height: auto; }
-  .hero h1 { font-size: 32px; }
-  .hero-stats { flex-direction: column; gap: 24px; }
-  .route-grid { grid-template-columns: 1fr; }
-  .method-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
-  .method-step:first-child { border-radius: 12px 0 0 0; }
-  .method-step:nth-child(2) { border-radius: 0 12px 0 0; }
-  .method-step:nth-child(3) { border-radius: 0 0 0 12px; }
-  .method-step:last-child { border-radius: 0 0 12px 0; }
-  .method-connector { display: none; }
-  .proof-grid { grid-template-columns: 1fr; }
-  .mike-grid { grid-template-columns: 1fr; gap: 40px; }
-  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-  .footer-right { align-items: center; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 120px 24px 60px; }
+  .hero-right { min-height: 320px; }
+  section { padding: 80px 24px; }
+  .why-section, .scan-section, .mike-section { grid-template-columns: 1fr; gap: 48px; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .cases-intro, .services-intro { grid-template-columns: 1fr; gap: 32px; }
+  .trust-bar { padding: 20px 24px; }
+  footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+  .cta-section { padding: 100px 24px; }
+}
+/* ── CHART SECTION ──────────────────────────────── */
+.chart-section {
+  padding: 80px 56px 72px;
+  background: #F5F4EF;
+}
+.chart-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.chart-section .kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: #C4964A;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.chart-section .headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  color: #0F0F1A;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.chart-section .headline em {
+  font-style: italic;
+  color: #C4964A;
+}
+.chart-section .sub {
+  font-size: 15px;
+  color: #8888A0;
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.chart-wrap {
+  background: #FDFCF8;
+  border: 1px solid rgba(196,150,74,.18);
+  border-radius: 4px;
+  padding: 40px 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+.chart-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent calc(100% / 5 - 1px),
+    rgba(196,150,74,.06) calc(100% / 5 - 1px),
+    rgba(196,150,74,.06) calc(100% / 5)
+  );
+  pointer-events: none;
+}
+.chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.chart-title-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: #8888A0;
+  text-transform: uppercase;
+}
+.chart-note-label {
+  font-size: 12px;
+  color: #8888A0;
+  font-style: italic;
+}
+.chart-svg-wrap { position: relative; width: 100%; }
+svg.growth-chart { width: 100%; height: auto; display: block; overflow: visible; }
+.trend-line {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: hciDrawLine 1.6s cubic-bezier(.4,0,.2,1) .4s forwards;
+}
+@keyframes hciDrawLine { to { stroke-dashoffset: 0; } }
+.area-fill {
+  opacity: 0;
+  animation: hciFadeArea 1s ease .8s forwards;
+}
+@keyframes hciFadeArea { to { opacity: 1; } }
+.chart-dot { opacity: 0; animation: hciPopDot .3s ease forwards; }
+.chart-dot:nth-child(1) { animation-delay: .55s; }
+.chart-dot:nth-child(2) { animation-delay: .75s; }
+.chart-dot:nth-child(3) { animation-delay: .95s; }
+.chart-dot:nth-child(4) { animation-delay: 1.15s; }
+.chart-dot:nth-child(5) { animation-delay: 1.35s; }
+.chart-dot:nth-child(6) { animation-delay: 1.55s; }
+@keyframes hciPopDot {
+  0%   { opacity: 0; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+.chart-label { opacity: 0; animation: hciFadeUp .4s ease forwards; }
+.chart-label:nth-child(1) { animation-delay: .65s; }
+.chart-label:nth-child(2) { animation-delay: .85s; }
+.chart-label:nth-child(3) { animation-delay: 1.05s; }
+.chart-label:nth-child(4) { animation-delay: 1.25s; }
+.chart-label:nth-child(5) { animation-delay: 1.45s; }
+.chart-label:nth-child(6) { animation-delay: 1.65s; }
+@keyframes hciFadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.arrow-badge {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  background: #C4964A;
+  color: #0F0F1A;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 14px 6px 10px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: hciDropIn .5s cubic-bezier(.34,1.56,.64,1) 1.9s forwards;
+}
+@keyframes hciDropIn { to { opacity: 1; transform: translateY(0); } }
+.chart-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 1px;
+  background: rgba(196,150,74,.18);
+}
+.chart-metric {
+  background: #FDFCF8;
+  padding: 20px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: hciRiseIn .5s ease forwards;
+}
+.chart-metric:nth-child(1) { animation-delay: 1.7s; }
+.chart-metric:nth-child(2) { animation-delay: 1.85s; }
+.chart-metric:nth-child(3) { animation-delay: 2.0s; }
+@keyframes hciRiseIn { to { opacity: 1; transform: translateY(0); } }
+.chart-metric-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: #0F0F1A;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.chart-metric-val span { color: #C4964A; }
+.chart-metric-label { font-size: 11px; color: #8888A0; letter-spacing: .04em; }
+.chart-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 36px;
+  flex-wrap: wrap;
 }
 @media (max-width: 600px) {
-  .method-grid { grid-template-columns: 1fr; }
-  .method-step { border-radius: 0 !important; }
-  .method-step:first-child { border-radius: 12px 12px 0 0 !important; }
-  .method-step:last-child { border-radius: 0 0 12px 12px !important; }
+  .chart-section { padding: 60px 24px 48px; }
+  .chart-wrap { padding: 24px 20px 0; }
+  .chart-metrics { grid-template-columns: 1fr; }
 }
-
-/* ═══ ANIMATIONS ═══ */
-.fade-up {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.stagger-1 { transition-delay: .1s; }
-.stagger-2 { transition-delay: .2s; }
-.stagger-3 { transition-delay: .3s; }
-.stagger-4 { transition-delay: .4s; }
+/* ── END CHART SECTION ───────────────────────────── */
 </style>
 </head>
 <body>
-
-<div class="ambient"></div>
-<div class="grain"></div>
-
-<!-- Navigation -->
-<div id="hci-nav"></div>
-<script src="/_nav.js"></script>
-
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-overline" id="hp-overline"></div>
-      <h1 id="hp-h1"></h1>
-      <p class="hero-sub" id="hp-sub"></p>
-      <div class="hero-actions" id="hp-actions"></div>
-      <div class="hero-stats" id="hp-stats"></div>
+<!-- NAV -->
+<nav>
+  <a href="/" style="text-decoration:none">
+    <div class="nav-logo">
+      <div class="nav-logo-main">HES Consultancy International</div>
+      <div class="nav-logo-sub">From Strategy to First Customer</div>
     </div>
-    <div class="scroll-hint">
-      <span id="hp-scroll">Scroll</span>
-      <div class="scroll-line"></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#why" data-nl="Waarom HCI" data-en="Why HCI">Waarom HCI</a></li>
+    <li><a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a></li>
+    <li><a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a></li>
+    <li><a href="/about/" data-nl="Over ons" data-en="About">Over ons</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Bel ons" data-en="Book a Call">Book a Call</a>
+  </div>
+</nav>
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-left">
+    <div class="hero-tag" data-nl="Europese Markttoegang · Sinds 1994" data-en="European Market Entry · Since 1994">European Market Entry · Since 1994</div>
+    <h1 class="hero-headline" data-nl="De meeste bedrijven falen niet in Europa<br>vanwege een <em>slecht product.</em><br>Ze falen omdat niemand hen<br>de waarheid vertelde <em>vóórdat</em> ze begonnen." data-en="Most companies don't fail in Europe<br>because of a <em>bad product.</em><br>They fail because nobody told them<br>the truth <em>before</em> they started.">
+      Most companies don't fail in Europe<br>
+      because of a <em>bad product.</em><br>
+      They fail because nobody told them<br>
+      the truth <em>before</em> they started.
+    </h1>
+    <p class="hero-body" data-nl="30 jaar EU-marktexpertise. Wij beoordelen uw werkelijke gereedheid, vertellen wat anderen niet durven, en begeleiden u van strategie tot uw eerste Europese klant." data-en="30 years of EU market expertise. We assess your real readiness, tell you what others won't, and guide you from strategy to your first European customer.">
+      30 years of EU market expertise. We assess your real readiness,
+      tell you what others won't, and guide you from strategy
+      to your first European customer.
+    </p>
+    <div class="hero-ctas">
+      <a href="/services/assessment" class="btn-primary" data-nl="Start de Gratis EU Readiness Scan — 7 min" data-en="Take the Free EU Readiness Scan — 7 min">
+        Take the Free EU Readiness Scan — 7 min
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary" data-nl="Of plan een kennismakingsgesprek" data-en="Or book a discovery call">
+        Or book a discovery call
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-quote">
+      <p class="hero-quote-text" data-nl="&quot;Het meest waardevolle dat wij kunnen bieden is een eerlijke beoordeling — ook als het antwoord nee is. Juist als het antwoord nee is.&quot;" data-en="&quot;The most valuable thing we can offer is an honest assessment — even when the answer is no. Especially when the answer is no.&quot;">
+        "The most valuable thing we can offer is an honest assessment —
+        even when the answer is no. Especially when the answer is no."
+      </p>
+      <p class="hero-quote-attr">Mike Hes · Founder, HES Consultancy International</p>
+    </div>
+    <div class="hero-stat-block">
+      <div class="hero-stat">
+        <div class="hero-stat-num">30+</div>
+        <div class="hero-stat-label" data-nl="Jaar EU-marktervaring" data-en="Years EU market experience">Years EU market experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label" data-nl="EU-sectoren · Diepe expertise" data-en="EU sectors · Deep expertise">EU sectors · Deep expertise</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">300+</div>
+        <div class="hero-stat-label" data-nl="C-level introducties beschikbaar" data-en="C-level introductions available">C-level introductions available</div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- ═══ ROUTES ═══ -->
-<section class="routes-section" id="routes">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="rt-eyebrow"></div>
-    <h2 class="section-title fade-up" id="rt-title"></h2>
-    <p class="section-sub fade-up" id="rt-sub"></p>
-    <div class="route-grid" id="rt-grid"></div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">NIS2 · DORA · AI Act · CRA · GDPR · NEN 7510</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Healthcare · Finance · Government · Software · Logistics</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Netherlands · Belgium · Germany · France · UK</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-text">Direct · Indirect · Hybrid GTM</span></div>
+</div>
+<!-- ── CHART SECTION ── -->
+<section class="chart-section">
+  <div class="chart-inner">
+    <div class="kicker">EU Market Entry Results</div>
+    <h2 class="headline">Revenue doesn't wait.<br><em>First customers do.</em></h2>
+    <p class="sub">Bedrijven die via HCI de EU markt betreden realiseren gemiddeld 3,4× meer omzet in kwartaal 4 versus kwartaal 1.</p>
+    <div class="chart-wrap">
+      <div class="chart-header">
+        <div class="chart-title-label">Gemiddelde omzetgroei per kwartaal — HCI klanten</div>
+        <div class="chart-note-label">Gebaseerd op 12 klanten, Programma II en III, 2022–2025</div>
+      </div>
+      <div class="chart-svg-wrap">
+        <div class="arrow-badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1L13 7L7 13M13 7H1" stroke="#0F0F1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-90 7 7)"/>
+          </svg>
+          +240% gemiddeld jaar 1
+        </div>
+        <svg class="growth-chart" viewBox="0 0 700 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="18"  font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€200k</text>
+          <text x="0" y="73"  font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€150k</text>
+          <text x="0" y="128" font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€100k</text>
+          <text x="0" y="183" font-family="DM Mono, monospace" font-size="9" fill="#8888A0">€50k</text>
+          <line x1="52" y1="14"  x2="700" y2="14"  stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="69"  x2="700" y2="69"  stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="124" x2="700" y2="124" stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="179" x2="700" y2="179" stroke="rgba(196,150,74,.1)" stroke-width="1"/>
+          <line x1="52" y1="210" x2="700" y2="210" stroke="rgba(196,150,74,.2)" stroke-width="1"/>
+          <path class="area-fill"
+            d="M 60 200 L 180 188 L 300 162 L 420 118 L 540 74 L 660 28 L 660 210 L 60 210 Z"
+            fill="url(#goldGradChart)"/>
+          <path class="trend-line"
+            d="M 60 200 C 100 196, 140 190, 180 188 C 220 186, 260 172, 300 162 C 340 152, 380 130, 420 118 C 460 106, 500 86, 540 74 C 580 62, 620 40, 660 28"
+            stroke="#C4964A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle class="chart-dot" cx="60"  cy="200" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="180" cy="188" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="300" cy="162" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="420" cy="118" r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="540" cy="74"  r="5" fill="#FDFCF8" stroke="#C4964A" stroke-width="2"/>
+          <circle class="chart-dot" cx="660" cy="28"  r="5" fill="#C4964A" stroke="#C4964A" stroke-width="2"/>
+          <text class="chart-label" x="60"  y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q1</text>
+          <text class="chart-label" x="180" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q2</text>
+          <text class="chart-label" x="300" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q3</text>
+          <text class="chart-label" x="420" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q4</text>
+          <text class="chart-label" x="540" y="224" font-family="DM Mono, monospace" font-size="9" fill="#8888A0" text-anchor="middle">Q5</text>
+          <text class="chart-label" x="660" y="224" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle" font-weight="500">Q6</text>
+          <text class="chart-label" x="60"  y="193" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€18k</text>
+          <text class="chart-label" x="180" y="181" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€32k</text>
+          <text class="chart-label" x="300" y="155" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€68k</text>
+          <text class="chart-label" x="420" y="111" font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€112k</text>
+          <text class="chart-label" x="540" y="67"  font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle">€156k</text>
+          <text class="chart-label" x="660" y="21"  font-family="DM Mono, monospace" font-size="9" fill="#C4964A" text-anchor="middle" font-weight="600">€198k</text>
+          <defs>
+            <linearGradient id="goldGradChart" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#C4964A" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#C4964A" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="chart-metrics">
+        <div class="chart-metric">
+          <div class="chart-metric-val">3.4<span>&times;</span></div>
+          <div class="chart-metric-label">Omzetgroei kwartaal 1→4</div>
+        </div>
+        <div class="chart-metric">
+          <div class="chart-metric-val">6–<span>9</span></div>
+          <div class="chart-metric-label">Maanden tot eerste klant</div>
+        </div>
+        <div class="chart-metric">
+          <div class="chart-metric-val"><span>€</span>180k</div>
+          <div class="chart-metric-label">Gemiddeld eerste contract</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-cta-row">
+      <a href="/services/assessment" class="btn-primary">Start EU Readiness Scan →</a>
+      <a href="/services/" class="btn-secondary">Bekijk alle drie programma's</a>
+    </div>
   </div>
 </section>
-
-<!-- ═══ METHOD ═══ -->
-<section class="method-section" id="method">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="mt-eyebrow"></div>
-    <h2 class="section-title fade-up" id="mt-title"></h2>
-    <p class="section-sub fade-up" id="mt-sub"></p>
-    <div class="method-grid fade-up" id="mt-grid"></div>
-    <div class="method-tagline fade-up" id="mt-tagline"></div>
+<!-- ── END CHART SECTION ── -->
+<!-- WHY HCI -->
+<section class="why-section" id="why">
+  <div class="why-left">
+    <div class="section-tag" data-nl="Waarom HCI" data-en="Why HCI">Why HCI</div>
+    <h2 class="section-title" data-nl="Wij vertellen u wat u moet horen" data-en="We tell you what you need to hear">We tell you what you need to hear</h2>
+    <p class="why-statement">
+      Most advisors tell you what you <strong>want</strong> to hear.<br>
+      We built our reputation on telling you what you <strong>need</strong> to hear —
+      before you invest time, money and credibility in the wrong approach.
+    </p>
+    <p class="section-body">
+      After 30 years working with companies like Citrix, Huawei, DXC and Telindus
+      across Europe, we know exactly what makes EU market entry succeed — and fail.
+      That knowledge is what we put to work for you.
+    </p>
+  </div>
+  <div class="why-right">
+    <ul class="truth-list">
+      <li class="truth-item">
+        <div class="truth-num">01</div>
+        <div class="truth-content">
+          <div class="truth-title" data-nl="Eerlijke EU Readiness Beoordeling" data-en="Honest EU Readiness Assessment">Honest EU Readiness Assessment</div>
+          <div class="truth-desc" data-nl="Vóór elke opdracht beoordelen wij uw werkelijke gereedheid op zes dimensies. Als uw product niet klaar is voor een specifieke markt, vertellen wij dat — en laten wij zien waarom." data-en="Before any engagement, we assess your real readiness across six dimensions. If your product isn't ready for a specific market, we tell you — and show you why.">Before any engagement, we assess your real readiness across six dimensions. If your product isn't ready for a specific market, we tell you — and show you why.</div>
+        </div>
+      </li>
+      <li class="truth-item">
+        <div class="truth-num">02</div>
+        <div class="truth-content">
+          <div class="truth-title" data-nl="Regelgeving Realiteitscheck" data-en="Regulatory Reality Check">Regulatory Reality Check</div>
+          <div class="truth-desc" data-nl="NIS2, DORA, AI Act, CRA, AVG, NEN 7510. Wij brengen precies in kaart welke regelgeving op uw product van toepassing is en wat er moet zijn geregeld voordat u kunt verkopen." data-en="NIS2, DORA, AI Act, CRA, GDPR, NEN 7510. We map exactly which regulations apply to your product and what needs to be in place before you can sell.">NIS2, DORA, AI Act, CRA, GDPR, NEN 7510. We map exactly which regulations apply to your product and what needs to be in place before you can sell.</div>
+        </div>
+      </li>
+      <li class="truth-item">
+        <div class="truth-num">03</div>
+        <div class="truth-content">
+          <div class="truth-title" data-nl="Echte Introducties — Geen Koude Acquisitie" data-en="Real Introductions — Not Cold Outreach">Real Introductions — Not Cold Outreach</div>
+          <div class="truth-desc" data-nl="300+ C-level contacten opgebouwd in 30 jaar. Warme introducties bereiken 40-60% engagement. Koude e-mail: 2-5%. Wij kennen het verschil." data-en="300+ C-level contacts built over 30 years. Warm introductions achieve 40-60% engagement. Cold email: 2-5%. We know the difference.">300+ C-level contacts built over 30 years. Warm introductions achieve 40-60% engagement. Cold email: 2-5%. We know the difference.</div>
+        </div>
+      </li>
+      <li class="truth-item">
+        <div class="truth-num">04</div>
+        <div class="truth-content">
+          <div class="truth-title" data-nl="Van Strategie tot Eerste Klant" data-en="From Strategy to First Customer">From Strategy to First Customer</div>
+          <div class="truth-desc" data-nl="Niet alleen strategiedocumenten. Wij blijven bij u gedurende de volledige cyclus — van GTM-ontwerp tot pipeline tot gesloten deals. Onze prijsstructuur weerspiegelt die betrokkenheid." data-en="Not just strategy documents. We stay with you through the full cycle — from GTM design to pipeline to closed deals. Our fee structure reflects that commitment.">Not just strategy documents. We stay with you through the full cycle — from GTM design to pipeline to closed deals. Our fee structure reflects that commitment.</div>
+        </div>
+      </li>
+    </ul>
   </div>
 </section>
-
-<!-- ═══ PROOF ═══ -->
-<section class="proof-section" id="proof">
-  <div class="container">
-    <div class="section-eyebrow fade-up" id="pf-eyebrow"></div>
-    <h2 class="section-title fade-up" id="pf-title"></h2>
-    <div class="proof-grid" id="pf-grid"></div>
+<!-- CASES -->
+<section class="cases-section" id="cases">
+  <div class="cases-intro">
+    <div>
+      <div class="section-tag" data-nl="Praktijkcases" data-en="Real Cases">Real Cases</div>
+      <h2 class="section-title" data-nl="Hoe eerlijk advies eruitziet in de praktijk" data-en="What honest advice looks like in practice">What honest advice looks like in practice</h2>
+    </div>
+    <div>
+      <p class="section-body" style="padding-top:16px" data-nl="Dit zijn echte opdrachten \u2014 geanonimiseerd op verzoek van de klant. Sommige hebben we doorgezet. Sommige hebben we omgeleid. Allemaal hebben ze onze klanten dure fouten bespaard." data-en="These are real engagements \u2014 anonymised at client request. Some we proceeded with. Some we redirected. All of them saved our clients from expensive mistakes.">
+        These are real engagements — anonymised at client request.
+        Some we proceeded with. Some we redirected. All of them saved
+        our clients from expensive mistakes.
+      </p>
+    </div>
+  </div>
+  <div class="cases-grid">
+    <!-- CASE 1 - Redirected -->
+    <div class="case-card">
+      <div class="case-verdict verdict-redirect" data-nl="\u21A9 Omgeleid" data-en="\u21A9 Redirected">&#8617; Redirected</div>
+      <div class="case-sector" data-nl="Zorgtechnologie \u00B7 Canada" data-en="Healthcare Technology \u00B7 Canada">Healthcare Technology · Canada</div>
+      <h3 class="case-title" data-nl="EPD-leverancier bespaarde twee jaar en \u20AC300K" data-en="EHR vendor saved two years and \u20AC300K">EHR vendor saved two years and &#8364;300K</h3>
+      <p class="case-body" data-nl="Een Canadese EPD-oprichter benaderde HCI om hun product te vertegenwoordigen in West-Europa. Na een volledige beoordeling: productvolwassenheid lag onder de drempel van bestaande EU-marktleiders. West-Europa was niet haalbaar." data-en="A Canadian EHR founder approached HCI to represent their product in Western Europe. After a full assessment: product maturity was below the threshold of existing EU market leaders. Western Europe was not viable.">
+        A Canadian EHR founder approached HCI to represent their product
+        in Western Europe. After a full assessment: product maturity was below
+        the threshold of existing EU market leaders. Western Europe was not viable.
+      </p>
+      <p class="case-insight" data-nl="&quot;Advies: eerst Oost-Europa, via lokale ISV OEM-partnerschappen. Oprichter vermeed een kostbare mislukte markttoegang.&quot;" data-en="&quot;Advice: Eastern Europe first, via local ISV OEM partnerships. Founder avoided a costly failed market entry.&quot;">
+        "Advice: Eastern Europe first, via local ISV OEM partnerships.
+        Founder avoided a costly failed market entry."
+      </p>
+    </div>
+    <!-- CASE 2 - Redirected -->
+    <div class="case-card">
+      <div class="case-verdict verdict-redirect" data-nl="\u21A9 Omgeleid" data-en="\u21A9 Redirected">&#8617; Redirected</div>
+      <div class="case-sector" data-nl="Smart City \u00B7 Isra\u00EBl" data-en="Smart City \u00B7 Israel">Smart City · Israel</div>
+      <h3 class="case-title" data-nl="AI-surveillanceplatform stuit op EU-regelgevingsmuur" data-en="AI surveillance platform hits EU regulatory wall">AI surveillance platform hits EU regulatory wall</h3>
+      <p class="case-body" data-nl="Een smart city-platform met indrukwekkende technologie en sterke VS/APAC-tractie wilde de Nederlandse gemeentelijke markt betreden. HCI's due diligence identificeerde drie kritieke blokkades onder de EU AI Act en AVG voordat er \u00E9\u00E9n gesprek plaatsvond." data-en="A smart city platform with impressive tech and strong US/APAC traction wanted to enter the Dutch municipal market. HCI's due diligence identified three critical blockers under EU AI Act and GDPR before a single conversation happened.">
+        A smart city platform with impressive tech and strong US/APAC traction
+        wanted to enter the Dutch municipal market. HCI's due diligence identified
+        three critical blockers under EU AI Act and GDPR before a single conversation happened.
+      </p>
+      <p class="case-insight" data-nl="&quot;Kern-AI-functies ofwel verboden ofwel volledig herontwerp nodig voor EU. Compliance-audit en EU SKU-ontwikkeling vereist v\u00F3\u00F3r elke verkoopactiviteit.&quot;" data-en="&quot;Core AI features either banned or requiring full redesign for EU. Compliance audit and EU SKU development required before any sales activity.&quot;">
+        "Core AI features either banned or requiring full redesign for EU.
+        Compliance audit and EU SKU development required before any sales activity."
+      </p>
+    </div>
+    <!-- CASE 3 - Proceed -->
+    <div class="case-card">
+      <div class="case-verdict verdict-proceed" data-nl="\u2713 Actief Partnerschap" data-en="\u2713 Active Partnership">&#10003; Active Partnership</div>
+      <div class="case-sector" data-nl="Compliance Communicatie \u00B7 EU" data-en="Compliance Communications \u00B7 EU">Compliance Communications · EU</div>
+      <h3 class="case-title" data-nl="EU-native compliance-suite betreedt NL-zorg" data-en="EU-native compliance suite enters NL healthcare">EU-native compliance suite enters NL healthcare</h3>
+      <p class="case-body" data-nl="Een volledig Europees compliance communicatieplatform \u2014 e-mail, chat, video, bestandsdeling \u2014 werd beoordeeld voor de Nederlandse zorgsector na de Zivver/Kiteworks-overname en de daaropvolgende CLOUD Act-blootstelling bevestigd in offici\u00EBle parlementaire documenten." data-en="A fully European compliance communications platform \u2014 email, chat, video, file sharing \u2014 was assessed for the Dutch healthcare sector following the Zivver/Kiteworks acquisition and subsequent CLOUD Act exposure confirmed in official parliamentary documents.">
+        A fully European compliance communications platform — email, chat, video,
+        file sharing — was assessed for the Dutch healthcare sector following
+        the Zivver/Kiteworks acquisition and subsequent CLOUD Act exposure confirmed
+        in official parliamentary documents.
+      </p>
+      <p class="case-insight" data-nl="&quot;3.500+ organisaties actief op zoek naar een Europees alternatief. NEN 7510 certificeringstraject: 4-9 maanden. Markttiming: optimaal.&quot;" data-en="&quot;3,500+ organisations actively seeking a European alternative. NEN 7510 certification roadmap: 4-9 months. Market timing: optimal.&quot;">
+        "3,500+ organisations actively seeking a European alternative.
+        NEN 7510 certification roadmap: 4-9 months. Market timing: optimal."
+      </p>
+    </div>
+    <!-- CASE 4 - Proceed -->
+    <div class="case-card">
+      <div class="case-verdict verdict-proceed" data-nl="\u2713 Actief Partnerschap" data-en="\u2713 Active Partnership">&#10003; Active Partnership</div>
+      <div class="case-sector" data-nl="Digitale Soevereiniteit \u00B7 Nederland" data-en="Digital Sovereignty \u00B7 Netherlands">Digital Sovereignty · Netherlands</div>
+      <h3 class="case-title" data-nl="Expertframework gecommercialiseerd voor EU-timing" data-en="Expert framework commercialised for EU timing">Expert framework commercialised for EU timing</h3>
+      <p class="case-body" data-nl="Een Nederlandse specialist in digitale soevereiniteit met 22+ jaar enterprise-ervaring en 8 eigen frameworks had uitzonderlijke IP \u2014 maar geen commerci\u00EBle verpakking. Markttiming was optimaal: Kamermotie digitale soevereiniteit, NIS2, AI Act." data-en="A Dutch digital sovereignty specialist with 22+ years enterprise experience and 8 proprietary frameworks had exceptional IP \u2014 but no commercial packaging. Market timing was optimal: Dutch parliament sovereignty motions, NIS2, AI Act.">
+        A Dutch digital sovereignty specialist with 22+ years enterprise experience
+        and 8 proprietary frameworks had exceptional IP — but no commercial packaging.
+        Market timing was optimal: Dutch parliament sovereignty motions, NIS2, AI Act.
+      </p>
+      <p class="case-insight" data-nl="&quot;Diamant in de ruwe steen: IP-score 9/10, markttiming 9/10, commerci\u00EBle gereedheid 4/10. HCI-rol: expertise vertalen naar verkoopbare producten.&quot;" data-en="&quot;Diamond in the rough: IP score 9/10, market timing 9/10, commercial readiness 4/10. HCI role: translate expertise into sellable products.&quot;">
+        "Diamond in the rough: IP score 9/10, market timing 9/10,
+        commercial readiness 4/10. HCI role: translate expertise into sellable products."
+      </p>
+    </div>
+    <!-- CASE 5 - Redirected -->
+    <div class="case-card">
+      <div class="case-verdict verdict-redirect" data-nl="\u21A9 Eerlijk Advies" data-en="\u21A9 Honest Advice">&#8617; Honest Advice</div>
+      <div class="case-sector" data-nl="SaaS-leverancier \u00B7 Oost-Europa" data-en="SaaS Vendor \u00B7 Eastern Europe">SaaS Vendor · Eastern Europe</div>
+      <h3 class="case-title" data-nl="Productherkomst was het marktprobleem" data-en="Product origin was the market problem">Product origin was the market problem</h3>
+      <p class="case-body" data-nl="Een softwareleverancier verzocht vertegenwoordiging in een markt met aanzienlijke vooroordelen tegen hun land van herkomst \u2014 onafhankelijk van productkwaliteit. HCI's netwerk bevestigde dat het vooroordeel re\u00EBel was, niet ingebeeld." data-en="A software vendor requested representation in a market that held significant bias against their country of origin \u2014 independent of product quality. HCI's network confirmed the bias was real, not perceived.">
+        A software vendor requested representation in a market that held
+        significant bias against their country of origin — independent of product quality.
+        HCI's network confirmed the bias was real, not perceived.
+      </p>
+      <p class="case-insight" data-nl="&quot;Advies: herpositioneer via een neutrale EU-entiteit en richt u eerst op sectoren met lagere gevoeligheid voor land van herkomst.&quot;" data-en="&quot;Advice: reposition via a neutral EU entity and target sectors with lower country-of-origin sensitivity first.&quot;">
+        "Advice: reposition via a neutral EU entity and target sectors
+        with lower country-of-origin sensitivity first."
+      </p>
+    </div>
+    <!-- CASE 6 - Proceed -->
+    <div class="case-card">
+      <div class="case-verdict verdict-proceed" data-nl="\u2713 Actieve Opdracht" data-en="\u2713 Active Engagement">&#10003; Active Engagement</div>
+      <div class="case-sector" data-nl="AI Medische Video \u00B7 Canada / Japan" data-en="AI Medical Video \u00B7 Canada / Japan">AI Medical Video · Canada / Japan</div>
+      <h3 class="case-title" data-nl="VS-waardepropositie herbouwd voor EU-zorg" data-en="US value proposition rebuilt for EU healthcare">US value proposition rebuilt for EU healthcare</h3>
+      <p class="case-body" data-nl="Een AI-videoplatform voor medische communicatie had sterke tractie in de VS \u2014 waar HCAHPS-scores direct gekoppeld zijn aan Medicare-vergoeding. Dat mechanisme bestaat niet in Europa. Volledige herbouw van waardepropositie nodig." data-en="An AI video platform for medical communication had strong traction in the US \u2014 where HCAHPS scores link directly to Medicare reimbursement. That mechanism doesn't exist in Europe. Full value proposition rebuild required.">
+        An AI video platform for medical communication had strong traction in
+        the US — where HCAHPS scores link directly to Medicare reimbursement.
+        That mechanism doesn't exist in Europe. Full value proposition rebuild required.
+      </p>
+      <p class="case-insight" data-nl="&quot;EU-kans is re\u00EBel \u2014 personeelstekort, WGBO-compliance, gezondheidsvaardigheidskloof. Maar geen kopie van het VS-model. Fase 1: betaalde marktgereedheidsbeoordeling.&quot;" data-en="&quot;EU opportunity is real \u2014 workforce shortage, WGBO compliance, health literacy gap. But not a copy-paste of the US model. Phase 1: paid market readiness assessment.&quot;">
+        "EU opportunity is real — workforce shortage, WGBO compliance, health literacy gap.
+        But not a copy-paste of the US model. Phase 1: paid market readiness assessment."
+      </p>
+    </div>
   </div>
 </section>
-
-<!-- ═══ MIKE HES ═══ -->
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-intro">
+    <div>
+      <div class="section-tag" data-nl="Diensten" data-en="Services">Services</div>
+      <h2 class="section-title" data-nl="Drie programma's. Vaste prijs. Geen uurtje-factuurtje." data-en="Three programmes. Fixed price. No hourly billing.">Three programmes. Fixed price. No hourly billing.</h2>
+      <p class="section-body" data-nl="HCI werkt met vaste programmaprijzen. U koopt een gedefinieerd resultaat, niet onze tijd. Elk programma heeft een vaste scope, vaste deliverables en een vaste prijs \u2014 ongeacht hoe lang de uitvoering duurt." data-en="HCI operates on fixed-programme pricing. You buy a defined outcome, not our time. Each programme has a fixed scope, fixed deliverables, and a fixed price \u2014 regardless of how long execution takes.">
+        HCI operates on fixed-programme pricing. You buy a defined outcome,
+        not our time. Each programme has a fixed scope, fixed deliverables,
+        and a fixed price &mdash; regardless of how long execution takes.
+      </p>
+    </div>
+    <div style="display:flex;align-items:flex-end">
+      <a href="/services/" class="btn-secondary" data-nl="Bekijk alle programma\u2019s \u2192" data-en="See all programmes \u2192">See all programmes &rarr;</a>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">I</div>
+      <div class="service-name" data-nl="EU Markt Intelligence" data-en="EU Market Intelligence">EU Market Intelligence</div>
+      <p class="service-desc" data-nl="ICP-validatie. Top-20 doelaccounts. Concurrentieanalyse. Regelgevingsrisicocheck. Schriftelijk rapport en debriefing. Weet precies waar u staat voordat u investeert." data-en="ICP validation. Top-20 target accounts. Competitive mapping. Regulatory risk check. Written report and debrief. Know exactly where you stand before you invest.">
+        ICP validation. Top-20 target accounts. Competitive mapping.
+        Regulatory risk check. Written report and debrief.
+        Know exactly where you stand before you invest.
+      </p>
+      <div class="service-price" data-nl="\u20AC5.000 \u00B7 Vast \u00B7 3 weken" data-en="\u20AC5,000 \u00B7 Fixed \u00B7 3 weeks">&euro;5,000 &middot; Fixed &middot; 3 weeks</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">II</div>
+      <div class="service-name" data-nl="EU Markttoegang" data-en="EU Market Entry">EU Market Entry</div>
+      <p class="service-desc" data-nl="Go-to-market strategie. 5\u201310 gekwalificeerde introductiemeetings. Partnerscreening. Maandelijkse rapportage. Eerste gesprekken binnen 6\u20138 weken." data-en="Go-to-market strategy. 5\u201310 qualified introduction meetings. Partner screening. Monthly reporting. First conversations within 6\u20138 weeks.">
+        Go-to-market strategy. 5&ndash;10 qualified introduction meetings.
+        Partner screening. Monthly reporting.
+        First conversations within 6&ndash;8 weeks.
+      </p>
+      <div class="service-price" data-nl="\u20AC14.500 \u00B7 Per kwartaal \u00B7 Verlengbaar" data-en="\u20AC14,500 \u00B7 Per quarter \u00B7 Renewable">&euro;14,500 &middot; Per quarter &middot; Renewable</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">III</div>
+      <div class="service-name" data-nl="Eerste Klant" data-en="First Customer">First Customer</div>
+      <p class="service-desc" data-nl="Dedicated EU business development. Volledige deal-ondersteuning tot getekend contract. Tenderbegeleiding. Co-selling met partners. De belofte \u2014 geprijsd." data-en="Dedicated EU business development. Full deal support to signed contract. Tender guidance. Co-selling with partners. The promise \u2014 priced.">
+        Dedicated EU business development. Full deal support to signed contract.
+        Tender guidance. Co-selling with partners.
+        The promise &mdash; priced.
+      </p>
+      <div class="service-price" data-nl="\u20AC9.500 \u00B7 Per kwartaal + succes fee" data-en="\u20AC9,500 \u00B7 Per quarter + success fee">&euro;9,500 &middot; Per quarter + success fee</div>
+    </div>
+  </div>
+</section>
+<!-- SCAN SECTION -->
+<section class="scan-section" id="scan">
+  <div>
+    <div class="section-tag" data-nl="EU Readiness Scan" data-en="EU Readiness Scan">EU Readiness Scan</div>
+    <h2 class="section-title" data-nl="Weet waar u staat voordat u investeert" data-en="Know where you stand before you invest">Know where you stand before you invest</h2>
+    <p class="section-body" style="margin-bottom:32px" data-nl="Zeven minuten. Zes dimensies. E\u00E9n eerlijke score. De EU Readiness Scan vertelt u precies hoe voorbereid uw bedrijf is op Europese markttoegang \u2014 en waar de hiaten zitten." data-en="Seven minutes. Six dimensions. One honest score. The EU Readiness Scan tells you exactly how prepared your company is for European market entry \u2014 and where the gaps are.">
+      Seven minutes. Six dimensions. One honest score.
+      The EU Readiness Scan tells you exactly how prepared your company
+      is for European market entry — and where the gaps are.
+    </p>
+    <p class="section-body" style="margin-bottom:48px" data-nl="Score 55+: U bent marktklaar. Score 0-29: We moeten eerst het fundament leggen. Hoe dan ook, u weet precies waar u staat \u2014 voordat u een euro uitgeeft aan markttoegang." data-en="Score 55+: You're market ready. Score 0-29: We need to build the foundation first. Either way, you'll know exactly where you stand \u2014 before spending a euro on market entry.">
+      Score 55+: You're market ready. Score 0-29: We need to build the foundation first.
+      Either way, you'll know exactly where you stand — before spending a euro on market entry.
+    </p>
+    <a href="/services/assessment" class="btn-primary" data-nl="Start de Gratis Scan \u2014 7 minuten" data-en="Start the Free Scan \u2014 7 minutes">
+      Start the Free Scan — 7 minutes
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+  <div class="scan-visual">
+    <div class="scan-card">
+      <div class="scan-title">EU Readiness Score</div>
+      <div class="scan-sub">Sample Assessment Output</div>
+      <div class="scan-dims">
+        <div class="scan-dim">
+          <span class="scan-dim-name">ICP Clarity</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:75%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Regulatory Compliance</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:40%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Product-Market Fit EU</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:60%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">GTM Model</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:55%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Team Readiness</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:80%"></div></div>
+        </div>
+        <div class="scan-dim">
+          <span class="scan-dim-name">Financial Runway</span>
+          <div class="scan-dim-bar"><div class="scan-dim-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+      <div class="scan-meta">
+        <div class="scan-meta-item">
+          <div class="scan-meta-val">62</div>
+          <div class="scan-meta-label">Overall Score</div>
+        </div>
+        <div class="scan-meta-item">
+          <div class="scan-meta-val">Market Ready</div>
+          <div class="scan-meta-label">Status</div>
+        </div>
+        <div class="scan-meta-item">
+          <div class="scan-meta-val">3</div>
+          <div class="scan-meta-label">Programmes available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- MIKE -->
 <section class="mike-section" id="mike">
-  <div class="container">
-    <div class="mike-grid" id="mk-grid"></div>
+  <div>
+    <div class="section-tag" data-nl="Mike Hes \u00B7 Oprichter" data-en="Mike Hes \u00B7 Founder">Mike Hes · Founder</div>
+    <h2 class="section-title" data-nl="30 jaar zeggen wat gezegd moet worden" data-en="30 years of saying what needs to be said">30 years of saying what needs to be said</h2>
+    <div class="mike-quote-block">
+      <p class="mike-quote" data-nl="&quot;Ik heb opdrachten afgewezen waarvan ik wist dat het product het niet zou redden in Europa. Die integriteit is de enige reden dat klanten mijn introducties vertrouwen als ik ja zeg.&quot;" data-en="&quot;I have walked away from engagements where I knew the product wouldn't make it in Europe. That integrity is the only reason clients trust my introductions when I say yes.&quot;">
+        "I have walked away from engagements where I knew the product
+        wouldn't make it in Europe. That integrity is the only reason
+        clients trust my introductions when I say yes."
+      </p>
+    </div>
+    <p class="mike-bio" data-nl="Mike Hes heeft 30 jaar ervaring in enterprise sales en business development in de Europese technologiemarkt \u2014 bij onder andere Citrix, Huawei, DXC Technology en Telindus. Sinds januari 2026 runt hij HES Consultancy International fulltime en brengt die ervaring direct naar technologiebedrijven die de EU-markt willen betreden.<br><br>Zijn aanpak is direct, analytisch en gebouwd op \u00E9\u00E9n principe: een eerlijke beoordeling nu is meer waard dan een mislukte markttoegang later." data-en="Mike Hes has spent 30 years in enterprise sales and business development across the European technology market \u2014 at Citrix, Huawei, DXC Technology and Telindus, among others. Since January 2026, he runs HES Consultancy International full-time, bringing that experience directly to technology companies navigating EU market entry.<br><br>His approach is direct, analytical and built on one principle: an honest assessment now is worth more than a failed market entry later.">
+      Mike Hes has spent 30 years in enterprise sales and business development
+      across the European technology market — at Citrix, Huawei, DXC Technology
+      and Telindus, among others. Since January 2026, he runs HES Consultancy
+      International full-time, bringing that experience directly to technology
+      companies navigating EU market entry.
+      <br><br>
+      His approach is direct, analytical and built on one principle:
+      an honest assessment now is worth more than a failed market entry later.
+    </p>
+  </div>
+  <div class="mike-right">
+    <div class="mike-cv">
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">2026 &#8594;</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Founder &amp; Managing Partner</div>
+          <div class="mike-cv-co">HES Consultancy International</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Enterprise</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Senior Business Development</div>
+          <div class="mike-cv-co">DXC Technology · Telindus</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Enterprise</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Channel &amp; Partner Management</div>
+          <div class="mike-cv-co">Huawei Enterprise · EU</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Enterprise</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Sales &amp; Business Development</div>
+          <div class="mike-cv-co">Citrix Systems · European Markets</div>
+        </div>
+      </div>
+      <div class="mike-cv-item">
+        <div class="mike-cv-year">Focus</div>
+        <div class="mike-cv-content">
+          <div class="mike-cv-role">Healthcare · Finance · Government · SaaS</div>
+          <div class="mike-cv-co">NL · DE · BE · FR · UK</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:36px">
+      <a href="https://linkedin.com/in/mihes" target="_blank" class="btn-secondary">
+        <span data-nl="Verbind op LinkedIn" data-en="Connect on LinkedIn">Connect on LinkedIn</span>
+      </a>
+    </div>
   </div>
 </section>
-
-<!-- Footer -->
-<div id="hci-footer"></div>
-<script src="/_footer.js"></script>
-
-<!-- Intelligence -->
-<script src="/_intelligence.js"></script>
-
-<script>
-(function() {
-  var S = window.SITE;
-  if (!S) return;
-
-  function l() { return localStorage.getItem('hci_lang') || 'nl'; }
-  function tx(obj, key) { return obj[key + '_' + l()] || obj[key + '_nl'] || ''; }
-
-  function renderPage() {
-    var lang = l();
-    var home = S.home;
-    var icps = S.icps;
-    var mike = S.mike;
-    var brand = S.brand;
-    var proof = S.proof;
-
-    // Hero
-    document.getElementById('hp-overline').innerHTML = tx(home, 'hero_overline');
-    document.getElementById('hp-h1').innerHTML = tx(home, 'hero_h1');
-    document.getElementById('hp-sub').innerHTML = tx(home, 'hero_sub');
-    document.getElementById('hp-scroll').textContent = lang === 'en' ? 'Scroll' : 'Scroll';
-
-    document.getElementById('hp-actions').innerHTML =
-      '<a href="' + home.hero_cta_href + '" class="btn-primary">' + tx(home, 'hero_cta') + '</a>' +
-      '<a href="' + home.hero_ghost_href + '" class="btn-ghost">' + tx(home, 'hero_ghost') + '</a>';
-
-    document.getElementById('hp-stats').innerHTML = home.stats.map(function(stat, i) {
-      return '<div class="fade-up stagger-' + (i+1) + '">' +
-        '<div class="hero-stat-num">' + stat.num + '</div>' +
-        '<div class="hero-stat-label">' + tx(stat, 'label') + '</div>' +
-      '</div>';
-    }).join('');
-
-    // Routes
-    document.getElementById('rt-eyebrow').textContent = lang === 'en' ? 'Three Routes' : 'Drie Routes';
-    document.getElementById('rt-title').innerHTML = lang === 'en'
-      ? 'Choose your <em>route.</em>'
-      : 'Kies uw <em>route.</em>';
-    document.getElementById('rt-sub').textContent = lang === 'en'
-      ? 'Every company is different. That\'s why HCI offers three focused routes — each with its own assessment, methodology and result.'
-      : 'Elk bedrijf is anders. Daarom biedt HCI drie gerichte routes — elk met eigen assessment, methodiek en resultaat.';
-
-    var routeAccents = { icp1: '--route-entry', icp2: '--route-growth', icp3: '--route-compliance' };
-    var routeDims = { icp1: '--route-entry-dim', icp2: '--route-growth-dim', icp3: '--route-compliance-dim' };
-
-    document.getElementById('rt-grid').innerHTML = Object.keys(icps).map(function(key, i) {
-      var icp = icps[key];
-      var chips = tx(icp, 'chips') || [];
-      var chipsHtml = chips.map(function(c) { return '<span class="route-chip">' + c + '</span>'; }).join('');
-      return '<a href="' + icp.route + '" class="route-card fade-up stagger-' + (i+1) + '" style="--card-accent:' + icp.accent + ';--card-accent-border:' + icp.accent_dim + ';--card-accent-dim:' + icp.accent_dim + ';">' +
-        '<div class="route-icon">' + icp.icon + '</div>' +
-        '<span class="route-tag">' + tx(icp, 'kicker') + '</span>' +
-        '<h3>' + tx(icp, 'label') + '</h3>' +
-        '<div class="route-chips">' + chipsHtml + '</div>' +
-        '<div class="route-cta">' + tx(icp, 'cta') + ' \u2192</div>' +
-      '</a>';
-    }).join('');
-
-    // Method
-    document.getElementById('mt-eyebrow').textContent = tx(home, 'method_eyebrow');
-    document.getElementById('mt-title').innerHTML = tx(home, 'method_title');
-    document.getElementById('mt-sub').textContent = tx(home, 'method_sub');
-
-    document.getElementById('mt-grid').innerHTML = home.method_steps.map(function(step, i) {
-      var connector = i < home.method_steps.length - 1 ? '<div class="method-connector"></div>' : '';
-      return '<div class="method-step">' +
-        '<div class="method-num">' + step.num + '</div>' +
-        '<h4>' + tx(step, 'title') + '</h4>' +
-        '<p>' + tx(step, 'desc') + '</p>' +
-        connector +
-      '</div>';
-    }).join('');
-
-    document.getElementById('mt-tagline').innerHTML = tx(home, 'method_tagline');
-
-    // Proof
-    document.getElementById('pf-eyebrow').textContent = lang === 'en' ? 'Results' : 'Resultaten';
-    document.getElementById('pf-title').innerHTML = lang === 'en'
-      ? 'What we <em>delivered.</em>'
-      : 'Wat we <em>opgeleverd hebben.</em>';
-
-    document.getElementById('pf-grid').innerHTML = proof.map(function(p, i) {
-      var icp = icps[p.icp] || {};
-      return '<div class="proof-card fade-up stagger-' + (i+1) + '">' +
-        '<div class="proof-route" style="color:' + (icp.accent || 'var(--gold)') + '">' + (tx(icp, 'kicker') || '') + '</div>' +
-        '<h4>' + p.client + '</h4>' +
-        '<p>' + tx(p, 'result') + '</p>' +
-      '</div>';
-    }).join('');
-
-    // Mike
-    document.getElementById('mk-grid').innerHTML =
-      '<div class="mike-photo-wrap fade-up">' +
-        '<div class="mike-photo"><img src="' + brand.mike_photo + '" alt="' + mike.name + '"></div>' +
-        '<div class="mike-cred">' +
-          '<div class="mike-cred-num">' + mike.years + '</div>' +
-          '<div class="mike-cred-label">' + tx(mike, 'years_label') + '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="mike-content fade-up stagger-1">' +
-        '<h2>' + mike.name + ' — <em>' + tx(mike, 'title') + '</em></h2>' +
-        '<p class="mike-bio">' + tx(mike, 'bio') + '</p>' +
-        '<div class="mike-actions">' +
-          '<a href="' + brand.calendly + '" class="btn-primary">' + tx(mike, 'cta') + '</a>' +
-          '<a href="mailto:' + brand.email + '" class="btn-ghost">' + brand.email + '</a>' +
-        '</div>' +
-      '</div>';
-
-    // Re-observe fade-up elements
-    initObserver();
-  }
-
-  function initObserver() {
-    var els = document.querySelectorAll('.fade-up:not(.visible)');
-    if (!('IntersectionObserver' in window)) {
-      els.forEach(function(el) { el.classList.add('visible'); });
-      return;
-    }
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    els.forEach(function(el) { observer.observe(el); });
-  }
-
-  window.onLangChange = renderPage;
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderPage);
-  } else {
-    renderPage();
-  }
-})();
-</script>
-
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <p class="cta-eyebrow" data-nl="Begin Hier" data-en="Start Here">Start Here</p>
+  <h2 class="cta-title" data-nl="Het eerste gesprek kost niets. De verkeerde markttoegang kost alles." data-en="The first conversation costs nothing. The wrong market entry costs everything.">The first conversation costs nothing. The wrong market entry costs everything.</h2>
+  <p class="cta-body" data-nl="Doe de gratis EU Readiness Scan en weet precies waar u staat. Of plan een direct gesprek met Mike \u2014 geen verkooppraatje, gewoon een eerlijk gesprek." data-en="Take the free EU Readiness Scan and know exactly where you stand. Or book a direct call with Mike \u2014 no sales pitch, just an honest conversation.">
+    Take the free EU Readiness Scan and know exactly where you stand.
+    Or book a direct call with Mike — no sales pitch, just an honest conversation.
+  </p>
+  <div class="cta-actions">
+    <a href="/services/assessment" class="btn-primary" data-nl="Gratis EU Readiness Scan \u2014 7 min" data-en="Free EU Readiness Scan \u2014 7 min">
+      Free EU Readiness Scan — 7 min
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+    <span class="cta-divider" data-nl="of" data-en="or">or</span>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary" data-nl="Plan een kennismakingsgesprek" data-en="Book a discovery call">
+      Book a discovery call
+    </a>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/" data-nl="Home" data-en="Home">Home</a>
+    <a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a>
+    <a href="/about/" data-nl="Over ons" data-en="About">Over ons</a>
+    <a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a>
+    <a href="mailto:mbhes@hes-consultancy-international.com">mbhes@hes-consultancy-international.com</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Privacybeleid" data-en="Privacy Policy">Privacybeleid</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Voorwaarden" data-en="Terms &amp; Conditions">Voorwaarden</a></div>
+</footer>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>

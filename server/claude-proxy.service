@@ -1,0 +1,21 @@
+[Unit]
+Description=HCI Claude API Proxy voor CMO-FMO
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/claude-proxy
+ExecStart=/usr/bin/node /opt/claude-proxy/claude-proxy.js
+Restart=always
+RestartSec=5
+Environment=PORT=3001
+# BELANGRIJK: Stel de API key in via:
+#   systemctl edit claude-proxy
+# Voeg toe:
+#   [Service]
+#   Environment=ANTHROPIC_API_KEY=sk-ant-jouw-key
+# Dan: systemctl restart claude-proxy
+
+[Install]
+WantedBy=multi-user.target

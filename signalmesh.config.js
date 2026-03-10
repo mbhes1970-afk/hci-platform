@@ -17,11 +17,12 @@ window.SignalMeshConfig = {
     vidDelayMs: 2000,
     sessionKey: 'hci_qs_session',
     pbUrl: 'https://api.hes-consultancy-international.com',
-    slackWebhook: '',
+    slackWebhook: (document.querySelector('meta[name="slack-webhook"]') || {}).content || '',
+    ipinfoToken: (document.querySelector('meta[name="ipinfo-token"]') || {}).content || '',
     phone: '+31612345678',
     phoneDisplay: '+31 6 12 34 56 78',
     email: 'mbhes@hes-consultancy-international.com',
-    calendlyUrl: 'https://calendly.com/hci-mike',
+    calendlyUrl: 'https://calendly.com/mbhes1970/30min',
   },
 
   // ── ICP's ─────────────────────────────────────────

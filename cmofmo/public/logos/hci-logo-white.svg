@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <!-- Shield icon -->
+  <path d="M12 4L4 8v8c0 8.4 6.4 16.2 16 18 9.6-1.8 16-9.6 16-18V8L28 4H12z"
+        fill="#ffffff" opacity="0.9"/>
+  <path d="M20 12l-6 6 3 3 6-6-3-3z" fill="#08090c" opacity="0.4"/>
+  <!-- HCI text -->
+  <text x="44" y="20" font-family="Outfit, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    HES CONSULTANCY
+  </text>
+  <text x="44" y="36" font-family="Outfit, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+    INTERNATIONAL
+  </text>
+  <!-- Accent line -->
+  <rect x="44" y="40" width="60" height="1.5" rx="0.75" fill="#ffffff" opacity="0.3"/>
+</svg>

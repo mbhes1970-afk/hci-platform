@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="ipinfo-token" content="346441b021b8f4">
+<meta name="slack-webhook" content="SLACK_WEBHOOK_PLACEHOLDER">
 <title>Partner & Pipeline Growth — HES Consultancy International</title>
 <meta name="description" content="Word HCI partner en verdien aan compliance & AI projecten. White-label diensten, deal registratie en gezamenlijke enterprise verkoop.">
 <meta name="robots" content="index, follow">
@@ -215,6 +217,48 @@ section { padding: 120px 0; position: relative; }
   font-size: 13px; color: var(--text-dim); line-height: 1.7;
 }
 
+/* Partner Fit Scan */
+.pfs-section { padding: 100px 0; }
+.pfs-wrap {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 48px 40px; max-width: 720px; margin: 0 auto;
+}
+.pfs-question {
+  margin-bottom: 24px; padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.pfs-question:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.pfs-q-label {
+  font-size: 14px; color: var(--white); font-weight: 500; margin-bottom: 12px;
+}
+.pfs-q-num { color: var(--accent); font-family: 'Geist Mono', monospace; font-size: 11px; margin-right: 8px; }
+.pfs-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.pfs-opt {
+  padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer;
+  transition: all .2s; user-select: none;
+}
+.pfs-opt:hover { border-color: var(--accent-border); color: var(--accent); }
+.pfs-opt.selected { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.pfs-result {
+  margin-top: 32px; padding: 32px; border-radius: 12px;
+  background: rgba(8,145,178,.06); border: 1px solid var(--accent-border);
+  text-align: center; display: none;
+}
+.pfs-score-ring {
+  width: 100px; height: 100px; border-radius: 50%;
+  border: 4px solid var(--accent); display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+  font-family: 'Instrument Serif', serif; font-size: 32px; color: var(--white);
+}
+.pfs-tier { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+.pfs-msg { font-size: 13px; color: var(--text); line-height: 1.7; max-width: 480px; margin: 0 auto 20px; }
+
+@media (max-width: 600px) {
+  .pfs-wrap { padding: 28px 20px; }
+  .pfs-options { flex-direction: column; }
+}
+
 /* Calendly CTA */
 .calendly-cta {
   background: var(--bg-card);
@@ -373,7 +417,25 @@ section { padding: 120px 0; position: relative; }
 <section class="section-border" id="journey">
   <div class="container">
     <div class="fade-up" id="journey-header"></div>
-    <div class="journey-grid fade-up" id="journey-grid"></div>
+    <div class="journey-grid fade-up hci-stagger" id="journey-grid"></div>
+  </div>
+</section>
+
+<!-- Partner Fit Scan -->
+<section class="pfs-section section-border" id="partner-fit-scan">
+  <div class="container">
+    <div class="section-eyebrow fade-up" id="pfs-eyebrow"></div>
+    <h2 class="section-title fade-up" id="pfs-title"></h2>
+    <p class="section-sub fade-up" id="pfs-sub"></p>
+    <div class="pfs-wrap fade-up" id="pfs-wrap" data-animate="slide-left">
+      <div id="pfs-questions"></div>
+      <div class="pfs-result" id="pfs-result">
+        <div class="pfs-score-ring" id="pfs-score">0</div>
+        <div class="pfs-tier" id="pfs-tier"></div>
+        <div class="pfs-msg" id="pfs-msg"></div>
+        <div id="pfs-cta"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -519,10 +581,166 @@ function initFadeObserver() {
   els.forEach(function(el) { observer.observe(el); });
 }
 
-window.onLangChange = renderPage;
+// ── Partner Fit Scan ──
+var pfsAnswers = {};
+var pfsQuestions = [
+  {
+    id: 'q1',
+    q_nl: 'Hoeveel IT/cybersecurity klanten bedient u momenteel?',
+    q_en: 'How many IT/cybersecurity clients do you currently serve?',
+    opts: [
+      { label_nl: '0-5', label_en: '0-5', score: 10 },
+      { label_nl: '6-20', label_en: '6-20', score: 20 },
+      { label_nl: '21-50', label_en: '21-50', score: 15 },
+      { label_nl: '50+', label_en: '50+', score: 10 },
+    ]
+  },
+  {
+    id: 'q2',
+    q_nl: 'Biedt u momenteel compliance-gerelateerde diensten aan?',
+    q_en: 'Do you currently offer compliance-related services?',
+    opts: [
+      { label_nl: 'Nee, maar wel interesse', label_en: 'No, but interested', score: 15 },
+      { label_nl: 'Ja, beperkt', label_en: 'Yes, limited', score: 20 },
+      { label_nl: 'Ja, uitgebreid', label_en: 'Yes, extensive', score: 10 },
+    ]
+  },
+  {
+    id: 'q3',
+    q_nl: 'In welke sectoren zijn uw klanten actief?',
+    q_en: 'In which sectors are your clients active?',
+    opts: [
+      { label_nl: 'Overheid', label_en: 'Government', score: 20 },
+      { label_nl: 'Zorg', label_en: 'Healthcare', score: 20 },
+      { label_nl: 'Finance', label_en: 'Finance', score: 20 },
+      { label_nl: 'Overig', label_en: 'Other', score: 10 },
+    ]
+  },
+  {
+    id: 'q4',
+    q_nl: 'Wat is uw gewenste partnermodel?',
+    q_en: 'What is your preferred partner model?',
+    opts: [
+      { label_nl: 'White-label doorverkoop', label_en: 'White-label resale', score: 20 },
+      { label_nl: 'Referral / lead sharing', label_en: 'Referral / lead sharing', score: 15 },
+      { label_nl: 'Joint ventures', label_en: 'Joint ventures', score: 20 },
+    ]
+  },
+  {
+    id: 'q5',
+    q_nl: 'Wanneer wilt u starten?',
+    q_en: 'When do you want to start?',
+    opts: [
+      { label_nl: 'Direct', label_en: 'Immediately', score: 20 },
+      { label_nl: 'Binnen 3 maanden', label_en: 'Within 3 months', score: 15 },
+      { label_nl: 'Later dit jaar', label_en: 'Later this year', score: 10 },
+    ]
+  },
+];
+
+function renderPFS() {
+  var lang = getLang();
+  var S = window.SITE;
+  var calendly = S.brand.calendly;
+
+  var eyebrow = document.getElementById('pfs-eyebrow');
+  if (eyebrow) eyebrow.textContent = lang === 'en' ? 'Partner Fit Scan' : 'Partner Fit Scan';
+
+  var title = document.getElementById('pfs-title');
+  if (title) title.innerHTML = lang === 'en'
+    ? 'Check your <em>partner fit</em> in 60 seconds'
+    : 'Check uw <em>partner fit</em> in 60 seconden';
+
+  var sub = document.getElementById('pfs-sub');
+  if (sub) sub.textContent = lang === 'en'
+    ? 'Answer 5 questions and discover your Partner Fit Score.'
+    : 'Beantwoord 5 vragen en ontdek uw Partner Fit Score.';
+
+  var qContainer = document.getElementById('pfs-questions');
+  if (qContainer) {
+    qContainer.innerHTML = pfsQuestions.map(function(q, qi) {
+      var qLabel = lang === 'en' ? q.q_en : q.q_nl;
+      var optsHtml = q.opts.map(function(opt, oi) {
+        var lbl = lang === 'en' ? opt.label_en : opt.label_nl;
+        var sel = pfsAnswers[q.id] === oi ? ' selected' : '';
+        return '<div class="pfs-opt' + sel + '" data-qid="' + q.id + '" data-oi="' + oi + '" onclick="selectPFS(\'' + q.id + '\',' + oi + ',' + opt.score + ')">' + lbl + '</div>';
+      }).join('');
+      return '<div class="pfs-question">' +
+        '<div class="pfs-q-label"><span class="pfs-q-num">0' + (qi + 1) + '</span>' + qLabel + '</div>' +
+        '<div class="pfs-options">' + optsHtml + '</div></div>';
+    }).join('');
+  }
+
+  // If all answered, show result
+  if (Object.keys(pfsAnswers).length === pfsQuestions.length) {
+    showPFSResult(lang, calendly);
+  }
+}
+
+function selectPFS(qid, optIndex, score) {
+  pfsAnswers[qid] = optIndex;
+  // Update selected state
+  document.querySelectorAll('[data-qid="' + qid + '"]').forEach(function(el) {
+    el.classList.remove('selected');
+  });
+  document.querySelector('[data-qid="' + qid + '"][data-oi="' + optIndex + '"]').classList.add('selected');
+
+  // If all questions answered
+  if (Object.keys(pfsAnswers).length === pfsQuestions.length) {
+    var lang = getLang();
+    var calendly = window.SITE.brand.calendly;
+    showPFSResult(lang, calendly);
+  }
+}
+
+function showPFSResult(lang, calendly) {
+  var totalScore = 0;
+  pfsQuestions.forEach(function(q) {
+    if (pfsAnswers[q.id] !== undefined) {
+      totalScore += q.opts[pfsAnswers[q.id]].score;
+    }
+  });
+
+  var resultEl = document.getElementById('pfs-result');
+  resultEl.style.display = 'block';
+  document.getElementById('pfs-score').textContent = totalScore;
+
+  var tierEl = document.getElementById('pfs-tier');
+  var msgEl = document.getElementById('pfs-msg');
+  var ctaEl = document.getElementById('pfs-cta');
+
+  if (totalScore >= 80) {
+    tierEl.textContent = lang === 'en' ? 'Excellent Fit' : 'Uitstekende Match';
+    msgEl.textContent = lang === 'en'
+      ? 'Your profile is an excellent match for HCI partnership. Let\'s schedule an onboarding call.'
+      : 'Uw profiel is een uitstekende match voor HCI partnerschap. Laten we een onboarding gesprek plannen.';
+    ctaEl.innerHTML = '<a href="' + calendly + '" target="_blank" rel="noopener" class="btn-primary">' +
+      (lang === 'en' ? 'Schedule onboarding call \u2192' : 'Plan onboarding gesprek \u2192') + '</a>';
+  } else if (totalScore >= 55) {
+    tierEl.textContent = lang === 'en' ? 'Good Fit' : 'Goede Match';
+    msgEl.textContent = lang === 'en'
+      ? 'Your profile shows strong partner potential. A conversation with Mike Hes will clarify the best collaboration model.'
+      : 'Uw profiel toont sterk partner potentieel. Een gesprek met Mike Hes maakt het beste samenwerkingsmodel duidelijk.';
+    ctaEl.innerHTML = '<a href="' + calendly + '" target="_blank" rel="noopener" class="btn-primary">' +
+      (lang === 'en' ? 'Schedule partner call \u2192' : 'Plan partnergesprek \u2192') + '</a>';
+  } else {
+    tierEl.textContent = lang === 'en' ? 'Exploring' : 'Verkennend';
+    msgEl.textContent = lang === 'en'
+      ? 'You\'re in an early exploration phase. Start with the partner playbook to learn more about HCI partnership opportunities.'
+      : 'U bevindt zich in een vroege verkenningsfase. Start met het partner playbook om meer te leren over HCI partnermogelijkheden.';
+    ctaEl.innerHTML = '<a href="/insights.html" class="btn-ghost">' +
+      (lang === 'en' ? 'Read partner playbook \u2192' : 'Lees partner playbook \u2192') + '</a>';
+  }
+
+  // Track event
+  if (window.plausible) window.plausible('Partner Fit Scan', { props: { score: totalScore } });
+}
+
+window.onLangChange = function() { renderPage(); renderPFS(); };
 
 document.addEventListener('DOMContentLoaded', function() {
   renderPage();
+  renderPFS();
 });
 </script>
 </body>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="ipinfo-token" content="346441b021b8f4">
+<meta name="slack-webhook" content="SLACK_WEBHOOK_PLACEHOLDER">
+<title>Government & Public Sector — HES Consultancy International</title>
+<meta name="description" content="Technology for Dutch municipalities, provinces and public organisations. BIO, NIS2, EU AI Act, digital sovereignty. We know how public sector procurement works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A;
+  --ink: #0D0D0D; --ink-soft: #1A1A1A;
+  --paper: #F7F4EE; --text-muted: #888880;
+  --border: rgba(201,168,76,0.2);
+  --blue: #60A5FA; --blue-d: rgba(96,165,250,0.08); --blue-b: rgba(96,165,250,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--paper); overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,13,13,0.96); border-bottom: 1px solid var(--border); }
+.nav-logo { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--paper); }
+.nav-logo-sub { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
+.nav-back { font-size: 12px; color: rgba(247,244,238,0.5); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+.nav-back:hover { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { color: rgba(247,244,238,0.65); text-decoration: none; font-size: 13px; letter-spacing: 0.05em; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 9px 22px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+.nav-cta:hover { background: var(--gold); color: var(--ink); }
+.hero { min-height: 100vh; padding: 160px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 75% 40%, rgba(96,165,250,0.04) 0%, transparent 55%), radial-gradient(ellipse at 15% 75%, rgba(201,168,76,0.05) 0%, transparent 50%), linear-gradient(135deg, #0D0D0D 0%, #0D1018 100%); }
+.hero-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(rgba(201,168,76,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px); background-size: 60px 60px; }
+.hero-left { position: relative; z-index: 2; }
+.hero-right { position: relative; z-index: 2; }
+.icp-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-d); border: 1px solid var(--blue-b); padding: 6px 16px; margin-bottom: 32px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); font-weight: 400; }
+.hero-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4.5vw, 64px); font-weight: 600; line-height: 1.08; color: var(--paper); margin-bottom: 28px; }
+.hero-headline em { font-style: italic; color: var(--gold); }
+.hero-body { font-size: 15px; line-height: 1.8; color: rgba(247,244,238,0.6); font-weight: 300; margin-bottom: 48px; max-width: 480px; }
+.btn-primary { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--ink); padding: 16px 32px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+.btn-primary:hover { background: var(--gold-light); transform: translateX(4px); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 10px; color: rgba(247,244,238,0.5); font-size: 13px; text-decoration: none; transition: color 0.2s; font-weight: 300; margin-top: 16px; }
+.btn-secondary:hover { color: var(--gold); }
+.btn-secondary::before { content: ''; width: 20px; height: 1px; background: currentColor; transition: width 0.25s; }
+.btn-secondary:hover::before { width: 32px; }
+.market-grid { display: flex; flex-direction: column; gap: 2px; }
+.market-row { display: grid; grid-template-columns: 100px 1fr; gap: 0; background: rgba(255,255,255,0.02); border: 1px solid transparent; transition: border-color 0.3s; }
+.market-row:hover { border-color: var(--border); }
+.market-num-cell { padding: 24px 20px; border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+.market-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; color: var(--gold); line-height: 1; }
+.market-content { padding: 20px 24px; }
+.market-name { font-size: 14px; font-weight: 500; color: var(--paper); margin-bottom: 4px; }
+.market-desc { font-size: 12px; color: rgba(247,244,238,0.45); font-weight: 300; line-height: 1.5; }
+section { padding: 100px 80px; }
+.section-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.section-tag::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 3.5vw, 48px); font-weight: 600; line-height: 1.1; color: var(--paper); margin-bottom: 16px; }
+.section-body { font-size: 15px; line-height: 1.8; color: rgba(247,244,238,0.6); font-weight: 300; max-width: 560px; }
+.procurement-section { background: var(--ink-soft); }
+.procurement-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 56px; }
+.proc-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border: 1px solid transparent; transition: all 0.3s; }
+.proc-card:hover { border-color: var(--border); background: rgba(201,168,76,0.03); }
+.proc-phase { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; font-weight: 400; }
+.proc-title { font-size: 15px; font-weight: 500; color: var(--paper); margin-bottom: 10px; }
+.proc-body { font-size: 13px; line-height: 1.7; color: rgba(247,244,238,0.5); font-weight: 300; }
+.proc-hci { margin-top: 14px; font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--gold); line-height: 1.4; }
+.spotlight-section { background: #0A0A0A; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.spotlight-card { background: rgba(201,168,76,0.05); border: 1px solid var(--border); padding: 48px; }
+.spotlight-verdict-redirect { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; margin-bottom: 20px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; background: rgba(255,255,255,0.05); color: rgba(247,244,238,0.5); border: 1px solid rgba(255,255,255,0.1); }
+.spotlight-verdict-proceed { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; margin-bottom: 20px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+.spotlight-sector { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.spotlight-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--paper); margin-bottom: 16px; line-height: 1.2; }
+.spotlight-body { font-size: 13px; line-height: 1.75; color: rgba(247,244,238,0.55); margin-bottom: 24px; font-weight: 300; }
+.spotlight-insight { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--gold); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 20px; }
+.drivers-section { background: var(--ink-soft); }
+.drivers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+.driver-card { padding: 36px 32px; background: rgba(255,255,255,0.02); border-top: 2px solid var(--border); transition: all 0.3s; }
+.driver-card:hover { border-top-color: var(--gold); background: rgba(201,168,76,0.03); }
+.driver-law { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+.driver-title { font-size: 15px; font-weight: 500; color: var(--paper); margin-bottom: 10px; }
+.driver-body { font-size: 13px; line-height: 1.7; color: rgba(247,244,238,0.5); font-weight: 300; }
+.cra-section { background: #0A0A0A; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.cra-card { background: rgba(96,165,250,0.05); border: 1px solid var(--blue-b); padding: 48px; }
+.cra-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--paper); margin-bottom: 8px; }
+.cra-sub { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 24px; font-weight: 300; }
+.cra-items { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.cra-item { display: flex; gap: 14px; align-items: flex-start; }
+.cra-item-icon { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+.cra-item-text { font-size: 13px; color: rgba(247,244,238,0.65); font-weight: 300; line-height: 1.55; }
+.cra-badge { display: inline-block; background: var(--blue-d); border: 1px solid var(--blue-b); color: var(--blue); padding: 4px 12px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.cta-section { background: var(--ink-soft); text-align: center; padding: 120px 80px; position: relative; overflow: hidden; }
+.cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 65%); }
+.cta-section > * { position: relative; z-index: 1; }
+.cta-eyebrow { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+.cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 600; line-height: 1.1; color: var(--paper); max-width: 640px; margin: 0 auto 16px; }
+.cta-body { font-size: 15px; line-height: 1.75; color: rgba(247,244,238,0.5); font-weight: 300; max-width: 440px; margin: 0 auto 48px; }
+.cta-actions { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.cta-divider { font-size: 11px; color: var(--text-muted); }
+footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: rgba(247,244,238,0.4); }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-legal { font-size: 11px; color: var(--text-muted); }
+.lang-toggle { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted, #888880); cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.lang-toggle span.active { color: var(--gold, #C9A84C); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hero-left > * { animation: fadeUp 0.6s ease both; }
+.hero-headline { animation-delay: 0.1s; } .hero-body { animation-delay: 0.2s; }
+@media (max-width: 960px) {
+  nav { padding: 16px 24px; }
+  .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; }
+  section { padding: 72px 24px; }
+  .procurement-grid, .drivers-grid { grid-template-columns: 1fr; }
+  .spotlight-section, .cra-section { grid-template-columns: 1fr; gap: 40px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+  .cta-section { padding: 80px 24px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-main">HES Consultancy International</div>
+    <div class="nav-logo-sub">From Strategy to First Customer</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#why" data-nl="Waarom HCI" data-en="Why HCI">Waarom HCI</a></li>
+    <li><a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a></li>
+    <li><a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a></li>
+    <li><a href="/about/" data-nl="Over ons" data-en="About">Over ons</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="lang-toggle" id="lang-toggle">
+      <span data-lang="nl" class="active">NL</span>
+      <span style="opacity:0.3">|</span>
+      <span data-lang="en">EN</span>
+    </div>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="nav-cta" data-nl="Bel ons" data-en="Book a Call">Bel ons</a>
+  </div>
+</nav>
+<section class="hero" style="padding-top:160px;padding-bottom:100px">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-left">
+    <div class="icp-badge">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+      Government &amp; Public Sector · NL / Benelux
+    </div>
+    <h1 class="hero-headline" data-nl="De publieke sector<br>beweegt niet snel.<br>Maar beweegt wel<br><em>met zekerheid.</em>" data-en="Public sector<br>doesn't move fast.<br>But it moves<br><em>with certainty.</em>">Public sector<br>
+      doesn't move fast.<br>
+      But it moves<br>
+      <em>with certainty.</em>
+    </h1>
+    <p class="hero-body" data-nl="342 Nederlandse gemeenten. 21 waterschappen. 12 provincies. Duizenden publieke organisaties die te maken hebben met BIO, NIS2, EU AI Act en een urgente verantwoordingsvraag vanuit hun raden. De markt is er. Maar publieke inkoop vereist een geheel andere aanpak." data-en="342 Dutch municipalities. 21 water boards. 12 provinces. Thousands of public organisations facing BIO, NIS2, EU AI Act and an urgent accountability question from their councils. The market is there. But public procurement requires a different approach entirely.">
+      342 Dutch municipalities. 21 water boards. 12 provinces.
+      Thousands of public organisations facing BIO, NIS2, EU AI Act
+      and an urgent accountability question from their councils.
+      The market is there. But public procurement requires a different approach entirely.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <a href="https://platform.hes-consultancy-international.com/quickscan?sector=s01&role=cio" class="btn-primary" data-nl="Gratis EU Government Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;" data-en="Free EU Government Readiness Scan &lt;svg width=&quot;16&quot; height=&quot;16&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;&lt;/svg&gt;">
+        Free EU Government Readiness Scan
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary" data-nl="Of spreek Mike direct" data-en="Or speak to Mike directly">Or speak to Mike directly</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="market-grid">
+      <div class="market-row">
+        <div class="market-num-cell"><div class="market-num">342</div></div>
+        <div class="market-content">
+          <div class="market-name">Dutch Municipalities</div>
+          <div class="market-desc">Primary market. BIO-plichtig, NIS2-plichtig. Consolidated purchasing via VNG, G4/G40. Digital maturity varies significantly — creating a need for independent assessment.</div>
+        </div>
+      </div>
+      <div class="market-row">
+        <div class="market-num-cell"><div class="market-num">21</div></div>
+        <div class="market-content">
+          <div class="market-name">Water Boards</div>
+          <div class="market-desc">NIS2-critical infrastructure. Own digital transformation agenda. Procurement via UNIE and direct. Less competitive than municipalities — faster decisions.</div>
+        </div>
+      </div>
+      <div class="market-row">
+        <div class="market-num-cell"><div class="market-num">308</div></div>
+        <div class="market-content">
+          <div class="market-name">Flemish Municipalities</div>
+          <div class="market-desc">Benelux expansion market. Similar digital maturity challenges to NL. Procurement via V-ICT-OR. Dutch methodology directly adaptable.</div>
+        </div>
+      </div>
+      <div class="market-row">
+        <div class="market-num-cell"><div class="market-num">2,136</div></div>
+        <div class="market-content">
+          <div class="market-name">Swiss Municipalities</div>
+          <div class="market-desc">DACH expansion. Cantonal structure creates local decision making. High willingness to pay. EU AI Act and GDPR equivalent apply.</div>
+        </div>
+      </div>
+      <div class="market-row">
+        <div class="market-num-cell"><div class="market-num">30+</div></div>
+        <div class="market-content">
+          <div class="market-name">Implementing Agencies</div>
+          <div class="market-desc">CJIB, RDW, CAK, SVB — NIS2 critical infrastructure. Large budgets, complex procurement, long cycles but predictable once in.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="procurement-section" id="procurement">
+  <div class="section-tag" data-nl="Inkooprealiteit" data-en="Procurement Reality">Procurement Reality</div>
+  <h2 class="section-title" data-nl="Hoe de publieke sector daadwerkelijk technologie inkoopt" data-en="How public sector actually buys technology">How public sector actually buys technology</h2>
+  <p class="section-body" data-nl="De marktomvang kennen is irrelevant als u niet begrijpt hoe beslissingen worden genomen. Publieke inkoop is een proces — geen gesprek." data-en="Knowing the market size is irrelevant if you don't understand how decisions are made. Public procurement is a process — not a conversation.">Knowing the market size is irrelevant if you don't understand how decisions are made. Public procurement is a process — not a conversation.</p>
+  <div class="procurement-grid">
+    <div class="proc-card">
+      <div class="proc-phase">Phase 1 · Awareness</div>
+      <div class="proc-title">The accountability question comes first</div>
+      <div class="proc-body">Municipal councils increasingly ask their boards: how digitally mature are we? Are we NIS2 compliant? What is our AI governance? The question precedes the budget. Technology that answers the accountability question gets on the agenda.</div>
+      <div class="proc-hci">"We position your product as the answer to the question that's already being asked."</div>
+    </div>
+    <div class="proc-card">
+      <div class="proc-phase">Phase 2 · Orientation</div>
+      <div class="proc-title">Independent validation is essential</div>
+      <div class="proc-body">Public organisations are deeply sceptical of vendor-led assessments. They trust independent analysis. An introduction via a respected independent source carries 10x the weight of cold outreach from a vendor.</div>
+      <div class="proc-hci">"HCI's 30 years of government relationships is the introduction that gets you into the room."</div>
+    </div>
+    <div class="proc-card">
+      <div class="proc-phase">Phase 3 · Selection</div>
+      <div class="proc-title">Aanbestedingsplicht changes everything</div>
+      <div class="proc-body">Above certain thresholds, Dutch municipalities must publicly tender. This is not a barrier — it is a calendar. Know when the tender will open, position yourself before it does, and be the known quantity when evaluation begins.</div>
+      <div class="proc-hci">"We track tender cycles and pre-position your product before procurement teams write the spec."</div>
+    </div>
+    <div class="proc-card">
+      <div class="proc-phase">Phase 4 · Reference</div>
+      <div class="proc-title">One G4 reference opens the G40</div>
+      <div class="proc-body">Amsterdam, Rotterdam, Den Haag, Utrecht. One G4 municipality as reference customer dramatically accelerates adoption in the G40 and beyond. The reference strategy must be designed from day one — not discovered after month 18.</div>
+      <div class="proc-hci">"Your first public sector customer is your most important sales asset. We select it deliberately."</div>
+    </div>
+  </div>
+</section>
+<section class="spotlight-section" id="case">
+  <div>
+    <div class="section-tag" data-nl="Case Spotlight" data-en="Case Spotlight">Case Spotlight</div>
+    <h2 class="section-title" data-nl="Expert digitale soevereiniteit betreedt gemeentemarkt" data-en="Digital sovereignty expert enters municipal market">Digital sovereignty expert enters municipal market</h2>
+    <p class="section-body" style="margin-bottom:32px">
+      A Dutch digital sovereignty specialist with 22+ years enterprise IT experience
+      and eight proprietary frameworks — including methodologies for AI governance,
+      zero-trust architecture and digital resilience — had exceptional intellectual property.
+    </p>
+    <p class="section-body">
+      The market timing was optimal: Dutch parliament sovereignty motions, NIS2 in force,
+      EU AI Act governance requirements creating urgent demand. But the IP had no
+      commercial packaging and the GTM was entirely via personal network.
+    </p>
+  </div>
+  <div class="spotlight-card">
+    <div class="spotlight-verdict-proceed">&#10003; Active Engagement</div>
+    <div class="spotlight-sector">Digital Sovereignty · Dutch Municipalities</div>
+    <div class="spotlight-title">IP score 9/10. Market timing 9/10. Commercial readiness 4/10.</div>
+    <p class="spotlight-body">
+      HCI assessment: diamond in the rough. The frameworks are real, defensible intellectual property
+      built on empirical research across 118 municipalities. No consultant can replicate this in a year.
+      HCI's role: translate the expertise into sellable products, build systematic pipeline,
+      and expand from NL municipalities to Flemish and Swiss markets.
+    </p>
+    <div class="spotlight-insight">
+      "Independent expertise that municipalities trust is worth more than any vendor pitch.
+      The product is the credibility — we just need to package it properly."
+    </div>
+  </div>
+</section>
+<section class="drivers-section" id="drivers">
+  <div class="section-tag" data-nl="Regelgevende drijfveren" data-en="Regulatory Drivers">Regulatory Drivers</div>
+  <h2 class="section-title" data-nl="Drie wetten die directe vraag creëren" data-en="Three laws creating immediate demand">Three laws creating immediate demand</h2>
+  <p class="section-body" data-nl="Dit zijn geen toekomstige vereisten. Het zijn actieve verplichtingen die budget en urgentie creëren in elke publieke organisatie in Nederland op dit moment." data-en="These are not future requirements. They are active obligations creating budget and urgency in every public organisation in the Netherlands right now.">These are not future requirements. They are active obligations creating budget and urgency in every public organisation in the Netherlands right now.</p>
+  <div class="drivers-grid">
+    <div class="driver-card">
+      <div class="driver-law">BIO · Baseline Informatiebeveiliging Overheid</div>
+      <div class="driver-title">Mandatory information security for all government</div>
+      <div class="driver-body">Every Dutch public organisation must demonstrate BIO compliance. Not optional. Not voluntary. Products that help municipalities measure, demonstrate and improve BIO compliance have a built-in mandatory market driver.</div>
+    </div>
+    <div class="driver-card">
+      <div class="driver-law">NIS2 · In force 2025</div>
+      <div class="driver-title">Active accountability for digital resilience</div>
+      <div class="driver-body">Municipalities must demonstrate active digital security controls and report incidents. Councils are now asking their boards to explain their NIS2 status. Technology that provides the answer — or the evidence — is in demand.</div>
+    </div>
+    <div class="driver-card">
+      <div class="driver-law">EU AI Act · Governance requirement</div>
+      <div class="driver-title">AI governance before AI deployment</div>
+      <div class="driver-body">Municipalities are deploying AI tools for citizen services, permit handling and fraud detection. The EU AI Act requires governance frameworks before deployment. Digital maturity assessment is the logical starting point — and HCI's entry.</div>
+    </div>
+  </div>
+</section>
+<section class="cra-section" id="cra">
+  <div>
+    <div class="section-tag">Nxt Era Solutions · CRA Quick Scan</div>
+    <h2 class="section-title">A free tool that opens government doors</h2>
+    <p class="section-body" style="margin-bottom:28px">
+      The EU Cyber Resilience Act (CRA) requires organisations that procure software
+      to verify vendor compliance. Municipalities are already asking: are our software
+      vendors CRA-ready?
+    </p>
+    <p class="section-body" style="margin-bottom:28px">
+      The Nxt Era CRA Quick Scan gives municipalities a free self-assessment tool.
+      Who fills it in demonstrates digital awareness — and becomes a warm lead
+      for both HCI and Nxt Era AI platforms.
+    </p>
+    <p class="section-body">
+      For technology vendors: the CRA Quick Scan is your free entry point into
+      every municipality database. Value first, sales conversation second.
+    </p>
+  </div>
+  <div class="cra-card">
+    <div class="cra-title">CRA Quick Scan</div>
+    <div class="cra-sub">EU Cyber Resilience Act · Free Self-Assessment</div>
+    <div class="cra-items">
+      <div class="cra-item">
+        <div class="cra-item-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="cra-item-text">Compliance score + concrete action recommendations</div>
+      </div>
+      <div class="cra-item">
+        <div class="cra-item-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="cra-item-text">Relevant for software procurement teams at all government levels</div>
+      </div>
+      <div class="cra-item">
+        <div class="cra-item-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="cra-item-text">Free — low threshold, high value entry point</div>
+      </div>
+      <div class="cra-item">
+        <div class="cra-item-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="cra-item-text">Connects into Nxt Era AI Governance &amp; Compliance platform</div>
+      </div>
+      <div class="cra-item">
+        <div class="cra-item-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div class="cra-item-text">Deployable to existing government databases via partner networks</div>
+      </div>
+    </div>
+    <div class="cra-badge">Available via nxterasolutions.eu</div>
+  </div>
+</section>
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <p class="cta-eyebrow" data-nl="Klaar voor de Nederlandse publieke sector?" data-en="Ready for Dutch Public Sector?">Ready for Dutch Public Sector?</p>
+  <h2 class="cta-title" data-nl="Weet hoe uw product past voordat inkoop dat doet." data-en="Know how your product fits before procurement does.">Know how your product fits before procurement does.</h2>
+  <p class="cta-body" data-nl="De Government Readiness Scan beoordeelt uw BIO, NIS2, EU AI Act en CRA positie — en uw inkoopstrategie. Zeven minuten." data-en="The Government Readiness Scan assesses your BIO, NIS2, EU AI Act and CRA position — and your procurement strategy. Seven minutes.">The Government Readiness Scan assesses your BIO, NIS2, EU AI Act and CRA position — and your procurement strategy. Seven minutes.</p>
+  <div class="cta-actions">
+    <a href="https://platform.hes-consultancy-international.com/quickscan?sector=s01&role=cio" class="btn-primary">
+      Free Government Readiness Scan
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <span class="cta-divider">or</span>
+    <a href="https://calendly.com/mbhes1970/30min" target="_blank" class="btn-secondary">Book a call with Mike</a>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">HES Consultancy International</div>
+  <div class="footer-links">
+    <a href="/" data-nl="Home" data-en="Home">Home</a>
+    <a href="/services/" data-nl="Diensten" data-en="Services">Diensten</a>
+    <a href="/about/" data-nl="Over ons" data-en="About">Over ons</a>
+    <a href="/services/assessment/" data-nl="EU Scan" data-en="EU Scan">EU Scan</a>
+    <a href="mailto:mbhes@hes-consultancy-international.com">mbhes@hes-consultancy-international.com</a>
+  </div>
+  <div class="footer-legal">&copy; 2026 HES Consultancy International &middot; <a href="/privacy/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Privacybeleid" data-en="Privacy Policy">Privacybeleid</a> &middot; <a href="/terms/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15)" data-nl="Voorwaarden" data-en="Terms &amp; Conditions">Voorwaarden</a></div>
+</footer>
+<script src="/js/lang-toggle.js"></script>
+</body>
+</html>

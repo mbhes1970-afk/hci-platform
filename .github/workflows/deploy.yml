@@ -1,0 +1,29 @@
+name: Deploy to Server
+on:
+  push:
+    branches:
+      - claude/analyze-hci-signalmesh-M2NV2
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            set -e
+            cd /var/www/hes-consultancy-nl
+            echo "=== Pre-deploy status ==="
+            git status --short
+            git log --oneline -1
+            echo "=== Fetching latest ==="
+            git fetch origin claude/analyze-hci-signalmesh-M2NV2
+            echo "=== Hard reset to latest ==="
+            git reset --hard origin/claude/analyze-hci-signalmesh-M2NV2
+            echo "=== Post-deploy verification ==="
+            git log --oneline -1
+            grep -c 'lang-toggle.js' index.html || echo "WARNING: lang-toggle.js not found in index.html"
+            echo "=== Deploy completed at $(date) ==="
