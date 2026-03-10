@@ -14,7 +14,16 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
+            set -e
             cd /var/www/hes-consultancy-nl
-            git stash
-            git pull origin claude/analyze-hci-signalmesh-M2NV2
-            echo "Deploy completed at $(date)"
+            echo "=== Pre-deploy status ==="
+            git status --short
+            git log --oneline -1
+            echo "=== Fetching latest ==="
+            git fetch origin claude/analyze-hci-signalmesh-M2NV2
+            echo "=== Hard reset to latest ==="
+            git reset --hard origin/claude/analyze-hci-signalmesh-M2NV2
+            echo "=== Post-deploy verification ==="
+            git log --oneline -1
+            grep -c 'lang-toggle.js' index.html || echo "WARNING: lang-toggle.js not found in index.html"
+            echo "=== Deploy completed at $(date) ==="
