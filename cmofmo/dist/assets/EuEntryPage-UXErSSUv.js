@@ -1,0 +1,1 @@
+import{u as r,r as t,j as e}from"./index-BL0HboaW.js";import{I as c,a as i,Q as o}from"./QuickQualifier-CcAdTikG.js";function p(){const{setIcp:s}=r();return t.useEffect(()=>{s("icp1")},[s]),e.jsx(c,{sections:i.sections,children:e.jsx(o,{icpId:"icp1"})})}export{p as EuEntryPage};

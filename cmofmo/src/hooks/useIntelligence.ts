@@ -180,40 +180,35 @@ export const useIntelligence = create<IntelligenceState>((set, get) => {
   };
 });
 
-// Slack alert function
+// SignalMesh alert — fires to Netlify function which proxies to n8n + Slack
 async function fireSlackAlert(state: IntelligenceState) {
-  const webhookUrl = import.meta.env.VITE_SLACK_WEBHOOK_URL ||
-    'https://hooks.slack.com/services/T0AKAFST1B6/B0AKKRRJGDP/fiqGxhsMEhfZEIrHxCF1qW';
+  const sessionId = `sm-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
   const payload = {
-    text: '\ud83d\udd25 *Nieuwe HCI Lead*',
-    blocks: [
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `*ICP:* ${state.selectedIcp || 'onbekend'} \u2192 *Sector:* ${state.selectedSector || 'onbekend'} \u2192 *Tier:* ${state.tier}\n*Fit:* ${state.fitScore}/100 \u00b7 *Intent:* ${state.intentScore}/100 \u00b7 *DealFlow:* ${Math.round(state.dealFlowScore)}/100\n*Bron:* ${state.utmSource || 'direct'} \u00b7 *Return:* ${state.isReturnVisitor ? 'ja' : 'nee'}\n*Qualifier:* ${JSON.stringify(state.qualifierAnswers)}\n*Storytelling:* ${state.storySectionsRead}/5 secties gelezen`,
-        },
-      },
-      {
-        type: 'actions',
-        elements: [{
-          type: 'button',
-          text: { type: 'plain_text', text: 'Bekijk in DealFlow' },
-          url: 'https://api.hes-consultancy-international.com/_/collections/deals',
-        }],
-      },
-    ],
+    icpType: state.selectedIcp || 'unknown',
+    sector: state.selectedSector || 'unknown',
+    tier: state.tier,
+    fitScore: state.fitScore,
+    intentScore: state.intentScore,
+    dealFlowScore: Math.round(state.dealFlowScore),
+    qualifierAnswers: state.qualifierAnswers,
+    storySectionsRead: state.storySectionsRead,
+    utmSource: state.utmSource || 'direct',
+    isReturnVisitor: state.isReturnVisitor,
+    deviceType: /Mobi/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+    language: navigator.language?.slice(0, 2) || 'nl',
+    sessionId,
   };
 
   try {
-    await fetch(webhookUrl, {
+    // Primary: Netlify function (proxies to n8n + Slack)
+    await fetch('/.netlify/functions/signalmesh-alert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
   } catch (err) {
-    console.warn('[SignalMesh] Slack alert failed:', err);
+    console.warn('[SignalMesh] Alert failed:', err);
   }
 }
 

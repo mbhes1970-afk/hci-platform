@@ -11,6 +11,11 @@ export function ScoreIndicator() {
   const { fitScore, intentScore, dealFlowScore, tier, storySectionsRead } = useIntelligence();
   const colors = TIER_COLORS[tier];
 
+  // In production: only show with ?debug=1
+  const isDev = import.meta.env.DEV;
+  const hasDebugParam = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug');
+  if (!isDev && !hasDebugParam) return null;
+
   return (
     <div
       className={`fixed bottom-4 right-4 z-50 ${colors.bg} ${colors.border} border
