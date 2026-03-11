@@ -319,8 +319,18 @@ def build_module_02():
 
 # ═══════════════════════════════════════════════════════════
 # WORKFLOW: Module 03 — TED Europa Tenders
+# NOTE: Uses api.ted.europa.eu/v3 (not ted.europa.eu/api/v3.0).
+# Search returns notice IDs + links. Per notice: fetch XML for details.
+# Country filter in query: CY=NLD/BEL/DEU. Date filter: PD>20250101.
 # ═══════════════════════════════════════════════════════════
 def build_module_03():
+    import json as _json
+    ted_query = _json.dumps({
+        "query": "FT=(cybersecurity OR informatiebeveiliging OR NIS2 OR compliance OR IT-diensten OR cloud) AND (CY=NLD OR CY=BEL OR CY=DEU) AND PD>20250101",
+        "fields": ["notice-title", "publication-date", "buyer-name", "buyer-country"],
+        "page": 1,
+        "limit": 10,
+    })
     return {
         "name": "[MODULE 03] TED Europa Tenders",
         "nodes": [
@@ -334,24 +344,21 @@ def build_module_03():
             {
                 "parameters": {
                     "method": "POST",
-                    "url": "https://ted.europa.eu/api/v3.0/notices/search",
+                    "url": "https://api.ted.europa.eu/v3/notices/search",
                     "sendHeaders": True,
                     "headerParameters": {"parameters": [{"name": "Content-Type", "value": "application/json"}]},
                     "sendBody": True,
                     "specifyBody": "json",
-                    "jsonBody": '{"query":"cybersecurity OR informatiebeveiliging OR NIS2 OR compliance OR cloud OR IT-diensten","scope":"ACTIVE","fields":["title","publicationDate","contractorName","estimatedValue","deadline","url","cpvCodes"],"paginationPage":1,"paginationSize":10,"reverseOrder":false,"sortField":"publicationDate","onlyLatestVersions":true}',
+                    "jsonBody": ted_query,
                     "options": {},
                 },
-                "name": "TED API",
+                "name": "TED Search",
                 "type": "n8n-nodes-base.httpRequest",
                 "typeVersion": 4.2,
                 "position": [450, 300],
             },
             {
-                "parameters": {
-                    "fieldToSplitOut": "notices",
-                    "options": {},
-                },
+                "parameters": {"fieldToSplitOut": "notices", "options": {}},
                 "name": "Split Notices",
                 "type": "n8n-nodes-base.splitOut",
                 "typeVersion": 1,
@@ -359,31 +366,114 @@ def build_module_03():
             },
             {
                 "parameters": {
-                    "conditions": {
-                        "string": [{"value1": "={{ $json.country }}", "operation": "regex", "value2": "NL|BE|DE"}],
+                    "assignments": {
+                        "assignments": [
+                            {"id": "n1", "name": "notice_id", "value": "={{ $json['publication-number'] }}", "type": "string"},
+                            {"id": "n2", "name": "xml_url", "value": "={{ 'https://ted.europa.eu/en/notice/' + $json['publication-number'] + '/xml' }}", "type": "string"},
+                            {"id": "n3", "name": "ted_url", "value": "={{ 'https://ted.europa.eu/nl/notice/-/detail/' + $json['publication-number'] }}", "type": "string"},
+                        ],
                     },
                 },
-                "name": "NL/BE/DE Filter",
-                "type": "n8n-nodes-base.if",
-                "typeVersion": 1,
+                "name": "Build URLs",
+                "type": "n8n-nodes-base.set",
+                "typeVersion": 3.4,
                 "position": [850, 300],
             },
+            {
+                "parameters": {
+                    "url": f"={PB_LOCAL}/api/collections/ted_tenders/records?filter=(notice_id='{{{{$json.notice_id}}}}')&perPage=1",
+                    "options": {},
+                },
+                "name": "Check Dup",
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 4.2,
+                "position": [1050, 300],
+            },
+            {
+                "parameters": {
+                    "conditions": {
+                        "number": [{"value1": "={{ $json.totalItems }}", "operation": "equal", "value2": 0}],
+                    },
+                },
+                "name": "Is Nieuw?",
+                "type": "n8n-nodes-base.if",
+                "typeVersion": 1,
+                "position": [1250, 300],
+            },
+            {
+                "parameters": {
+                    "url": "={{ $node['Build URLs'].json.xml_url }}",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "User-Agent", "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+                    ]},
+                    "options": {"response": {"response": {"responseFormat": "text"}}},
+                },
+                "name": "Fetch XML",
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 4.2,
+                "position": [1450, 200],
+            },
+            {
+                "parameters": {"options": {}},
+                "name": "XML Parse",
+                "type": "n8n-nodes-base.xml",
+                "typeVersion": 1,
+                "position": [1650, 200],
+            },
+            {
+                "parameters": {
+                    "jsCode": """
+const xml = $input.first().json;
+function dig(obj, ...keys) {
+  let c = obj;
+  for (const k of keys) { if (!c || typeof c !== 'object') return null; c = c[k]; }
+  return c;
+}
+const root = xml.ContractAwardNotice || xml.ContractNotice || xml.PriorInformationNotice || xml;
+const proj = dig(root, 'cac:ProcurementProject') || {};
+const title = dig(proj, 'cbc:Name') || '';
+const cpv = dig(proj, 'cac:MainCommodityClassification', 'cbc:ItemClassificationCode') || '';
+const value = dig(root, 'efac:NoticeResult', 'efbc:OverallMaximumFrameworkContractsAmount') ||
+              dig(proj, 'cac:RequestedTenderTotal', 'cbc:EstimatedOverallContractAmount') || '';
+const issueDate = dig(root, 'cbc:IssueDate') || '';
+return [{json: {
+  notice_id: $node['Build URLs'].json.notice_id,
+  titel: (typeof title === 'string' ? title : (title?.['#text'] || '')).substring(0, 500),
+  cpv_code: typeof cpv === 'string' ? cpv : (cpv?.['#text'] || ''),
+  waarde: typeof value === 'string' ? value : (value?.['#text'] || '0'),
+  publicatie: typeof issueDate === 'string' ? issueDate : (issueDate?.['#text'] || ''),
+  ted_url: $node['Build URLs'].json.ted_url,
+  land: 'NL',
+}}];
+""",
+                },
+                "name": "Extract TED Data",
+                "type": "n8n-nodes-base.code",
+                "typeVersion": 2,
+                "position": [1850, 200],
+            },
             pb_request(
-                "Save TED", "POST",
+                "Save to PB", "POST",
                 "/api/collections/ted_tenders/records",
-                '={{ JSON.stringify({notice_id:$json.noticeId||"",titel:($json.title||"").substring(0,500),land:$json.country||"",cpv_code:($json.cpvCodes||[]).join(","),waarde:$json.estimatedValue||0,relevant:true,score:0,ted_url:$json.url||"",status:"nieuw"}) }}',
-                [1050, 200],
+                '={{ JSON.stringify({notice_id:$json.notice_id,titel:$json.titel,land:$json.land,cpv_code:$json.cpv_code,waarde:parseInt($json.waarde)||0,relevant:true,score:0,ted_url:$json.ted_url,status:"nieuw"}) }}',
+                [2050, 200],
             ),
             slack_node("Slack TED", "#hci-dealflow",
-                '={{ JSON.stringify({text:"TED Tender - "+($json.country||"EU"),blocks:[{type:"section",text:{type:"mrkdwn",text:"*TED Tender \\u2014 "+($json.country||"EU")+"*\\n*"+($json.title||"Geen titel").substring(0,200)+"*\\nWaarde: "+($json.estimatedValue||"onbekend")+" | Deadline: "+($json.deadline||"onbekend")+"\\n"+($json.url||"")}}]}) }}',
-                [1250, 200]),
+                '={{ JSON.stringify({text:"TED Tender: "+$json.titel,blocks:[{type:"section",text:{type:"mrkdwn",text:"*TED Tender*\\n*"+($json.titel||$json.notice_id)+"*\\nWaarde: \\u20ac"+$json.waarde+" | CPV: "+$json.cpv_code+"\\n"+$json.ted_url}}]}) }}',
+                [2250, 200]),
         ],
         "connections": {
-            "Schedule 06:30": {"main": [[{"node": "TED API", "type": "main", "index": 0}]]},
-            "TED API": {"main": [[{"node": "Split Notices", "type": "main", "index": 0}]]},
-            "Split Notices": {"main": [[{"node": "NL/BE/DE Filter", "type": "main", "index": 0}]]},
-            "NL/BE/DE Filter": {"main": [[{"node": "Save TED", "type": "main", "index": 0}], []]},
-            "Save TED": {"main": [[{"node": "Slack TED", "type": "main", "index": 0}]]},
+            "Schedule 06:30": {"main": [[{"node": "TED Search", "type": "main", "index": 0}]]},
+            "TED Search": {"main": [[{"node": "Split Notices", "type": "main", "index": 0}]]},
+            "Split Notices": {"main": [[{"node": "Build URLs", "type": "main", "index": 0}]]},
+            "Build URLs": {"main": [[{"node": "Check Dup", "type": "main", "index": 0}]]},
+            "Check Dup": {"main": [[{"node": "Is Nieuw?", "type": "main", "index": 0}]]},
+            "Is Nieuw?": {"main": [[{"node": "Fetch XML", "type": "main", "index": 0}], []]},
+            "Fetch XML": {"main": [[{"node": "XML Parse", "type": "main", "index": 0}]]},
+            "XML Parse": {"main": [[{"node": "Extract TED Data", "type": "main", "index": 0}]]},
+            "Extract TED Data": {"main": [[{"node": "Save to PB", "type": "main", "index": 0}]]},
+            "Save to PB": {"main": [[{"node": "Slack TED", "type": "main", "index": 0}]]},
         },
         "settings": {"executionOrder": "v1"},
     }
