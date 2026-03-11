@@ -16,6 +16,8 @@ N8N_URL = "https://n8n.hes-consultancy-international.com"
 N8N_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwYTRhNzYzMi04YWY1LTQxZjgtYmY3Ni0xZjkzNTE5MDZkYTgiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiOTBhYTc1YjYtODJiNy00MjI5LTliZjUtOTM2MjBiZGM0MGM3IiwiaWF0IjoxNzcyOTYzMzM1fQ.juf4Dxh-Cw3_JL3hfWilDIrn4bNKQr_lHfJYhfBgtkg"
 PB_URL = "https://api.hes-consultancy-international.com"
 PB_LOCAL = "http://localhost:8090"  # n8n uses local PB
+PB_EMAIL = "mbhes@hes-consultancy-international.com"
+PB_PASS = "NieuwWachtwoord123!"
 SLACK_DEALFLOW = "https://hooks.slack.com/services/T0AKAFST1B6/B0AKKRRJGDP/fiqGxhsMEhfZEIrHxCF1qW"
 SLACK_SYSTEEM = SLACK_DEALFLOW  # Same hook for now
 
@@ -64,14 +66,37 @@ def slack_node(name, channel_desc, message_expr, position):
     }
 
 
-def pb_request(name, method, path, body_expr=None, position=[0, 0]):
+def pb_auth_node(position):
+    """Helper: PB Admin auth node — returns token in $json.token."""
+    return {
+        "parameters": {
+            "method": "POST",
+            "url": f"{PB_LOCAL}/api/admins/auth-with-password",
+            "sendHeaders": True,
+            "headerParameters": {"parameters": [{"name": "Content-Type", "value": "application/json"}]},
+            "sendBody": True,
+            "specifyBody": "json",
+            "jsonBody": json.dumps({"identity": PB_EMAIL, "password": PB_PASS}),
+            "options": {},
+        },
+        "name": "PB Auth",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": position,
+    }
+
+
+def pb_request(name, method, path, body_expr=None, position=[0, 0], auth=False):
     """Helper: HTTP Request to PocketBase local."""
+    headers = [{"name": "Content-Type", "value": "application/json"}]
+    if auth:
+        headers.append({"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"})
     node = {
         "parameters": {
             "method": method,
             "url": f"{PB_LOCAL}{path}",
             "sendHeaders": True,
-            "headerParameters": {"parameters": [{"name": "Content-Type", "value": "application/json"}]},
+            "headerParameters": {"parameters": headers},
             "options": {},
         },
         "name": name,
@@ -219,6 +244,10 @@ def build_module_02():
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/ncsc_alerts/records?filter=(advisory_url='{{{{$json.url}}}}')",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Check Duplicaat",
@@ -275,6 +304,7 @@ def build_module_02():
                 "/api/collections/ncsc_alerts/records",
                 '={{ JSON.stringify({titel:$node["Extract Fields"].json.titel,advisory_url:$node["Extract Fields"].json.url,publicatiedatum:$node["Extract Fields"].json.publicatie,urgentie:$json.parsed.urgentie||"laag",sector:$json.parsed.sector||"algemeen",linkedin_draft:"",gepubliceerd:false}) }}',
                 [2050, 200],
+                auth=True,
             ),
             {
                 "parameters": {
@@ -295,9 +325,11 @@ def build_module_02():
             slack_node("Slack MIDDEN", "#hci-systeem",
                 '={{ JSON.stringify({text:"NCSC Advisory - "+$node["Extract Fields"].json.titel+" | "+$node["Extract Fields"].json.url}) }}',
                 [2500, 300]),
+            pb_auth_node([350, 300]),
         ],
         "connections": {
-            "Schedule 07:00": {"main": [[{"node": "Fetch RSS", "type": "main", "index": 0}]]},
+            "Schedule 07:00": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "Fetch RSS", "type": "main", "index": 0}]]},
             "Fetch RSS": {"main": [[{"node": "XML to JSON", "type": "main", "index": 0}]]},
             "XML to JSON": {"main": [[{"node": "Split Items", "type": "main", "index": 0}]]},
             "Split Items": {"main": [[{"node": "Extract Fields", "type": "main", "index": 0}]]},
@@ -382,6 +414,10 @@ def build_module_03():
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/ted_tenders/records?filter=(notice_id='{{{{$json.notice_id}}}}')&perPage=1",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Check Dup",
@@ -458,13 +494,16 @@ return [{json: {
                 "/api/collections/ted_tenders/records",
                 '={{ JSON.stringify({notice_id:$json.notice_id,titel:$json.titel,land:$json.land,cpv_code:$json.cpv_code,waarde:parseInt($json.waarde)||0,relevant:true,score:0,ted_url:$json.ted_url,status:"nieuw"}) }}',
                 [2050, 200],
+                auth=True,
             ),
             slack_node("Slack TED", "#hci-dealflow",
                 '={{ JSON.stringify({text:"TED Tender: "+$json.titel,blocks:[{type:"section",text:{type:"mrkdwn",text:"*TED Tender*\\n*"+($json.titel||$json.notice_id)+"*\\nWaarde: \\u20ac"+$json.waarde+" | CPV: "+$json.cpv_code+"\\n"+$json.ted_url}}]}) }}',
                 [2250, 200]),
+            pb_auth_node([350, 300]),
         ],
         "connections": {
-            "Schedule 06:30": {"main": [[{"node": "TED Search", "type": "main", "index": 0}]]},
+            "Schedule 06:30": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "TED Search", "type": "main", "index": 0}]]},
             "TED Search": {"main": [[{"node": "Split Notices", "type": "main", "index": 0}]]},
             "Split Notices": {"main": [[{"node": "Build URLs", "type": "main", "index": 0}]]},
             "Build URLs": {"main": [[{"node": "Check Dup", "type": "main", "index": 0}]]},
@@ -558,6 +597,10 @@ def build_module_04():
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/ap_handhaving/records?filter=(titel='{{{{encodeURIComponent($json.titel)}}}}')&perPage=1",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Check Duplicaat",
@@ -612,6 +655,7 @@ def build_module_04():
                 "/api/collections/ap_handhaving/records",
                 '={{ JSON.stringify({titel:$node["Extract Fields"].json.titel,type:$json.parsed.urgentie==="hoog"?"boete":"handhaving",bedrag:parseInt($json.parsed.boete_bedrag)||0,sector:$json.parsed.sector||"algemeen",organisatie_type:$json.parsed.organisatie||"",overtreding_kort:$json.parsed.overtreding||"",ap_url:$node["Extract Fields"].json.google_url,publicatiedatum:$node["Extract Fields"].json.publicatie}) }}',
                 [2250, 100],
+                auth=True,
             ),
             slack_node("Slack AP", "#hci-dealflow",
                 '={{ JSON.stringify({text:"AP Handhaving: "+$node["Extract Fields"].json.titel,blocks:[{type:"section",text:{type:"mrkdwn",text:"*AP Handhaving \\u2014 "+($json.parsed.urgentie||"").toUpperCase()+"*\\n*"+$node["Extract Fields"].json.titel+"*\\nOrganisatie: "+($json.parsed.organisatie||"onbekend")+" | Boete: "+($json.parsed.boete_bedrag||"nvt")+"\\nOvertreding: "+($json.parsed.overtreding||"")+"\\nSector: "+($json.parsed.sector||"algemeen")+"\\nBron: Google News (AP site 503)"}}]}) }}',
@@ -644,9 +688,11 @@ def build_module_04():
                 "typeVersion": 4.2,
                 "position": [2650, 250],
             },
+            pb_auth_node([350, 300]),
         ],
         "connections": {
-            "Schedule 07:30": {"main": [[{"node": "Google News RSS", "type": "main", "index": 0}]]},
+            "Schedule 07:30": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "Google News RSS", "type": "main", "index": 0}]]},
             "Google News RSS": {"main": [[{"node": "XML to JSON", "type": "main", "index": 0}]]},
             "XML to JSON": {"main": [[{"node": "Split Items", "type": "main", "index": 0}]]},
             "Split Items": {"main": [[{"node": "AP Relevant?", "type": "main", "index": 0}]]},
@@ -679,9 +725,14 @@ def build_module_05():
                 "typeVersion": 1.2,
                 "position": [250, 300],
             },
+            pb_auth_node([350, 300]),
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/deals/records?filter=(status='new'||status='contacted'||status='qualified')&&follow_up_geblokkeerd=false&sort=-overall_score&perPage=10",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Fetch Deals",
@@ -722,7 +773,8 @@ def build_module_05():
                 [1250, 200]),
         ],
         "connections": {
-            "Schedule Werkdagen 08:00": {"main": [[{"node": "Fetch Deals", "type": "main", "index": 0}]]},
+            "Schedule Werkdagen 08:00": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "Fetch Deals", "type": "main", "index": 0}]]},
             "Fetch Deals": {"main": [[{"node": "Has Deals?", "type": "main", "index": 0}]]},
             "Has Deals?": {"main": [[{"node": "Split Deals", "type": "main", "index": 0}], []]},
             "Split Deals": {"main": [[{"node": "Merge All", "type": "main", "index": 0}]]},
@@ -746,9 +798,14 @@ def build_module_07():
                 "typeVersion": 1.2,
                 "position": [250, 300],
             },
+            pb_auth_node([350, 300]),
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/ncsc_alerts/records?filter=(urgentie='hoog'||urgentie='midden')&sort=-created&perPage=5",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "NCSC Recent",
@@ -759,6 +816,10 @@ def build_module_07():
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/ap_handhaving/records?sort=-created&perPage=5",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "AP Recent",
@@ -813,13 +874,15 @@ def build_module_07():
                 "/api/collections/linkedin_posts/records",
                 '={{ JSON.stringify({post_tekst:$json.parsed.post,thema:($json.parsed.hashtags||[]).join(" "),doelgroep:"IT-beslissers",bron_type:"auto",status:"draft"}) }}',
                 [1350, 300],
+                auth=True,
             ),
             slack_node("Slack Post", "#hci-dealflow",
                 '={{ JSON.stringify({text:"LinkedIn post klaar",blocks:[{type:"section",text:{type:"mrkdwn",text:"*LinkedIn post klaar \\u2014 week "+Math.ceil((new Date()-new Date(new Date().getFullYear(),0,1))/604800000)+"*\\n\\n"+$json.parsed.post+"\\n\\nHashtags: "+($json.parsed.hashtags||[]).join(" ")+"\\n_Kopieer en publiceer handmatig op LinkedIn_"}}]}) }}',
                 [1550, 300]),
         ],
         "connections": {
-            "Schedule Maandag 09:00": {"main": [[{"node": "NCSC Recent", "type": "main", "index": 0}, {"node": "AP Recent", "type": "main", "index": 0}]]},
+            "Schedule Maandag 09:00": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "NCSC Recent", "type": "main", "index": 0}, {"node": "AP Recent", "type": "main", "index": 0}]]},
             "NCSC Recent": {"main": [[{"node": "Merge Data", "type": "main", "index": 0}]]},
             "AP Recent": {"main": [[{"node": "Merge Data", "type": "main", "index": 1}]]},
             "Merge Data": {"main": [[{"node": "Claude Write Post", "type": "main", "index": 0}]]},
@@ -845,9 +908,14 @@ def build_module_08():
                 "typeVersion": 1.2,
                 "position": [250, 300],
             },
+            pb_auth_node([350, 300]),
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/contacts/records?filter=(kvk_verrijkt=false||kvk_verrijkt=null)&sort=-created&perPage=50",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Fetch Contacts",
@@ -888,7 +956,10 @@ def build_module_08():
                     "method": "PATCH",
                     "url": f"={PB_LOCAL}/api/collections/contacts/records/{{{{$node[\"Split Contacts\"].json.id}}}}",
                     "sendHeaders": True,
-                    "headerParameters": {"parameters": [{"name": "Content-Type", "value": "application/json"}]},
+                    "headerParameters": {"parameters": [
+                        {"name": "Content-Type", "value": "application/json"},
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "sendBody": True,
                     "specifyBody": "json",
                     "jsonBody": '={{ JSON.stringify({kvk_verrijkt:true,kvk_nummer:($json[0]?.kvk_nummer||""),sbi_code:($json[0]?.sbi_code||"")}) }}',
@@ -911,7 +982,8 @@ def build_module_08():
                 [1050, 400]),
         ],
         "connections": {
-            "Schedule 02:00": {"main": [[{"node": "Fetch Contacts", "type": "main", "index": 0}]]},
+            "Schedule 02:00": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "Fetch Contacts", "type": "main", "index": 0}]]},
             "Fetch Contacts": {"main": [[{"node": "Has Contacts?", "type": "main", "index": 0}]]},
             "Has Contacts?": {"main": [[{"node": "Split Contacts", "type": "main", "index": 0}], []]},
             "Split Contacts": {"main": [[{"node": "KVK Lookup", "type": "main", "index": 0}]]},
@@ -954,9 +1026,14 @@ def build_module_11a():
                 "typeVersion": 1,
                 "position": [450, 350],
             },
+            pb_auth_node([600, 450]),
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/contacts/records?filter=(sector~'{{{{$json.sector}}}}')&sort=-created&perPage=20",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Fetch Doelgroep",
@@ -1011,6 +1088,7 @@ def build_module_11a():
                 "/api/collections/campaigns/records",
                 '={{ JSON.stringify({onderwerp:$node.Webhook.json.titel,sector:$node.Webhook.json.sector,trigger_bron:$node.Webhook.json.bron,linkedin_draft:$json.campaign.linkedin_post,email_subject:$json.campaign.email_subject,email_body:$json.campaign.email_body,doelgroep_ids:($node["Fetch Doelgroep"].json.items||[]).map(c=>c.id),doelgroep_namen:($node["Fetch Doelgroep"].json.items||[]).map(c=>c.name||c.org_name||"").slice(0,5),status:"draft",aangemaakt_op:new Date().toISOString()}) }}',
                 [1500, 250],
+                auth=True,
             ),
             slack_node("Slack Approval", "#hci-dealflow",
                 '={{ JSON.stringify({text:"Campagne klaar voor goedkeuring",blocks:[{type:"section",text:{type:"mrkdwn",text:"*Campagne klaar voor goedkeuring*\\nOnderwerp: "+$node.Webhook.json.titel+" | Sector: "+$node.Webhook.json.sector+"\\nDoelgroep: "+$node["Fetch Doelgroep"].json.totalItems+" contacten\\n\\n*LINKEDIN DRAFT:*\\n"+$json.campaign.linkedin_post+"\\n\\n*EMAIL \\u2014 "+$json.campaign.email_subject+"*\\n"+$json.campaign.email_body.substring(0,300)+"\\n\\nCampaign ID: "+$node["Save Campaign"].json.id+"\\n\\u2705 `ja "+$node["Save Campaign"].json.id+"` om te versturen\\n\\u274c `nee "+$node["Save Campaign"].json.id+"` om te annuleren"}}]}) }}',
@@ -1018,7 +1096,8 @@ def build_module_11a():
         ],
         "connections": {
             "Webhook": {"main": [[{"node": "Respond", "type": "main", "index": 0}, {"node": "Urgentie Check", "type": "main", "index": 0}]]},
-            "Urgentie Check": {"main": [[{"node": "Fetch Doelgroep", "type": "main", "index": 0}], []]},
+            "Urgentie Check": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}], []]},
+            "PB Auth": {"main": [[{"node": "Fetch Doelgroep", "type": "main", "index": 0}]]},
             "Fetch Doelgroep": {"main": [[{"node": "Has Contacts?", "type": "main", "index": 0}]]},
             "Has Contacts?": {"main": [[{"node": "Claude Campaign", "type": "main", "index": 0}], []]},
             "Claude Campaign": {"main": [[{"node": "Parse Campaign", "type": "main", "index": 0}]]},
@@ -1043,9 +1122,14 @@ def build_module_11d():
                 "typeVersion": 1.2,
                 "position": [250, 300],
             },
+            pb_auth_node([350, 300]),
             {
                 "parameters": {
                     "url": f"={PB_LOCAL}/api/collections/campaigns/records?filter=(status='verlopen'||status='afgewezen')&perPage=100",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Fetch Expired",
@@ -1075,6 +1159,10 @@ def build_module_11d():
                 "parameters": {
                     "method": "DELETE",
                     "url": f"={PB_LOCAL}/api/collections/campaigns/records/{{{{$json.id}}}}",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "Authorization", "value": "={{ 'Admin ' + $node['PB Auth'].json.token }}"},
+                    ]},
                     "options": {},
                 },
                 "name": "Delete Record",
@@ -1087,7 +1175,8 @@ def build_module_11d():
                 [850, 400]),
         ],
         "connections": {
-            "Schedule Zondag 03:00": {"main": [[{"node": "Fetch Expired", "type": "main", "index": 0}]]},
+            "Schedule Zondag 03:00": {"main": [[{"node": "PB Auth", "type": "main", "index": 0}]]},
+            "PB Auth": {"main": [[{"node": "Fetch Expired", "type": "main", "index": 0}]]},
             "Fetch Expired": {"main": [[{"node": "Has Expired?", "type": "main", "index": 0}]]},
             "Has Expired?": {"main": [[{"node": "Split Items", "type": "main", "index": 0}], [{"node": "Slack Cleanup", "type": "main", "index": 0}]]},
             "Split Items": {"main": [[{"node": "Delete Record", "type": "main", "index": 0}]]},
