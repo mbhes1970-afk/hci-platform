@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
 Build all n8n workflows for HCI Sprint via the n8n API.
-Creates: Disk Check, Module 02-08, Module 06 (re-create), Module 11A-D
+Creates: Module 02-08, Module 06 (re-create), Module 11A-D
 All workflows are created INACTIVE — manual activation required in n8n UI.
+
+NOTE: Module 04 uses Google News RSS as proxy because AP website (autoriteitpersoonsgegevens.nl)
+returns 503 on all direct requests. Google News indexes AP content and serves it reliably.
+Disk Check uses server cron (not n8n) because executeCommand node is disabled.
 """
 import json
 import time
@@ -83,55 +87,9 @@ def pb_request(name, method, path, body_expr=None, position=[0, 0]):
 
 
 # ═══════════════════════════════════════════════════════════
-# WORKFLOW: [SYSTEEM] Disk Check
+# NOTE: Disk Check uses server cron (setup-pruning.sh) instead of n8n
+# because n8n-nodes-base.executeCommand is disabled on this server.
 # ═══════════════════════════════════════════════════════════
-def build_disk_check():
-    return {
-        "name": "[SYSTEEM] Disk Check",
-        "nodes": [
-            {
-                "parameters": {
-                    "rule": {"interval": [{"triggerAtHour": 8, "triggerAtDay": 1}]},
-                },
-                "name": "Schedule",
-                "type": "n8n-nodes-base.scheduleTrigger",
-                "typeVersion": 1.2,
-                "position": [250, 300],
-            },
-            {
-                "parameters": {
-                    "command": "df -h / | awk 'NR==2 {print $5}' | tr -d '%'",
-                },
-                "name": "Disk Usage",
-                "type": "n8n-nodes-base.executeCommand",
-                "typeVersion": 1,
-                "position": [450, 300],
-            },
-            {
-                "parameters": {
-                    "conditions": {
-                        "number": [{"value1": "={{ parseInt($json.stdout) }}", "operation": "larger", "value2": 70}],
-                    },
-                },
-                "name": "IF > 70%",
-                "type": "n8n-nodes-base.if",
-                "typeVersion": 1,
-                "position": [650, 300],
-            },
-            slack_node(
-                "Slack Alert",
-                "#hci-systeem",
-                '={{ JSON.stringify({text: "\\u26a0\\ufe0f *Disk alert: " + $json.stdout.trim() + "% van 80GB gebruikt.*\\nActie vereist: verwijder oude logs of vergroot server."}) }}',
-                [850, 200],
-            ),
-        ],
-        "connections": {
-            "Schedule": {"main": [[{"node": "Disk Usage", "type": "main", "index": 0}]]},
-            "Disk Usage": {"main": [[{"node": "IF > 70%", "type": "main", "index": 0}]]},
-            "IF > 70%": {"main": [[{"node": "Slack Alert", "type": "main", "index": 0}], []]},
-        },
-        "settings": {"executionOrder": "v1"},
-    }
 
 
 # ═══════════════════════════════════════════════════════════
@@ -433,8 +391,15 @@ def build_module_03():
 
 # ═══════════════════════════════════════════════════════════
 # WORKFLOW: Module 04 — AP Handhaving
+# NOTE: AP website (autoriteitpersoonsgegevens.nl) returns 503 on all requests.
+# Using Google News RSS as proxy — indexes AP content reliably.
 # ═══════════════════════════════════════════════════════════
 def build_module_04():
+    google_news_url = (
+        "https://news.google.com/rss/search?"
+        "q=site:autoriteitpersoonsgegevens.nl+boete+OR+handhaving+OR+onderzoek+OR+besluit"
+        "&hl=nl&gl=NL&ceid=NL:nl"
+    )
     return {
         "name": "[MODULE 04] AP Handhaving Monitor",
         "nodes": [
@@ -447,10 +412,14 @@ def build_module_04():
             },
             {
                 "parameters": {
-                    "url": "https://www.autoriteitpersoonsgegevens.nl/rss.xml",
+                    "url": google_news_url,
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [
+                        {"name": "User-Agent", "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"},
+                    ]},
                     "options": {"response": {"response": {"responseFormat": "text"}}},
                 },
-                "name": "Fetch RSS",
+                "name": "Google News RSS",
                 "type": "n8n-nodes-base.httpRequest",
                 "typeVersion": 4.2,
                 "position": [450, 300],
@@ -472,13 +441,50 @@ def build_module_04():
             {
                 "parameters": {
                     "conditions": {
-                        "string": [{"value1": "={{ ($json.title || '').toLowerCase() }}", "operation": "regex", "value2": "boete|besluit|onderzoek|handhaving"}],
+                        "string": [{"value1": "={{ ($json.title || '').toLowerCase() }}", "operation": "regex", "value2": "boete|besluit|onderzoek|handhaving|overtreding|sanctie|cookie|privacy|avg|gdpr"}],
                     },
                 },
-                "name": "Relevant?",
+                "name": "AP Relevant?",
                 "type": "n8n-nodes-base.if",
                 "typeVersion": 1,
                 "position": [1050, 300],
+            },
+            {
+                "parameters": {
+                    "assignments": {
+                        "assignments": [
+                            {"id": "t1", "name": "titel", "value": "={{ ($json.title || '').replace(' - Autoriteit Persoonsgegevens', '') }}", "type": "string"},
+                            {"id": "t2", "name": "google_url", "value": "={{ $json.link }}", "type": "string"},
+                            {"id": "t3", "name": "publicatie", "value": "={{ $json.pubDate }}", "type": "string"},
+                            {"id": "t4", "name": "beschrijving", "value": "={{ ($json.description || '').replace(/<[^>]*>/g, '').substring(0, 500) }}", "type": "string"},
+                        ],
+                    },
+                },
+                "name": "Extract Fields",
+                "type": "n8n-nodes-base.set",
+                "typeVersion": 3.4,
+                "position": [1250, 200],
+            },
+            {
+                "parameters": {
+                    "url": f"={PB_LOCAL}/api/collections/ap_handhaving/records?filter=(titel='{{{{encodeURIComponent($json.titel)}}}}')&perPage=1",
+                    "options": {},
+                },
+                "name": "Check Duplicaat",
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 4.2,
+                "position": [1450, 200],
+            },
+            {
+                "parameters": {
+                    "conditions": {
+                        "number": [{"value1": "={{ $json.totalItems }}", "operation": "equal", "value2": 0}],
+                    },
+                },
+                "name": "Is Nieuw?",
+                "type": "n8n-nodes-base.if",
+                "typeVersion": 1,
+                "position": [1650, 200],
             },
             {
                 "parameters": {
@@ -492,13 +498,13 @@ def build_module_04():
                     ]},
                     "sendBody": True,
                     "specifyBody": "json",
-                    "jsonBody": '={{ JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:200,messages:[{role:"user",content:"AP bericht titel: "+$json.title+"\\nBeschrijving: "+($json.description||"")+"\\nExtraheer als JSON: {\\\"boete_bedrag\\\":\\\"bedrag of null\\\",\\\"organisatie\\\":\\\"naam of null\\\",\\\"overtreding\\\":\\\"korte omschrijving\\\",\\\"sector\\\":\\\"s01-s08 of algemeen\\\",\\\"urgentie\\\":\\\"hoog/midden/laag\\\"}\\nALLEEN JSON."}]}) }}',
+                    "jsonBody": '={{ JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:200,messages:[{role:"user",content:"AP bericht titel: "+$node["Extract Fields"].json.titel+"\\nBeschrijving: "+$node["Extract Fields"].json.beschrijving+"\\nExtraheer als JSON: {\\\"boete_bedrag\\\":\\\"bedrag of null\\\",\\\"organisatie\\\":\\\"naam of null\\\",\\\"overtreding\\\":\\\"korte omschrijving\\\",\\\"sector\\\":\\\"s01=Overheid,s02=Zorg,s03=Financieel,s04=Energie,s05=Onderwijs,s06=Software,s07=Logistiek,s08=Legal of algemeen\\\",\\\"urgentie\\\":\\\"hoog/midden/laag\\\"}\\nALLEEN JSON."}]}) }}',
                     "options": {},
                 },
                 "name": "Claude Extract",
                 "type": "n8n-nodes-base.httpRequest",
                 "typeVersion": 4.2,
-                "position": [1250, 200],
+                "position": [1850, 100],
             },
             {
                 "parameters": {
@@ -509,27 +515,59 @@ def build_module_04():
                 "name": "Parse Claude",
                 "type": "n8n-nodes-base.set",
                 "typeVersion": 3.4,
-                "position": [1450, 200],
+                "position": [2050, 100],
             },
             pb_request(
                 "Save to PB", "POST",
                 "/api/collections/ap_handhaving/records",
-                '={{ JSON.stringify({titel:$node["Split Items"].json.title||"",type:$json.parsed.urgentie==="hoog"?"boete":"handhaving",bedrag:parseInt($json.parsed.boete_bedrag)||0,sector:$json.parsed.sector||"algemeen",organisatie_type:$json.parsed.organisatie||"",overtreding_kort:$json.parsed.overtreding||"",ap_url:$node["Split Items"].json.link||"",publicatiedatum:$node["Split Items"].json.pubDate||""}) }}',
-                [1650, 200],
+                '={{ JSON.stringify({titel:$node["Extract Fields"].json.titel,type:$json.parsed.urgentie==="hoog"?"boete":"handhaving",bedrag:parseInt($json.parsed.boete_bedrag)||0,sector:$json.parsed.sector||"algemeen",organisatie_type:$json.parsed.organisatie||"",overtreding_kort:$json.parsed.overtreding||"",ap_url:$node["Extract Fields"].json.google_url,publicatiedatum:$node["Extract Fields"].json.publicatie}) }}',
+                [2250, 100],
             ),
             slack_node("Slack AP", "#hci-dealflow",
-                '={{ JSON.stringify({text:"AP Handhaving: "+$node["Split Items"].json.title,blocks:[{type:"section",text:{type:"mrkdwn",text:"*AP Handhaving*\\n*"+$node["Split Items"].json.title+"*\\nOrganisatie: "+($json.parsed.organisatie||"onbekend")+" | Boete: "+($json.parsed.boete_bedrag||"nvt")+"\\nOvertreding: "+($json.parsed.overtreding||"")+"\\nSector: "+($json.parsed.sector||"algemeen")+"\\n"+($node["Split Items"].json.link||"")}}]}) }}',
-                [1850, 200]),
+                '={{ JSON.stringify({text:"AP Handhaving: "+$node["Extract Fields"].json.titel,blocks:[{type:"section",text:{type:"mrkdwn",text:"*AP Handhaving \\u2014 "+($json.parsed.urgentie||"").toUpperCase()+"*\\n*"+$node["Extract Fields"].json.titel+"*\\nOrganisatie: "+($json.parsed.organisatie||"onbekend")+" | Boete: "+($json.parsed.boete_bedrag||"nvt")+"\\nOvertreding: "+($json.parsed.overtreding||"")+"\\nSector: "+($json.parsed.sector||"algemeen")+"\\nBron: Google News (AP site 503)"}}]}) }}',
+                [2450, 100]),
+            # Campaign trigger for non-low urgency
+            {
+                "parameters": {
+                    "conditions": {
+                        "string": [{"value1": "={{ $json.parsed.urgentie }}", "operation": "notEqual", "value2": "laag"}],
+                    },
+                },
+                "name": "Trigger Campaign?",
+                "type": "n8n-nodes-base.if",
+                "typeVersion": 1,
+                "position": [2450, 300],
+            },
+            {
+                "parameters": {
+                    "method": "POST",
+                    "url": "https://n8n.hes-consultancy-international.com/webhook/campaign-trigger",
+                    "sendHeaders": True,
+                    "headerParameters": {"parameters": [{"name": "Content-Type", "value": "application/json"}]},
+                    "sendBody": True,
+                    "specifyBody": "json",
+                    "jsonBody": '={{ JSON.stringify({bron:"ap",titel:$node["Extract Fields"].json.titel,sector:$json.parsed.sector,urgentie:$json.parsed.urgentie,samenvatting:"AP "+($json.parsed.boete_bedrag?"boete "+$json.parsed.boete_bedrag+" voor ":"")+($json.parsed.organisatie||"")+": "+($json.parsed.overtreding||""),bron_url:$node["Extract Fields"].json.google_url}) }}',
+                    "options": {},
+                },
+                "name": "Trigger 11A",
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 4.2,
+                "position": [2650, 250],
+            },
         ],
         "connections": {
-            "Schedule 07:30": {"main": [[{"node": "Fetch RSS", "type": "main", "index": 0}]]},
-            "Fetch RSS": {"main": [[{"node": "XML to JSON", "type": "main", "index": 0}]]},
+            "Schedule 07:30": {"main": [[{"node": "Google News RSS", "type": "main", "index": 0}]]},
+            "Google News RSS": {"main": [[{"node": "XML to JSON", "type": "main", "index": 0}]]},
             "XML to JSON": {"main": [[{"node": "Split Items", "type": "main", "index": 0}]]},
-            "Split Items": {"main": [[{"node": "Relevant?", "type": "main", "index": 0}]]},
-            "Relevant?": {"main": [[{"node": "Claude Extract", "type": "main", "index": 0}], []]},
+            "Split Items": {"main": [[{"node": "AP Relevant?", "type": "main", "index": 0}]]},
+            "AP Relevant?": {"main": [[{"node": "Extract Fields", "type": "main", "index": 0}], []]},
+            "Extract Fields": {"main": [[{"node": "Check Duplicaat", "type": "main", "index": 0}]]},
+            "Check Duplicaat": {"main": [[{"node": "Is Nieuw?", "type": "main", "index": 0}]]},
+            "Is Nieuw?": {"main": [[{"node": "Claude Extract", "type": "main", "index": 0}], []]},
             "Claude Extract": {"main": [[{"node": "Parse Claude", "type": "main", "index": 0}]]},
             "Parse Claude": {"main": [[{"node": "Save to PB", "type": "main", "index": 0}]]},
-            "Save to PB": {"main": [[{"node": "Slack AP", "type": "main", "index": 0}]]},
+            "Save to PB": {"main": [[{"node": "Slack AP", "type": "main", "index": 0}, {"node": "Trigger Campaign?", "type": "main", "index": 0}]]},
+            "Trigger Campaign?": {"main": [[{"node": "Trigger 11A", "type": "main", "index": 0}], []]},
         },
         "settings": {"executionOrder": "v1"},
     }
@@ -973,7 +1011,7 @@ def build_module_11d():
 # ═══════════════════════════════════════════════════════════
 if __name__ == "__main__":
     workflows = [
-        ("Disk Check", build_disk_check),
+        # Disk Check uses server cron — see scripts/server/setup-pruning.sh
         ("Module 06", build_module_06),
         ("Module 02", build_module_02),
         ("Module 03", build_module_03),
