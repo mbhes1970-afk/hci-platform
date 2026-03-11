@@ -46,6 +46,11 @@
 /eu-entry          /icp1-eu-entry.html     200
 /icp1              /icp1-eu-entry.html     200
 /growth            /icp2-growth.html       200
+/growth/tier1      /icp2-growth.html?type=tier1       200
+/growth/cloud      /icp2-growth.html?type=cloud       200
+/growth/regional   /icp2-growth.html?type=regional    200
+/growth/local      /icp2-growth.html?type=local       200
+/growth/compliance /icp2-growth.html?type=compliance  200
 /partners          /icp2-growth.html       200
 /icp2              /icp2-growth.html       200
 /compliance        /icp3-compliance.html   200
