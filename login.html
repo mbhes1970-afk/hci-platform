@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — HES Consultancy International</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:#08090c;--bg:#0d0f14;--bg-card:#13151c;--bg-elevated:#1c1e28;
+  --gold:#c8a55a;--gold-light:#e0c882;--gold-dim:rgba(200,165,90,.12);--gold-border:rgba(200,165,90,.25);
+  --purple:#6C5CE7;--purple-dim:rgba(108,92,231,.12);--purple-border:rgba(108,92,231,.3);--purple-light:#a78bfa;
+  --text:#a8a6b4;--text-dim:#5e5d6a;--text-bright:#f0eef5;--white:#fff;
+  --border:rgba(255,255,255,.06);--border-hover:rgba(255,255,255,.12);
+  --danger:#f87171;--amber:#fbbf24;--success:#4ade80;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(108,92,231,.08),transparent 70%);pointer-events:none}
+
+.login-container{width:100%;max-width:440px;padding:0 24px}
+.login-logo{text-align:center;margin-bottom:40px}
+.login-logo img{height:40px;opacity:.8}
+.login-logo-text{font-family:'Geist Mono',monospace;font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;margin-top:12px}
+.login-title{font-family:'Instrument Serif',serif;font-size:clamp(28px,5vw,36px);font-weight:400;color:var(--white);text-align:center;margin-bottom:8px}
+.login-title em{font-style:italic;background:linear-gradient(135deg,var(--purple),var(--purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.login-sub{text-align:center;font-size:14px;color:var(--text-dim);margin-bottom:40px}
+
+/* ── Role cards ── */
+.role-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.role-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit}
+.role-card:hover{border-color:var(--purple-border);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.role-icon{font-size:24px;flex-shrink:0;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:var(--bg-elevated)}
+.role-info{flex:1}
+.role-name{font-weight:600;font-size:15px;color:var(--white);margin-bottom:2px}
+.role-desc{font-size:13px;color:var(--text-dim)}
+.role-arrow{color:var(--purple);font-size:18px;transition:transform .3s}
+.role-card:hover .role-arrow{transform:translateX(4px)}
+.role-card.demo-card{border-color:rgba(251,191,36,.15)}
+.role-card.demo-card:hover{border-color:rgba(251,191,36,.4)}
+
+/* ── Login form ── */
+.login-form{display:none;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.login-form.active{display:block}
+.form-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-dim);cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif;margin-bottom:24px;padding:0;transition:color .2s}
+.form-back:hover{color:var(--purple)}
+.form-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px}
+.form-card h3{font-family:'Instrument Serif',serif;font-weight:400;font-size:22px;color:var(--white);margin-bottom:4px}
+.form-card p{font-size:13px;color:var(--text-dim);margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text-bright);margin-bottom:6px;font-family:'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.5px}
+.form-input{width:100%;padding:12px 16px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;transition:border-color .2s}
+.form-input:focus{outline:none;border-color:var(--purple-border);box-shadow:0 0 0 3px var(--purple-dim)}
+.form-input::placeholder{color:var(--text-dim)}
+.form-error{font-size:12px;color:var(--danger);margin-top:8px;display:none}
+.form-error.visible{display:block}
+.form-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),#8b7cf7);border:none;border-radius:8px;color:var(--white);font-family:'Outfit',sans-serif;font-weight:600;font-size:15px;cursor:pointer;transition:all .3s;margin-top:8px}
+.form-submit:hover{box-shadow:0 8px 30px rgba(108,92,231,.4);transform:translateY(-1px)}
+.form-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── Demo banner ── */
+.demo-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(90deg,#f59e0b,#d97706);color:#0d0f14;text-align:center;padding:8px 16px;font-size:13px;font-weight:600;font-family:'Geist Mono',monospace;letter-spacing:.5px;display:none}
+.demo-banner.visible{display:block}
+
+/* ── Footer ── */
+.login-footer{text-align:center;margin-top:32px}
+.login-footer a{font-size:12px;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.login-footer a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<div class="demo-banner" id="demo-banner">DEMO OMGEVING — geen echte data</div>
+
+<div class="login-container">
+  <div class="login-logo">
+    <img src="/White_logo_-_no_background.png" alt="HCI" onerror="this.style.display='none'">
+    <div class="login-logo-text">HES Consultancy International</div>
+  </div>
+
+  <!-- Role selection -->
+  <div id="screen-roles">
+    <h1 class="login-title">Sign <em>in</em></h1>
+    <p class="login-sub">Choose your login type to access the DealFlow platform.</p>
+
+    <div class="role-grid">
+      <div class="role-card" onclick="showLoginForm('admin')">
+        <div class="role-icon">&#x1F511;</div>
+        <div class="role-info">
+          <div class="role-name">Admin login</div>
+          <div class="role-desc">Full access to all data, partners and campaigns</div>
+        </div>
+        <span class="role-arrow">&rarr;</span>
+      </div>
+
+      <div class="role-card" onclick="showLoginForm('partner')">
+        <div class="role-icon">&#x1F91D;</div>
+        <div class="role-info">
+          <div class="role-name">Partner login</div>
+          <div class="role-desc">Access your deals, campaigns and pipeline</div>
+        </div>
+        <span class="role-arrow">&rarr;</span>
+      </div>
+
+      <div class="role-card demo-card" onclick="loginAsDemo()">
+        <div class="role-icon" style="background:rgba(251,191,36,.1)">&#x1F50D;</div>
+        <div class="role-info">
+          <div class="role-name" style="color:var(--amber)">Demo bekijken</div>
+          <div class="role-desc">Verken het platform met voorbeelddata</div>
+        </div>
+        <span class="role-arrow" style="color:var(--amber)">&rarr;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login form -->
+  <div class="login-form" id="screen-form">
+    <button class="form-back" onclick="showRoles()">&larr; Back</button>
+    <div class="form-card">
+      <h3 id="form-title">Login</h3>
+      <p id="form-desc">Enter your credentials</p>
+      <form onsubmit="return handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="login-email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" id="login-password" placeholder="Your password" required autocomplete="current-password">
+        </div>
+        <div class="form-error" id="login-error"></div>
+        <button type="submit" class="form-submit" id="login-btn">Sign in</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="login-footer">
+    <a href="/">&larr; Back to website</a>
+  </div>
+</div>
+
+<script>
+var PB_URL = 'https://api.hes-consultancy-international.com';
+var loginRole = '';
+
+function showRoles() {
+  document.getElementById('screen-roles').style.display = 'block';
+  document.getElementById('screen-form').classList.remove('active');
+  document.getElementById('login-error').classList.remove('visible');
+}
+
+function showLoginForm(role) {
+  loginRole = role;
+  document.getElementById('screen-roles').style.display = 'none';
+  document.getElementById('screen-form').classList.add('active');
+  document.getElementById('login-error').classList.remove('visible');
+
+  if (role === 'admin') {
+    document.getElementById('form-title').textContent = 'Admin Login';
+    document.getElementById('form-desc').textContent = 'Sign in with your admin credentials.';
+  } else {
+    document.getElementById('form-title').textContent = 'Partner Login';
+    document.getElementById('form-desc').textContent = 'Sign in with your partner account.';
+  }
+
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-password').value = '';
+  document.getElementById('login-email').focus();
+}
+
+function loginAsDemo() {
+  var btn = document.querySelector('.demo-card');
+  btn.style.opacity = '0.5';
+  btn.style.pointerEvents = 'none';
+
+  authenticateUser('demo@hes-consultancy-international.com', 'Demo2026!', function(err, data) {
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+
+    if (err) {
+      alert('Demo login mislukt: ' + err);
+      return;
+    }
+
+    storeSession(data, 'demo');
+    window.location.href = '/account-hub';
+  });
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  var email = document.getElementById('login-email').value.trim();
+  var password = document.getElementById('login-password').value;
+  var btn = document.getElementById('login-btn');
+  var errEl = document.getElementById('login-error');
+
+  if (!email || !password) return false;
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+  errEl.classList.remove('visible');
+
+  authenticateUser(email, password, function(err, data) {
+    btn.disabled = false;
+    btn.textContent = 'Sign in';
+
+    if (err) {
+      errEl.textContent = err;
+      errEl.classList.add('visible');
+      return;
+    }
+
+    storeSession(data, loginRole);
+    window.location.href = '/account-hub';
+  });
+
+  return false;
+}
+
+function authenticateUser(email, password, callback) {
+  var formData = new URLSearchParams();
+  formData.append('identity', email);
+  formData.append('password', password);
+
+  fetch(PB_URL + '/api/collections/users/auth-with-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData.toString()
+  })
+  .then(function(res) {
+    return res.json().then(function(data) {
+      if (!res.ok) throw new Error(data.message || 'Login failed');
+      return data;
+    });
+  })
+  .then(function(data) {
+    // Get users_access record
+    return fetch(PB_URL + '/api/collections/users_access/records?filter=(user_id="' + data.record.id + '")', {
+      headers: { 'Authorization': data.token }
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(accessData) {
+      var access = accessData.items && accessData.items[0];
+      data.access = access || null;
+      callback(null, data);
+    });
+  })
+  .catch(function(err) {
+    callback(err.message || 'Login failed');
+  });
+}
+
+function storeSession(data, role) {
+  var session = {
+    token: data.token,
+    user: data.record,
+    access: data.access,
+    role: data.access ? data.access.rol : role,
+    loginTime: new Date().toISOString()
+  };
+  localStorage.setItem('hci_session', JSON.stringify(session));
+  localStorage.setItem('hci_token', data.token);
+
+  if (session.role === 'demo') {
+    localStorage.setItem('hci_demo', 'true');
+  }
+}
+
+// Check if already logged in
+(function() {
+  var session = localStorage.getItem('hci_session');
+  if (session) {
+    try {
+      var s = JSON.parse(session);
+      if (s.token && s.user) {
+        // Verify token is still valid
+        fetch(PB_URL + '/api/collections/users/auth-refresh', {
+          method: 'POST',
+          headers: { 'Authorization': s.token }
+        }).then(function(res) {
+          if (res.ok) window.location.href = '/account-hub';
+        }).catch(function() {});
+      }
+    } catch(e) {}
+  }
+})();
+</script>
+</body>
+</html>
