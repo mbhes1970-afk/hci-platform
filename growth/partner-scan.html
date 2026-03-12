@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="ipinfo-token" content="346441b021b8f4">
+<meta name="slack-webhook" content="SLACK_WEBHOOK_PLACEHOLDER">
+<title>Partner Fit Scan — HES Consultancy International</title>
+<meta name="description" content="Ontdek hoe goed jouw organisatie past als partner voor onze vendor-proposities. Gratis partner fit scan in 2 minuten.">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c8a55a;
+  --gold-light: #e0c882;
+  --gold-dim: rgba(200,165,90,.12);
+  --gold-border: rgba(200,165,90,.25);
+  --accent: #0891b2;
+  --accent-light: #22d3ee;
+  --accent-dim: rgba(8,145,178,.12);
+  --accent-border: rgba(8,145,178,.3);
+  --green: #10b981;
+  --green-dim: rgba(16,185,129,.12);
+  --green-border: rgba(16,185,129,.3);
+  --red: #ef4444;
+  --orange: #f59e0b;
+  --bg-deep: #08090c;
+  --bg: #0d0f14;
+  --bg-card: #13151c;
+  --bg-elevated: #1c1e28;
+  --border: rgba(255,255,255,.06);
+  --border-hover: rgba(255,255,255,.12);
+  --text: #a8a6b4;
+  --text-dim: #5e5d6a;
+  --text-bright: #f0eef5;
+  --white: #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 20%, rgba(8,145,178,.05) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 800px at 80% 80%, rgba(200,165,90,.03) 0%, transparent 70%);
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.container { max-width: 800px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(8,9,12,.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 2px;
+  text-decoration: none;
+}
+.nav-brand:hover { color: var(--text); }
+.nav-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  padding: 3px 10px; border-radius: 20px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 400; color: var(--white);
+  line-height: 1.15; margin-bottom: 16px;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero p {
+  font-size: 16px; color: var(--text);
+  max-width: 560px; margin: 0 auto;
+}
+
+/* ── VENDOR SELECT ── */
+.vendor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 40px 0;
+}
+.vendor-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  display: block;
+}
+.vendor-card:hover {
+  border-color: var(--gold-border);
+  background: var(--bg-elevated);
+  transform: translateY(-2px);
+}
+.vendor-card.disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.vendor-card h3 {
+  font-size: 16px; font-weight: 600;
+  color: var(--white); margin-bottom: 8px;
+}
+.vendor-card p {
+  font-size: 13px; color: var(--text-dim);
+  line-height: 1.5;
+}
+.vendor-card .vendor-tags {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-top: 12px;
+}
+.vendor-card .vtag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; padding: 2px 8px;
+  border-radius: 4px; letter-spacing: .5px;
+  background: var(--accent-dim);
+  color: var(--accent-light);
+  border: 1px solid var(--accent-border);
+}
+
+/* ── PARTNER TYPE PILLS ── */
+.type-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.type-pill {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; padding: 6px 16px;
+  border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  transition: all .2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.type-pill:hover { border-color: var(--gold-border); color: var(--text); }
+.type-pill.active {
+  background: var(--gold-dim);
+  border-color: var(--gold-border);
+  color: var(--gold);
+}
+
+/* ── SCAN FORM ── */
+.scan-section { padding: 0 0 80px; }
+.scan-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.scan-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--accent));
+}
+.scan-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.scan-vendor-badge {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; padding: 4px 12px;
+  border-radius: 6px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+}
+.scan-partner-badge {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; padding: 4px 12px;
+  border-radius: 6px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-light);
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--accent));
+  border-radius: 2px;
+  transition: width .4s ease;
+  width: 0%;
+}
+
+/* Question */
+.question {
+  display: none;
+  animation: fadeIn .3s ease;
+}
+.question.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.question-number {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.question h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; font-weight: 400;
+  color: var(--white); margin-bottom: 24px;
+}
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option-btn {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: left;
+  font-family: 'Outfit', sans-serif;
+}
+.option-btn:hover {
+  border-color: var(--gold-border);
+  background: var(--gold-dim);
+  color: var(--white);
+}
+.option-btn.selected {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold-light);
+}
+
+/* ── CONTACT FIELDS ── */
+.contact-fields {
+  display: none;
+  animation: fadeIn .3s ease;
+}
+.contact-fields.active { display: block; }
+.contact-fields h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; font-weight: 400;
+  color: var(--white); margin-bottom: 8px;
+}
+.contact-fields p {
+  font-size: 13px; color: var(--text-dim);
+  margin-bottom: 24px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 12px; color: var(--text-dim);
+  margin-bottom: 6px;
+  font-family: 'Geist Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.form-group input {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--white);
+  font-size: 14px;
+  font-family: 'Outfit', sans-serif;
+  transition: border-color .2s;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: var(--gold-border);
+}
+.form-group input::placeholder { color: var(--text-dim); }
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  border: none;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: opacity .2s;
+  margin-top: 8px;
+}
+.submit-btn:hover { opacity: .9; }
+.submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── REPORT ── */
+.report {
+  display: none;
+  animation: fadeIn .4s ease;
+}
+.report.active { display: block; }
+
+.score-ring {
+  width: 160px; height: 160px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+.score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.score-ring circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.score-ring .track { stroke: var(--border); }
+.score-ring .value {
+  stroke: var(--gold);
+  transition: stroke-dashoffset 1.5s ease;
+}
+.score-ring .score-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.score-ring .score-number {
+  font-family: 'Instrument Serif', serif;
+  font-size: 48px; font-weight: 400;
+  color: var(--white); line-height: 1;
+}
+.score-ring .score-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.score-verdict {
+  text-align: center;
+  font-size: 18px; font-weight: 500;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+@media (max-width: 600px) {
+  .report-grid { grid-template-columns: 1fr; }
+}
+.report-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.report-card h4 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.report-card .metric {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px; color: var(--gold);
+  margin-bottom: 4px;
+}
+.report-card .metric-sub {
+  font-size: 13px; color: var(--text-dim);
+}
+.report-card ul {
+  list-style: none; padding: 0;
+}
+.report-card ul li {
+  font-size: 14px; color: var(--text);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.report-card ul li:last-child { border: none; }
+.report-card ul li::before {
+  content: '→ ';
+  color: var(--gold);
+}
+
+.report-cta {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.report-cta p {
+  font-size: 14px; color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  border: none;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.cta-btn:hover { opacity: .9; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+footer p {
+  font-size: 12px; color: var(--text-dim);
+}
+footer a { color: var(--text-dim); text-decoration: none; }
+footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="/" class="nav-brand">HES Consultancy</a>
+  <span class="nav-tag">Partner Fit Scan</span>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-eyebrow">ICP2 · Partner Enablement</div>
+    <h1>Partner Fit <em>Scan</em></h1>
+    <p>Ontdek in 5 vragen hoe goed jouw organisatie past bij onze vendor-proposities. Resultaat direct beschikbaar.</p>
+  </section>
+
+  <!-- Vendor Select Screen -->
+  <section id="vendor-select" style="display:none; padding-bottom: 60px;">
+    <h2 style="font-family:'Instrument Serif',serif; font-size:28px; font-weight:400; color:var(--white); text-align:center; margin-bottom:8px;">Kies een vendor</h2>
+    <p style="text-align:center; font-size:14px; color:var(--text-dim); margin-bottom:32px;">Selecteer de vendor waarvoor je de partner fit wilt bepalen.</p>
+    <div class="vendor-grid" id="vendor-grid"></div>
+  </section>
+
+  <!-- Scan -->
+  <section class="scan-section" id="scan-section" style="display:none;">
+    <div class="scan-card">
+      <div class="scan-header">
+        <span class="scan-vendor-badge" id="scan-vendor-label"></span>
+        <span class="scan-partner-badge" id="scan-partner-label"></span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <!-- Questions rendered by JS -->
+      <div id="questions-container"></div>
+
+      <!-- Contact fields after questions -->
+      <div class="contact-fields" id="contact-fields">
+        <h3>Bijna klaar — wie ben je?</h3>
+        <p>We gebruiken dit alleen om je rapport te versturen en eventueel een gesprek in te plannen.</p>
+        <div class="form-group">
+          <label>Bedrijfsnaam *</label>
+          <input type="text" id="field-company" placeholder="Jouw bedrijf" required>
+        </div>
+        <div class="form-group">
+          <label>Naam</label>
+          <input type="text" id="field-name" placeholder="Voornaam Achternaam">
+        </div>
+        <div class="form-group">
+          <label>E-mail *</label>
+          <input type="email" id="field-email" placeholder="email@bedrijf.nl" required>
+        </div>
+        <button class="submit-btn" id="submit-btn" onclick="submitScan()">Bekijk mijn resultaat</button>
+      </div>
+
+      <!-- Report -->
+      <div class="report" id="report">
+        <div class="score-ring">
+          <svg viewBox="0 0 160 160">
+            <circle class="track" cx="80" cy="80" r="70"/>
+            <circle class="value" id="score-circle" cx="80" cy="80" r="70"
+              stroke-dasharray="440" stroke-dashoffset="440"/>
+          </svg>
+          <div class="score-text">
+            <div class="score-number" id="score-number">0</div>
+            <div class="score-label">fit score</div>
+          </div>
+        </div>
+        <div class="score-verdict" id="score-verdict"></div>
+
+        <div class="report-grid">
+          <div class="report-card">
+            <h4>Geschatte jaaromzet</h4>
+            <div class="metric" id="report-revenue">—</div>
+            <div class="metric-sub" id="report-revenue-sub"></div>
+          </div>
+          <div class="report-card">
+            <h4>Vendor propositie</h4>
+            <div class="metric" id="report-vendor-name" style="font-size:22px;"></div>
+            <div class="metric-sub" id="report-vendor-prop"></div>
+          </div>
+          <div class="report-card" style="grid-column: 1 / -1;">
+            <h4>Top 3 klant-segmenten</h4>
+            <ul id="report-segments"></ul>
+          </div>
+        </div>
+
+        <div class="report-cta">
+          <p>Wil je deze kans verder verkennen?</p>
+          <a class="cta-btn" id="cta-calendly" href="https://calendly.com/mbhes1970/30min" target="_blank">
+            Plan een partner gesprek
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 HES Consultancy International &middot; <a href="/privacy">Privacy</a> &middot; <a href="/terms">Voorwaarden</a></p>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// VENDOR CONFIG
+// ═══════════════════════════════════════════════════════════════
+var VENDORS = {
+  chunkworks: {
+    id: 'chunkworks',
+    naam: 'ChunkWorks',
+    propositie: 'Post-quantum gedistribueerde opslag',
+    doelklanten: ['Enterprise', 'Overheid', 'Zorg', 'Finance'],
+    regelgeving: ['NIS2', 'DORA', 'BIO'],
+    revenueModel: 'Reseller margin 20-30%',
+    partnerTypes: ['local', 'cloud', 'regional'],
+    website: 'https://chunkworks.net',
+  },
+  elanwave: {
+    id: 'elanwave',
+    naam: 'ElanWave',
+    propositie: 'Software engineering Microsoft/Azure',
+    doelklanten: ['Enterprise', 'MKB'],
+    regelgeving: ['CRA', 'AI Act'],
+    revenueModel: '',
+    partnerTypes: ['cloud', 'regional', 'tier1'],
+    website: '',
+  },
+  mailspec: {
+    id: 'mailspec',
+    naam: 'MailSPEC',
+    propositie: 'Veilige EU-soevereine mail',
+    doelklanten: ['Overheid', 'Legal', 'Finance', 'Zorg'],
+    regelgeving: ['NIS2', 'AVG', 'BIO', 'DORA'],
+    revenueModel: '',
+    partnerTypes: ['local', 'compliance', 'regional'],
+    website: '',
+  },
+  hauper: {
+    id: 'hauper',
+    naam: 'Hauper Technologies',
+    propositie: 'Full-stack software engineering, AI/chatbot, mobile — CRA delivery partner',
+    doelklanten: ['Software vendors', 'IoT', 'Connected devices', 'Enterprise US/AU/ME'],
+    regelgeving: ['CRA', 'NIS2'],
+    revenueModel: 'Fixed price / Dedicated team — pilot eerst',
+    partnerTypes: ['regional', 'compliance'],
+    icp_rol: 'both',
+    website: 'hauper.com',
+    notitie: 'India-based (US+India). 330+ projecten, 84% repeat. Stack: Laravel/PHP/React. Geen EU-referenties. Eerst pilotproject testen voor inzet op HCI builds.',
+  },
+  webzent: {
+    id: 'webzent',
+    naam: 'Webzent Technologies',
+    propositie: 'Software engineering — CRA & EU compliance delivery partner',
+    doelklanten: ['Software vendors', 'EU bedrijven met compliance urgentie'],
+    regelgeving: ['CRA', 'AI Act', 'NIS2'],
+    revenueModel: 'Per project — NDA aanpassing vereist eerst',
+    partnerTypes: ['regional', 'compliance'],
+    icp_rol: 'both',
+    website: '',
+    notitie: 'India-based (Noida). Nederlands recht in NDA — positief. NDA mist boeteclausule + DPA. Pas NDA aan voor samenwerking start.',
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// SCAN QUESTIONS (vendor-agnostisch)
+// ═══════════════════════════════════════════════════════════════
+var QUESTIONS = [
+  {
+    id: 'klanten',
+    tekst: 'Hoeveel klanten heb je in de doelmarkt van deze vendor?',
+    opties: [
+      { label: '0 klanten', waarde: 0, score: 0 },
+      { label: '1 – 5 klanten', waarde: '1-5', score: 10 },
+      { label: '6 – 20 klanten', waarde: '6-20', score: 20 },
+      { label: '20+ klanten', waarde: '20+', score: 30 },
+    ],
+  },
+  {
+    id: 'compliance',
+    tekst: 'Heb je al compliance-gerelateerde diensten in je portfolio?',
+    opties: [
+      { label: 'Nee', waarde: 'nee', score: 0 },
+      { label: 'Oriënterend', waarde: 'orienterend', score: 10 },
+      { label: 'Ja, actief', waarde: 'actief', score: 20 },
+    ],
+  },
+  {
+    id: 'tenders',
+    tekst: 'Hoe actief ben je in aanbestedingen / tenders?',
+    opties: [
+      { label: 'Niet actief', waarde: 'niet', score: 0 },
+      { label: 'Soms', waarde: 'soms', score: 8 },
+      { label: 'Regelmatig', waarde: 'regelmatig', score: 18 },
+    ],
+  },
+  {
+    id: 'marge',
+    tekst: 'Wat is je huidige marge op doorverkoop?',
+    opties: [
+      { label: '< 10%', waarde: '<10%', score: 5 },
+      { label: '10 – 20%', waarde: '10-20%', score: 10 },
+      { label: '20 – 30%', waarde: '20-30%', score: 16 },
+      { label: '30%+', waarde: '30%+', score: 20 },
+    ],
+  },
+  {
+    id: 'snelheid',
+    tekst: 'Hoe snel kun je een nieuwe vendor introduceren bij klanten?',
+    opties: [
+      { label: '6 maanden of meer', waarde: '6m+', score: 3 },
+      { label: '3 – 6 maanden', waarde: '3-6m', score: 7 },
+      { label: '1 – 3 maanden', waarde: '1-3m', score: 10 },
+      { label: 'Binnen 1 maand', waarde: '<1m', score: 12 },
+    ],
+  },
+];
+
+var PARTNER_TYPES = ['tier1', 'cloud', 'regional', 'local', 'compliance'];
+var PARTNER_LABELS = {
+  tier1: 'Tier 1', cloud: 'Cloud', regional: 'Regional',
+  local: 'Local', compliance: 'Compliance',
+};
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+var state = {
+  vendor: null,
+  partnerType: null,
+  currentQ: 0,
+  answers: {},
+  score: 0,
+  contact: {},
+};
+
+// ═══════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════
+var PB_URL = 'https://api.hes-consultancy-international.com';
+var ALERT_URL = '/api/slack';
+var CALENDLY_URL = 'https://calendly.com/mbhes1970/30min';
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+(function init() {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var vendorId = params.get('vendor');
+    var path = window.location.pathname.replace(/\/$/, '');
+    var segments = path.split('/');
+    var lastSegment = segments[segments.length - 1];
+
+    // Determine partner type from URL
+    if (PARTNER_TYPES.indexOf(lastSegment) !== -1) {
+      state.partnerType = lastSegment;
+    }
+
+    // Determine vendor from query param
+    if (vendorId && VENDORS[vendorId]) {
+      state.vendor = VENDORS[vendorId];
+    }
+
+    // Route to appropriate view
+    if (!state.vendor) {
+      showVendorSelect();
+    } else {
+      startScan();
+    }
+  } catch (err) {
+    console.error('[PartnerScan] Init error:', err);
+    document.body.innerHTML =
+      '<div style="max-width:600px;margin:80px auto;padding:32px;background:#1c1e28;border:1px solid rgba(239,68,68,.3);border-radius:12px;color:#f0eef5;font-family:Outfit,sans-serif;text-align:center">' +
+      '<h2 style="color:#f87171;margin-bottom:12px">Er ging iets mis</h2>' +
+      '<p style="color:#a8a6b4;margin-bottom:16px">De pagina kon niet correct laden.</p>' +
+      '<pre style="text-align:left;font-size:12px;color:#ef4444;background:#13151c;padding:12px;border-radius:8px;overflow:auto">' + err.message + '</pre>' +
+      '<a href="/growth" style="display:inline-block;margin-top:20px;padding:12px 28px;background:#6C5CE7;color:white;border-radius:8px;text-decoration:none">Terug naar Growth</a>' +
+      '</div>';
+  }
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// VENDOR SELECT SCREEN
+// ═══════════════════════════════════════════════════════════════
+function showVendorSelect() {
+  document.getElementById('vendor-select').style.display = 'block';
+  document.getElementById('scan-section').style.display = 'none';
+
+  var grid = document.getElementById('vendor-grid');
+  grid.innerHTML = '';
+
+  Object.keys(VENDORS).forEach(function(key) {
+    var v = VENDORS[key];
+    var isReady = v.doelklanten.length > 0;
+    var card = document.createElement('a');
+    card.className = 'vendor-card' + (isReady ? '' : ' disabled');
+
+    var ptParam = state.partnerType ? state.partnerType : '';
+    var basePath = ptParam ? '/growth/' + ptParam : '/growth/partner-scan';
+    card.href = isReady ? basePath + '?vendor=' + v.id : '#';
+
+    card.innerHTML =
+      '<h3>' + v.naam + '</h3>' +
+      '<p>' + v.propositie + '</p>' +
+      '<div class="vendor-tags">' +
+        v.regelgeving.map(function(r) { return '<span class="vtag">' + r + '</span>'; }).join('') +
+        (isReady ? '' : '<span class="vtag" style="background:rgba(239,68,68,.12);color:#f87171;border-color:rgba(239,68,68,.3);">Binnenkort</span>') +
+      '</div>';
+
+    grid.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// START SCAN
+// ═══════════════════════════════════════════════════════════════
+function startScan() {
+  document.getElementById('vendor-select').style.display = 'none';
+  document.getElementById('scan-section').style.display = 'block';
+
+  // Set header badges
+  document.getElementById('scan-vendor-label').textContent = state.vendor.naam;
+  document.getElementById('scan-partner-label').textContent =
+    state.partnerType ? PARTNER_LABELS[state.partnerType] || state.partnerType : 'Alle types';
+
+  // Render questions
+  renderQuestions();
+  showQuestion(0);
+}
+
+function renderQuestions() {
+  var container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  QUESTIONS.forEach(function(q, idx) {
+    var div = document.createElement('div');
+    div.className = 'question';
+    div.id = 'q-' + idx;
+    div.innerHTML =
+      '<div class="question-number">Vraag ' + (idx + 1) + ' van ' + QUESTIONS.length + '</div>' +
+      '<h3>' + q.tekst + '</h3>' +
+      '<div class="options">' +
+        q.opties.map(function(opt, oi) {
+          return '<button class="option-btn" data-q="' + idx + '" data-oi="' + oi + '" onclick="selectOption(' + idx + ',' + oi + ')">' + opt.label + '</button>';
+        }).join('') +
+      '</div>';
+    container.appendChild(div);
+  });
+}
+
+function showQuestion(idx) {
+  state.currentQ = idx;
+  var total = QUESTIONS.length + 1; // +1 for contact step
+  document.getElementById('progress-fill').style.width = ((idx / total) * 100) + '%';
+
+  document.querySelectorAll('.question').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById('contact-fields').classList.remove('active');
+
+  if (idx < QUESTIONS.length) {
+    document.getElementById('q-' + idx).classList.add('active');
+  } else {
+    // Show contact fields
+    document.getElementById('progress-fill').style.width = ((QUESTIONS.length / total) * 100) + '%';
+    document.getElementById('contact-fields').classList.add('active');
+  }
+}
+
+function selectOption(qIdx, optIdx) {
+  var q = QUESTIONS[qIdx];
+  var opt = q.opties[optIdx];
+
+  state.answers[q.id] = { label: opt.label, waarde: opt.waarde, score: opt.score };
+
+  // Highlight selected
+  document.querySelectorAll('#q-' + qIdx + ' .option-btn').forEach(function(btn) {
+    btn.classList.remove('selected');
+  });
+  document.querySelector('[data-q="' + qIdx + '"][data-oi="' + optIdx + '"]').classList.add('selected');
+
+  // Auto-advance after short delay
+  setTimeout(function() {
+    showQuestion(qIdx + 1);
+  }, 300);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════════════════════════
+function submitScan() {
+  var company = document.getElementById('field-company').value.trim();
+  var email = document.getElementById('field-email').value.trim();
+  var name = document.getElementById('field-name').value.trim();
+
+  if (!company || !email) {
+    alert('Vul minimaal bedrijfsnaam en e-mail in.');
+    return;
+  }
+
+  state.contact = { company: company, email: email, name: name };
+
+  // Calculate score
+  var totalScore = 0;
+  Object.keys(state.answers).forEach(function(key) {
+    totalScore += state.answers[key].score;
+  });
+  state.score = totalScore;
+
+  // Show report
+  showReport();
+
+  // Send to PocketBase & Slack (fire-and-forget)
+  saveToPocketBase();
+  sendSlackAlert();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// REPORT
+// ═══════════════════════════════════════════════════════════════
+function showReport() {
+  document.getElementById('contact-fields').classList.remove('active');
+  document.getElementById('report').classList.add('active');
+  document.getElementById('progress-fill').style.width = '100%';
+
+  var score = state.score;
+  var vendor = state.vendor;
+
+  // Animate score ring
+  var circumference = 2 * Math.PI * 70; // ~440
+  var offset = circumference - (score / 100) * circumference;
+  var circle = document.getElementById('score-circle');
+  circle.setAttribute('stroke-dasharray', circumference);
+  setTimeout(function() {
+    circle.style.strokeDashoffset = offset;
+  }, 100);
+
+  // Color based on score
+  if (score >= 70) {
+    circle.style.stroke = '#10b981';
+  } else if (score >= 40) {
+    circle.style.stroke = '#f59e0b';
+  } else {
+    circle.style.stroke = '#ef4444';
+  }
+
+  // Animate number
+  animateNumber('score-number', 0, score, 1200);
+
+  // Verdict
+  var verdict = '';
+  if (score >= 70) verdict = 'Uitstekende fit — direct partnership potentieel';
+  else if (score >= 50) verdict = 'Goede basis — met begeleiding snel operationeel';
+  else if (score >= 30) verdict = 'Potentieel aanwezig — vereist opbouw';
+  else verdict = 'Beperkte fit — verkennend gesprek aanbevolen';
+  document.getElementById('score-verdict').textContent = verdict;
+
+  // Revenue estimate
+  var revenue = estimateRevenue(score, state.answers);
+  document.getElementById('report-revenue').textContent = revenue.display;
+  document.getElementById('report-revenue-sub').textContent = revenue.sub;
+
+  // Vendor info
+  document.getElementById('report-vendor-name').textContent = vendor.naam;
+  document.getElementById('report-vendor-prop').textContent = vendor.propositie;
+
+  // Top 3 segments
+  var segments = getTopSegments(vendor, state.answers);
+  var segList = document.getElementById('report-segments');
+  segList.innerHTML = segments.map(function(s) {
+    return '<li>' + s + '</li>';
+  }).join('');
+
+  // CTA
+  document.getElementById('cta-calendly').href = CALENDLY_URL;
+}
+
+function animateNumber(elId, start, end, duration) {
+  var el = document.getElementById(elId);
+  var range = end - start;
+  var startTime = null;
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(start + range * eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function estimateRevenue(score, answers) {
+  // Base ARR per klant-segment
+  var klantenMultiplier = { '0': 0, '1-5': 3, '6-20': 12, '20+': 25 };
+  var margeMultiplier = { '<10%': 0.08, '10-20%': 0.15, '20-30%': 0.25, '30%+': 0.35 };
+  var snelheidFactor = { '6m+': 0.5, '3-6m': 0.7, '1-3m': 0.9, '<1m': 1.0 };
+
+  var klanten = answers.klanten ? klantenMultiplier[answers.klanten.waarde] || 0 : 0;
+  var marge = answers.marge ? margeMultiplier[answers.marge.waarde] || 0.1 : 0.1;
+  var snelheid = answers.snelheid ? snelheidFactor[answers.snelheid.waarde] || 0.5 : 0.5;
+
+  // Base deal value ~€15.000 per klant per jaar
+  var basePerKlant = 15000;
+  var estimated = klanten * basePerKlant * marge * snelheid;
+
+  if (estimated <= 0) {
+    return { display: '< €5.000', sub: 'Opbouwfase — investeer eerst in klantrelaties' };
+  }
+  if (estimated > 200000) estimated = 200000;
+
+  var formatted = '€' + Math.round(estimated / 1000) * 1000;
+  formatted = formatted.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  return {
+    display: formatted + ' /jaar',
+    sub: 'Geschat op basis van klantbase × marge × snelheid',
+  };
+}
+
+function getTopSegments(vendor, answers) {
+  // Use vendor's doelklanten, fallback to generic
+  var segments = vendor.doelklanten.length > 0
+    ? vendor.doelklanten.slice()
+    : ['Enterprise', 'MKB', 'Overheid'];
+
+  // Rank based on compliance readiness and tender activity
+  var complianceBoost = answers.compliance && answers.compliance.waarde === 'actief';
+  var tenderBoost = answers.tenders && answers.tenders.waarde === 'regelmatig';
+
+  // If compliance active, bump regulated sectors
+  var regulatedSectors = ['Overheid', 'Finance', 'Zorg', 'Legal'];
+  if (complianceBoost) {
+    segments.sort(function(a, b) {
+      var aReg = regulatedSectors.indexOf(a) !== -1 ? 0 : 1;
+      var bReg = regulatedSectors.indexOf(b) !== -1 ? 0 : 1;
+      return aReg - bReg;
+    });
+  }
+
+  // If tender active, boost Overheid
+  if (tenderBoost && segments.indexOf('Overheid') !== -1) {
+    segments = segments.filter(function(s) { return s !== 'Overheid'; });
+    segments.unshift('Overheid');
+  }
+
+  // Add regulation context
+  return segments.slice(0, 3).map(function(seg, idx) {
+    var reg = vendor.regelgeving[idx] || vendor.regelgeving[0] || '';
+    return seg + (reg ? ' (' + reg + ' compliance)' : '');
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// POCKETBASE
+// ═══════════════════════════════════════════════════════════════
+function saveToPocketBase() {
+  var payload = {
+    icp: 'icp2',
+    vendor_id: state.vendor.id,
+    partner_type: state.partnerType || 'onbekend',
+    score: state.score,
+    bedrijf: state.contact.company,
+    naam: state.contact.name,
+    email: state.contact.email,
+    antwoorden: JSON.stringify(state.answers),
+    bron: window.location.href,
+    utm_source: new URLSearchParams(window.location.search).get('utm_source') || '',
+    utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign') || '',
+  };
+
+  fetch(PB_URL + '/api/collections/signalmesh_leads/records', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(function(err) {
+    console.warn('[PartnerScan] PocketBase save failed:', err);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SLACK ALERT — altijd sturen bij voltooide scan
+// ═══════════════════════════════════════════════════════════════
+function sendSlackAlert() {
+  var payload = {
+    text: '🤝 ICP2 Partner Scan · ' + state.vendor.naam + ' · ' +
+      (state.partnerType || 'onbekend') + ' · Fit: ' + state.score + ' · ' +
+      state.contact.company,
+    icpType: 'icp2',
+    tier: state.score >= 70 ? 'hot' : state.score >= 40 ? 'warm' : 'cold',
+    fitScore: state.score,
+    intentScore: 0,
+    dealFlowScore: state.score,
+    sector: state.partnerType || 'partner',
+    source: 'partner-scan',
+    vendor: state.vendor.id,
+    vendorNaam: state.vendor.naam,
+    bedrijf: state.contact.company,
+    email: state.contact.email,
+    naam: state.contact.name,
+    antwoorden: state.answers,
+  };
+
+  fetch(ALERT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(function(err) {
+    console.warn('[PartnerScan] Slack alert failed:', err);
+  });
+}
+</script>
+</body>
+</html>

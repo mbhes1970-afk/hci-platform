@@ -16,6 +16,7 @@
  *     <span data-lang="en">EN</span>
  *   </div>
  *
+ * Priority: ?lang=nl/en URL param → localStorage → default (nl)
  * localStorage key: hci-lang  (default: nl)
  */
 (function () {
@@ -25,8 +26,18 @@
   var LEGACY_KEY = 'hci_lang';
   var DEFAULT_LANG = 'nl';
 
+  function getLangFromURL() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var p = params.get('lang');
+      if (p && (p === 'nl' || p === 'en')) return p;
+    } catch (e) { /* URLSearchParams not supported, skip */ }
+    return null;
+  }
+
   function getLang() {
-    return localStorage.getItem(STORAGE_KEY)
+    return getLangFromURL()
+      || localStorage.getItem(STORAGE_KEY)
       || localStorage.getItem(LEGACY_KEY)
       || DEFAULT_LANG;
   }
