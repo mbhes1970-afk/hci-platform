@@ -195,32 +195,7 @@
   to = "/insights/aiact"
   status = 301
 
-# Partner Fit Scan (ICP2)
-[[redirects]]
-  from = "/growth/tier1"
-  to = "/growth/partner-scan.html"
-  status = 200
-
-[[redirects]]
-  from = "/growth/cloud"
-  to = "/growth/partner-scan.html"
-  status = 200
-
-[[redirects]]
-  from = "/growth/regional"
-  to = "/growth/partner-scan.html"
-  status = 200
-
-[[redirects]]
-  from = "/growth/local"
-  to = "/growth/partner-scan.html"
-  status = 200
-
-[[redirects]]
-  from = "/growth/compliance"
-  to = "/growth/partner-scan.html"
-  status = 200
-
+# Partner Fit Scan (ICP2) — handled by _redirects, only keep partner-scan
 [[redirects]]
   from = "/growth/partner-scan"
   to = "/growth/partner-scan.html"
