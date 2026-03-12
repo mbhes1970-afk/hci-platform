@@ -34,12 +34,7 @@
 /cmofmo  /hci-cmofmo.html    200
 /quickscan  /hci-quickscan.html    200
 
-# ── Partner Fit Scan routes ──
-/growth/tier1         /growth/partner-scan.html   200
-/growth/cloud         /growth/partner-scan.html   200
-/growth/regional      /growth/partner-scan.html   200
-/growth/local         /growth/partner-scan.html   200
-/growth/compliance    /growth/partner-scan.html   200
+# ── Partner Fit Scan (standalone) ──
 /growth/partner-scan  /growth/partner-scan.html   200
 
 # ── hes-consultancy.nl ICP routes ──

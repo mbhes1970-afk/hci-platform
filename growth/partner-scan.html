@@ -723,27 +723,38 @@ var CALENDLY_URL = 'https://calendly.com/mbhes1970/30min';
 // INIT
 // ═══════════════════════════════════════════════════════════════
 (function init() {
-  var params = new URLSearchParams(window.location.search);
-  var vendorId = params.get('vendor');
-  var path = window.location.pathname.replace(/\/$/, '');
-  var segments = path.split('/');
-  var lastSegment = segments[segments.length - 1];
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var vendorId = params.get('vendor');
+    var path = window.location.pathname.replace(/\/$/, '');
+    var segments = path.split('/');
+    var lastSegment = segments[segments.length - 1];
 
-  // Determine partner type from URL
-  if (PARTNER_TYPES.indexOf(lastSegment) !== -1) {
-    state.partnerType = lastSegment;
-  }
+    // Determine partner type from URL
+    if (PARTNER_TYPES.indexOf(lastSegment) !== -1) {
+      state.partnerType = lastSegment;
+    }
 
-  // Determine vendor from query param
-  if (vendorId && VENDORS[vendorId]) {
-    state.vendor = VENDORS[vendorId];
-  }
+    // Determine vendor from query param
+    if (vendorId && VENDORS[vendorId]) {
+      state.vendor = VENDORS[vendorId];
+    }
 
-  // Route to appropriate view
-  if (!state.vendor) {
-    showVendorSelect();
-  } else {
-    startScan();
+    // Route to appropriate view
+    if (!state.vendor) {
+      showVendorSelect();
+    } else {
+      startScan();
+    }
+  } catch (err) {
+    console.error('[PartnerScan] Init error:', err);
+    document.body.innerHTML =
+      '<div style="max-width:600px;margin:80px auto;padding:32px;background:#1c1e28;border:1px solid rgba(239,68,68,.3);border-radius:12px;color:#f0eef5;font-family:Outfit,sans-serif;text-align:center">' +
+      '<h2 style="color:#f87171;margin-bottom:12px">Er ging iets mis</h2>' +
+      '<p style="color:#a8a6b4;margin-bottom:16px">De pagina kon niet correct laden.</p>' +
+      '<pre style="text-align:left;font-size:12px;color:#ef4444;background:#13151c;padding:12px;border-radius:8px;overflow:auto">' + err.message + '</pre>' +
+      '<a href="/growth" style="display:inline-block;margin-top:20px;padding:12px 28px;background:#6C5CE7;color:white;border-radius:8px;text-decoration:none">Terug naar Growth</a>' +
+      '</div>';
   }
 })();
 

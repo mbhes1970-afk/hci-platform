@@ -885,6 +885,15 @@ function handleInitialURL() {
   var type = params.get('type');
   var vendor = params.get('vendor');
 
+  // Fallback: parse partner type from URL path (e.g. /growth/local)
+  if (!type) {
+    var pathSegments = window.location.pathname.replace(/\/$/, '').split('/');
+    var lastSeg = pathSegments[pathSegments.length - 1];
+    if (lastSeg && PARTNER_TYPES[lastSeg]) {
+      type = lastSeg;
+    }
+  }
+
   // If vendor param present and we have a type, go directly to scan
   if (vendor) {
     var v = VENDORS.find(function(v) { return v.id === vendor; });
@@ -911,9 +920,20 @@ function handleInitialURL() {
 // INIT
 // ═══════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function() {
-  renderLanding();
-  handleInitialURL();
-  setTimeout(initFadeObserver, 100);
+  try {
+    renderLanding();
+    handleInitialURL();
+    setTimeout(initFadeObserver, 100);
+  } catch (err) {
+    console.error('[ICP2 Growth] Init error:', err);
+    document.body.innerHTML =
+      '<div style="max-width:600px;margin:80px auto;padding:32px;background:#1c1e28;border:1px solid rgba(239,68,68,.3);border-radius:12px;color:#f0eef5;font-family:Outfit,sans-serif;text-align:center">' +
+      '<h2 style="color:#f87171;margin-bottom:12px">Er ging iets mis</h2>' +
+      '<p style="color:#a8a6b4;margin-bottom:16px">De pagina kon niet correct laden.</p>' +
+      '<pre style="text-align:left;font-size:12px;color:#ef4444;background:#13151c;padding:12px;border-radius:8px;overflow:auto">' + err.message + '</pre>' +
+      '<a href="/growth" style="display:inline-block;margin-top:20px;padding:12px 28px;background:#6C5CE7;color:white;border-radius:8px;text-decoration:none">Terug naar Growth</a>' +
+      '</div>';
+  }
 });
 
 // Track events
@@ -926,5 +946,6 @@ if (window.hciTrack) {
   });
 }
 </script>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>
