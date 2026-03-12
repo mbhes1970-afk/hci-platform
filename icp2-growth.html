@@ -881,38 +881,45 @@ function updateURL() {
 }
 
 function handleInitialURL() {
+  console.log('[ICP2] PATH:', window.location.pathname, 'SEARCH:', window.location.search);
+
   var params = new URLSearchParams(window.location.search);
-  var type = params.get('type');
+
+  // Read type from query param first, then fallback to URL path
+  var typeFromQuery = params.get('type');
+  var pathParts = window.location.pathname.replace(/\/$/, '').split('/');
+  var typeFromPath = pathParts[pathParts.length - 1];
+  var type = typeFromQuery || (PARTNER_TYPES[typeFromPath] ? typeFromPath : null);
+
+  // Read vendor always from query param
   var vendor = params.get('vendor');
 
-  // Fallback: parse partner type from URL path (e.g. /growth/local)
-  if (!type) {
-    var pathSegments = window.location.pathname.replace(/\/$/, '').split('/');
-    var lastSeg = pathSegments[pathSegments.length - 1];
-    if (lastSeg && PARTNER_TYPES[lastSeg]) {
-      type = lastSeg;
-    }
-  }
+  console.log('[ICP2] Parsed → type:', type, '(query:', typeFromQuery, '/ path:', typeFromPath, ') vendor:', vendor);
 
-  // If vendor param present and we have a type, go directly to scan
+  // If vendor param present, go directly to scan
   if (vendor) {
     var v = VENDORS.find(function(v) { return v.id === vendor; });
     if (v) {
       if (type && PARTNER_TYPES[type]) {
         state.partnerType = type;
       }
+      console.log('[ICP2] Routing → selectVendor:', vendor, 'partnerType:', state.partnerType);
       selectVendor(vendor);
       return;
+    } else {
+      console.warn('[ICP2] Vendor not found:', vendor);
     }
   }
 
   // If type param, go to type page
   if (type && PARTNER_TYPES[type]) {
+    console.log('[ICP2] Routing → selectType:', type);
     selectType(type);
     return;
   }
 
   // Default: show landing
+  console.log('[ICP2] Routing → landing (no type or vendor)');
   showScreen('landing');
 }
 
@@ -966,5 +973,23 @@ if (window.hciTrack) {
   });
 }
 </script>
+
+<!-- Language detection: set data-lang before lang-toggle.js loads -->
+<script>
+(function() {
+  var langParam = new URLSearchParams(window.location.search).get('lang');
+  if (langParam === 'en' || langParam === 'nl') {
+    document.documentElement.setAttribute('data-lang', langParam);
+    document.documentElement.lang = langParam;
+    localStorage.setItem('hci-lang', langParam);
+    localStorage.setItem('hci_lang', langParam);
+  } else {
+    var stored = localStorage.getItem('hci-lang') || localStorage.getItem('hci_lang') || 'nl';
+    document.documentElement.setAttribute('data-lang', stored);
+    document.documentElement.lang = stored;
+  }
+})();
+</script>
+<script src="/js/lang-toggle.js"></script>
 </body>
 </html>
