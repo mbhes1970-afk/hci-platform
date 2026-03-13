@@ -21,8 +21,26 @@ function LoadingFallback() {
   );
 }
 
+function getInitialLang(): Language {
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang === 'en' || urlLang === 'nl') return urlLang;
+  const stored = localStorage.getItem('hci-lang');
+  if (stored === 'en' || stored === 'nl') return stored;
+  return 'nl';
+}
+
 export default function App() {
-  const [lang, setLang] = useState<Language>('nl');
+  const [lang, setLangState] = useState<Language>(getInitialLang);
+
+  const setLang = (l: Language) => {
+    setLangState(l);
+    localStorage.setItem('hci-lang', l);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', l);
+      window.history.replaceState({}, '', url.toString());
+    } catch (e) { /* ignore */ }
+  };
 
   return (
     <BrowserRouter>

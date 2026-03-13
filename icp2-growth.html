@@ -883,44 +883,51 @@ function updateURL() {
 function handleInitialURL() {
   console.log('[ICP2] PATH:', window.location.pathname, 'SEARCH:', window.location.search);
 
-  var params = new URLSearchParams(window.location.search);
+  // ── Parse partner type exclusively from pathname ──
+  // Netlify 200 rewrite preserves the browser URL, so /growth/local stays as-is.
+  // No ?type= in rewrite destination — original query string (?vendor=) is preserved.
+  var pathParts = window.location.pathname.replace(/\/$/, '').split('/').filter(Boolean);
+  var lastSegment = pathParts[pathParts.length - 1];
+  var partnerType = (lastSegment && lastSegment !== 'growth' && PARTNER_TYPES[lastSegment])
+    ? lastSegment
+    : null;
 
-  // Read type from query param first, then fallback to URL path
-  var typeFromQuery = params.get('type');
-  var pathParts = window.location.pathname.replace(/\/$/, '').split('/');
-  var typeFromPath = pathParts[pathParts.length - 1];
-  var type = typeFromQuery || (PARTNER_TYPES[typeFromPath] ? typeFromPath : null);
+  // ── Parse vendor from query string ──
+  var urlParams = new URLSearchParams(window.location.search);
+  var vendor = urlParams.get('vendor');
 
-  // Read vendor always from query param
-  var vendor = params.get('vendor');
+  console.log('[ICP2] Parsed → type:', partnerType, '(from path segment:', lastSegment, ') vendor:', vendor);
 
-  console.log('[ICP2] Parsed → type:', type, '(query:', typeFromQuery, '/ path:', typeFromPath, ') vendor:', vendor);
-
-  // If vendor param present, go directly to scan
-  if (vendor) {
+  // ── Routing decision ──
+  if (!partnerType || lastSegment === 'icp2-growth.html') {
+    // No partner type in path → show partner type selection landing
+    if (vendor) {
+      // vendor without type: still try to load scan without type context
+      var v = VENDORS.find(function(v) { return v.id === vendor; });
+      if (v) {
+        console.log('[ICP2] Routing → selectVendor (no type):', vendor);
+        selectVendor(vendor);
+        return;
+      }
+    }
+    console.log('[ICP2] Routing → landing');
+    showScreen('landing');
+  } else if (!vendor) {
+    // Partner type known, no vendor → show vendor selection for this type
+    console.log('[ICP2] Routing → selectType:', partnerType);
+    selectType(partnerType);
+  } else {
+    // Both type and vendor → load scan directly
     var v = VENDORS.find(function(v) { return v.id === vendor; });
     if (v) {
-      if (type && PARTNER_TYPES[type]) {
-        state.partnerType = type;
-      }
-      console.log('[ICP2] Routing → selectVendor:', vendor, 'partnerType:', state.partnerType);
+      state.partnerType = partnerType;
+      console.log('[ICP2] Routing → selectVendor:', vendor, 'partnerType:', partnerType);
       selectVendor(vendor);
-      return;
     } else {
-      console.warn('[ICP2] Vendor not found:', vendor);
+      console.warn('[ICP2] Vendor not found:', vendor, '→ falling back to type page');
+      selectType(partnerType);
     }
   }
-
-  // If type param, go to type page
-  if (type && PARTNER_TYPES[type]) {
-    console.log('[ICP2] Routing → selectType:', type);
-    selectType(type);
-    return;
-  }
-
-  // Default: show landing
-  console.log('[ICP2] Routing → landing (no type or vendor)');
-  showScreen('landing');
 }
 
 // ═══════════════════════════════════════════════════════════════
